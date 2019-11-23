@@ -2,7 +2,7 @@
 plugins {
     id 'java-library'
     id 'maven'
-    id 'edu.wpi.first.GradleRIO' version "2020.1.1-beta-2" 
+    id 'edu.wpi.first.GradleRIO' version "2020.1.1-beta-3" 
 }
 
 sourceCompatibility = 11
