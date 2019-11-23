@@ -2,29 +2,29 @@
 plugins {
     id 'java-library'
     id 'maven'
-    id 'edu.wpi.first.GradleRIO' version "2020.1.1-beta-3" 
 }
 
 sourceCompatibility = 11
 targetCompatibility = 11
 
+
 group = 'com.github.Spikes-2212-Programming-Guild'
+//wpilibVersion = '2020.1.1.-beta-3'
 
 repositories {
     jcenter()
     maven {
         url 'http://devsite.ctr-electronics.com/maven/release'
     }
+    maven {
+        url 'https://frcmaven.wpi.edu/artifactory/release'
+    }
 }
 
 dependencies {
-    compile wpi.deps.wpilib()
-    compile wpi.deps.vendor.java()
-
     implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.14.1'
     implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.14.1'
-
-    nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
-    nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
-
+    implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2020.1.1-beta-3'
+    implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2020.1.1-beta-3'
+    implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2020.1.1-beta-3'
 }
