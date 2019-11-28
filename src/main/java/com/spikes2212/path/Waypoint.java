@@ -1,13 +1,12 @@
 package com.spikes2212.path;
 
 public class Waypoint {
-    private final double x, y, angle, v;
-    private double d;
-    public Waypoint(double x, double y, double angle, double v) {
+    private final double x, y, angle;
+    private double v, d;
+    public Waypoint(double x, double y, double angle) {
         this.x = x;
         this.y = y;
         this.angle = angle;
-        this.v = v;
     }
     
     public double getX() {
@@ -20,6 +19,10 @@ public class Waypoint {
 
     public double getV() {
         return v;
+    }
+
+    public void setV(double v) {
+        this.v = v;
     }
 
     public double getAngle() {
