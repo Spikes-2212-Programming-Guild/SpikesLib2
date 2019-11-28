@@ -121,7 +121,7 @@ public class OdometryHandler {
     }
 
     /**
-     *
+     * returns the robot's current x coordinate
      * @return the robot's current x coordinate
      */
     public double getX() {
@@ -129,7 +129,7 @@ public class OdometryHandler {
     }
 
     /**
-     *
+     * returns the robot's current y coordinate
      * @return the robot's current y coordinate
      */
     public double getY() {
@@ -137,7 +137,7 @@ public class OdometryHandler {
     }
 
     /**
-     *
+     * returns the robot's current angle
      * @return the robot's current angle
      */
     public double getYaw() {
@@ -145,7 +145,7 @@ public class OdometryHandler {
     }
 
     /**
-     * sets the handler's coordinates
+     * sets the robot's coordinates
      * @param x the x coordinate
      * @param y the y coordinate
      */
