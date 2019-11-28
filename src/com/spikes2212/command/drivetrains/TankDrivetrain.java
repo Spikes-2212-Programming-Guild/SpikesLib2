@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  *
  * It can move forwards/backwards by giving both its sides an equal speed or
  * turn by giving the sides different speeds
+ *
+ * @author Yuval Levy
  */
 public class TankDrivetrain implements Subsystem {
 
