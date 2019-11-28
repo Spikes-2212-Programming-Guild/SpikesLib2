@@ -145,6 +145,16 @@ public class OdometryHandler {
     }
 
     /**
+     * sets the handler's coordinates
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
+    public void set(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
      * This method receives a vector presented in the polar form (norm and
      * argument) and return the cartesian form of this vector (the X component
      * and the Y component)
