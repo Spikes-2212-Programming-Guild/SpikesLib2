@@ -13,6 +13,10 @@ public class Waypoint {
         this.d = distance;
     }
 
+    public double getD(){
+        return d;
+    }
+
     public double[] toArray() {
         return new double[]{x, y, angle, v};
     }
