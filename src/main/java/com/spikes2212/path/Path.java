@@ -10,11 +10,11 @@ public class Path {
     }
 
     public void fill(int middlePoints) {
-        for (int i = 0; i < points.size(); i++) {
+        for (int i = 0; i < points.size() - 1; i++) {
             double xOffset = (points.get(i+1).getX() - points.get(i).getX()) / (middlePoints + 1);
             double yOffset = (points.get(i+1).getY() - points.get(i).getY()) / (middlePoints + 1);
             double tempX = points.get(i).getX() + xOffset, tempY = points.get(i).getY() + yOffset;
-            while (tempX != points.get(i+1).getX()) {
+            while (tempX < points.get(i+1).getX()) {
                 points.add(i, new Waypoint(tempX, tempY, points.get(i+1).getAngle()));
                 i++;
                 tempX += xOffset;
