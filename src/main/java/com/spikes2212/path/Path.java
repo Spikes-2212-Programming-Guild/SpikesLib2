@@ -2,11 +2,12 @@ package com.spikes2212.path;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.LinkedList;
 
 public class Path {
     private List<Waypoint> points;
     public Path(Waypoint... points) {
-        this.points = Arrays.asList(points);
+        this.points = new LinkedList(Arrays.asList(points));
     }
 
     public void fill(int middlePoints) {
