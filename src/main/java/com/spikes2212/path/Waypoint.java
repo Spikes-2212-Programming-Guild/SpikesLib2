@@ -40,4 +40,9 @@ public class Waypoint {
     public double[] toArray() {
         return new double[]{x, y, angle, v};
     }
+    
+    @Override
+    public String toString() {
+        return "x: " + x + " y: " + y + " angle: " + angle;
+    }
 }
