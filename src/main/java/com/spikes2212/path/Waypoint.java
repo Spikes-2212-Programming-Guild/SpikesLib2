@@ -2,7 +2,7 @@ package com.spikes2212.path;
 
 public class Waypoint {
     private final double x, y, angle;
-    private double v, d;
+    private double v, d, curvature;
     public Waypoint(double x, double y, double angle) {
         this.x = x;
         this.y = y;
@@ -38,6 +38,14 @@ public class Waypoint {
     }
 
     public double[] toArray() { return new double[]{x, y}; }
+
+    public double getCurvature() {
+        return curvature;
+    }
+
+    public void setCurvature(double curvature) {
+        this.curvature = curvature;
+    }
 
     @Override
     public String toString() {
