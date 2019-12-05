@@ -37,10 +37,8 @@ public class Waypoint {
         return d;
     }
 
-    public double[] toArray() {
-        return new double[]{x, y, angle, v};
-    }
-    
+    public double[] toArray() { return new double[]{x, y}; }
+
     @Override
     public String toString() {
         return "x: " + x + " y: " + y + " angle: " + angle;
