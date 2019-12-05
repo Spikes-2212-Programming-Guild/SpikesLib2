@@ -47,6 +47,10 @@ public class Waypoint {
         this.curvature = curvature;
     }
 
+    public double distance(Waypoint point) {
+        return Math.sqrt((x - point.getX())*(getX() - point.getX()) + (getY() - point.getY())*(getY() - point.getY()));
+    }
+
     @Override
     public String toString() {
         return "x: " + x + " y: " + y + " angle: " + angle;

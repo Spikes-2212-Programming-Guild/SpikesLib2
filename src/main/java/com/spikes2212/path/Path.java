@@ -12,6 +12,10 @@ public class Path {
         generate(middlePoints, data_weight, smooth_weight, tolerance, maxVelocity, k, maxAcceleration);
     }
 
+    public List<Waypoint> getPoints() {
+        return points;
+    }
+
     private void generate(int middlePoints, double data_weight, double smooth_weight, double tolerance,
                           double maxVelocity, double k, double maxAcceleration) {
         fill(middlePoints);
@@ -64,8 +68,7 @@ public class Path {
         double previousDistance = 0;
         points.get(0).setD(0);
         for (int i = 1; i < points.size(); i++) {
-            previousDistance += Math.sqrt(Math.pow(points.get(i-1).getX() - points.get(i).getX(),2)
-                    + Math.pow(points.get(i-1).getY() - points.get(i).getY(), 2));
+            previousDistance += points.get(i).distance(points.get(i-1));
             points.get(i).setD(previousDistance);
         }
     }
@@ -98,8 +101,7 @@ public class Path {
         points.get(points.size() - 1).setV(0);
         for (int i = points.size() - 1; i >= 0; i++) {
             double distance;
-            distance = Math.sqrt(Math.pow(points.get(i).getX() - points.get(i+1).getX(), 2) +
-                    Math.pow(points.get(i).getY() - points.get(i+1).getY(), 2));
+            distance = points.get(i).distance(points.get(i+1));
             points.get(i).setV(Math.min(points.get(i).getV(),
                     Math.sqrt(Math.pow(points.get(i+1).getV(), 2) + 2*maxAcceleration*distance)));
         }

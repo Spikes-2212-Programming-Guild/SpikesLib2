@@ -144,6 +144,11 @@ public class OdometryHandler {
         return angleSupplier.get();
     }
 
+
+    public Waypoint getWaypoint() {
+        return new Waypoint(getX(), getY(), getYaw());
+    }
+
     /**
      * sets the robot's coordinates
      * @param x the x coordinate
