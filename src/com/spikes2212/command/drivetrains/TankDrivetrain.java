@@ -2,38 +2,38 @@ package com.spikes2212.command.drivetrains;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * This class represents a type of Drivetrain that its left and right sides are
  * controlled independently, allowing it to move by giving each side a speed
  * value separately.
- *
+ * <p>
  * It can move forwards/backwards by giving both its sides an equal speed or
  * turn by giving the sides different speeds
  *
  * @author Yuval Levy
  */
-public class TankDrivetrain implements Subsystem {
+public class TankDrivetrain extends SubsystemBase {
 
     private SpeedController leftController;
     private SpeedController rightController;
     private DifferentialDrive drive;
 
     public TankDrivetrain(SpeedController left, SpeedController right) {
+        super();
         this.leftController = left;
         this.rightController = right;
         drive = new DifferentialDrive(leftController, rightController);
     }
+
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft
-     *            the speed to set to the left side. Positive values move this side
-     *            forward.
-     * @param speedRight
-     *            the speed to set to the right side. Positive values move this side
-     *            forward.
+     * @param speedLeft  the speed to set to the left side. Positive values move this side
+     *                   forward.
+     * @param speedRight the speed to set to the right side. Positive values move this side
+     *                   forward.
      */
 
     public void tankDrive(double speedLeft, double speedRight) {
@@ -47,9 +47,8 @@ public class TankDrivetrain implements Subsystem {
     /**
      * Moves the left side of this drivetrain by a given speed.
      *
-     * @param speedLeft
-     *            the speed to set to the left side. Positive values move this side
-     *            forward.
+     * @param speedLeft the speed to set to the left side. Positive values move this side
+     *                  forward.
      */
     public void setLeft(double speedLeft) {
         leftController.set(speedLeft);
@@ -58,9 +57,8 @@ public class TankDrivetrain implements Subsystem {
     /**
      * Moves the right side of this drivetrain with a given speed.
      *
-     * @param speedRight
-     *            the speed to set to the right side. Positive values move this side
-     *            forward.
+     * @param speedRight the speed to set to the right side. Positive values move this side
+     *                   forward.
      */
     public void setRight(double speedRight) {
         rightController.set(speedRight);
@@ -74,4 +72,6 @@ public class TankDrivetrain implements Subsystem {
     protected void initDefaultCommand() {
     }
 
+
 }
+

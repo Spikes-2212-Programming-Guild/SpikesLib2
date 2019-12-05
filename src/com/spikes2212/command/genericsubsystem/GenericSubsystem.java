@@ -1,6 +1,7 @@
 package com.spikes2212.command.genericsubsystem;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import java.util.function.Supplier;
 
@@ -10,7 +11,7 @@ import java.util.function.Supplier;
  *
  * @author Yuval Levy
  */
-public abstract class GenericSubsystem implements Subsystem {
+public abstract class GenericSubsystem extends SubsystemBase {
 
     private double currentSpeed = 0;
     private Supplier<Double> maxSpeed;
@@ -40,6 +41,7 @@ public abstract class GenericSubsystem implements Subsystem {
      * @param maxSpeed the maximum speed
      */
     public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
+        super();
         this.maxSpeed = maxSpeed;
         this.minSpeed = minSpeed;
     }
@@ -48,8 +50,7 @@ public abstract class GenericSubsystem implements Subsystem {
      * Moves this {@link GenericSubsystem} with the given speed, as long as it is
      * within the limits specified when this {@link GenericSubsystem} was constructed.
      *
-     * @param speed
-     *            the speed to move the subsystem with.
+     * @param speed the speed to move the subsystem with.
      */
     public final void move(double speed) {
         if (speed < minSpeed.get()) speed = minSpeed.get();
@@ -71,7 +72,6 @@ public abstract class GenericSubsystem implements Subsystem {
      * This method returns whether the subsystem can move safely.
      *
      * @param speed the speed
-     *
      * @return whether the subsystem can move safely
      */
     public abstract boolean canMove(double speed);
@@ -89,4 +89,6 @@ public abstract class GenericSubsystem implements Subsystem {
     public double getSpeed() {
         return currentSpeed;
     }
+
+
 }
