@@ -31,12 +31,14 @@ public class PurePursuitController {
     public Waypoint closestPoint() {
         Waypoint robot = handler.getWaypoint();
         double minDistance = Double.POSITIVE_INFINITY, distance;
-        int minIndex;
+        int minIndex = 0;
         for (int i = lastClosestIndex; i < path.getPoints().size(); i++) {
             if ((distance = path.getPoints().get(i).distance(robot)) < minDistance) {
                 minIndex = i;
                 minDistance = distance;
             }
         }
+        lastClosestIndex = minIndex;
+        return path.getPoints().get(minIndex);
     }
 }
