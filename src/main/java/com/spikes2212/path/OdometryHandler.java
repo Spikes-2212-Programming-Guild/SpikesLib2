@@ -101,7 +101,7 @@ public class OdometryHandler {
         // finding the argument of the displacement vector.
         double arg = yaw - 1 / 2.0 * yawDifference;
 
-        // if turned to the opposite diretion
+        // if turned to the opposite direction
         if (archDistance < 0) {
             arg += Math.PI;
         }
