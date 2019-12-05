@@ -1,26 +1,21 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.function.BooleanSupplier;
+
 import java.util.function.Supplier;
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import edu.wpi.first.wpilibj2.command.Command;
 
 /**
  * This command moves a {@link GenericSubsystem} according to a {@link Supplier}
  * or a constant speed until it cannot move any more.
  *
- * @author Omri "Riki" Cohen and Itamar Rivkind
+ * @author Yuval Levy
  * @see GenericSubsystem
  */
-public class MoveGenericSubsystem implements Command {
+public class MoveGenericSubsystem extends CommandBase {
 
     protected final GenericSubsystem subsystem;
     protected final Supplier<Double> speedSupplier;
@@ -35,8 +30,13 @@ public class MoveGenericSubsystem implements Command {
      *                      should be moved with. Must only supply values between -1 and 1.
      */
     public MoveGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> speedSupplier) {
+        super();
         this.subsystem = subsystem;
         this.speedSupplier = speedSupplier;
+    }
+
+    public MoveGenericSubsystem(GenericSubsystem subsystem, double speedSupplier) {
+        this(subsystem, () -> speedSupplier);
     }
 
 
@@ -60,10 +60,4 @@ public class MoveGenericSubsystem implements Command {
         return !subsystem.canMove(speedSupplier.get());
     }
 
-    @Override
-    public Set<Subsystem> getRequirements() {
-        HashSet<Subsystem> requirements = new HashSet<Subsystem>(1);
-        requirements.add(subsystem);
-        return requirements;
-    }
 }
