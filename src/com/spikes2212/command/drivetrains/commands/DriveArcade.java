@@ -29,13 +29,7 @@ public class DriveArcade extends CommandBase {
      * @param moveValue   the speed to move straight with. Positive values go forwards.
      * @param rotateValue the speed to turn with. Positive values turn left.
      */
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> false);
-    }
 
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished);
-    }
 
     /**
      * This constructs a new {@link DriveArcade} command that moves the given
@@ -62,6 +56,13 @@ public class DriveArcade extends CommandBase {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false);
     }
 
+    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue) {
+        this(drivetrain, () -> moveValue, () -> rotateValue, () -> false);
+    }
+
+    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished) {
+        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished);
+    }
 
     @Override
     public void initialize() {
