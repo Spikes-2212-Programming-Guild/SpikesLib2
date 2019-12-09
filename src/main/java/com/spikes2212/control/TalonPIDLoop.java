@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import edu.wpi.first.wpilibj.Timer;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -42,6 +43,11 @@ public class TalonPIDLoop implements PIDLoop {
      * The acceptable distance from the target.
      */
     private Supplier<Double> tolerance;
+
+    /**
+     * The `canMove` method of the Subsystem this PIDLoop belongs to.
+     */
+    private Function<Double, Boolean> canMove;
 
     /**
      * The time required to stay on target.
