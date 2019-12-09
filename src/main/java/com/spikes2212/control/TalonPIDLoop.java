@@ -50,6 +50,11 @@ public class TalonPIDLoop implements PIDLoop {
     private Function<Double, Boolean> canMove;
 
     /**
+     * The maximum output of the loop in any direction.
+     */
+    private Supplier<Double> peakOutput;
+
+    /**
      * The time required to stay on target.
      */
     private Supplier<Double> waitTime;
@@ -73,30 +78,37 @@ public class TalonPIDLoop implements PIDLoop {
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
                         Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove) {
-        this(motor, kP, kI, kD, setpoint, tolerance, canMove, () -> 0.0);
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, () -> 1.0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
                         Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
-                        Supplier<Double> waitTime) {
-        this(motor, kP, kI, kD, setpoint, tolerance, canMove, waitTime, ControlMode.Position);
+                        Supplier<Double> peakOutput) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, () -> 0.0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
                         Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
-                        Supplier<Double> waitTime, ControlMode controlMode) {
-        this(motor, kP, kI, kD, setpoint, tolerance, canMove, waitTime, controlMode, 0);
+                        Supplier<Double> peakOutput, Supplier<Double> waitTime) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, ControlMode.Position);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
                         Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
-                        Supplier<Double> waitTime, ControlMode controlMode, int loop) {
-        this(motor, kP, kI, kD, setpoint, tolerance, canMove, waitTime, controlMode, loop, 30);
+                        Supplier<Double> peakOutput, Supplier<Double> waitTime, ControlMode controlMode) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, controlMode, 0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
                         Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
-                        Supplier<Double> waitTime, ControlMode controlMode, int loop, int timeout) {
+                        Supplier<Double> peakOutput, Supplier<Double> waitTime, ControlMode controlMode, int loop) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, controlMode, loop, 30);
+    }
+
+    public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
+                        Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
+                        Supplier<Double> peakOutput, Supplier<Double> waitTime, ControlMode controlMode, int loop,
+                        int timeout) {
         this.motor = motor;
         this.kP = kP;
         this.kI = kI;
@@ -104,6 +116,7 @@ public class TalonPIDLoop implements PIDLoop {
         this.setpoint = setpoint;
         this.tolerance = tolerance;
         this.canMove = canMove;
+        this.peakOutput = peakOutput;
         this.waitTime = waitTime;
         this.controlMode = controlMode;
         this.loop = loop;
@@ -111,34 +124,38 @@ public class TalonPIDLoop implements PIDLoop {
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
     }
 
-    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
-                        double setpoint, double tolerance, Function<Double, Boolean> canMove) {
-        this(motor, kP, kI, kD, setpoint, tolerance, canMove, 0);
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
+                        Function<Double, Boolean> canMove) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, 1.0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
-                        double setpoint, double tolerance, Function<Double, Boolean> canMove,
-                        double waitTime) {
-        this(motor, kP, kI, kD, setpoint, tolerance, canMove, waitTime, ControlMode.Position);
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
+                        Function<Double, Boolean> canMove, double peakOutput) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, 0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
-                        double setpoint, double tolerance, Function<Double, Boolean> canMove,
-                        double waitTime, ControlMode controlMode) {
-        this(motor, kP, kI, kD, setpoint, tolerance, canMove, waitTime, controlMode, 0);
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
+                        Function<Double, Boolean> canMove, double peakOutput, double waitTime) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, ControlMode.Position);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
-                        double setpoint, double tolerance, Function<Double, Boolean> canMove,
-                        double waitTime, ControlMode controlMode, int loop) {
-        this(motor, kP, kI, kD, setpoint, tolerance, canMove, waitTime, controlMode, loop, 30);
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
+                        Function<Double, Boolean> canMove, double peakOutput, double waitTime,
+                        ControlMode controlMode) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, controlMode, 0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
-                        double setpoint, double tolerance, Function<Double, Boolean> canMove,
-                        double waitTime, ControlMode controlMode, int loop, int timeout) {
-        this(motor, () -> kP, () -> kI, () -> kD, () -> setpoint, () -> tolerance, canMove, () -> waitTime,
-                controlMode, loop, timeout);
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
+                        Function<Double, Boolean> canMove, double peakOutput, double waitTime, ControlMode controlMode,
+                        int loop) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, controlMode, loop, 30);
+    }
+
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
+                        Function<Double, Boolean> canMove, double peakOutput, double waitTime, ControlMode controlMode,
+                        int loop, int timeout) {
+        this(motor, () -> kP, () -> kI, () -> kD, () -> setpoint, () -> tolerance, canMove, () -> peakOutput,
+                () -> waitTime, controlMode, loop, timeout);
     }
 
     private void initialize() {
@@ -147,8 +164,8 @@ public class TalonPIDLoop implements PIDLoop {
 
         motor.configNominalOutputForward(0, timeout);
         motor.configNominalOutputReverse(0, timeout);
-        motor.configPeakOutputForward(1.0, timeout);
-        motor.configPeakOutputReverse(-1.0, timeout);
+        motor.configPeakOutputForward(peakOutput.get(), timeout);
+        motor.configPeakOutputReverse(-peakOutput.get(), timeout);
 
         motor.configAllowableClosedloopError(loop, 0, timeout);
 
@@ -171,6 +188,9 @@ public class TalonPIDLoop implements PIDLoop {
 
     @Override
     public void update() {
+        motor.configPeakOutputForward(peakOutput.get(), timeout);
+        motor.configPeakOutputReverse(-peakOutput.get(), timeout);
+
         motor.config_kP(loop, kP.get(), timeout);
         motor.config_kI(loop, kI.get(), timeout);
         motor.config_kD(loop, kD.get(), timeout);
