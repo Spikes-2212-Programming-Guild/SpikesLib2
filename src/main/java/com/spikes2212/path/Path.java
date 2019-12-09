@@ -54,7 +54,7 @@ public class Path {
                     double aux = path[i][j];
                     path[i][j] += data_weight * (ogPath[i][j] - path[i][j])
                             + smooth_weight * (path[i-1][j] + path[i+1][j] - 2 * path[i][j]);
-                    change = Math.abs(aux - path[i][j]);
+                    change += Math.abs(aux - path[i][j]);
                 }
             }
         }
