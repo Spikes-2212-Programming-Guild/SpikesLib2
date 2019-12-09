@@ -84,13 +84,13 @@ public class PurePursuitController {
         throw new LookaheadPointNotFoundException();
     }
 
-    private double pathCurvature() {
+    private double pathCurvature() throws LookaheadPointNotFoundException {
         Waypoint robot = handler.getWaypoint();
         Waypoint lookahead = robot;
         try {
             lookahead = lookaheadPoint();
-        } catch (LookaheadPointNotFoundException nlpe) {
-            nlpe.printStackTrace();
+        } catch (LookaheadPointNotFoundException lpnfe) {
+            throw new LookaheadPointNotFoundException(lpnfe);
         }
         double yaw = handler.getYaw();
         double slope = Math.tan(yaw);
@@ -102,11 +102,11 @@ public class PurePursuitController {
         return x * side / Math.abs(side);
     }
 
-    public double getTargetXSpeed() {
+    public double getTargetXSpeed() throws LookaheadPointNotFoundException {
         return closestPoint().getV() * (2 + pathCurvature() * robotWidth) / 2;
     }
 
-    public double getTargetYSpeed() {
+    public double getTargetYSpeed() throws LookaheadPointNotFoundException {
         return closestPoint().getV() * (2 + pathCurvature() * robotWidth) / 2;
     }
 }
