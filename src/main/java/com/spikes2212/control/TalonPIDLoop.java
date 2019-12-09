@@ -145,6 +145,6 @@ public class TalonPIDLoop implements PIDLoop {
         }
 
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get()
-                || canMove.apply(motor.getMotorOutputPercent());
+                || !canMove.apply(motor.getMotorOutputPercent());
     }
 }
