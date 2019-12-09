@@ -5,20 +5,60 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import edu.wpi.first.wpilibj.Notifier;
 
+/**
+ * A PIDLoop using a CTRE speed controller (TalonSRX or VictorSPX).
+ *
+ * @author Eran Goldstein
+ */
 public class TalonPIDLoop implements PIDLoop {
+    /**
+     * The speed controller this loop runs on.
+     */
     private BaseMotorController motor;
 
+    /**
+     * The proportional component of the loop.
+     */
     private double kp;
+
+    /**
+     * The integral component of the loop.
+     */
     private double ki;
+
+    /**
+     * The derivative component of the loop.
+     */
     private double kd;
 
+    /**
+     * The time required to stay on target.
+     */
     private double waitTime;
+
+    /**
+     * The acceptable distance from the target.
+     */
     private double tolerance;
+
+    /**
+     * The setpoint the loop should go towards.
+     */
     private double setpoint;
 
+    /**
+     * Which loop to run on.
+     * <p>
+     * 0 - primary loop
+     * 1 - secondary loop
+     */
     private int loop;
+
     private int timeout;
 
+    /**
+     * The notifier that runs the loop on the motor.
+     */
     private Notifier notifier;
 
     public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd,
@@ -46,6 +86,9 @@ public class TalonPIDLoop implements PIDLoop {
         this.notifier = new Notifier(() -> motor.set(ControlMode.Position, setpoint));
     }
 
+    /**
+     * Initialize the PID settings on the motor.
+     */
     private void initialize() {
         motor.configFactoryDefault();
         motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, loop, timeout);
