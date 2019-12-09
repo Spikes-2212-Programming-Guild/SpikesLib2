@@ -99,7 +99,7 @@ public class Path {
 
     private void smoothVelocities(double maxAcceleration) {
         points.get(points.size() - 1).setV(0);
-        for (int i = points.size() - 1; i >= 0; i++) {
+        for (int i = points.size() - 1; i >= 0; i--) {
             double distance;
             distance = points.get(i).distance(points.get(i+1));
             points.get(i).setV(Math.min(points.get(i).getV(),
