@@ -17,11 +17,9 @@ public interface PIDLoop {
     void disable();
 
     /**
-     * Sets the setpoint of the loop.
-     *
-     * @param setpoint the new setpoint of the loop
+     * Update the setpoint of the loop.
      */
-    void setSetpoint(double setpoint);
+    void update();
 
     /**
      * Check whether the loop is currently within the target range.
