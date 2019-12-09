@@ -172,8 +172,6 @@ public class TalonPIDLoop implements PIDLoop {
         motor.config_kP(loop, kP.get(), timeout);
         motor.config_kI(loop, kI.get(), timeout);
         motor.config_kD(loop, kD.get(), timeout);
-
-        motor.setSelectedSensorPosition(0, loop, timeout);
     }
 
     @Override
