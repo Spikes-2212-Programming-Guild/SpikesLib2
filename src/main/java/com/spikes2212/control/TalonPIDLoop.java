@@ -132,6 +132,12 @@ public class TalonPIDLoop implements PIDLoop {
 
     @Override
     public boolean onTarget() {
-        return Math.abs(setpoint.get() - motor.getSelectedSensorPosition(loop)) < tolerance.get();
+        boolean currentlyOnTarget = Math.abs(setpoint.get() - motor.getSelectedSensorPosition(loop)) < tolerance.get();
+
+        if(!currentlyOnTarget) {
+            lastTimeNotOnTarget = Timer.getFPGATimestamp();
+        }
+
+        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get();
     }
 }
