@@ -75,7 +75,7 @@ public class RioPIDLoop implements PIDLoop {
     private Frequency frequency;
 
     /**
-     * Returns my current location
+     * Returns my current location.
      */
     private Supplier<Double> PIDSource;
 
@@ -85,12 +85,12 @@ public class RioPIDLoop implements PIDLoop {
     private Supplier<Double> PIDCalculations;
 
     /**
-     * The last time the subsystem didn't reached target
+     * The last time the subsystem didn't reached target.
      */
     private double lastTimeNotOnTarget;
 
     /**
-     * The output of RioPIDLoop
+     * The output of RioPIDLoop.
      */
     private Consumer<Double> speedConsumer;
 
