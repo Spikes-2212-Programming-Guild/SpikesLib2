@@ -111,6 +111,36 @@ public class TalonPIDLoop implements PIDLoop {
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
     }
 
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
+                        double setpoint, double tolerance, Function<Double, Boolean> canMove) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, 0);
+    }
+
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
+                        double setpoint, double tolerance, Function<Double, Boolean> canMove,
+                        double waitTime) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, waitTime, ControlMode.Position);
+    }
+
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
+                        double setpoint, double tolerance, Function<Double, Boolean> canMove,
+                        double waitTime, ControlMode controlMode) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, waitTime, controlMode, 0);
+    }
+
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
+                        double setpoint, double tolerance, Function<Double, Boolean> canMove,
+                        double waitTime, ControlMode controlMode, int loop) {
+        this(motor, kP, kI, kD, setpoint, tolerance, canMove, waitTime, controlMode, loop, 30);
+    }
+
+    public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD,
+                        double setpoint, double tolerance, Function<Double, Boolean> canMove,
+                        double waitTime, ControlMode controlMode, int loop, int timeout) {
+        this(motor, () -> kP, () -> kI, () -> kD, () -> setpoint, () -> tolerance, canMove, () -> waitTime,
+                controlMode, loop, timeout);
+    }
+
     private void initialize() {
         motor.configFactoryDefault();
         motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, loop, timeout);
