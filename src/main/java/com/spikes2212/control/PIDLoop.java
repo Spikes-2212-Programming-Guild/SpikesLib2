@@ -22,9 +22,9 @@ public interface PIDLoop {
     void update();
 
     /**
-     * Check whether the loop is currently within the target range.
+     * Check whether the loop has been within the target range for at list `waitTime` seconds.
      *
-     * @return true when within target range, false otherwise
+     * @return true when within target range for `waitTime`, false otherwise
      */
     boolean onTarget();
 }
