@@ -42,10 +42,10 @@ public class Path {
 
     private void smooth(double data_weight, double smooth_weight, double tolerance) {
         double [][] path = new double[points.size()][2];
-        double [][] ogPath = Arrays.copyOf(path, path.length);
         for (int i = 0; i < points.size(); i++) {
             path[i] = points.get(i).toArray();
         }
+        double [][] ogPath = Arrays.copyOf(path, path.length);
         double change = tolerance;
         while (change >= tolerance) {
             change = 0;
