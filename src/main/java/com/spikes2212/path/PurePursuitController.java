@@ -1,5 +1,11 @@
 package com.spikes2212.path;
 
+/**
+ * This class represents a PurePursuitController.
+ * You should the getTargetSpeed methods periodically.
+ *
+ * @author T
+ */
 public class PurePursuitController {
     private OdometryHandler handler;
     private Path path;
@@ -102,11 +108,21 @@ public class PurePursuitController {
         return x * side / Math.abs(side);
     }
 
-    public double getTargetXSpeed() throws LookaheadPointNotFoundException {
+    /**
+     * Returns the target speed for the left side of the robot.
+     * @return the target speed for the left side of the robot
+     * @throws LookaheadPointNotFoundException
+     */
+    public double getTargetLeftSpeed() throws LookaheadPointNotFoundException {
         return closestPoint().getV() * (2 + pathCurvature() * robotWidth) / 2;
     }
 
-    public double getTargetYSpeed() throws LookaheadPointNotFoundException {
-        return closestPoint().getV() * (2 + pathCurvature() * robotWidth) / 2;
+    /**
+     * Returns the target speed for the right side of the robot.
+     * @return the target speed for the right side of the robot
+     * @throws LookaheadPointNotFoundException
+     */
+    public double getTargetRightSpeed() throws LookaheadPointNotFoundException {
+        return closestPoint().getV() * (2 - pathCurvature() * robotWidth) / 2;
     }
 }
