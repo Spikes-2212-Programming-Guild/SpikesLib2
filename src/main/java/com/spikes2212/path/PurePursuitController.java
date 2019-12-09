@@ -53,7 +53,7 @@ public class PurePursuitController {
         return path.getPoints().get(minIndex);
     }
 
-    private Waypoint lookaheadPoint() throws NoLookaheadPointException {
+    private Waypoint lookaheadPoint() throws LookaheadPointNotFoundException {
         Waypoint robot = handler.getWaypoint();
         int lookaheadIndex = lastLookaheadIndex;
         for (int i = lastLookaheadIndex; i < path.getPoints().size(); i++) {
@@ -81,7 +81,7 @@ public class PurePursuitController {
                 }
             }
         }
-        throw new NoLookaheadPointException();
+        throw new LookaheadPointNotFoundException();
     }
 
     private double pathCurvature() {
@@ -89,7 +89,7 @@ public class PurePursuitController {
         Waypoint lookahead = robot;
         try {
             lookahead = lookaheadPoint();
-        } catch (NoLookaheadPointException nlpe) {
+        } catch (LookaheadPointNotFoundException nlpe) {
             nlpe.printStackTrace();
         }
         double yaw = handler.getYaw();
