@@ -42,17 +42,17 @@ public class RioPIDLoop implements PIDLoop {
     /**
      * The proportional component of the loop.
      */
-    private Supplier<Double> kp;
+    private Supplier<Double> kP;
 
     /**
      * The integral component of the loop.
      */
-    private Supplier<Double> ki;
+    private Supplier<Double> kI;
 
     /**
      * The derivative component of the loop.
      */
-    private Supplier<Double> kd;
+    private Supplier<Double> kD;
 
     /**
      * The acceptable distance from target.
@@ -77,12 +77,7 @@ public class RioPIDLoop implements PIDLoop {
     /**
      * Returns my current location.
      */
-    private Supplier<Double> PIDSource;
-
-    /**
-     * The calculation returned from the pid.
-     */
-    private Supplier<Double> PIDCalculations;
+    private Supplier<Double> source;
 
     /**
      * The last time the subsystem didn't reached target.
@@ -92,20 +87,21 @@ public class RioPIDLoop implements PIDLoop {
     /**
      * The output of RioPIDLoop.
      */
-    private Consumer<Double> speedConsumer;
+    private Consumer<Double> output;
 
     public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
                       Supplier<Double> setpoint, Supplier<Double> PIDSource, Consumer<Double> speedConsumer, Supplier<Double> waitTime, Frequency frequency) {
-        this.kp = kp;
-        this.ki = ki;
-        this.kd = kd;
+        this.kP = kp;
+        this.kI = ki;
+        this.kD = kd;
         this.tolerance = tolerance;
         this.setpoint = setpoint;
         this.waitTime = waitTime;
         this.frequency = frequency;
-        this.PIDSource = PIDSource;
+        this.source = PIDSource;
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
-        this.speedConsumer = speedConsumer;
+        this.output = speedConsumer;
+        notifier = new Notifier(this::periodic);
     }
 
     public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
@@ -145,19 +141,19 @@ public class RioPIDLoop implements PIDLoop {
 
     @Override
     public void enable() {
-        controller = new PIDController(kp.get(), ki.get(), kd.get(), frequency.period);
-        notifier = new Notifier(this::periodic);
+        controller = new PIDController(kP.get(), kI.get(), kD.get(), frequency.period);
         notifier.startPeriodic(frequency.period);
     }
 
     private void periodic() {
-        PIDCalculations = () -> controller.calculate(PIDSource.get(), setpoint.get());
+        synchronized (controller) {
+            output.accept(controller.calculate(source.get(), setpoint.get()));
+        }
     }
 
     @Override
     public void disable() {
         notifier.stop();
-        notifier.close();
     }
 
 
@@ -165,14 +161,20 @@ public class RioPIDLoop implements PIDLoop {
         this.controller.enableContinuousInput(minimumValue, maximumValue);
     }
 
+    public void disableContinuousInput() {
+        this.controller.disableContinuousInput();
+    }
+
     @Override
     public void update() {
-        speedConsumer.accept(PIDCalculations.get());
+        synchronized (controller) {
+            controller.setSetpoint(setpoint.get());
+        }
     }
 
     @Override
     public boolean onTarget() {
-        if (PIDSource.get() - setpoint.get() > tolerance.get()) {
+        if (source.get() - setpoint.get() > tolerance.get()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get();
