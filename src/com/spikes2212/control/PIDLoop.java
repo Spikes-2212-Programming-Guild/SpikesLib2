@@ -15,4 +15,18 @@ public interface PIDLoop {
      * Stops the PID loop.
      */
     void disable();
+
+    /**
+     * Sets the setpoint of the loop.
+     *
+     * @param setpoint the new setpoint of the loop
+     */
+    void setSetpoint(double setpoint);
+
+    /**
+     * Check whether the loop is currently within the target range.
+     *
+     * @return true when within target range, false otherwise
+     */
+    boolean onTarget();
 }
