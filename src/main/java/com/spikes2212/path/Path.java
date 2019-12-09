@@ -30,12 +30,15 @@ public class Path {
         for (int i = 0; i < points.size() - 1; i++) {
             double xOffset = (points.get(i+1).getX() - points.get(i).getX()) / (middlePoints + 1);
             double yOffset = (points.get(i+1).getY() - points.get(i).getY()) / (middlePoints + 1);
+            double angleOffset = (points.get(i+1).getAngle() - points.get(i).getAngle()) / (middlePoints + 1);
             double tempX = points.get(i).getX() + xOffset, tempY = points.get(i).getY() + yOffset;
+            double tempAngle = points.get(i).getAngle() + angleOffset;
             while (tempX < points.get(i+1).getX()) {
-                points.add(i, new Waypoint(tempX, tempY, points.get(i+1).getAngle()));
+                points.add(i, new Waypoint(tempX, tempY, tempAngle));
                 i++;
                 tempX += xOffset;
                 tempY += yOffset;
+                tempAngle += angleOffset;
             }
         }
     }
