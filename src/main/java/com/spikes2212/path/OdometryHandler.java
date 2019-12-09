@@ -144,7 +144,10 @@ public class OdometryHandler {
         return angleSupplier.get();
     }
 
-
+    /**
+     * returns the robot's current position as a {@link Waypoint}
+     * @return the robot's current position as a {@link Waypoint}
+     */
     public Waypoint getWaypoint() {
         return new Waypoint(getX(), getY());
     }
