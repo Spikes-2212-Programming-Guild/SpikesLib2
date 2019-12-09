@@ -198,7 +198,19 @@ public class TalonPIDLoop implements PIDLoop {
 
     @Override
     public boolean onTarget() {
-        boolean currentlyOnTarget = Math.abs(setpoint.get() - motor.getSelectedSensorPosition(loop)) < tolerance.get();
+        double currentlyOn;
+        switch(controlMode) {
+            case Position:
+                currentlyOn = motor.getSelectedSensorPosition(loop);
+                break;
+            case Velocity:
+                currentlyOn = motor.getSelectedSensorVelocity(loop);
+                break;
+            default:
+                throw new IllegalArgumentException(controlMode.toString() + " is illegal in SpikesLib TalonPIDLoop");
+        }
+
+        boolean currentlyOnTarget = Math.abs(setpoint.get() - currentlyOn) < tolerance.get();
 
         if(!currentlyOnTarget) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
