@@ -4,12 +4,34 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class represents a path.
+ *
+ * @author T
+ */
 public class Path {
+
+    /**
+     * The points on the path.
+     */
     private List<Waypoint> points;
+
+    /**
+     * Initializes a path.
+     * @param middlePoints the amount of points to fill between points
+     * @param data_weight should be 1 minus smooth_weight
+     * @param smooth_weight how smooth to make the path, should be about 0.6 to 0.8
+     * @param tolerance the smoothing tolerance
+     * @param maxVelocity the robot's maximum velocity
+     * @param turningConstant speed constant at curves (the higher it is, the faster you turn)
+     * @param maxAcceleration the robot's maximum acceleration
+     * @param points the initial points on the path. Apart from the edges, non of the points are guaranteed
+     *               to be on the final path
+     */
     public Path(int middlePoints, double data_weight, double smooth_weight, double tolerance,
-                double maxVelocity, double k, double maxAcceleration, Waypoint... points) {
+                double maxVelocity, double turningConstant, double maxAcceleration, Waypoint... points) {
         this.points = new LinkedList<>(Arrays.asList(points));
-        generate(middlePoints, data_weight, smooth_weight, tolerance, maxVelocity, k, maxAcceleration);
+        generate(middlePoints, data_weight, smooth_weight, tolerance, maxVelocity, turningConstant, maxAcceleration);
     }
 
     public List<Waypoint> getPoints() {
