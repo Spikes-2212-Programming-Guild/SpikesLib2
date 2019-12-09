@@ -18,6 +18,7 @@ import java.util.function.Supplier;
  *
  * @see Supplier
  *
+ * @author T
  */
 public class RelativeDataSupplier implements Supplier<Double> {
     /**
