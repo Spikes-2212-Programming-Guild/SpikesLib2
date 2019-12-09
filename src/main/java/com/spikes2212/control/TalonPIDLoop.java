@@ -90,9 +90,6 @@ public class TalonPIDLoop implements PIDLoop {
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
     }
 
-    /**
-     * Initialize the PID settings on the motor.
-     */
     private void initialize() {
         motor.configFactoryDefault();
         motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, loop, timeout);

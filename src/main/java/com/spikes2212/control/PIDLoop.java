@@ -17,14 +17,14 @@ public interface PIDLoop {
     void disable();
 
     /**
-     * Update the setpoint of the loop.
+     * Updates the PID loop.
      */
     void update();
 
     /**
      * Check whether the loop has been within the target range for at list `waitTime` seconds.
      *
-     * @return true when within target range for `waitTime`, false otherwise
+     * @return `true` when within target range for `waitTime`, `false` otherwise
      */
     boolean onTarget();
 }
