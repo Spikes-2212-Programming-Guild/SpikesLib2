@@ -5,11 +5,14 @@ public class PurePursuitController {
     private Path path;
     private int lastClosestIndex = 0, lastLookaheadIndex = 0;
     private double lookaheadDistance;
+    private double robotWidth;
 
-    public PurePursuitController(OdometryHandler handler, Path path, double lookaheadDistance) {
+    public PurePursuitController(OdometryHandler handler, Path path, double lookaheadDistance,
+                                 double robotWidth) {
         this.handler = handler;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
+        this.robotWidth = robotWidth;
     }
 
     public OdometryHandler getHandler() {
@@ -28,10 +31,18 @@ public class PurePursuitController {
         this.path = path;
     }
 
-    public Waypoint closestPoint() {
+    public double getLookaheadDistance() {
+        return lookaheadDistance;
+    }
+
+    public void setLookaheadDistance(double lookaheadDistance) {
+        this.lookaheadDistance = lookaheadDistance;
+    }
+
+    private Waypoint closestPoint() {
         Waypoint robot = handler.getWaypoint();
         double minDistance = Double.POSITIVE_INFINITY, distance;
-        int minIndex = 0;
+        int minIndex = lastClosestIndex;
         for (int i = lastClosestIndex; i < path.getPoints().size(); i++) {
             if ((distance = path.getPoints().get(i).distance(robot)) < minDistance) {
                 minIndex = i;
@@ -40,5 +51,62 @@ public class PurePursuitController {
         }
         lastClosestIndex = minIndex;
         return path.getPoints().get(minIndex);
+    }
+
+    private Waypoint lookaheadPoint() throws NoLookaheadPointException {
+        Waypoint robot = handler.getWaypoint();
+        int lookaheadIndex = lastLookaheadIndex;
+        for (int i = lastLookaheadIndex; i < path.getPoints().size(); i++) {
+            Waypoint d = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
+                    , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY());
+            Waypoint f = new Waypoint(path.getPoints().get(i).getX() - handler.getX()
+                    , path.getPoints().get(i).getY() - handler.getY());
+            double a = d.getX() * d.getX() + d.getY() * d.getY();
+            double b = 2 * (f.getX() * d.getX() + f.getY() * f.getX());
+            double c = f.getX() * f.getX() + f.getY() * f.getY();
+            double discriminant = b * b - 4 * a * c;
+            if (discriminant >= 0) {
+                discriminant = Math.sqrt(discriminant);
+                double t1 = (-b - discriminant) / (2 * a);
+                double t2 = (-b + discriminant) / (2 * a);
+                if (t1 >= 0 && t1 <= 1) {
+                    lastLookaheadIndex = i;
+                    return new Waypoint(path.getPoints().get(i).getX() + t1 * d.getX(),
+                            path.getPoints().get(i).getY() + t1 * d.getY());
+                }
+                if (t2 >= 0 && t2 <= 1) {
+                    lastLookaheadIndex = i;
+                    return new Waypoint(path.getPoints().get(i).getX() + t2 * d.getX(),
+                            path.getPoints().get(i).getY() + t2 * d.getY());
+                }
+            }
+        }
+        throw new NoLookaheadPointException();
+    }
+
+    private double pathCurvature() {
+        Waypoint robot = handler.getWaypoint();
+        Waypoint lookahead = robot;
+        try {
+            lookahead = lookaheadPoint();
+        } catch (NoLookaheadPointException nlpe) {
+            nlpe.printStackTrace();
+        }
+        double yaw = handler.getYaw();
+        double slope = Math.tan(yaw);
+        double freeTerm = -slope * robot.getX() - robot.getY();
+        double x = Math.abs(-slope * lookahead.getX() + lookahead.getY() + freeTerm) /
+                Math.sqrt(slope * slope + 1);
+        double side = Math.sin(yaw) * (lookahead.getX() - robot.getX()) -
+                Math.cos(yaw) * (lookahead.getY() - robot.getY());
+        return x * side / Math.abs(side);
+    }
+
+    public double getTargetXSpeed() {
+        return closestPoint().getV() * (2 + pathCurvature() * robotWidth) / 2;
+    }
+
+    public double getTargetYSpeed() {
+        return closestPoint().getV() * (2 + pathCurvature() * robotWidth) / 2;
     }
 }
