@@ -136,6 +136,7 @@ public class TalonPIDLoop implements PIDLoop {
 
         if(!currentlyOnTarget) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
+            return false;
         }
 
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get();
