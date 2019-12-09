@@ -33,9 +33,9 @@ public class TalonPIDLoop implements PIDLoop {
     private double kd;
 
     /**
-     * The time required to stay on target.
+     * The setpoint the loop should go towards.
      */
-    private double waitTime;
+    private Supplier<Double> setpoint;
 
     /**
      * The acceptable distance from the target.
@@ -43,9 +43,9 @@ public class TalonPIDLoop implements PIDLoop {
     private double tolerance;
 
     /**
-     * The setpoint the loop should go towards.
+     * The time required to stay on target.
      */
-    private Supplier<Double> setpoint;
+    private double waitTime;
 
     /**
      * Which loop to run on.
@@ -58,24 +58,29 @@ public class TalonPIDLoop implements PIDLoop {
     private int timeout;
 
     public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd,
-                        double waitTime, double tolerance, Supplier<Double> setpoint) {
-        this(motor, kp, ki, kd, waitTime, tolerance, setpoint, 0);
+                        Supplier<Double> setpoint, double tolerance) {
+        this(motor, kp, ki, kd, setpoint, tolerance, 0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd, double waitTime,
-                        double tolerance, Supplier<Double> setpoint, int loop) {
-        this(motor, kp, ki, kd, waitTime, tolerance, setpoint, loop, 30);
+    public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd,
+                        Supplier<Double> setpoint, double tolerance, double waitTime) {
+        this(motor, kp, ki, kd, setpoint, tolerance, waitTime, 0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd, double waitTime,
-                        double tolerance, Supplier<Double> setpoint, int loop, int timeout) {
+    public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd, Supplier<Double> setpoint,
+                        double tolerance, double waitTime, int loop) {
+        this(motor, kp, ki, kd, setpoint, tolerance, waitTime, loop, 30);
+    }
+
+    public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd, Supplier<Double> setpoint,
+                        double tolerance, double waitTime, int loop, int timeout) {
         this.motor = motor;
         this.kp = kp;
         this.ki = ki;
         this.kd = kd;
-        this.waitTime = waitTime;
-        this.tolerance = tolerance;
         this.setpoint = setpoint;
+        this.tolerance = tolerance;
+        this.waitTime = waitTime;
         this.loop = loop;
         this.timeout = timeout;
     }
