@@ -85,7 +85,7 @@ public class RioPIDLoop implements PIDLoop {
     private Supplier<Double> PIDCalculations;
 
     /**
-     * The last time the subsystem reached target
+     * The last time the subsystem didn't reached target
      */
     private double lastTimeNotOnTarget;
 
