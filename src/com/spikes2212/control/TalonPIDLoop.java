@@ -3,7 +3,6 @@ package com.spikes2212.control;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
-import edu.wpi.first.wpilibj.Notifier;
 
 import java.util.function.Supplier;
 
@@ -58,11 +57,6 @@ public class TalonPIDLoop implements PIDLoop {
 
     private int timeout;
 
-    /**
-     * The notifier that runs the loop on the motor.
-     */
-    private Notifier notifier;
-
     public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd,
                         double waitTime, double tolerance, Supplier<Double> setpoint) {
         this(motor, kp, ki, kd, waitTime, tolerance, setpoint, 0);
@@ -84,8 +78,6 @@ public class TalonPIDLoop implements PIDLoop {
         this.setpoint = setpoint;
         this.loop = loop;
         this.timeout = timeout;
-
-        this.notifier = new Notifier(() -> motor.set(ControlMode.Position, setpoint.get()));
     }
 
     /**
@@ -112,20 +104,16 @@ public class TalonPIDLoop implements PIDLoop {
     @Override
     public void enable() {
         initialize();
-        notifier.startPeriodic(0.01);
     }
 
     @Override
     public void disable() {
-        notifier.stop();
-        notifier.close();
-
         motor.set(ControlMode.PercentOutput, 0);
     }
 
     @Override
     public void update() {
-
+        motor.set(ControlMode.Position, setpoint.get());
     }
 
     @Override
