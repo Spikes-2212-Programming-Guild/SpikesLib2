@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import edu.wpi.first.wpilibj.Notifier;
 
+import java.util.function.Supplier;
+
 /**
  * A PIDLoop using a CTRE speed controller (TalonSRX or VictorSPX).
  *
@@ -44,7 +46,7 @@ public class TalonPIDLoop implements PIDLoop {
     /**
      * The setpoint the loop should go towards.
      */
-    private double setpoint;
+    private Supplier<Double> setpoint;
 
     /**
      * Which loop to run on.
@@ -62,17 +64,17 @@ public class TalonPIDLoop implements PIDLoop {
     private Notifier notifier;
 
     public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd,
-                        double waitTime, double tolerance, double setpoint) {
+                        double waitTime, double tolerance, Supplier<Double> setpoint) {
         this(motor, kp, ki, kd, waitTime, tolerance, setpoint, 0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd, double waitTime,
-                        double tolerance, double setpoint, int loop) {
+                        double tolerance, Supplier<Double> setpoint, int loop) {
         this(motor, kp, ki, kd, waitTime, tolerance, setpoint, loop, 30);
     }
 
     public TalonPIDLoop(BaseMotorController motor, double kp, double ki, double kd, double waitTime,
-                        double tolerance, double setpoint, int loop, int timeout) {
+                        double tolerance, Supplier<Double> setpoint, int loop, int timeout) {
         this.motor = motor;
         this.kp = kp;
         this.ki = ki;
@@ -83,7 +85,7 @@ public class TalonPIDLoop implements PIDLoop {
         this.loop = loop;
         this.timeout = timeout;
 
-        this.notifier = new Notifier(() -> motor.set(ControlMode.Position, setpoint));
+        this.notifier = new Notifier(() -> motor.set(ControlMode.Position, setpoint.get()));
     }
 
     /**
@@ -122,12 +124,12 @@ public class TalonPIDLoop implements PIDLoop {
     }
 
     @Override
-    public void setSetpoint(double setpoint) {
-        this.setpoint = setpoint;
+    public void update() {
+
     }
 
     @Override
     public boolean onTarget() {
-        return Math.abs(setpoint - motor.getSelectedSensorPosition(loop)) < tolerance;
+        return Math.abs(setpoint.get() - motor.getSelectedSensorPosition(loop)) < tolerance;
     }
 }
