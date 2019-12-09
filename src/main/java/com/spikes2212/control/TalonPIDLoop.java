@@ -55,6 +55,11 @@ public class TalonPIDLoop implements PIDLoop {
     private Supplier<Double> waitTime;
 
     /**
+     * The control mode to use (position, velocity or current) for PID.
+     */
+    private ControlMode controlMode;
+
+    /**
      * Which loop to run on.
      * <p>
      * 0 - primary loop
@@ -74,18 +79,24 @@ public class TalonPIDLoop implements PIDLoop {
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd,
                         Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
                         Supplier<Double> waitTime) {
-        this(motor, kp, ki, kd, setpoint, tolerance, canMove, waitTime, 0);
+        this(motor, kp, ki, kd, setpoint, tolerance, canMove, waitTime, ControlMode.Position);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd,
                         Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
-                        Supplier<Double> waitTime, int loop) {
-        this(motor, kp, ki, kd, setpoint, tolerance, canMove, waitTime, loop, 30);
+                        Supplier<Double> waitTime, ControlMode controlMode) {
+        this(motor, kp, ki, kd, setpoint, tolerance, canMove, waitTime, controlMode, 0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd,
                         Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
-                        Supplier<Double> waitTime, int loop, int timeout) {
+                        Supplier<Double> waitTime, ControlMode controlMode, int loop) {
+        this(motor, kp, ki, kd, setpoint, tolerance, canMove, waitTime, controlMode, loop, 30);
+    }
+
+    public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd,
+                        Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
+                        Supplier<Double> waitTime, ControlMode controlMode, int loop, int timeout) {
         this.motor = motor;
         this.kp = kp;
         this.ki = ki;
@@ -94,6 +105,7 @@ public class TalonPIDLoop implements PIDLoop {
         this.tolerance = tolerance;
         this.canMove = canMove;
         this.waitTime = waitTime;
+        this.controlMode = controlMode;
         this.loop = loop;
         this.timeout = timeout;
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
@@ -133,7 +145,7 @@ public class TalonPIDLoop implements PIDLoop {
         motor.config_kI(loop, ki.get(), timeout);
         motor.config_kD(loop, kd.get(), timeout);
 
-        motor.set(ControlMode.Position, setpoint.get());
+        motor.set(controlMode, setpoint.get());
     }
 
     @Override
