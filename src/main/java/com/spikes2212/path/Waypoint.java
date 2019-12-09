@@ -1,12 +1,11 @@
 package com.spikes2212.path;
 
 public class Waypoint {
-    private final double x, y, angle;
+    private final double x, y;
     private double v, d, curvature;
-    public Waypoint(double x, double y, double angle) {
+    public Waypoint(double x, double y) {
         this.x = x;
         this.y = y;
-        this.angle = angle;
     }
     
     public double getX() {
@@ -23,10 +22,6 @@ public class Waypoint {
 
     public void setV(double v) {
         this.v = v;
-    }
-
-    public double getAngle() {
-        return angle;
     }
 
     public void setD(double distance) {
@@ -53,6 +48,6 @@ public class Waypoint {
 
     @Override
     public String toString() {
-        return "x: " + x + " y: " + y + " angle: " + angle;
+        return "x: " + x + " y: " + y;
     }
 }

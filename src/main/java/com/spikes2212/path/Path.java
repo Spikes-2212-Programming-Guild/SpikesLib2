@@ -32,7 +32,7 @@ public class Path {
             double yOffset = (points.get(i+1).getY() - points.get(i).getY()) / (middlePoints + 1);
             double tempX = points.get(i).getX() + xOffset, tempY = points.get(i).getY() + yOffset;
             while (tempX < points.get(i+1).getX()) {
-                points.add(i, new Waypoint(tempX, tempY, points.get(i+1).getAngle()));
+                points.add(i, new Waypoint(tempX, tempY));
                 i++;
                 tempX += xOffset;
                 tempY += yOffset;
@@ -60,7 +60,7 @@ public class Path {
         }
 
         for (int i = 0; i < path.length; i++) {
-            points.set(i, new Waypoint(path[i][0], path[i][1], points.get(i).getAngle()));
+            points.set(i, new Waypoint(path[i][0], path[i][1]));
         }
     }
 

@@ -146,7 +146,7 @@ public class OdometryHandler {
 
 
     public Waypoint getWaypoint() {
-        return new Waypoint(getX(), getY(), getYaw());
+        return new Waypoint(getX(), getY());
     }
 
     /**
