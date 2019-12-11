@@ -90,7 +90,7 @@ public class RioPIDLoop implements PIDLoop {
     private Consumer<Double> output;
 
     public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
-                      Supplier<Double> setpoint, Supplier<Double> PIDSource, Consumer<Double> speedConsumer, Supplier<Double> waitTime, Frequency frequency) {
+                      Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Supplier<Double> waitTime, Frequency frequency) {
         this.kP = kp;
         this.kI = ki;
         this.kD = kd;
@@ -98,45 +98,45 @@ public class RioPIDLoop implements PIDLoop {
         this.setpoint = setpoint;
         this.waitTime = waitTime;
         this.frequency = frequency;
-        this.source = PIDSource;
+        this.source = source;
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
-        this.output = speedConsumer;
+        this.output = output;
         notifier = new Notifier(this::periodic);
     }
 
     public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
-                      Supplier<Double> setpoint, Supplier<Double> PIDSource, Consumer<Double> speedConsumer, Supplier<Double> waitTime) {
-        this(kp, ki, kd, tolerance, setpoint, PIDSource, speedConsumer, waitTime, Frequency.DEFAULT);
+                      Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Supplier<Double> waitTime) {
+        this(kp, ki, kd, tolerance, setpoint, source, output, waitTime, Frequency.DEFAULT);
     }
 
     public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
-                      Supplier<Double> setpoint, Supplier<Double> PIDSource, Consumer<Double> speedConsumer, Frequency frequency) {
-        this(kp, ki, kd, tolerance, setpoint, PIDSource, speedConsumer, () -> 0.0, frequency);
+                      Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+        this(kp, ki, kd, tolerance, setpoint, source, output, () -> 0.0, frequency);
     }
 
     public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
-                      Supplier<Double> setpoint, Supplier<Double> PIDSource, Consumer<Double> speedConsumer) {
-        this(kp, ki, kd, tolerance, setpoint, PIDSource, speedConsumer, () -> 0.0, Frequency.DEFAULT);
+                      Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output) {
+        this(kp, ki, kd, tolerance, setpoint, source, output, () -> 0.0, Frequency.DEFAULT);
     }
 
     public RioPIDLoop(double kp, double ki, double kd, double tolerance,
-                      double setpoint, Supplier<Double> PIDSource, Consumer<Double> speedConsumer, double waitTime, Frequency frequency) {
-        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, PIDSource, speedConsumer, () -> waitTime, frequency);
+                      double setpoint, Supplier<Double> source, Consumer<Double> output, double waitTime, Frequency frequency) {
+        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, source, output, () -> waitTime, frequency);
     }
 
     public RioPIDLoop(double kp, double ki, double kd, double tolerance,
-                      double setpoint, Supplier<Double> PIDSource, Consumer<Double> speedConsumer, double waitTime) {
-        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, PIDSource, speedConsumer, () -> waitTime, Frequency.DEFAULT);
+                      double setpoint, Supplier<Double> source, Consumer<Double> output, double waitTime) {
+        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, source, output, () -> waitTime, Frequency.DEFAULT);
     }
 
     public RioPIDLoop(double kp, double ki, double kd, double tolerance,
-                      double setpoint, Supplier<Double> PIDSource, Consumer<Double> speedConsumer, Frequency frequency) {
-        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, PIDSource, speedConsumer, () -> 0.0, frequency);
+                      double setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, source, output, () -> 0.0, frequency);
     }
 
     public RioPIDLoop(double kp, double ki, double kd, double tolerance,
-                      double setpoint, Supplier<Double> PIDSource, Consumer<Double> speedConsumer) {
-        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, PIDSource, speedConsumer, () -> 0.0, Frequency.DEFAULT);
+                      double setpoint, Supplier<Double> source, Consumer<Double> output) {
+        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, source, output, () -> 0.0, Frequency.DEFAULT);
     }
 
     @Override
