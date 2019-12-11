@@ -198,6 +198,15 @@ public class TalonPIDLoop implements PIDLoop {
 
     @Override
     public boolean onTarget() {
+        if(!inPosition()) {
+            lastTimeNotOnTarget = Timer.getFPGATimestamp();
+        }
+
+        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get()
+                || !canMove.apply(motor.getMotorOutputPercent());
+    }
+
+    private boolean inPosition() throws IllegalArgumentException {
         double currentlyOn;
         switch(controlMode) {
             case Position:
@@ -210,13 +219,6 @@ public class TalonPIDLoop implements PIDLoop {
                 throw new IllegalArgumentException(controlMode.toString() + " is illegal in SpikesLib TalonPIDLoop");
         }
 
-        boolean currentlyOnTarget = Math.abs(setpoint.get() - currentlyOn) < tolerance.get();
-
-        if(!currentlyOnTarget) {
-            lastTimeNotOnTarget = Timer.getFPGATimestamp();
-        }
-
-        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get()
-                || !canMove.apply(motor.getMotorOutputPercent());
+        return Math.abs(setpoint.get() - currentlyOn) < tolerance.get();
     }
 }
