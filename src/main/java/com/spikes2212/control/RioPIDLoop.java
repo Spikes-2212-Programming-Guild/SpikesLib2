@@ -147,7 +147,7 @@ public class RioPIDLoop implements PIDLoop {
 
     private void periodic() {
         synchronized (controller) {
-            output.accept(controller.calculate(source.get(), setpoint.get()));
+            output.accept(controller.calculate(source.get()));
         }
     }
 
