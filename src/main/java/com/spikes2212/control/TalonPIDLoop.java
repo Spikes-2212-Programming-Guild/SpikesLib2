@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import edu.wpi.first.wpilibj.Timer;
 
-import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -47,7 +47,7 @@ public class TalonPIDLoop implements PIDLoop {
     /**
      * The `canMove` method of the Subsystem this PIDLoop belongs to.
      */
-    private Function<Double, Boolean> canMove;
+    private Predicate<Double> canMove;
 
     /**
      * The maximum output of the loop in any direction.
@@ -77,36 +77,36 @@ public class TalonPIDLoop implements PIDLoop {
     private double lastTimeNotOnTarget;
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
-                        Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove) {
+                        Supplier<Double> setpoint, Supplier<Double> tolerance, Predicate<Double> canMove) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, () -> 1.0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
-                        Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
+                        Supplier<Double> setpoint, Supplier<Double> tolerance, Predicate<Double> canMove,
                         Supplier<Double> peakOutput) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, () -> 0.0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
-                        Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
+                        Supplier<Double> setpoint, Supplier<Double> tolerance, Predicate<Double> canMove,
                         Supplier<Double> peakOutput, Supplier<Double> waitTime) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, ControlMode.Position);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
-                        Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
+                        Supplier<Double> setpoint, Supplier<Double> tolerance, Predicate<Double> canMove,
                         Supplier<Double> peakOutput, Supplier<Double> waitTime, ControlMode controlMode) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, controlMode, 0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
-                        Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
+                        Supplier<Double> setpoint, Supplier<Double> tolerance, Predicate<Double> canMove,
                         Supplier<Double> peakOutput, Supplier<Double> waitTime, ControlMode controlMode, int loop) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, controlMode, loop, 30);
     }
 
     public TalonPIDLoop(BaseMotorController motor, Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD,
-                        Supplier<Double> setpoint, Supplier<Double> tolerance, Function<Double, Boolean> canMove,
+                        Supplier<Double> setpoint, Supplier<Double> tolerance, Predicate<Double> canMove,
                         Supplier<Double> peakOutput, Supplier<Double> waitTime, ControlMode controlMode, int loop,
                         int timeout) {
         this.motor = motor;
@@ -125,34 +125,34 @@ public class TalonPIDLoop implements PIDLoop {
     }
 
     public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
-                        Function<Double, Boolean> canMove) {
+                        Predicate<Double> canMove) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, 1.0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
-                        Function<Double, Boolean> canMove, double peakOutput) {
+                        Predicate<Double> canMove, double peakOutput) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, 0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
-                        Function<Double, Boolean> canMove, double peakOutput, double waitTime) {
+                        Predicate<Double> canMove, double peakOutput, double waitTime) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, ControlMode.Position);
     }
 
     public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
-                        Function<Double, Boolean> canMove, double peakOutput, double waitTime,
+                        Predicate<Double> canMove, double peakOutput, double waitTime,
                         ControlMode controlMode) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, controlMode, 0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
-                        Function<Double, Boolean> canMove, double peakOutput, double waitTime, ControlMode controlMode,
+                        Predicate<Double> canMove, double peakOutput, double waitTime, ControlMode controlMode,
                         int loop) {
         this(motor, kP, kI, kD, setpoint, tolerance, canMove, peakOutput, waitTime, controlMode, loop, 30);
     }
 
     public TalonPIDLoop(BaseMotorController motor, double kP, double kI, double kD, double setpoint, double tolerance,
-                        Function<Double, Boolean> canMove, double peakOutput, double waitTime, ControlMode controlMode,
+                        Predicate<Double> canMove, double peakOutput, double waitTime, ControlMode controlMode,
                         int loop, int timeout) {
         this(motor, () -> kP, () -> kI, () -> kD, () -> setpoint, () -> tolerance, canMove, () -> peakOutput,
                 () -> waitTime, controlMode, loop, timeout);
@@ -203,7 +203,7 @@ public class TalonPIDLoop implements PIDLoop {
         }
 
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get()
-                || !canMove.apply(motor.getMotorOutputPercent());
+                || !canMove.test(motor.getMotorOutputPercent());
     }
 
     private boolean inPosition() throws IllegalArgumentException {
