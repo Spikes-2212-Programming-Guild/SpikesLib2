@@ -206,6 +206,12 @@ public class TalonPIDLoop implements PIDLoop {
                 || !canMove.test(motor.getMotorOutputPercent());
     }
 
+    /**
+     * Test if the loop is currently within `tolerance` of `setpoint`.
+     *
+     * @return true when the loop is currently within `tolerance` of `setpoint`, `false` otherwise
+     * @throws IllegalArgumentException when the `ControlMode` is unsupported
+     */
     private boolean inPosition() throws IllegalArgumentException {
         double currentlyOn;
         switch(controlMode) {
