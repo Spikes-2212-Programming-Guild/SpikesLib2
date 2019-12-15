@@ -59,7 +59,7 @@ public class PurePursuitController {
         return path.getPoints().get(minIndex);
     }
 
-    private Waypoint lookaheadPoint() throws LookaheadPointNotFoundException {
+    private Waypoint getLookaheadPoint() throws LookaheadPointNotFoundException {
         Waypoint robot = handler.getWaypoint();
         int lookaheadIndex = lastLookaheadIndex;
         for (int i = lastLookaheadIndex; i < path.getPoints().size(); i++) {
@@ -94,7 +94,7 @@ public class PurePursuitController {
         Waypoint robot = handler.getWaypoint();
         Waypoint lookahead = robot;
         try {
-            lookahead = lookaheadPoint();
+            lookahead = getLookaheadPoint();
         } catch (LookaheadPointNotFoundException lpnfe) {
             throw new LookaheadPointNotFoundException(lpnfe);
         }
