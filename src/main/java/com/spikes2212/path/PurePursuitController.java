@@ -64,12 +64,12 @@ public class PurePursuitController {
         int lookaheadIndex = lastLookaheadIndex;
         for (int i = lastLookaheadIndex; i < path.getPoints().size(); i++) {
             Waypoint d = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
-                    , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY());
+                    , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY()); //End - Start vector
             Waypoint f = new Waypoint(path.getPoints().get(i).getX() - handler.getX()
-                    , path.getPoints().get(i).getY() - handler.getY());
-            double a = d.getX() * d.getX() + d.getY() * d.getY();
-            double b = 2 * (f.getX() * d.getX() + f.getY() * f.getX());
-            double c = f.getX() * f.getX() + f.getY() * f.getY();
+                    , path.getPoints().get(i).getY() - handler.getY()); //Start - Robot vector
+            double a = d.getX() * d.getX() + d.getY() * d.getY(); //d dot d
+            double b = 2 * (f.getX() * d.getX() + f.getY() * d.getY()); //2 f dot d
+            double c = f.getX() * f.getX() + f.getY() * f.getY(); //f dot f
             double discriminant = b * b - 4 * a * c;
             if (discriminant >= 0) {
                 discriminant = Math.sqrt(discriminant);
@@ -102,9 +102,9 @@ public class PurePursuitController {
         double slope = Math.tan(yaw);
         double freeTerm = -slope * robot.getX() - robot.getY();
         double x = Math.abs(-slope * lookahead.getX() + lookahead.getY() + freeTerm) /
-                Math.sqrt(slope * slope + 1);
+                Math.sqrt(slope * slope + 1); //distance between lookahead point and robot line
         double side = Math.sin(yaw) * (lookahead.getX() - robot.getX()) -
-                Math.cos(yaw) * (lookahead.getY() - robot.getY());
+                Math.cos(yaw) * (lookahead.getY() - robot.getY()); //uses cross product to determine side
         return x * side / Math.abs(side);
     }
 
