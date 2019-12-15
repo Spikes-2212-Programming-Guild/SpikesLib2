@@ -4,12 +4,34 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class represents a path.
+ *
+ * @author T
+ */
 public class Path {
+
+    /**
+     * The points on the path.
+     */
     private List<Waypoint> points;
+
+    /**
+     * Initializes a path.
+     * @param middlePoints the amount of points to fill between points
+     * @param data_weight should be 1 minus smooth_weight
+     * @param smooth_weight how smooth to make the path, should be about 0.6 to 0.8
+     * @param tolerance the smoothing tolerance
+     * @param maxVelocity the robot's maximum velocity
+     * @param turningConstant speed constant at curves (the higher it is, the faster you turn)
+     * @param maxAcceleration the robot's maximum acceleration
+     * @param points the initial points on the path. Apart from the edges, non of the points are guaranteed
+     *               to be on the final path
+     */
     public Path(int middlePoints, double data_weight, double smooth_weight, double tolerance,
-                double maxVelocity, double k, double maxAcceleration, Waypoint... points) {
+                double maxVelocity, double turningConstant, double maxAcceleration, Waypoint... points) {
         this.points = new LinkedList<>(Arrays.asList(points));
-        generate(middlePoints, data_weight, smooth_weight, tolerance, maxVelocity, k, maxAcceleration);
+        generate(middlePoints, data_weight, smooth_weight, tolerance, maxVelocity, turningConstant, maxAcceleration);
     }
 
     public List<Waypoint> getPoints() {
@@ -30,25 +52,22 @@ public class Path {
         for (int i = 0; i < points.size() - 1; i++) {
             double xOffset = (points.get(i+1).getX() - points.get(i).getX()) / (middlePoints + 1);
             double yOffset = (points.get(i+1).getY() - points.get(i).getY()) / (middlePoints + 1);
-            double angleOffset = (points.get(i+1).getAngle() - points.get(i).getAngle()) / (middlePoints + 1);
             double tempX = points.get(i).getX() + xOffset, tempY = points.get(i).getY() + yOffset;
-            double tempAngle = points.get(i).getAngle() + angleOffset;
             while (tempX < points.get(i+1).getX()) {
-                points.add(i, new Waypoint(tempX, tempY, tempAngle));
+                points.add(i, new Waypoint(tempX, tempY));
                 i++;
                 tempX += xOffset;
                 tempY += yOffset;
-                tempAngle += angleOffset;
             }
         }
     }
 
     private void smooth(double data_weight, double smooth_weight, double tolerance) {
         double [][] path = new double[points.size()][2];
+        double [][] ogPath = Arrays.copyOf(path, path.length);
         for (int i = 0; i < points.size(); i++) {
             path[i] = points.get(i).toArray();
         }
-        double [][] ogPath = Arrays.copyOf(path, path.length);
         double change = tolerance;
         while (change >= tolerance) {
             change = 0;
@@ -57,13 +76,13 @@ public class Path {
                     double aux = path[i][j];
                     path[i][j] += data_weight * (ogPath[i][j] - path[i][j])
                             + smooth_weight * (path[i-1][j] + path[i+1][j] - 2 * path[i][j]);
-                    change += Math.abs(aux - path[i][j]);
+                    change = Math.abs(aux - path[i][j]);
                 }
             }
         }
 
         for (int i = 0; i < path.length; i++) {
-            points.set(i, new Waypoint(path[i][0], path[i][1], points.get(i).getAngle()));
+            points.set(i, new Waypoint(path[i][0], path[i][1]));
         }
     }
 
