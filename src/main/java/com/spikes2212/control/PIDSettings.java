@@ -31,24 +31,16 @@ public class PIDSettings {
      */
     private Supplier<Double> waitTime;
 
-    public PIDSettings(double kP, double kI, double kD) {
-        this(kP, kI, kD, 0);
-    }
-
-    public PIDSettings(double kP, double kI, double kD, double tolerance) {
-        this(kP, kI, kD, tolerance, 0);
+    public PIDSettings(double kP, double tolerance, double waitTime) {
+        this(kP, 0.0, 0.0, tolerance, waitTime);
     }
 
     public PIDSettings(double kP, double kI, double kD, double tolerance, double waitTime) {
         this(() -> kP, () -> kI, () -> kD, () -> tolerance, () -> waitTime);
     }
 
-    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD) {
-        this(kP, kI, kD, () -> 0.0);
-    }
-
-    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance) {
-        this(kP, kI, kD, tolerance, () -> 0.0);
+    public PIDSettings(Supplier<Double> kP, Supplier<Double> tolerance, Supplier<Double> waitTime) {
+        this(kP, () -> 0.0, () -> 0.0, tolerance, waitTime);
     }
 
     public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance,
