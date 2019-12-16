@@ -51,7 +51,8 @@ public class PIDSettings {
         this(kP, kI, kD, tolerance, () -> 0.0);
     }
 
-    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance, Supplier<Double> waitTime) {
+    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance,
+                       Supplier<Double> waitTime) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
