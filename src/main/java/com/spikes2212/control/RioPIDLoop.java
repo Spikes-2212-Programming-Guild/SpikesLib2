@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * A PID loop that runs on a separated thread.
@@ -89,6 +90,11 @@ public class RioPIDLoop implements PIDLoop {
      */
     private Consumer<Double> output;
 
+    /**
+     * A lock that synchronizes the different threads.
+     */
+    private ReentrantLock lock;
+
     public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
                       Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Supplier<Double> waitTime, Frequency frequency) {
         this.kP = kp;
@@ -102,6 +108,7 @@ public class RioPIDLoop implements PIDLoop {
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
         this.output = output;
         notifier = new Notifier(this::periodic);
+        lock = new ReentrantLock();
     }
 
     public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
@@ -146,9 +153,9 @@ public class RioPIDLoop implements PIDLoop {
     }
 
     private void periodic() {
-        synchronized (controller) {
-            output.accept(controller.calculate(source.get()));
-        }
+        lock.lock();
+        output.accept(controller.calculate(source.get()));
+        lock.unlock();
     }
 
     @Override
@@ -167,10 +174,11 @@ public class RioPIDLoop implements PIDLoop {
 
     @Override
     public void update() {
-        synchronized (controller) {
-            controller.setSetpoint(setpoint.get());
-        }
+        lock.lock();
+        controller.setSetpoint(setpoint.get());
+        lock.unlock();
     }
+
 
     @Override
     public boolean onTarget() {
