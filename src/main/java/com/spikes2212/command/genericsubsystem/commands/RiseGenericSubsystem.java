@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
  * This command rise the speed of a {@link GenericSubsystem} linearly so it will
  * reach a wanted speed after a given time.
  *
- * @author Yuval
+ * @author Yuval Levy
  *
  */
 public class RiseGenericSubsystem extends MoveGenericSubsystem {
