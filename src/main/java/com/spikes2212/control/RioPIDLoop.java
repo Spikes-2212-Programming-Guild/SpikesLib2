@@ -40,35 +40,16 @@ public class RioPIDLoop implements PIDLoop {
      * The PIDController calculates the wanted speed to reach target.
      */
     private PIDController controller;
-    /**
-     * The proportional component of the loop.
-     */
-    private Supplier<Double> kP;
 
     /**
-     * The integral component of the loop.
+     * Contains the setting for the pid loop: Kp, Ki, Kd, tolerance and waitTime.
      */
-    private Supplier<Double> kI;
-
-    /**
-     * The derivative component of the loop.
-     */
-    private Supplier<Double> kD;
-
-    /**
-     * The acceptable distance from target.
-     */
-    private Supplier<Double> tolerance;
+    private PIDSettings pidSettings;
 
     /**
      * The setpoint for the loop.
      */
     private Supplier<Double> setpoint;
-
-    /**
-     * The time required to stay on target.
-     */
-    private Supplier<Double> waitTime;
 
     /**
      * The frequency the PID loop runs in.
@@ -95,14 +76,9 @@ public class RioPIDLoop implements PIDLoop {
      */
     private ReentrantLock lock;
 
-    public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
-                      Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Supplier<Double> waitTime, Frequency frequency) {
-        this.kP = kp;
-        this.kI = ki;
-        this.kD = kd;
-        this.tolerance = tolerance;
+    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+        this.pidSettings = pidSettings;
         this.setpoint = setpoint;
-        this.waitTime = waitTime;
         this.frequency = frequency;
         this.source = source;
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
@@ -111,54 +87,28 @@ public class RioPIDLoop implements PIDLoop {
         lock = new ReentrantLock();
     }
 
-    public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
-                      Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Supplier<Double> waitTime) {
-        this(kp, ki, kd, tolerance, setpoint, source, output, waitTime, Frequency.DEFAULT);
+    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output) {
+        this(pidSettings, setpoint, source, output, Frequency.DEFAULT);
     }
 
-    public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
-                      Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
-        this(kp, ki, kd, tolerance, setpoint, source, output, () -> 0.0, frequency);
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+        this(pidSettings, () -> setpoint, source, output, frequency);
     }
 
-    public RioPIDLoop(Supplier<Double> kp, Supplier<Double> ki, Supplier<Double> kd, Supplier<Double> tolerance,
-                      Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(kp, ki, kd, tolerance, setpoint, source, output, () -> 0.0, Frequency.DEFAULT);
-    }
-
-    public RioPIDLoop(double kp, double ki, double kd, double tolerance,
-                      double setpoint, Supplier<Double> source, Consumer<Double> output, double waitTime, Frequency frequency) {
-        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, source, output, () -> waitTime, frequency);
-    }
-
-    public RioPIDLoop(double kp, double ki, double kd, double tolerance,
-                      double setpoint, Supplier<Double> source, Consumer<Double> output, double waitTime) {
-        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, source, output, () -> waitTime, Frequency.DEFAULT);
-    }
-
-    public RioPIDLoop(double kp, double ki, double kd, double tolerance,
-                      double setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
-        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, source, output, () -> 0.0, frequency);
-    }
-
-    public RioPIDLoop(double kp, double ki, double kd, double tolerance,
-                      double setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(() -> kp, () -> ki, () -> kd, () -> tolerance, () -> setpoint, source, output, () -> 0.0, Frequency.DEFAULT);
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output) {
+        this(pidSettings, () -> setpoint, source, output, Frequency.DEFAULT);
     }
 
     @Override
     public void enable() {
-        controller = new PIDController(kP.get(), kI.get(), kD.get(), frequency.period);
+        controller = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD(), frequency.period);
         notifier.startPeriodic(frequency.period);
     }
 
     private void periodic() {
         lock.lock();
-        try {
-            output.accept(controller.calculate(source.get()));
-        } finally {
-            lock.unlock();
-        }
+        output.accept(controller.calculate(source.get()));
+        lock.unlock();
     }
 
     @Override
@@ -188,9 +138,9 @@ public class RioPIDLoop implements PIDLoop {
 
     @Override
     public boolean onTarget() {
-        if (source.get() - setpoint.get() > tolerance.get()) {
+        if (source.get() - setpoint.get() > pidSettings.getTolerance()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
-        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get();
+        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= pidSettings.getWaitTime();
     }
 }
