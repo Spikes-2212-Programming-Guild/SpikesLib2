@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * A PID loop that runs on a separated thread.
+ * A PID loop that runs on the Roborio in a separated thread.
  *
  * @author Yuval Levy
  */
