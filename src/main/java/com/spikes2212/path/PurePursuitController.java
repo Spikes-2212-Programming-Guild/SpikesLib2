@@ -62,13 +62,13 @@ public class PurePursuitController {
     private Waypoint getLookaheadPoint() throws LookaheadPointNotFoundException {
         Waypoint robot = handler.getWaypoint();
         for (int i = lastLookaheadIndex; i < path.getPoints().size(); i++) {
-            Waypoint d = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
+            Waypoint segment = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
                     , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY());
-            Waypoint f = new Waypoint(path.getPoints().get(i).getX() - robot.getX()
+            Waypoint robotToStart = new Waypoint(path.getPoints().get(i).getX() - robot.getX()
                     , path.getPoints().get(i).getY() - robot.getY());
-            double a = d.getX() * d.getX() + d.getY() * d.getY();
-            double b = 2 * (f.getX() * d.getX() + f.getY() * d.getY());
-            double c = f.getX() * f.getX() + f.getY() * f.getY() - lookaheadDistance * lookaheadDistance;
+            double a = segment.getX() * segment.getX() + segment.getY() * segment.getY();
+            double b = 2 * (robotToStart.getX() * segment.getX() + robotToStart.getY() * segment.getY());
+            double c = robotToStart.getX() * robotToStart.getX() + robotToStart.getY() * robotToStart.getY() - lookaheadDistance * lookaheadDistance;
             double discriminant = b * b - 4 * a * c;
             if (discriminant >= 0) {
                 discriminant = Math.sqrt(discriminant);
@@ -76,13 +76,13 @@ public class PurePursuitController {
                 double t2 = (-b + discriminant) / (2 * a);
                 if (t1 >= 0 && t1 <= 1) {
                     lastLookaheadIndex = i;
-                    return new Waypoint(path.getPoints().get(i).getX() + t1 * d.getX(),
-                            path.getPoints().get(i).getY() + t1 * d.getY());
+                    return new Waypoint(path.getPoints().get(i).getX() + t1 * segment.getX(),
+                            path.getPoints().get(i).getY() + t1 * segment.getY());
                 }
                 if (t2 >= 0 && t2 <= 1) {
                     lastLookaheadIndex = i;
-                    return new Waypoint(path.getPoints().get(i).getX() + t2 * d.getX(),
-                            path.getPoints().get(i).getY() + t2 * d.getY());
+                    return new Waypoint(path.getPoints().get(i).getX() + t2 * segment.getX(),
+                            path.getPoints().get(i).getY() + t2 * segment.getY());
                 }
             }
         }
