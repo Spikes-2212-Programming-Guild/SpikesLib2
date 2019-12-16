@@ -61,15 +61,14 @@ public class PurePursuitController {
 
     private Waypoint lookaheadPoint() throws LookaheadPointNotFoundException {
         Waypoint robot = handler.getWaypoint();
-        int lookaheadIndex = lastLookaheadIndex;
         for (int i = lastLookaheadIndex; i < path.getPoints().size(); i++) {
             Waypoint d = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
                     , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY());
-            Waypoint f = new Waypoint(path.getPoints().get(i).getX() - handler.getX()
-                    , path.getPoints().get(i).getY() - handler.getY());
+            Waypoint f = new Waypoint(path.getPoints().get(i).getX() - robot.getX()
+                    , path.getPoints().get(i).getY() - robot.getY());
             double a = d.getX() * d.getX() + d.getY() * d.getY();
-            double b = 2 * (f.getX() * d.getX() + f.getY() * f.getX());
-            double c = f.getX() * f.getX() + f.getY() * f.getY();
+            double b = 2 * (f.getX() * d.getX() + f.getY() * d.getY());
+            double c = f.getX() * f.getX() + f.getY() * f.getY() - lookaheadDistance * lookaheadDistance;
             double discriminant = b * b - 4 * a * c;
             if (discriminant >= 0) {
                 discriminant = Math.sqrt(discriminant);
