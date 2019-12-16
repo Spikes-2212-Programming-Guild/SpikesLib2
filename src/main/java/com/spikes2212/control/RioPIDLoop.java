@@ -154,8 +154,11 @@ public class RioPIDLoop implements PIDLoop {
 
     private void periodic() {
         lock.lock();
-        output.accept(controller.calculate(source.get()));
-        lock.unlock();
+        try {
+            output.accept(controller.calculate(source.get()));
+        } finally {
+            lock.unlock();
+        }
     }
 
     @Override
@@ -175,8 +178,11 @@ public class RioPIDLoop implements PIDLoop {
     @Override
     public void update() {
         lock.lock();
-        controller.setSetpoint(setpoint.get());
-        lock.unlock();
+        try {
+            controller.setSetpoint(setpoint.get());
+        } finally {
+            lock.unlock();
+        }
     }
 
 
