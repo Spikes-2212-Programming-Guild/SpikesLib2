@@ -52,40 +52,40 @@ public class PIDSettings {
         this.waitTime = waitTime;
     }
 
-    public Supplier<Double> getkP() {
-        return kP;
+    public double getkP() {
+        return kP.get();
     }
 
     public void setkP(Supplier<Double> kP) {
         this.kP = kP;
     }
 
-    public Supplier<Double> getkI() {
-        return kI;
+    public double getkI() {
+        return kI.get();
     }
 
     public void setkI(Supplier<Double> kI) {
         this.kI = kI;
     }
 
-    public Supplier<Double> getkD() {
-        return kD;
+    public double getkD() {
+        return kD.get();
     }
 
     public void setkD(Supplier<Double> kD) {
         this.kD = kD;
     }
 
-    public Supplier<Double> getTolerance() {
-        return tolerance;
+    public double getTolerance() {
+        return tolerance.get();
     }
 
     public void setTolerance(Supplier<Double> tolerance) {
         this.tolerance = tolerance;
     }
 
-    public Supplier<Double> getWaitTime() {
-        return waitTime;
+    public double getWaitTime() {
+        return waitTime.get();
     }
 
     public void setWaitTime(Supplier<Double> waitTime) {
