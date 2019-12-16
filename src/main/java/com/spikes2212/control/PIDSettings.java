@@ -1,11 +1,13 @@
 package com.spikes2212.control;
 
+import java.util.function.Supplier;
+
 public class PIDSettings {
-    private double kP;
-    private double kI;
-    private double kD;
-    private double tolerance;
-    private double waitTime;
+    private Supplier<Double> kP;
+    private Supplier<Double> kI;
+    private Supplier<Double> kD;
+    private Supplier<Double> tolerance;
+    private Supplier<Double> waitTime;
 
     public PIDSettings(double kP, double kI, double kD) {
         this(kP, kI, kD, 0);
@@ -16,6 +18,18 @@ public class PIDSettings {
     }
 
     public PIDSettings(double kP, double kI, double kD, double tolerance, double waitTime) {
+        this(() -> kP, () -> kI, () -> kD, () -> tolerance, () -> waitTime);
+    }
+
+    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD) {
+        this(kP, kI, kD, () -> 0.0);
+    }
+
+    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance) {
+        this(kP, kI, kD, tolerance, () -> 0.0);
+    }
+
+    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance, Supplier<Double> waitTime) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
@@ -23,43 +37,43 @@ public class PIDSettings {
         this.waitTime = waitTime;
     }
 
-    public double getkP() {
+    public Supplier<Double> getkP() {
         return kP;
     }
 
-    public void setkP(double kP) {
+    public void setkP(Supplier<Double> kP) {
         this.kP = kP;
     }
 
-    public double getkI() {
+    public Supplier<Double> getkI() {
         return kI;
     }
 
-    public void setkI(double kI) {
+    public void setkI(Supplier<Double> kI) {
         this.kI = kI;
     }
 
-    public double getkD() {
+    public Supplier<Double> getkD() {
         return kD;
     }
 
-    public void setkD(double kD) {
+    public void setkD(Supplier<Double> kD) {
         this.kD = kD;
     }
 
-    public double getTolerance() {
+    public Supplier<Double> getTolerance() {
         return tolerance;
     }
 
-    public void setTolerance(double tolerance) {
+    public void setTolerance(Supplier<Double> tolerance) {
         this.tolerance = tolerance;
     }
 
-    public double getWaitTime() {
+    public Supplier<Double> getWaitTime() {
         return waitTime;
     }
 
-    public void setWaitTime(double waitTime) {
+    public void setWaitTime(Supplier<Double> waitTime) {
         this.waitTime = waitTime;
     }
 }
