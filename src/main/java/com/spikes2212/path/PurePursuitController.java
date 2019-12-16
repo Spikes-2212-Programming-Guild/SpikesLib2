@@ -68,7 +68,8 @@ public class PurePursuitController {
                     , path.getPoints().get(i).getY() - robot.getY());
             double a = segment.getX() * segment.getX() + segment.getY() * segment.getY();
             double b = 2 * (robotToStart.getX() * segment.getX() + robotToStart.getY() * segment.getY());
-            double c = robotToStart.getX() * robotToStart.getX() + robotToStart.getY() * robotToStart.getY() - lookaheadDistance * lookaheadDistance;
+            double c = robotToStart.getX() * robotToStart.getX() + robotToStart.getY() * robotToStart.getY()
+                    - lookaheadDistance * lookaheadDistance;
             double discriminant = b * b - 4 * a * c;
             if (discriminant >= 0) {
                 discriminant = Math.sqrt(discriminant);
