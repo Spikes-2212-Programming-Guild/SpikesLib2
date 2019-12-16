@@ -4,23 +4,21 @@ public class PIDSettings {
     private double kP;
     private double kI;
     private double kD;
-    private double setpoint;
     private double tolerance;
     private double waitTime;
 
-    public PIDSettings(double kP, double kI, double kD, double setpoint) {
-        this(kP, kI, kD, setpoint, 0);
+    public PIDSettings(double kP, double kI, double kD) {
+        this(kP, kI, kD, 0);
     }
 
-    public PIDSettings(double kP, double kI, double kD, double setpoint, double tolerance) {
-        this(kP, kI, kD, setpoint, tolerance, 0);
+    public PIDSettings(double kP, double kI, double kD, double tolerance) {
+        this(kP, kI, kD, tolerance, 0);
     }
 
-    public PIDSettings(double kP, double kI, double kD, double setpoint, double tolerance, double waitTime) {
+    public PIDSettings(double kP, double kI, double kD, double tolerance, double waitTime) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
-        this.setpoint = setpoint;
         this.tolerance = tolerance;
         this.waitTime = waitTime;
     }
@@ -47,14 +45,6 @@ public class PIDSettings {
 
     public void setkD(double kD) {
         this.kD = kD;
-    }
-
-    public double getSetpoint() {
-        return setpoint;
-    }
-
-    public void setSetpoint(double setpoint) {
-        this.setpoint = setpoint;
     }
 
     public double getTolerance() {
