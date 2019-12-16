@@ -64,10 +64,10 @@ public class Path {
 
     private void smooth(double data_weight, double smooth_weight, double tolerance) {
         double [][] path = new double[points.size()][2];
-        double [][] ogPath = Arrays.copyOf(path, path.length);
         for (int i = 0; i < points.size(); i++) {
             path[i] = points.get(i).toArray();
         }
+        double [][] ogPath = Arrays.copyOf(path, path.length);
         double change = tolerance;
         while (change >= tolerance) {
             change = 0;
@@ -76,7 +76,7 @@ public class Path {
                     double aux = path[i][j];
                     path[i][j] += data_weight * (ogPath[i][j] - path[i][j])
                             + smooth_weight * (path[i-1][j] + path[i+1][j] - 2 * path[i][j]);
-                    change = Math.abs(aux - path[i][j]);
+                    change += Math.abs(aux - path[i][j]);
                 }
             }
         }
@@ -121,7 +121,7 @@ public class Path {
 
     private void smoothVelocities(double maxAcceleration) {
         points.get(points.size() - 1).setV(0);
-        for (int i = points.size() - 1; i >= 0; i--) {
+        for (int i = points.size() - 2; i >= 0; i--) {
             double distance;
             distance = points.get(i).distance(points.get(i+1));
             points.get(i).setV(Math.min(points.get(i).getV(),
