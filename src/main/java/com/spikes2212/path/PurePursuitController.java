@@ -59,7 +59,7 @@ public class PurePursuitController {
         return path.getPoints().get(minIndex);
     }
 
-    private Waypoint lookaheadPoint() throws LookaheadPointNotFoundException {
+    private Waypoint getLookaheadPoint() throws LookaheadPointNotFoundException {
         Waypoint robot = handler.getWaypoint();
         for (int i = lastLookaheadIndex; i < path.getPoints().size(); i++) {
             Waypoint d = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
@@ -93,7 +93,7 @@ public class PurePursuitController {
         Waypoint robot = handler.getWaypoint();
         Waypoint lookahead = robot;
         try {
-            lookahead = lookaheadPoint();
+            lookahead = getLookaheadPoint();
         } catch (LookaheadPointNotFoundException lpnfe) {
             throw new LookaheadPointNotFoundException(lpnfe);
         }
@@ -101,9 +101,9 @@ public class PurePursuitController {
         double slope = Math.tan(yaw);
         double freeTerm = -slope * robot.getX() - robot.getY();
         double x = Math.abs(-slope * lookahead.getX() + lookahead.getY() + freeTerm) /
-                Math.sqrt(slope * slope + 1);
+                Math.sqrt(slope * slope + 1); //distance between lookahead point and robot line
         double side = Math.sin(yaw) * (lookahead.getX() - robot.getX()) -
-                Math.cos(yaw) * (lookahead.getY() - robot.getY());
+                Math.cos(yaw) * (lookahead.getY() - robot.getY()); //uses cross product to determine side
         return x * side / Math.abs(side);
     }
 
