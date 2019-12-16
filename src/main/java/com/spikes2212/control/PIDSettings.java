@@ -2,11 +2,33 @@ package com.spikes2212.control;
 
 import java.util.function.Supplier;
 
+/**
+ * The PID constants used in a {@link PIDLoop}, and the error tolerance and loop wait time.
+ */
 public class PIDSettings {
+    /**
+     * The proportional component of the PID settings.
+     */
     private Supplier<Double> kP;
+
+    /**
+     * The integral component of the PID settings.
+     */
     private Supplier<Double> kI;
+
+    /**
+     * The derivative component of the PID settings.
+     */
     private Supplier<Double> kD;
+
+    /**
+     * The acceptable distance from the target.
+     */
     private Supplier<Double> tolerance;
+
+    /**
+     * The time required to stay on target.
+     */
     private Supplier<Double> waitTime;
 
     public PIDSettings(double kP, double kI, double kD) {
