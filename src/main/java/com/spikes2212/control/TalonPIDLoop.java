@@ -80,6 +80,7 @@ public class TalonPIDLoop implements PIDLoop {
                         Predicate<Double> canMove, Supplier<Double> peakOutput, ControlMode controlMode, int loop,
                         int timeout) {
         this.motor = motor;
+        this.PIDSettings = PIDSettings;
         this.setpoint = setpoint;
         this.canMove = canMove;
         this.peakOutput = peakOutput;
