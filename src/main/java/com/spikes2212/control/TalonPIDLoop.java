@@ -30,12 +30,6 @@ public class TalonPIDLoop implements PIDLoop {
     private Supplier<Double> setpoint;
 
     /**
-
-     * The acceptable distance from the target.
-     */
-    private Supplier<Double> tolerance;
-
-    /**
      * The `canMove` method of the Subsystem this PIDLoop belongs to.
      */
     private Predicate<Double> canMove;
@@ -44,11 +38,6 @@ public class TalonPIDLoop implements PIDLoop {
      * The maximum output of the loop in any direction.
      */
     private Supplier<Double> peakOutput;
-
-    /**
-     * The time required to stay on target.
-     */
-    private Supplier<Double> waitTime;
 
     /**
      * The control mode to use (position, velocity or current) for PID.
