@@ -133,6 +133,11 @@ public class Path {
         }
     }
 
+    /**
+     * Exports the path to a CSV file with the following format:
+     *  x,y,velocity,distance,curvature.
+     * @param path the CSV file
+     */
     public void exportToCSV(java.nio.file.Path path) {
         try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("US-ASCII"))) {
             String s = "x,y,velocity,distance,curvature\n";
