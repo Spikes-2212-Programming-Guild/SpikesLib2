@@ -1,5 +1,9 @@
 package com.spikes2212.path;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -126,6 +130,18 @@ public class Path {
             distance = points.get(i).distance(points.get(i+1));
             points.get(i).setV(Math.min(points.get(i).getV(),
                     Math.sqrt(Math.pow(points.get(i+1).getV(), 2) + 2*maxAcceleration*distance)));
+        }
+    }
+
+    public void exportToCSV(java.nio.file.Path path) {
+        try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("US-ASCII"))) {
+            String s = "x,y,velocity,distance,curvature\n";
+            for (Waypoint w : getPoints()) {
+                s += w.getX() + "," + w.getY() + "," + w.getV() + "," + w.getD() + ","
+                        + w.getCurvature() + "\n";
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
     }
 }
