@@ -7,12 +7,10 @@ import com.spikes2212.command.genericsubsystem.GenericSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
  * This command rise the speed of a {@link GenericSubsystem} linearly so it will
  * reach a wanted speed after a given time.
  *
  * @author Yuval Levy
- *
  */
 public class RiseGenericSubsystem extends MoveGenericSubsystem {
     protected final double time;
@@ -27,12 +25,9 @@ public class RiseGenericSubsystem extends MoveGenericSubsystem {
      * wanted speed the {@link GenericSubsystem} should move with after the given
      * time.
      *
-     * @param subsystem
-     *            the {@link GenericSubsystem} this command should move.
-     * @param wantedSpeed
-     *            the speed the subsystem should move after the time.
-     * @param time
-     *            the time it takes for the subsystem to get to the speed.
+     * @param subsystem   the {@link GenericSubsystem} this command should move.
+     * @param wantedSpeed the speed the subsystem should move after the time.
+     * @param time        the time it takes for the subsystem to get to the speed.
      */
     public RiseGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> wantedSpeed, double time, boolean finishWhenReachingSpeed) {
         super(subsystem, wantedSpeed);
@@ -49,12 +44,9 @@ public class RiseGenericSubsystem extends MoveGenericSubsystem {
      * wanted speed the {@link GenericSubsystem} should move with after the given
      * time.
      *
-     * @param subsystem
-     *            the {@link GenericSubsystem} this command should move.
-     * @param wantedSpeed
-     *            the speed the subsystem should move after the time.
-     * @param time
-     *            the time it takes for the subsystem to get to the speed.
+     * @param subsystem   the {@link GenericSubsystem} this command should move.
+     * @param wantedSpeed the speed the subsystem should move after the time.
+     * @param time        the time it takes for the subsystem to get to the speed.
      */
     public RiseGenericSubsystem(GenericSubsystem subsystem, double wantedSpeed, double time, boolean finishWhenReachingSpeed) {
         this(subsystem, () -> wantedSpeed, time, finishWhenReachingSpeed);
@@ -66,7 +58,7 @@ public class RiseGenericSubsystem extends MoveGenericSubsystem {
     @Override
     public void initialize() {
         startTime = Timer.getFPGATimestamp();
-        currentSpeed=0;
+        currentSpeed = 0;
         acceleration = speedSupplier.get() / time;
     }
 
@@ -82,8 +74,13 @@ public class RiseGenericSubsystem extends MoveGenericSubsystem {
     }
 
     @Override
-    public boolean isFinished(){
-        return super.isFinished() || (finishWhenReachingSpeed&&currentSpeed==speedSupplier.get());
+    public void end(boolean interrupted) {
+        subsystem.stop();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return super.isFinished() || (finishWhenReachingSpeed && currentSpeed == speedSupplier.get());
     }
 
 }

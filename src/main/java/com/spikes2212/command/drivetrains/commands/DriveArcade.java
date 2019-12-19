@@ -28,6 +28,7 @@ public class DriveArcade extends CommandBase {
      * @param drivetrain  the tank drivetrain this command opperates on.
      * @param moveValue   the speed to move straight with. Positive values go forwards.
      * @param rotateValue the speed to turn with. Positive values turn left.
+     * @param isFinished a condition to end the command.
      */
 
 
@@ -49,6 +50,7 @@ public class DriveArcade extends CommandBase {
         this.moveValueSupplier = moveValueSupplier;
         this.rotateValueSupplier = rotateValueSupplier;
         this.isFinished = isFinished;
+        this.addRequirements(drivetrain);
     }
 
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
@@ -66,7 +68,7 @@ public class DriveArcade extends CommandBase {
 
     @Override
     public void initialize() {
-        // TODO Auto-generated method stub
+
     }
 
     @Override
@@ -76,11 +78,9 @@ public class DriveArcade extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // TODO Auto-generated method stub
         return isFinished.get();
     }
 
-    // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
         tankDrivetrain.stop();
