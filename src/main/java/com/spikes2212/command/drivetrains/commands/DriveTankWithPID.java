@@ -27,7 +27,7 @@ public class DriveTankWithPID extends CommandBase {
 
     @Override
     public void initialize() {
-
+        pidLoop.enable();
     }
 
     @Override

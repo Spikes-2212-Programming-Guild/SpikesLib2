@@ -9,40 +9,40 @@ import java.util.function.Supplier;
 public class DriveArcadeWithPID extends CommandBase {
 
     private final TankDrivetrain drivetrain;
-    private final PIDLoop rotationPIDLoop;
+    private final PIDLoop movementPIDLoop;
     private final Supplier<Double> moveForwardSpeed;
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop rotationPIDLoop, Supplier<Double> moveForwardSpeed) {
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop, Supplier<Double> moveForwardSpeed) {
         super();
         this.drivetrain = drivetrain;
-        this.rotationPIDLoop = rotationPIDLoop;
+        this.movementPIDLoop = movementPIDLoop;
         this.moveForwardSpeed = moveForwardSpeed;
         this.addRequirements(drivetrain);
     }
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop rotationPIDLoop, double moveForwardSpeed) {
-        this(drivetrain, rotationPIDLoop, () -> moveForwardSpeed);
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop, double moveForwardSpeed) {
+        this(drivetrain, movementPIDLoop, () -> moveForwardSpeed);
     }
 
     @Override
     public void initialize() {
-        rotationPIDLoop.enable();
+        movementPIDLoop.enable();
     }
 
     @Override
     public void execute() {
-        rotationPIDLoop.update();
+        movementPIDLoop.update();
         drivetrain.stop();
     }
 
     @Override
     public void end(boolean interrupted) {
-        rotationPIDLoop.disable();
+        movementPIDLoop.disable();
     }
 
     @Override
     public boolean isFinished() {
-        return rotationPIDLoop.onTarget();
+        return movementPIDLoop.onTarget();
     }
 
 
