@@ -109,20 +109,15 @@ public class PurePursuitController {
     }
 
     /**
-     * Returns the target speed for the left side of the robot.
-     * @return the target speed for the left side of the robot
+     * Returns the target speeds for left and right as an array.
+     * Left speed at index 0, right speed at index 1.
+     * @return the target side speeds as an array
      * @throws LookaheadPointNotFoundException
      */
-    public double getTargetLeftSpeed() throws LookaheadPointNotFoundException {
-        return closestPoint().getV() * (2 + pathCurvature() * robotWidth) / 2;
-    }
-
-    /**
-     * Returns the target speed for the right side of the robot.
-     * @return the target speed for the right side of the robot
-     * @throws LookaheadPointNotFoundException
-     */
-    public double getTargetRightSpeed() throws LookaheadPointNotFoundException {
-        return closestPoint().getV() * (2 - pathCurvature() * robotWidth) / 2;
+    public double[] getTargetSpeeds() throws LookaheadPointNotFoundException {
+        Waypoint closest = closestPoint();
+        double pathCurvature = pathCurvature();
+        return new double[]{closest.getV() * (2 + pathCurvature * robotWidth) / 2,
+                closest.getV() * (2 - pathCurvature * robotWidth) / 2};
     }
 }
