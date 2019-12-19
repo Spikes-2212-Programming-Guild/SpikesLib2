@@ -32,12 +32,12 @@ public class DriveArcadeWithPID extends CommandBase {
     @Override
     public void execute() {
         movementPIDLoop.update();
-        drivetrain.stop();
     }
 
     @Override
     public void end(boolean interrupted) {
         movementPIDLoop.disable();
+        drivetrain.stop();
     }
 
     @Override
