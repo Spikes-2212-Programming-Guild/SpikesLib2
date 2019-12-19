@@ -19,7 +19,7 @@ public class RioPIDLoop implements PIDLoop {
     /**
      * An enum that represents the frequency the PID loop runs in.
      */
-    private enum Frequency {
+    public enum Frequency {
         LOW(0.05),
         DEFAULT(0.02),
         HIGH(0.01);
@@ -76,7 +76,10 @@ public class RioPIDLoop implements PIDLoop {
      */
     private ReentrantLock lock;
 
-    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+
+    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source,
+                      Consumer<Double> output, Frequency frequency,
+                      boolean continuous, double minContinuousValue, double maxContinuousValue) {
         this.pidSettings = pidSettings;
         this.setpoint = setpoint;
         this.frequency = frequency;
@@ -85,18 +88,63 @@ public class RioPIDLoop implements PIDLoop {
         this.output = output;
         notifier = new Notifier(this::periodic);
         lock = new ReentrantLock();
+        setContinuousMode(continuous, minContinuousValue, maxContinuousValue);
+    }
+
+    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+        this(pidSettings, setpoint, source, output, frequency, false, 0, 0);
     }
 
     public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(pidSettings, setpoint, source, output, Frequency.DEFAULT);
+        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
     }
 
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
-        this(pidSettings, () -> setpoint, source, output, frequency);
+    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output
+            , boolean continuous, double minContinuousValue, double maxContinuousValue) {
+        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
+    }
+
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output
+            , Frequency frequency, boolean continuous, double minContinuousValue, double maxContinuousValue) {
+        this(pidSettings, () -> setpoint, source, output, frequency, continuous, minContinuousValue, maxContinuousValue);
     }
 
     public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(pidSettings, () -> setpoint, source, output, Frequency.DEFAULT);
+        this(pidSettings, () -> setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
+    }
+
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+        this(pidSettings, setpoint, source, output, frequency, false, 0, 0);
+    }
+
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output
+            , boolean continuous, double minContinuousValue, double maxContinuousValue) {
+        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
+    }
+
+    public void setSetpoint(Supplier<Double> setpoint) {
+        this.setpoint = setpoint;
+    }
+
+    public void setPidSettings(PIDSettings pidSettings) {
+        this.pidSettings = pidSettings;
+    }
+
+
+    public PIDSettings getPidSettings() {
+        return pidSettings;
+    }
+
+    public Supplier<Double> getSetpoint() {
+        return setpoint;
+    }
+
+    public Supplier<Double> getSource() {
+        return source;
+    }
+
+    public Consumer<Double> getOutput() {
+        return output;
     }
 
     @Override
@@ -117,12 +165,20 @@ public class RioPIDLoop implements PIDLoop {
     }
 
 
-    public void enableContinuousInput(double minimumValue, double maximumValue) {
+    private void enableContinuousInput(double minimumValue, double maximumValue) {
         this.controller.enableContinuousInput(minimumValue, maximumValue);
     }
 
-    public void disableContinuousInput() {
+    private void disableContinuousInput() {
         this.controller.disableContinuousInput();
+    }
+
+    private void setContinuousMode(boolean mode, double maxValue, double minValue) {
+        if (mode)
+            enableContinuousInput(maxValue, minValue);
+        else
+            disableContinuousInput();
+
     }
 
     @Override
