@@ -8,9 +8,9 @@ import java.util.function.Supplier;
 
 public class DriveArcadeWithPID extends CommandBase {
 
-    private TankDrivetrain drivetrain;
-    private PIDLoop rotationPIDLoop;
-    private Supplier<Double> moveForwardSpeed;
+    private final TankDrivetrain drivetrain;
+    private final PIDLoop rotationPIDLoop;
+    private final Supplier<Double> moveForwardSpeed;
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop rotationPIDLoop, Supplier<Double> moveForwardSpeed) {
         super();
