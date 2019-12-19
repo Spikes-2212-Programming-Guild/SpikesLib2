@@ -32,6 +32,7 @@ public class DriveArcadeWithPID extends CommandBase {
     @Override
     public void execute() {
         rotationPIDLoop.update();
+        drivetrain.stop();
     }
 
     @Override
