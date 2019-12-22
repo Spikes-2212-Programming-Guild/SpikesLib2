@@ -1,5 +1,6 @@
 package com.spikes2212.path;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -36,6 +37,10 @@ public class Path {
                 double maxVelocity, double turningConstant, double maxAcceleration, Waypoint... points) {
         this.points = new LinkedList<>(Arrays.asList(points));
         generate(middlePoints, data_weight, smooth_weight, tolerance, maxVelocity, turningConstant, maxAcceleration);
+    }
+
+    private Path(List<Waypoint> points) {
+        this.points = points;
     }
 
     public List<Waypoint> getPoints() {
@@ -148,5 +153,24 @@ public class Path {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+
+    public Path importFromCSV(java.nio.file.Path path) {
+        List<Waypoint> waypoints = new LinkedList<>();
+        try {
+            List<String> lines = Files.readAllLines(path);
+            for (String line : lines) {
+                String[] values = line.split(",");
+                Waypoint point = new Waypoint(Double.parseDouble(values[0]),
+                        Double.parseDouble(values[1]));
+                point.setV(Double.parseDouble(values[2]));
+                point.setD(Double.parseDouble(values[3]));
+                point.setCurvature(Double.parseDouble(values[4]));
+                waypoints.add(point);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return new Path(waypoints);
     }
 }
