@@ -6,7 +6,7 @@ package com.spikes2212.control;
 public class FeedForwardController {
 
     /**
-     * The velocity constantd
+     * The velocity constant
      */
     private double kV;
 
