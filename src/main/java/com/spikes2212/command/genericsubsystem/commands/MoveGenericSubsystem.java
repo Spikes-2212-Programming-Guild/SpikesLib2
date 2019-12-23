@@ -33,6 +33,7 @@ public class MoveGenericSubsystem extends CommandBase {
         super();
         this.subsystem = subsystem;
         this.speedSupplier = speedSupplier;
+        this.addRequirements(subsystem);
     }
 
     public MoveGenericSubsystem(GenericSubsystem subsystem, double speedSupplier) {

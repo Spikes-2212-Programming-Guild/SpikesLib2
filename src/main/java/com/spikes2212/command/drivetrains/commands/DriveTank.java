@@ -46,6 +46,7 @@ public class DriveTank extends CommandBase {
         this.leftSpeedSuplier = leftSpeedSupplier;
         this.rightSpeedSuplier = rightSpeedSupplier;
         this.isFinished = isFinished;
+        this.addRequirements(drivetrain);
     }
 
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
