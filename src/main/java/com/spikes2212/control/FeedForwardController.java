@@ -1,7 +1,7 @@
 package com.spikes2212.control;
 
 /**
- * This class represents a FeedForwardController for use with the path package (mostly).
+ * This class represents a FeedForwardController.
  */
 public class FeedForwardController {
 
