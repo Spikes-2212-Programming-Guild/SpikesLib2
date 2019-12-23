@@ -4,45 +4,39 @@ import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.PIDLoop;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import java.util.Objects;
+import java.util.function.Supplier;
 
-public class DriveTankWithPID extends CommandBase {
+public class DriveWithPID extends CommandBase {
 
-    /**
-     * the drivetrain the command moves.
-     */
     private final TankDrivetrain drivetrain;
+    private final PIDLoop movementPIDLoop;
 
-    /**
-     * the PIDloop that calculates and sets the values for the motors.
-     */
-    private final PIDLoop pidLoop;
-
-    public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop pidLoop){
+    public DriveWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop) {
         super();
         this.drivetrain = drivetrain;
-        this.pidLoop = pidLoop;
+        this.movementPIDLoop = movementPIDLoop;
         this.addRequirements(drivetrain);
     }
 
     @Override
     public void initialize() {
-        pidLoop.enable();
+        movementPIDLoop.enable();
     }
 
     @Override
     public void execute() {
-        pidLoop.update();
+        movementPIDLoop.update();
     }
 
     @Override
     public void end(boolean interrupted) {
-        pidLoop.disable();
+        movementPIDLoop.disable();
         drivetrain.stop();
     }
 
     @Override
     public boolean isFinished() {
-        return pidLoop.onTarget();
+        return movementPIDLoop.onTarget();
     }
+
 }
