@@ -6,7 +6,7 @@ package com.spikes2212.control;
 public class FeedForwardController {
 
     /**
-     * The velocity constant
+     * The velocity constantd
      */
     private double kV;
 
@@ -16,20 +16,24 @@ public class FeedForwardController {
     private double kA;
 
     /**
-     * The feedback constant
+     * The previous target.
+     * Used for the derivative.
      */
-    private double kB;
-
     private double previousTarget;
 
-    public FeedForwardController(double kV, double kA, double kB) {
-        this(kV, kA, kB, 0);
+    /**
+     * The calling period for the calculate function.
+     */
+    private double period;
+
+    public FeedForwardController(double kV, double kA, double period) {
+        this(kV, kA, period, 0);
     }
 
-    public FeedForwardController(double kV, double kA, double kB, double initialTarget) {
+    public FeedForwardController(double kV, double kA, double period, double initialTarget) {
         this.kV = kV;
         this.kA = kA;
-        this.kB = kB;
+        this.period = period;
         this.previousTarget = initialTarget;
     }
 
@@ -49,24 +53,19 @@ public class FeedForwardController {
         this.kA = kA;
     }
 
-    public double getkB() {
-        return kB;
-    }
-
-    public void setkB(double kB) {
-        this.kB = kB;
+    public double getPeriod() {
+        return period;
     }
 
     /**
-     * Calculates the desired output using a simple feed forward-feed back.
-     * This method should be called frequently or it will be very inaccurate.
+     * Calculates the desired output using a simple feed forward method.
+     * This method should be called with the period given in the constructor.
      * @param target the target velocity
-     * @param measurement the measured velocity
      * @return the desired output
      */
-    public double calculate(double target, double measurement) {
-        double targetDerivative = target - previousTarget;
+    public double calculate(double target) {
+        double targetDerivative = (target - previousTarget / period);
         previousTarget = target;
-        return kV * target + kA * targetDerivative + kB * (target - measurement);
+        return kV * target + kA * targetDerivative;
     }
 }
