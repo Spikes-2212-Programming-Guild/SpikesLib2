@@ -18,7 +18,6 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
     private double acceleration;
     private double currentSpeed;
     private double startTime;
-    private boolean finishWhenReachingSpeed;
 
     /**
      * This constructs a new {@link AccelerateGenericSubsystem} command using the
@@ -30,13 +29,12 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
      * @param wantedSpeed the speed the subsystem should move after the time.
      * @param time        the time it takes for the subsystem to get to the speed.
      */
-    public AccelerateGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> wantedSpeed, double time, boolean finishWhenReachingSpeed) {
+    public AccelerateGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> wantedSpeed, double time) {
         super(subsystem, wantedSpeed);
         if (time <= 1) {
             time = 1;
         }
         this.time = time;
-        this.finishWhenReachingSpeed = finishWhenReachingSpeed;
     }
 
     /**
@@ -49,8 +47,8 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
      * @param wantedSpeed the speed the subsystem should move after the time.
      * @param time        the time it takes for the subsystem to get to the speed.
      */
-    public AccelerateGenericSubsystem(GenericSubsystem subsystem, double wantedSpeed, double time, boolean finishWhenReachingSpeed) {
-        this(subsystem, () -> wantedSpeed, time, finishWhenReachingSpeed);
+    public AccelerateGenericSubsystem(GenericSubsystem subsystem, double wantedSpeed, double time) {
+        this(subsystem, () -> wantedSpeed, time);
     }
 
     /**
@@ -71,6 +69,7 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
         currentSpeed = (Timer.getFPGATimestamp() - startTime) * acceleration;
         if (Math.abs(currentSpeed) > Math.abs(speedSupplier.get()))
             currentSpeed = speedSupplier.get();
+
         subsystem.move(currentSpeed);
     }
 
@@ -81,7 +80,7 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
 
     @Override
     public boolean isFinished() {
-        return super.isFinished() || (finishWhenReachingSpeed && currentSpeed == speedSupplier.get());
+        return super.isFinished() || currentSpeed == speedSupplier.get();
     }
 
 }
