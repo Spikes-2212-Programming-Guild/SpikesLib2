@@ -167,20 +167,11 @@ public class RioPIDLoop implements PIDLoop {
         notifier.stop();
     }
 
-
-    private void enableContinuousInput(double minimumValue, double maximumValue) {
-        this.controller.enableContinuousInput(minimumValue, maximumValue);
-    }
-
-    private void disableContinuousInput() {
-        this.controller.disableContinuousInput();
-    }
-
     private void setContinuousMode(boolean mode, double maxValue, double minValue) {
         if (mode)
-            enableContinuousInput(maxValue, minValue);
+            this.controller.enableContinuousInput(maxValue, minValue);
         else
-            disableContinuousInput();
+            this.controller.disableContinuousInput();
 
     }
 
