@@ -71,6 +71,9 @@ public class DriveArcade extends CommandBase {
 
     }
 
+    /**
+     * sets the rotationValue and the forwardValue
+     */
     @Override
     public void execute() {
         tankDrivetrain.arcadeDrive(moveValueSupplier.get(), rotateValueSupplier.get());

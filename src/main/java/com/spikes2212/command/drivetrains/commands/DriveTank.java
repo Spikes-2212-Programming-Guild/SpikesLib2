@@ -62,24 +62,24 @@ public class DriveTank extends CommandBase {
         this(drivetrain, () -> leftSpeed, () -> rightSpeed, () -> false);
     }
 
-    // Called just before this Command runs the first time
+
     @Override
     public void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * sets the values for both the leftSpeedSupplier and the rightSpeedSupplier.
+     */
     @Override
     public void execute() {
         tankDrivetrain.tankDrive(leftSpeedSuplier.get(), rightSpeedSuplier.get());
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     public boolean isFinished() {
         return this.isFinished.get();
     }
 
-    // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
         tankDrivetrain.stop();

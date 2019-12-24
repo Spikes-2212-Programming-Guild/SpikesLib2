@@ -7,12 +7,13 @@ import com.spikes2212.command.genericsubsystem.GenericSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * This command rise the speed of a {@link GenericSubsystem} linearly so it will
+ * This command accelerate the speed of a {@link GenericSubsystem} linearly so it will
  * reach a wanted speed after a given time.
  *
  * @author Yuval Levy
  */
-public class RiseGenericSubsystem extends MoveGenericSubsystem {
+public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
+
     protected final double time;
     private double acceleration;
     private double currentSpeed;
@@ -20,7 +21,7 @@ public class RiseGenericSubsystem extends MoveGenericSubsystem {
     private boolean finishWhenReachingSpeed;
 
     /**
-     * This constructs a new {@link RiseGenericSubsystem} command using the
+     * This constructs a new {@link AccelerateGenericSubsystem} command using the
      * {@link GenericSubsystem} this command operates on and a supplier supplying the
      * wanted speed the {@link GenericSubsystem} should move with after the given
      * time.
@@ -29,7 +30,7 @@ public class RiseGenericSubsystem extends MoveGenericSubsystem {
      * @param wantedSpeed the speed the subsystem should move after the time.
      * @param time        the time it takes for the subsystem to get to the speed.
      */
-    public RiseGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> wantedSpeed, double time, boolean finishWhenReachingSpeed) {
+    public AccelerateGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> wantedSpeed, double time, boolean finishWhenReachingSpeed) {
         super(subsystem, wantedSpeed);
         if (time <= 1) {
             time = 1;
@@ -39,7 +40,7 @@ public class RiseGenericSubsystem extends MoveGenericSubsystem {
     }
 
     /**
-     * This constructs a new {@link RiseGenericSubsystem} command using the
+     * This constructs a new {@link AccelerateGenericSubsystem} command using the
      * {@link GenericSubsystem} this command operates on and a supplier supplying the
      * wanted speed the {@link GenericSubsystem} should move with after the given
      * time.
@@ -48,7 +49,7 @@ public class RiseGenericSubsystem extends MoveGenericSubsystem {
      * @param wantedSpeed the speed the subsystem should move after the time.
      * @param time        the time it takes for the subsystem to get to the speed.
      */
-    public RiseGenericSubsystem(GenericSubsystem subsystem, double wantedSpeed, double time, boolean finishWhenReachingSpeed) {
+    public AccelerateGenericSubsystem(GenericSubsystem subsystem, double wantedSpeed, double time, boolean finishWhenReachingSpeed) {
         this(subsystem, () -> wantedSpeed, time, finishWhenReachingSpeed);
     }
 

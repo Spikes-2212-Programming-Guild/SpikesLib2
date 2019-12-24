@@ -46,6 +46,9 @@ public class MoveGenericSubsystem extends CommandBase {
 
     }
 
+    /**
+     * moves the subsystem at the given speed
+     */
     @Override
     public void execute() {
         subsystem.move(speedSupplier.get());
