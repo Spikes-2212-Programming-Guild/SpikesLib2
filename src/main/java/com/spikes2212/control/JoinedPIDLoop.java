@@ -1,13 +1,15 @@
 package com.spikes2212.control;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class JoinedPID implements PIDLoop {
+public class JoinedPIDLoop implements PIDLoop {
 
     private List<PIDLoop> pidLoops;
 
-    public JoinedPID(PIDLoop... pidLoops) {
+    public JoinedPIDLoop(PIDLoop... pidLoops) {
+        this.pidLoops = new ArrayList<>();
         this.pidLoops.addAll(Arrays.asList(pidLoops));
     }
 
