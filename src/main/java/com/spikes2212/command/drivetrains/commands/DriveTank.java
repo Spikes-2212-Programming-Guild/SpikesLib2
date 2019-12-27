@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class DriveTank extends CommandBase {
 
     protected final TankDrivetrain tankDrivetrain;
-    protected final Supplier<Double> leftSpeedSuplier;
-    protected final Supplier<Double> rightSpeedSuplier;
+    protected final Supplier<Double> leftSpeedSupplier;
+    protected final Supplier<Double> rightSpeedSupplier;
     Supplier<Boolean> isFinished;
 
     /**
@@ -43,8 +43,8 @@ public class DriveTank extends CommandBase {
                      Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished) {
         super();
         this.tankDrivetrain = drivetrain;
-        this.leftSpeedSuplier = leftSpeedSupplier;
-        this.rightSpeedSuplier = rightSpeedSupplier;
+        this.leftSpeedSupplier = leftSpeedSupplier;
+        this.rightSpeedSupplier = rightSpeedSupplier;
         this.isFinished = isFinished;
         this.addRequirements(drivetrain);
     }
@@ -72,7 +72,7 @@ public class DriveTank extends CommandBase {
      */
     @Override
     public void execute() {
-        tankDrivetrain.tankDrive(leftSpeedSuplier.get(), rightSpeedSuplier.get());
+        tankDrivetrain.tankDrive(leftSpeedSupplier.get(), rightSpeedSupplier.get());
     }
 
     @Override
