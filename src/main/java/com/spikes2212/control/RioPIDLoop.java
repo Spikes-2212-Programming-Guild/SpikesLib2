@@ -180,15 +180,15 @@ public class RioPIDLoop implements PIDLoop {
         lock.lock();
         try {
             controller.setSetpoint(setpoint.get());
+            controller.setTolerance(pidSettings.getTolerance());
         } finally {
             lock.unlock();
         }
     }
 
-
     @Override
     public boolean onTarget() {
-        if (source.get() - setpoint.get() > pidSettings.getTolerance()) {
+        if (!controller.atSetpoint()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= pidSettings.getWaitTime();
