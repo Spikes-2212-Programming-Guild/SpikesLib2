@@ -57,10 +57,12 @@ public class Path {
         smoothVelocities(maxAcceleration);
     }
 
-    private void fill(int middlePoints) {
+    private void fill(double distance) {
         for (int i = 0; i < points.size() - 1; i++) {
-            double xOffset = (points.get(i+1).getX() - points.get(i).getX()) / (middlePoints + 1);
-            double yOffset = (points.get(i+1).getY() - points.get(i).getY()) / (middlePoints + 1);
+            double slopeAngle = Math.atan2(points.get(i+1).getY() - points.get(i).getY(),
+                        points.get(i+1).getX() - points.get(i).getX());
+            double xOffset = distance * Math.cos(slopeAngle);
+            double yOffset = distance * Math.sin(slopeAngle);
             double tempX = points.get(i).getX() + xOffset, tempY = points.get(i).getY() + yOffset;
             while (tempX < points.get(i+1).getX()) {
                 points.add(i, new Waypoint(tempX, tempY));
