@@ -1,6 +1,5 @@
 package com.spikes2212.path;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -23,9 +22,8 @@ public class Path {
 
     /**
      * Initializes a path.
-     * @param middlePoints the amount of points to fill between points
-     * @param data_weight should be 1 minus smooth_weight
-     * @param smooth_weight how smooth to make the path, should be about 0.6 to 0.8
+     * @param middlePointDistance the distance between two points filled in between points given as parameters
+     * @param smooth_weight how smooth to make the path, should be about 0.75 to 0.98
      * @param tolerance the smoothing tolerance
      * @param maxVelocity the robot's maximum velocity
      * @param turningConstant speed constant at curves (the higher it is, the faster you turn)
@@ -33,10 +31,13 @@ public class Path {
      * @param points the initial points on the path. Apart from the edges, non of the points are guaranteed
      *               to be on the final path
      */
-    public Path(int middlePoints, double data_weight, double smooth_weight, double tolerance,
-                double maxVelocity, double turningConstant, double maxAcceleration, Waypoint... points) {
+    public Path(double middlePointDistance
+            , double smooth_weight, double tolerance,
+                double maxVelocity, double turningConstant
+            , double maxAcceleration, Waypoint... points) {
         this.points = new LinkedList<>(Arrays.asList(points));
-        generate(middlePoints, data_weight, smooth_weight, tolerance, maxVelocity, turningConstant, maxAcceleration);
+        generate(middlePointDistance, smooth_weight, tolerance
+                , maxVelocity, turningConstant, maxAcceleration);
     }
 
     private Path(List<Waypoint> points) {
@@ -47,10 +48,10 @@ public class Path {
         return points;
     }
 
-    private void generate(int middlePoints, double data_weight, double smooth_weight, double tolerance,
+    private void generate(double distance, double smooth_weight, double tolerance,
                           double maxVelocity, double k, double maxAcceleration) {
-        fill(middlePoints);
-        smooth(data_weight, smooth_weight, tolerance);
+        fill(distance);
+        smooth(smooth_weight, tolerance);
         calculateDistances();
         calculateCurvatures();
         calculateMaxVelocities(maxVelocity, k);
@@ -73,7 +74,8 @@ public class Path {
         }
     }
 
-    private void smooth(double data_weight, double smooth_weight, double tolerance) {
+    private void smooth(double smooth_weight, double tolerance) {
+        double data_weight = 1 - smooth_weight;
         double [][] path = new double[points.size()][2];
         for (int i = 0; i < points.size(); i++) {
             path[i] = points.get(i).toArray();
