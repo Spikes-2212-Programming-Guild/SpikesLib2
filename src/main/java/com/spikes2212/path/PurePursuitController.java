@@ -61,15 +61,15 @@ public class PurePursuitController {
 
     private Waypoint getLookaheadPoint() throws LookaheadPointNotFoundException {
         Waypoint robot = handler.getWaypoint();
-        int lookaheadIndex = lastLookaheadIndex;
         for (int i = lastLookaheadIndex; i < path.getPoints().size(); i++) {
-            Waypoint d = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
-                    , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY()); //End - Start vector
-            Waypoint f = new Waypoint(path.getPoints().get(i).getX() - handler.getX()
-                    , path.getPoints().get(i).getY() - handler.getY()); //Start - Robot vector
-            double a = d.getX() * d.getX() + d.getY() * d.getY(); //d dot d
-            double b = 2 * (f.getX() * d.getX() + f.getY() * d.getY()); //2 f dot d
-            double c = f.getX() * f.getX() + f.getY() * f.getY(); //f dot f
+            Waypoint segment = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
+                    , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY());
+            Waypoint robotToStart = new Waypoint(path.getPoints().get(i).getX() - robot.getX()
+                    , path.getPoints().get(i).getY() - robot.getY());
+            double a = segment.getX() * segment.getX() + segment.getY() * segment.getY();
+            double b = 2 * (robotToStart.getX() * segment.getX() + robotToStart.getY() * segment.getY());
+            double c = robotToStart.getX() * robotToStart.getX() + robotToStart.getY() * robotToStart.getY()
+                    - lookaheadDistance * lookaheadDistance;
             double discriminant = b * b - 4 * a * c;
             if (discriminant >= 0) {
                 discriminant = Math.sqrt(discriminant);
@@ -77,13 +77,13 @@ public class PurePursuitController {
                 double t2 = (-b + discriminant) / (2 * a);
                 if (t1 >= 0 && t1 <= 1) {
                     lastLookaheadIndex = i;
-                    return new Waypoint(path.getPoints().get(i).getX() + t1 * d.getX(),
-                            path.getPoints().get(i).getY() + t1 * d.getY());
+                    return new Waypoint(path.getPoints().get(i).getX() + t1 * segment.getX(),
+                            path.getPoints().get(i).getY() + t1 * segment.getY());
                 }
                 if (t2 >= 0 && t2 <= 1) {
                     lastLookaheadIndex = i;
-                    return new Waypoint(path.getPoints().get(i).getX() + t2 * d.getX(),
-                            path.getPoints().get(i).getY() + t2 * d.getY());
+                    return new Waypoint(path.getPoints().get(i).getX() + t2 * segment.getX(),
+                            path.getPoints().get(i).getY() + t2 * segment.getY());
                 }
             }
         }
@@ -109,20 +109,15 @@ public class PurePursuitController {
     }
 
     /**
-     * Returns the target speed for the left side of the robot.
-     * @return the target speed for the left side of the robot
+     * Returns the target speeds for left and right as an array.
+     * Left speed at index 0, right speed at index 1.
+     * @return the target side speeds as an array
      * @throws LookaheadPointNotFoundException
      */
-    public double getTargetLeftSpeed() throws LookaheadPointNotFoundException {
-        return closestPoint().getV() * (2 + pathCurvature() * robotWidth) / 2;
-    }
-
-    /**
-     * Returns the target speed for the right side of the robot.
-     * @return the target speed for the right side of the robot
-     * @throws LookaheadPointNotFoundException
-     */
-    public double getTargetRightSpeed() throws LookaheadPointNotFoundException {
-        return closestPoint().getV() * (2 - pathCurvature() * robotWidth) / 2;
+    public double[] getTargetSpeeds() throws LookaheadPointNotFoundException {
+        Waypoint closest = closestPoint();
+        double pathCurvature = pathCurvature();
+        return new double[]{closest.getV() * (2 + pathCurvature * robotWidth) / 2,
+                closest.getV() * (2 - pathCurvature * robotWidth) / 2};
     }
 }
