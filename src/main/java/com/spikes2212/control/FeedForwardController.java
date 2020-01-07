@@ -64,7 +64,7 @@ public class FeedForwardController {
      * @return the desired output
      */
     public double calculate(double target) {
-        double targetDerivative = (target - previousTarget / period);
+        double targetDerivative = (target - previousTarget) / period;
         previousTarget = target;
         return kV * target + kA * targetDerivative;
     }
