@@ -119,7 +119,7 @@ public class Path {
             if(x1 == x2) x2 += 0.000001;
             double k1 = 0.5 * (x1*x1 + y1*y1 - x2*x2 - y2*y2) / (x1 - x2);
             double k2 = (y1 - y2) / (x1 - x2);
-            double b = 0.5 * (x2*x2 - 2*2*k1 + y2*y2 - x3*x3 + 2*x3*k1 - y3*y3) / (x3*k2 - y3 + y2 - x2*k2);
+            double b = 0.5 * (x2*x2 - 2*x2*k1 + y2*y2 - x3*x3 + 2*x3*k1 - y3*y3) / (x3*k2 - y3 + y2 - x2*k2);
             double a = k1 - k2 * b;
             double r = Math.sqrt((x1-a)*(x1-a) + (y1-b)*(y1-b));
             if(Double.isNaN(r))
