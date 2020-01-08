@@ -122,7 +122,6 @@ public class Path {
             double b = 0.5 * (x2*x2 - 2*x2*k1 + y2*y2 - x3*x3 + 2*x3*k1 - y3*y3) / (x3*k2 - y3 + y2 - x2*k2);
             double a = k1 - k2 * b;
             double r = Math.sqrt((x1-a)*(x1-a) + (y1-b)*(y1-b));
-            if (r == 0 || Double.isNaN(r)) throw new IllegalArgumentException("r in calcCurv is NaN");
             points.get(i).setCurvature(1/r);
         }
     }
