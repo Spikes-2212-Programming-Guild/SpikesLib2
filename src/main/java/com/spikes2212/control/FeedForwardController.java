@@ -64,6 +64,7 @@ public class FeedForwardController {
      * @return the desired output
      */
     public double calculate(double target) {
+        if(Double.isNaN(target)) throw new IllegalArgumentException("target cannot be NaN");
         double targetDerivative = (target - previousTarget) / period;
         previousTarget = target;
         return kV * target + kA * targetDerivative;
