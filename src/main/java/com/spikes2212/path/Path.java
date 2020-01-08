@@ -129,7 +129,7 @@ public class Path {
 
     private void calculateMaxVelocities(double maxVelocity, double k) {
         for (Waypoint p : points) {
-            p.setV(Math.max(maxVelocity, k/p.getCurvature()));
+            p.setV(Math.min(maxVelocity, k/p.getCurvature()));
         }
     }
 
