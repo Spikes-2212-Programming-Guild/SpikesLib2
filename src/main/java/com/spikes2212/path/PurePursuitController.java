@@ -121,4 +121,9 @@ public class PurePursuitController {
         return new double[]{closest.getV() * (2 + pathCurvature * robotWidth) / 2,
                 closest.getV() * (2 - pathCurvature * robotWidth) / 2};
     }
+
+    public void reset() {
+        lastClosestIndex = 0;
+        lastLookaheadIndex = 0;
+    }
 }
