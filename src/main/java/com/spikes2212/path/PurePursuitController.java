@@ -61,7 +61,7 @@ public class PurePursuitController {
 
     private Waypoint getLookaheadPoint() throws LookaheadPointNotFoundException {
         Waypoint robot = handler.getWaypoint();
-        for (int i = lastLookaheadIndex; i < path.getPoints().size(); i++) {
+        for (int i = lastLookaheadIndex; i < path.getPoints().size() - 1; i++) {
             Waypoint segment = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
                     , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY());
             Waypoint robotToStart = new Waypoint(path.getPoints().get(i).getX() - robot.getX()
