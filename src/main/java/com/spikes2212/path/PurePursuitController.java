@@ -2,7 +2,7 @@ package com.spikes2212.path;
 
 /**
  * This class represents a PurePursuitController.
- * You should the getTargetSpeed methods periodically.
+ * You should the getSpeeds method periodically.
  *
  * @author T
  */
