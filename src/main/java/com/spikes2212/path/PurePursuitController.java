@@ -99,7 +99,7 @@ public class PurePursuitController {
             throw new LookaheadPointNotFoundException(lpnfe);
         }
         double yaw = handler.getYaw();
-        double slope = Math.tan(yaw);
+        double slope = Math.tan(Math.PI/2 - yaw);
         double freeTerm = -slope * robot.getX() - robot.getY();
         double x = Math.abs(-slope * lookahead.getX() + lookahead.getY() + freeTerm) /
                 Math.sqrt(slope * slope + 1); //distance between lookahead point and robot line
