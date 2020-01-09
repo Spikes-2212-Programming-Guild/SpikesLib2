@@ -122,6 +122,10 @@ public class PurePursuitController {
                 closest.getV() * (2 - pathCurvature * robotWidth) / 2};
     }
 
+    /**
+     * Resets the PurePursuitController's local variables so it can be used again.
+     * This method should be called right before you start running a path.
+     */
     public void reset() {
         lastClosestIndex = 0;
         lastLookaheadIndex = 0;
