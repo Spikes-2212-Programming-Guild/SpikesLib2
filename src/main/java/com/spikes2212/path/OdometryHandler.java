@@ -116,8 +116,8 @@ public class OdometryHandler {
          * 26)
          */
         Point2D point = convertPolarToCartesian(centerDistance, -arg);
-        x += point.getX();
-        y += point.getY();
+        x += point.getY();
+        y += point.getX();
     }
 
     /**
@@ -149,7 +149,7 @@ public class OdometryHandler {
      * @return the robot's current position as a {@link Waypoint}
      */
     public Waypoint getWaypoint() {
-        return new Waypoint(getY(), -getX());
+        return new Waypoint(getX(), getY());
     }
 
     /**
