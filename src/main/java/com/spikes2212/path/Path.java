@@ -155,6 +155,7 @@ public class Path {
                 s += w.getX() + "," + w.getY() + "," + w.getV() + "," + w.getD() + ","
                         + w.getCurvature() + "\n";
             }
+            writer.write(s,0,s.length());
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
