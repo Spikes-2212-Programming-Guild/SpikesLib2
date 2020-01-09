@@ -149,7 +149,7 @@ public class OdometryHandler {
      * @return the robot's current position as a {@link Waypoint}
      */
     public Waypoint getWaypoint() {
-        return new Waypoint(getX(), getY());
+        return new Waypoint(getY(), -getX());
     }
 
     /**
