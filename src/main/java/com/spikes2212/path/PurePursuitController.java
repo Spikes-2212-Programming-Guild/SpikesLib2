@@ -105,7 +105,6 @@ public class PurePursuitController {
                 Math.sqrt(slope * slope + 1); //distance between lookahead point and robot line
         double side = Math.sin(yaw) * (lookahead.getX() - robot.getX()) -
                 Math.cos(yaw) * (lookahead.getY() - robot.getY()); //uses cross product to determine side
-        if (side == 0) return 0;
         return x * side / Math.abs(side);
     }
 
