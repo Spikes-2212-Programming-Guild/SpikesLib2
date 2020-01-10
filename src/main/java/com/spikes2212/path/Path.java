@@ -62,7 +62,7 @@ public class Path {
         for (int i = 0; i < points.size() - 1; i++) {
             double slopeAngle = Math.atan2(points.get(i+1).getY() - points.get(i).getY(),
                         points.get(i+1).getX() - points.get(i).getX());
-            if(Double.isNaN(slopeAngle)) slopeAngle = 0;
+            if(Double.isNaN(slopeAngle)) slopeAngle = Math.PI/2;
             double xOffset = distance * Math.cos(slopeAngle);
             double yOffset = distance * Math.sin(slopeAngle);
             double tempX = points.get(i).getX() + xOffset, tempY = points.get(i).getY() + yOffset;
