@@ -21,13 +21,14 @@ public class RootNamespace implements Namespace {
         NetworkTableEntry entry =this.table.getEntry(name);
         entry.setPersistent();
         entry.setDouble(value);
-        return () -> value;
+        return () -> entry.getDouble(value);
     }
 
     @Override
     public Supplier<Integer> addConstantInt(String name, int value) {
         NetworkTableEntry entry =this.table.getEntry(name);
         entry.setPersistent();
+        entry.setNumber(value);
         entry.setNumber(value);
         return () -> value;
     }
@@ -36,6 +37,7 @@ public class RootNamespace implements Namespace {
     public Supplier<String> addConstantString(String name, String value) {
         NetworkTableEntry entry =this.table.getEntry(name);
         entry.setPersistent();
+        entry.setString(value);
         entry.setString(value);
         return () ->value;
     }
