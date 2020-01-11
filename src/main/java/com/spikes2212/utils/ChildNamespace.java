@@ -16,6 +16,11 @@ public class ChildNamespace extends RootNamespace {
         this.parent = parent;
         separator="/";
     }
+    public ChildNamespace(String name, Namespace parent,String separator){
+        super(name);
+        this.parent = parent;
+        this.separator=separator;
+    }
     @Override
     public Supplier<Double> addConstantDouble(String name, double value) {
         return parent.addConstantDouble(this.name + separator + name,value);
