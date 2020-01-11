@@ -18,7 +18,7 @@ public class RootNamespace implements Namespace {
 
     @Override
     public Supplier<Double> addConstantDouble(String name, double value) {
-        NetworkTableEntry entry =this.table.getEntry(name);
+        NetworkTableEntry entry = this.table.getEntry(name);
         entry.setPersistent();
         entry.setDouble(value);
         return () -> entry.getDouble(value);
@@ -26,20 +26,19 @@ public class RootNamespace implements Namespace {
 
     @Override
     public Supplier<Integer> addConstantInt(String name, int value) {
-        NetworkTableEntry entry =this.table.getEntry(name);
+        NetworkTableEntry entry = this.table.getEntry(name);
         entry.setPersistent();
         entry.setNumber(value);
-        entry.setNumber(value);
-        return () -> value;
+        return () -> (Integer) entry.getNumber(value);
     }
 
     @Override
     public Supplier<String> addConstantString(String name, String value) {
-        NetworkTableEntry entry =this.table.getEntry(name);
+        NetworkTableEntry entry = this.table.getEntry(name);
         entry.setPersistent();
         entry.setString(value);
         entry.setString(value);
-        return () ->value;
+        return () -> entry.getString(value);
     }
 
     @Override
@@ -50,52 +49,52 @@ public class RootNamespace implements Namespace {
 
     @Override
     public void putData(String key, Sendable value) {
-        NetworkTableEntry entry =this.table.getEntry(key);
+        NetworkTableEntry entry = this.table.getEntry(key);
         entry.setValue(value);
     }
 
     @Override
     public Sendable getSendable(String key) {
-        NetworkTableEntry entry =this.table.getEntry(key);
-        NetworkTableValue value =entry.getValue();
+        NetworkTableEntry entry = this.table.getEntry(key);
+        NetworkTableValue value = entry.getValue();
         return (Sendable) value.getValue();
     }
 
     @Override
     public void putString(String key, String value) {
-        NetworkTableEntry entry =this.table.getEntry(key);
+        NetworkTableEntry entry = this.table.getEntry(key);
         entry.setString(value);
     }
 
     @Override
     public String getString(String key) {
-        NetworkTableEntry entry =this.table.getEntry(key);
-        NetworkTableValue value=entry.getValue();
+        NetworkTableEntry entry = this.table.getEntry(key);
+        NetworkTableValue value = entry.getValue();
         return value.getString();
     }
 
     @Override
     public void putNumber(String key, double value) {
-        NetworkTableEntry entry =this.table.getEntry(key);
+        NetworkTableEntry entry = this.table.getEntry(key);
         entry.setDouble(value);
     }
 
     @Override
     public double getNumber(String key) {
-        NetworkTableEntry entry =this.table.getEntry(key);
-        NetworkTableValue value =entry.getValue();
+        NetworkTableEntry entry = this.table.getEntry(key);
+        NetworkTableValue value = entry.getValue();
         return value.getDouble();
     }
 
     @Override
     public void putBoolean(String key, boolean value) {
-        NetworkTableEntry entry =this.table.getEntry(key);
+        NetworkTableEntry entry = this.table.getEntry(key);
         entry.setBoolean(value);
     }
 
     @Override
     public boolean getBoolean(String key) {
-        NetworkTableEntry entry =this.table.getEntry(key);
+        NetworkTableEntry entry = this.table.getEntry(key);
         NetworkTableValue value = entry.getValue();
         return value.getBoolean();
     }
