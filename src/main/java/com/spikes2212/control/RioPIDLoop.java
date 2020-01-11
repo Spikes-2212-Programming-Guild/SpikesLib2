@@ -71,11 +71,6 @@ public class RioPIDLoop implements PIDLoop {
      */
     private Consumer<Double> output;
 
-    /**
-     * A lock that synchronizes the different threads.
-     */
-    private ReentrantLock lock;
-
 
     public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
                       Frequency frequency, boolean continuous, double minContinuousValue, double maxContinuousValue) {
@@ -86,7 +81,6 @@ public class RioPIDLoop implements PIDLoop {
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
         this.output = output;
         notifier = new Notifier(this::periodic);
-        lock = new ReentrantLock();
         setContinuousMode(continuous, minContinuousValue, maxContinuousValue);
     }
 
@@ -137,12 +131,7 @@ public class RioPIDLoop implements PIDLoop {
     }
 
     private void periodic() {
-        lock.lock();
-        try {
-            output.accept(controller.calculate(source.get()));
-        } finally {
-            lock.unlock();
-        }
+        output.accept(controller.calculate(source.get()));
     }
 
     @Override
@@ -160,13 +149,8 @@ public class RioPIDLoop implements PIDLoop {
 
     @Override
     public void update() {
-        lock.lock();
-        try {
-            controller.setSetpoint(setpoint);
-            controller.setTolerance(pidSettings.getTolerance());
-        } finally {
-            lock.unlock();
-        }
+        controller.setSetpoint(setpoint);
+        controller.setTolerance(pidSettings.getTolerance());
     }
 
     @Override
