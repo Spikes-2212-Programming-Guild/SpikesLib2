@@ -4,21 +4,23 @@ import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.PIDLoop;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import java.util.function.Supplier;
+
 public class DriveTankWithPID extends CommandBase {
 
     private final TankDrivetrain drivetrain;
     private final PIDLoop rightPIDLoop;
     private final PIDLoop leftPIDLoop;
-    private double rightSetpoint;
-    private double leftSetpoint;
+    private Supplier<Double> rightSetpoint;
+    private Supplier<Double> leftSetpoint;
 
     /**
-     * @param drivetrain      is the {@link TankDrivetrain} the command moves.
-     * @param rightPIDLoop is the {@link PIDLoop} that calculates and sets the speed to the drivetrain.
+     * @param drivetrain    is the {@link TankDrivetrain} the command moves.
+     * @param rightPIDLoop  is the {@link PIDLoop} that calculates and sets the speed to the drivetrain.
      * @param rightSetpoint is the setpoint for the PIDLoop.
      */
 
-    public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop rightPIDLoop, PIDLoop leftPIDLoop, double rightSetpoint, double leftSetpoint) {
+    public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop rightPIDLoop, PIDLoop leftPIDLoop, Supplier<Double> rightSetpoint, Supplier<Double> leftSetpoint) {
         super();
         this.drivetrain = drivetrain;
         this.rightPIDLoop = rightPIDLoop;
@@ -28,14 +30,18 @@ public class DriveTankWithPID extends CommandBase {
         this.addRequirements(drivetrain);
     }
 
+    public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop rightPIDLoop, PIDLoop leftPIDLoop, double rightSetpoint, double leftSetpoint) {
+        this(drivetrain, rightPIDLoop, leftPIDLoop, () -> rightSetpoint, () -> leftSetpoint);
+    }
+
     /**
      * starts the given PIDLoop.
      */
     @Override
     public void initialize() {
-        rightPIDLoop.setSetpoint(leftSetpoint);
+        rightPIDLoop.setSetpoint(leftSetpoint.get());
         rightPIDLoop.enable();
-        leftPIDLoop.setSetpoint(rightSetpoint);
+        leftPIDLoop.setSetpoint(rightSetpoint.get());
         leftPIDLoop.enable();
     }
 
