@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * A PID loop that runs on the Roborio in a separated thread.
@@ -122,6 +122,7 @@ public class RioPIDLoop implements PIDLoop {
         this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
     }
 
+    @Override
     public void setSetpoint(Supplier<Double> setpoint) {
         this.setpoint = setpoint;
     }

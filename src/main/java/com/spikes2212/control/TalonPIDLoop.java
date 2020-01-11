@@ -166,6 +166,11 @@ public class TalonPIDLoop implements PIDLoop {
                 || !canMove.test(motor.getMotorOutputPercent());
     }
 
+    @Override
+    public void setSetpoint(Supplier<Double> setpoint) {
+        this.setpoint = setpoint;
+    }
+
     /**
      * Test if the loop is currently within `tolerance` of `setpoint`.
      *
