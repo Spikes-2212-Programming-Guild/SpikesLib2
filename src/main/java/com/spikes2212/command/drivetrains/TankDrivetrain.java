@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class TankDrivetrain extends SubsystemBase {
 
-    private SpeedController leftController;
-    private SpeedController rightController;
+    protected SpeedController leftController;
+    protected SpeedController rightController;
     private DifferentialDrive drive;
 
     public TankDrivetrain(SpeedController left, SpeedController right) {
