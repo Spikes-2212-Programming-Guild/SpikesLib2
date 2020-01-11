@@ -2,7 +2,6 @@ package com.spikes2212.path;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -165,6 +164,7 @@ public class Path {
         List<Waypoint> waypoints = new LinkedList<>();
         try {
             List<String> lines = Files.readAllLines(path);
+            lines.remove(0);
             for (String line : lines) {
                 String[] values = line.split(",");
                 Waypoint point = new Waypoint(Double.parseDouble(values[0]),
