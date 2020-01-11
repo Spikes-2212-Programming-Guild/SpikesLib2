@@ -10,8 +10,8 @@ The old version is still available at the [old repository](https://github.com/Sp
 
 ## Packages
 
-- command - Command Based extensions 
-- motor - extensions for motor controllers
+- command - extensions for WPILib's Command Based framework
+- control - controller wrappers and custom controllers
 - path - path following code and pure pursuit algorithm
 - util - additional utilities
 

@@ -27,4 +27,11 @@ public interface PIDLoop {
      * @return `true` when within target range for `waitTime`, `false` otherwise
      */
     boolean onTarget();
+
+    /**
+     * Change the `setpoint` the loop is aiming towards.
+     *
+     * @param setpoint the new setpoint to aim towards
+     */
+    void setSetpoint(double setpoint);
 }

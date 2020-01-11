@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * A PID loop that runs on the Roborio in a separated thread.
@@ -19,7 +19,7 @@ public class RioPIDLoop implements PIDLoop {
     /**
      * An enum that represents the frequency the PID loop runs in.
      */
-    private enum Frequency {
+    public enum Frequency {
         LOW(0.05),
         DEFAULT(0.02),
         HIGH(0.01);
@@ -49,7 +49,7 @@ public class RioPIDLoop implements PIDLoop {
     /**
      * The setpoint for the loop.
      */
-    private Supplier<Double> setpoint;
+    private double setpoint;
 
     /**
      * The frequency the PID loop runs in.
@@ -76,7 +76,9 @@ public class RioPIDLoop implements PIDLoop {
      */
     private ReentrantLock lock;
 
-    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+                      Frequency frequency, boolean continuous, double minContinuousValue, double maxContinuousValue) {
         this.pidSettings = pidSettings;
         this.setpoint = setpoint;
         this.frequency = frequency;
@@ -85,18 +87,47 @@ public class RioPIDLoop implements PIDLoop {
         this.output = output;
         notifier = new Notifier(this::periodic);
         lock = new ReentrantLock();
+        setContinuousMode(continuous, minContinuousValue, maxContinuousValue);
     }
 
-    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(pidSettings, setpoint, source, output, Frequency.DEFAULT);
-    }
-
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
-        this(pidSettings, () -> setpoint, source, output, frequency);
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+                      Frequency frequency) {
+        this(pidSettings, setpoint, source, output, frequency, false, 0.0, 0.0);
     }
 
     public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(pidSettings, () -> setpoint, source, output, Frequency.DEFAULT);
+        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
+    }
+
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+                      boolean continuous, double minContinuousValue, double maxContinuousValue) {
+        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
+    }
+
+    public double getSetpoint() {
+        return setpoint;
+    }
+
+    public void setPidSettings(PIDSettings pidSettings) {
+        this.pidSettings = pidSettings;
+    }
+
+
+    public PIDSettings getPidSettings() {
+        return pidSettings;
+    }
+
+    @Override
+    public void setSetpoint(double setpoint) {
+        this.setpoint = setpoint;
+    }
+
+    public Supplier<Double> getSource() {
+        return source;
+    }
+
+    public Consumer<Double> getOutput() {
+        return output;
     }
 
     @Override
@@ -107,8 +138,11 @@ public class RioPIDLoop implements PIDLoop {
 
     private void periodic() {
         lock.lock();
-        output.accept(controller.calculate(source.get()));
-        lock.unlock();
+        try {
+            output.accept(controller.calculate(source.get()));
+        } finally {
+            lock.unlock();
+        }
     }
 
     @Override
@@ -116,29 +150,28 @@ public class RioPIDLoop implements PIDLoop {
         notifier.stop();
     }
 
+    private void setContinuousMode(boolean mode, double maxValue, double minValue) {
+        if (mode)
+            this.controller.enableContinuousInput(maxValue, minValue);
+        else
+            this.controller.disableContinuousInput();
 
-    public void enableContinuousInput(double minimumValue, double maximumValue) {
-        this.controller.enableContinuousInput(minimumValue, maximumValue);
-    }
-
-    public void disableContinuousInput() {
-        this.controller.disableContinuousInput();
     }
 
     @Override
     public void update() {
         lock.lock();
         try {
-            controller.setSetpoint(setpoint.get());
+            controller.setSetpoint(setpoint);
+            controller.setTolerance(pidSettings.getTolerance());
         } finally {
             lock.unlock();
         }
     }
 
-
     @Override
     public boolean onTarget() {
-        if (source.get() - setpoint.get() > pidSettings.getTolerance()) {
+        if (!controller.atSetpoint()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= pidSettings.getWaitTime();
