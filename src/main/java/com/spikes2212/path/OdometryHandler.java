@@ -34,7 +34,7 @@ public class OdometryHandler {
     public OdometryHandler(Supplier<Double> leftPosition, Supplier<Double> rightPosition, Supplier<Double> angleSupplier
             , double x, double y) {
         this.leftPosition = leftPosition;
-        this.rightPosition = leftPosition;
+        this.rightPosition = rightPosition;
         this.yaw = angleSupplier;
         pose = new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(yaw.get()));
     }
