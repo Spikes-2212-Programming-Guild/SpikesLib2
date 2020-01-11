@@ -3,6 +3,7 @@ package com.spikes2212.path;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -149,7 +150,7 @@ public class Path {
      * @param path the CSV file
      */
     public void exportToCSV(java.nio.file.Path path) {
-        try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("US-ASCII"))) {
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.US_ASCII)) {
             String s = "x,y,velocity,distance,curvature\n";
             for (Waypoint w : getPoints()) {
                 s += w.getX() + "," + w.getY() + "," + w.getV() + "," + w.getD() + ","
