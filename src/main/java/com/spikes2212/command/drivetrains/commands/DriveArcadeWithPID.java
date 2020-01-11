@@ -4,22 +4,30 @@ import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.PIDLoop;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import java.util.function.Supplier;
 
-public class DriveWithPID extends CommandBase {
+
+public class DriveArcadeWithPID extends CommandBase {
 
     private final TankDrivetrain drivetrain;
     private final PIDLoop movementPIDLoop;
+    private Supplier<Double> setpoint;
 
     /**
      * @param drivetrain      is the {@link TankDrivetrain} the command moves.
      * @param movementPIDLoop is the {@link PIDLoop} that calculates and sets the speed to the drivetrain.
      */
 
-    public DriveWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop) {
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop, Supplier<Double> setpoint) {
         super();
         this.drivetrain = drivetrain;
         this.movementPIDLoop = movementPIDLoop;
+        this.setpoint = setpoint;
         this.addRequirements(drivetrain);
+    }
+
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop, double setpoint){
+        this(drivetrain, movementPIDLoop, () -> setpoint);
     }
 
     /**
@@ -35,6 +43,7 @@ public class DriveWithPID extends CommandBase {
      */
     @Override
     public void execute() {
+        movementPIDLoop.setSetpoint(setpoint.get());
         movementPIDLoop.update();
     }
 
