@@ -80,6 +80,7 @@ public class RioPIDLoop implements PIDLoop {
         this.source = source;
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
         this.output = output;
+        controller = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD(), frequency.period);
         notifier = new Notifier(this::periodic);
         setContinuousMode(continuous, minContinuousValue, maxContinuousValue);
     }
@@ -126,7 +127,6 @@ public class RioPIDLoop implements PIDLoop {
 
     @Override
     public void enable() {
-        controller = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD(), frequency.period);
         notifier.startPeriodic(frequency.period);
     }
 
