@@ -77,9 +77,8 @@ public class RioPIDLoop implements PIDLoop {
     private ReentrantLock lock;
 
 
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source,
-                      Consumer<Double> output, Frequency frequency,
-                      boolean continuous, double minContinuousValue, double maxContinuousValue) {
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+                      Frequency frequency, boolean continuous, double minContinuousValue, double maxContinuousValue) {
         this.pidSettings = pidSettings;
         this.setpoint = setpoint;
         this.frequency = frequency;
@@ -91,7 +90,8 @@ public class RioPIDLoop implements PIDLoop {
         setContinuousMode(continuous, minContinuousValue, maxContinuousValue);
     }
 
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+                      Frequency frequency) {
         this(pidSettings, setpoint, source, output, frequency, false, 0.0, 0.0);
     }
 
@@ -99,8 +99,8 @@ public class RioPIDLoop implements PIDLoop {
         this(pidSettings, setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
     }
 
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output
-            , boolean continuous, double minContinuousValue, double maxContinuousValue) {
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+                      boolean continuous, double minContinuousValue, double maxContinuousValue) {
         this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
     }
 
