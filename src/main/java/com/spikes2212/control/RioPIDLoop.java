@@ -49,7 +49,7 @@ public class RioPIDLoop implements PIDLoop {
     /**
      * The setpoint for the loop.
      */
-    private Supplier<Double> setpoint;
+    private double setpoint;
 
     /**
      * The frequency the PID loop runs in.
@@ -77,7 +77,7 @@ public class RioPIDLoop implements PIDLoop {
     private ReentrantLock lock;
 
 
-    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source,
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source,
                       Consumer<Double> output, Frequency frequency,
                       boolean continuous, double minContinuousValue, double maxContinuousValue) {
         this.pidSettings = pidSettings;
@@ -91,30 +91,12 @@ public class RioPIDLoop implements PIDLoop {
         setContinuousMode(continuous, minContinuousValue, maxContinuousValue);
     }
 
-    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
-        this(pidSettings, setpoint, source, output, frequency, false, 0, 0);
-    }
-
-    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
-    }
-
-    public RioPIDLoop(PIDSettings pidSettings, Supplier<Double> setpoint, Supplier<Double> source, Consumer<Double> output
-            , boolean continuous, double minContinuousValue, double maxContinuousValue) {
-        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
-    }
-
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output
-            , Frequency frequency, boolean continuous, double minContinuousValue, double maxContinuousValue) {
-        this(pidSettings, () -> setpoint, source, output, frequency, continuous, minContinuousValue, maxContinuousValue);
+    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
+        this(pidSettings, setpoint, source, output, frequency, false, 0.0, 0.0);
     }
 
     public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(pidSettings, () -> setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
-    }
-
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output, Frequency frequency) {
-        this(pidSettings, setpoint, source, output, frequency, false, 0, 0);
+        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
     }
 
     public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output
@@ -122,9 +104,8 @@ public class RioPIDLoop implements PIDLoop {
         this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
     }
 
-    @Override
-    public void setSetpoint(Supplier<Double> setpoint) {
-        this.setpoint = setpoint;
+    public double getSetpoint() {
+        return setpoint;
     }
 
     public void setPidSettings(PIDSettings pidSettings) {
@@ -136,8 +117,9 @@ public class RioPIDLoop implements PIDLoop {
         return pidSettings;
     }
 
-    public Supplier<Double> getSetpoint() {
-        return setpoint;
+    @Override
+    public void setSetpoint(double setpoint) {
+        this.setpoint = setpoint;
     }
 
     public Supplier<Double> getSource() {
@@ -180,7 +162,7 @@ public class RioPIDLoop implements PIDLoop {
     public void update() {
         lock.lock();
         try {
-            controller.setSetpoint(setpoint.get());
+            controller.setSetpoint(setpoint);
             controller.setTolerance(pidSettings.getTolerance());
         } finally {
             lock.unlock();

@@ -1,7 +1,5 @@
 package com.spikes2212.control;
 
-import java.util.function.Supplier;
-
 /**
  * An interface for PID loops.
  *
@@ -35,5 +33,5 @@ public interface PIDLoop {
      *
      * @param setpoint the new setpoint to aim towards
      */
-    void setSetpoint(Supplier<Double> setpoint);
+    void setSetpoint(double setpoint);
 }

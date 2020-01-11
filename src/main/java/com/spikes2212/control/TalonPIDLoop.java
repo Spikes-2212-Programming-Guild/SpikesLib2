@@ -27,7 +27,7 @@ public class TalonPIDLoop implements PIDLoop {
     /**
      * The setpoint the loop should go towards.
      */
-    private Supplier<Double> setpoint;
+    private double setpoint;
 
     /**
      * The `canMove` method of the Subsystem this PIDLoop belongs to.
@@ -56,27 +56,27 @@ public class TalonPIDLoop implements PIDLoop {
 
     private double lastTimeNotOnTarget;
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, Supplier<Double> setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
                         Predicate<Double> canMove) {
         this(motor, PIDSettings, setpoint, canMove, () -> 1.0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, Supplier<Double> setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
                         Predicate<Double> canMove, Supplier<Double> peakOutput) {
         this(motor, PIDSettings, setpoint, canMove, peakOutput, ControlMode.Position);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, Supplier<Double> setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
                         Predicate<Double> canMove, Supplier<Double> peakOutput, ControlMode controlMode) {
         this(motor, PIDSettings, setpoint, canMove, peakOutput, controlMode, 0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, Supplier<Double> setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
                         Predicate<Double> canMove, Supplier<Double> peakOutput, ControlMode controlMode, int loop) {
         this(motor, PIDSettings, setpoint, canMove, peakOutput, controlMode, loop, 30);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, Supplier<Double> setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
                         Predicate<Double> canMove, Supplier<Double> peakOutput, ControlMode controlMode, int loop,
                         int timeout) {
         this.motor = motor;
@@ -88,11 +88,6 @@ public class TalonPIDLoop implements PIDLoop {
         this.loop = loop;
         this.timeout = timeout;
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
-    }
-
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
-                        Predicate<Double> canMove) {
-        this(motor, PIDSettings, setpoint, canMove, 1.0);
     }
 
     public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
@@ -115,7 +110,7 @@ public class TalonPIDLoop implements PIDLoop {
     public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
                         Predicate<Double> canMove, double peakOutput, ControlMode controlMode,
                         int loop, int timeout) {
-        this(motor, PIDSettings, () -> setpoint, canMove, () -> peakOutput, controlMode, loop, timeout);
+        this(motor, PIDSettings, setpoint, canMove, () -> peakOutput, controlMode, loop, timeout);
     }
 
     private void initialize() {
@@ -153,7 +148,7 @@ public class TalonPIDLoop implements PIDLoop {
         motor.config_kI(loop, PIDSettings.getkI(), timeout);
         motor.config_kD(loop, PIDSettings.getkD(), timeout);
 
-        motor.set(controlMode, setpoint.get());
+        motor.set(controlMode, setpoint);
     }
 
     @Override
@@ -167,7 +162,7 @@ public class TalonPIDLoop implements PIDLoop {
     }
 
     @Override
-    public void setSetpoint(Supplier<Double> setpoint) {
+    public void setSetpoint(double setpoint) {
         this.setpoint = setpoint;
     }
 
@@ -190,6 +185,6 @@ public class TalonPIDLoop implements PIDLoop {
                 throw new IllegalArgumentException(controlMode.toString() + " is illegal in SpikesLib TalonPIDLoop");
         }
 
-        return Math.abs(setpoint.get() - currentlyOn) < PIDSettings.getTolerance();
+        return Math.abs(setpoint - currentlyOn) < PIDSettings.getTolerance();
     }
 }
