@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 
 public class RootNamespace implements Namespace {
 
-    private String name;
+    protected String name;
     private NetworkTable table;
 
     public RootNamespace(String name) {
@@ -44,13 +44,13 @@ public class RootNamespace implements Namespace {
     }
 
     @Override
-    public void putData(String key, Sendable value) { //todo
+    public void putData(String key, Sendable value) {
         NetworkTableEntry entry =this.table.getEntry(key);
         entry.setValue(value);
     }
 
     @Override
-    public Sendable getSendable(String key) { //todo
+    public Sendable getSendable(String key) {
         NetworkTableEntry entry =this.table.getEntry(key);
         NetworkTableValue value =entry.getValue();
         return (Sendable) value.getValue();
