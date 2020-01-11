@@ -39,9 +39,8 @@ public class DriveTankWithPID extends CommandBase {
      */
     @Override
     public void initialize() {
-        rightPIDLoop.setSetpoint(leftSetpoint.get());
         rightPIDLoop.enable();
-        leftPIDLoop.setSetpoint(rightSetpoint.get());
+
         leftPIDLoop.enable();
     }
 
@@ -50,6 +49,8 @@ public class DriveTankWithPID extends CommandBase {
      */
     @Override
     public void execute() {
+        rightPIDLoop.setSetpoint(leftSetpoint.get());
+        leftPIDLoop.setSetpoint(rightSetpoint.get());
         rightPIDLoop.update();
         leftPIDLoop.update();
     }
