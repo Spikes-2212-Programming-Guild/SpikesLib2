@@ -3,6 +3,7 @@ package com.spikes2212.path;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -22,7 +23,7 @@ public class Path {
 
     /**
      * Initializes a path.
-     * @param middlePointDistance the distance between two points filled in between points given as parameters
+     * @param spacing the distance between two points filled in between points given as parameters
      * @param smooth_weight how smooth to make the path, should be about 0.75 to 0.98
      * @param tolerance the smoothing tolerance
      * @param maxVelocity the robot's maximum velocity
@@ -31,12 +32,12 @@ public class Path {
      * @param points the initial points on the path. Apart from the edges, non of the points are guaranteed
      *               to be on the final path
      */
-    public Path(double middlePointDistance
+    public Path(double spacing
             , double smooth_weight, double tolerance,
                 double maxVelocity, double turningConstant
             , double maxAcceleration, Waypoint... points) {
         this.points = new LinkedList<>(Arrays.asList(points));
-        generate(middlePointDistance, smooth_weight, tolerance
+        generate(spacing, smooth_weight, tolerance
                 , maxVelocity, turningConstant, maxAcceleration);
     }
 
@@ -48,9 +49,9 @@ public class Path {
         return points;
     }
 
-    private void generate(double distance, double smooth_weight, double tolerance,
+    private void generate(double spacing, double smooth_weight, double tolerance,
                           double maxVelocity, double k, double maxAcceleration) {
-        fill(distance);
+        fill(spacing);
         smooth(smooth_weight, tolerance);
         calculateDistances();
         calculateCurvatures();
@@ -58,19 +59,18 @@ public class Path {
         smoothVelocities(maxAcceleration);
     }
 
-    private void fill(double distance) {
+    private void fill(double spacing) {
         for (int i = 0; i < points.size() - 1; i++) {
-            double slopeAngle = Math.atan2(points.get(i+1).getY() - points.get(i).getY(),
-                        points.get(i+1).getX() - points.get(i).getX());
-            if(Double.isNaN(slopeAngle)) slopeAngle = 0;
-            double xOffset = distance * Math.cos(slopeAngle);
-            double yOffset = distance * Math.sin(slopeAngle);
-            double tempX = points.get(i).getX() + xOffset, tempY = points.get(i).getY() + yOffset;
-            while (tempX < points.get(i+1).getX()) {
-                points.add(i, new Waypoint(tempX, tempY));
-                i++;
-                tempX += xOffset;
-                tempY += yOffset;
+            Waypoint startPoint = points.get(i);
+            double length = points.get(i).distance(points.get(i+1));
+            int pointsThatFit = (int) (length/spacing);
+            Waypoint vector = new Waypoint((points.get(i+1).getX() - points.get(i).getX()) * (spacing/length),
+                    (points.get(i+1).getY() - points.get(i).getY()) * (spacing/length));
+            for (int j = 0; j < pointsThatFit; j++, i++) {
+                points.add(i + 1, new Waypoint(
+                        startPoint.getX() + vector.getX()*(j+1),
+                        startPoint.getY() + vector.getY()*(j+1)
+                ));
             }
         }
     }
@@ -149,7 +149,7 @@ public class Path {
      * @param path the CSV file
      */
     public void exportToCSV(java.nio.file.Path path) {
-        try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("US-ASCII"))) {
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.US_ASCII)) {
             String s = "x,y,velocity,distance,curvature\n";
             for (Waypoint w : getPoints()) {
                 s += w.getX() + "," + w.getY() + "," + w.getV() + "," + w.getD() + ","

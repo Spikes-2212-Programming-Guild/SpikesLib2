@@ -28,14 +28,15 @@ public class OdometryHandler {
      * @param leftPosition  the left position supplier
      * @param rightPosition the right position supplier
      * @param angleSupplier the angle supplier
-     * @param yawOffset the angle between the x axis and your robot's starting position
+     * @param x the initial x coordinate
+     * @param y the initial y coordinate
      */
     public OdometryHandler(Supplier<Double> leftPosition, Supplier<Double> rightPosition, Supplier<Double> angleSupplier
-            , double x, double y, double yawOffset) {
+            , double x, double y) {
         this.leftPosition = leftPosition;
         this.rightPosition = leftPosition;
         this.yaw = angleSupplier;
-        pose = new Pose2d(new Translation2d(x, y), new Rotation2d(yawOffset));
+        pose = new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(yaw.get()));
     }
 
     public void calculate() {
