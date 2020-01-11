@@ -35,7 +35,6 @@ public class DriveArcadeWithPID extends CommandBase {
      */
     @Override
     public void initialize() {
-        movementPIDLoop.setSetpoint(setpoint.get());
         movementPIDLoop.enable();
     }
 
@@ -44,6 +43,7 @@ public class DriveArcadeWithPID extends CommandBase {
      */
     @Override
     public void execute() {
+        movementPIDLoop.setSetpoint(setpoint.get());
         movementPIDLoop.update();
     }
 
