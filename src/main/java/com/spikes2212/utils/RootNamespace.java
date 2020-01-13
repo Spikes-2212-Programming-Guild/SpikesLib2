@@ -2,6 +2,7 @@ package com.spikes2212.utils;
 
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 
 import java.util.function.Supplier;
 
@@ -49,8 +50,8 @@ public class RootNamespace implements Namespace {
 
     @Override
     public void putData(String key, Sendable value) {
-        NetworkTableEntry entry = this.table.getEntry(key);
-        entry.setValue(value);
+        NetworkTable table = this.table.getSubTable(key);
+        SendableRegistry.publish(value, table);
     }
 
     @Override
