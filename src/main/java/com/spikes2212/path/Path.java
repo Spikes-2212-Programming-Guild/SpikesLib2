@@ -164,6 +164,7 @@ public class Path {
         List<Waypoint> waypoints = new LinkedList<>();
         try {
             List<String> lines = Files.readAllLines(path);
+            lines.remove(0);
             for (String line : lines) {
                 String[] values = line.split(",");
                 Waypoint point = new Waypoint(Double.parseDouble(values[0]),
