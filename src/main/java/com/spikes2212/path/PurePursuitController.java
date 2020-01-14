@@ -111,8 +111,8 @@ public class PurePursuitController {
                 }
             }
         }
-        lookaheadPoint = null;
-        return null;
+        lookaheadPoint = path.getPoints().get(path.getPoints().size() - 1);
+        return lookaheadPoint;
     }
 
     private double pathCurvature() {
