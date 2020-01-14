@@ -1,5 +1,7 @@
 package com.spikes2212.path;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * This class represents a PurePursuitController.
  * You should the getSpeeds method periodically.
@@ -155,6 +157,8 @@ public class PurePursuitController {
 
     public boolean done() {
         double ratio = handler.getWaypoint().distance(lookaheadPoint) / lookaheadDistance;
+        SmartDashboard.putNumber("ratio", ratio);
+        SmartDashboard.putBoolean("is velocity very small", lookaheadPoint.getV() < 1E-6);
         return lookaheadPoint.getV() < 1E-6 && ratio > 1 - distanceTolerance
                 && ratio < 1 + distanceTolerance;
     }
