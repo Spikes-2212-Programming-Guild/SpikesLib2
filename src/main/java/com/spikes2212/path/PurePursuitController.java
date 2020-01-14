@@ -150,6 +150,7 @@ public class PurePursuitController {
     public void reset() {
         lastClosestIndex = 0;
         lastLookaheadIndex = 0;
+        lookaheadPoint = path.getPoints().get(0);
     }
 
     public boolean done() {
