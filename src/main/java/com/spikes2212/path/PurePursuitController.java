@@ -13,12 +13,24 @@ public class PurePursuitController {
     private double lookaheadDistance;
     private double robotWidth;
     private Waypoint lookaheadPoint;
+    private double distanceTolerance;
+
+    public PurePursuitController(OdometryHandler handler, Path path, double lookaheadDistance,
+                                 double distanceTolerance, double robotWidth) {
+        this.handler = handler;
+        this.path = path;
+        this.lookaheadDistance = lookaheadDistance;
+        this.distanceTolerance = distanceTolerance;
+        this.robotWidth = robotWidth;
+        this.lookaheadPoint = path.getPoints().get(0);
+    }
 
     public PurePursuitController(OdometryHandler handler, Path path, double lookaheadDistance,
                                  double robotWidth) {
         this.handler = handler;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
+        this.distanceTolerance = 0.01;
         this.robotWidth = robotWidth;
         this.lookaheadPoint = path.getPoints().get(0);
     }
@@ -45,6 +57,14 @@ public class PurePursuitController {
 
     public void setLookaheadDistance(double lookaheadDistance) {
         this.lookaheadDistance = lookaheadDistance;
+    }
+
+    public double getDistanceTolerance() {
+        return distanceTolerance;
+    }
+
+    public void setDistanceTolerance(double distanceTolerance) {
+        this.distanceTolerance = distanceTolerance;
     }
 
     private Waypoint closestPoint() {
@@ -133,6 +153,8 @@ public class PurePursuitController {
     }
 
     public boolean done() {
-        return lookaheadPoint != null;
+        double ratio = handler.getWaypoint().distance(lookaheadPoint) / lookaheadDistance;
+        return lookaheadPoint.getV() < 1E-6 && ratio > 1 - distanceTolerance
+                && ratio < 1 + distanceTolerance;
     }
 }
