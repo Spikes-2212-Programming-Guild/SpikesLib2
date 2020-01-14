@@ -88,4 +88,9 @@ public class Waypoint {
     public String toString() {
         return "x: " + x + " y: " + y;
     }
+
+
+    public boolean equals(Waypoint other) {
+        return x == other.x && y == other.y;
+    }
 }

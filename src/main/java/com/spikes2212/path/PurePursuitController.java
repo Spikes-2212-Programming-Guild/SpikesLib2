@@ -156,10 +156,6 @@ public class PurePursuitController {
     }
 
     public boolean done() {
-        double ratio = handler.getWaypoint().distance(lookaheadPoint) / lookaheadDistance;
-        SmartDashboard.putNumber("ratio", ratio);
-        SmartDashboard.putBoolean("is velocity very small", lookaheadPoint.getV() < 1E-6);
-        return lookaheadPoint.getV() < 1E-6 && ratio > 1 - distanceTolerance
-                && ratio < 1 + distanceTolerance;
+        return lookaheadPoint.equals(path.getPoints().get(path.getPoints().size()-1));
     }
 }
