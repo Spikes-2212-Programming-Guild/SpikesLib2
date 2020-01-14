@@ -89,7 +89,7 @@ public class OdometryHandler {
      * @return robot's coordinates as a {@link Waypoint} instance
      */
     public Waypoint getWaypoint() {
-        return new Waypoint(getX(), getY());
+        return new Waypoint(getY(), getX());
     }
 
     public void set(double x, double y) {
