@@ -1,5 +1,7 @@
 package com.spikes2212.path;
 
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+
 /**
  * This class represents a point in 2d space, with additional fields used for path generation and following.
  *
@@ -7,15 +9,7 @@ package com.spikes2212.path;
  */
 public class Waypoint {
 
-    /**
-     * The x coordinate.
-     */
-    private final double x;
-
-    /**
-     * The y coordinate.
-     */
-    private final double y;
+    private Translation2d position;
 
     /**
      * The velocity at the given point (used for path following).
@@ -33,16 +27,15 @@ public class Waypoint {
     private double curvature;
 
     public Waypoint(double x, double y) {
-        this.x = x;
-        this.y = y;
+        this.position = new Translation2d(x,y);
     }
 
     public double getX() {
-        return x;
+        return position.getX();
     }
 
     public double getY() {
-        return y;
+        return position.getY();
     }
 
     public double getV() {
@@ -65,7 +58,7 @@ public class Waypoint {
      * returns an array of the point's coordinates
      * @return an array of the point's coordinates
      */
-    public double[] toArray() { return new double[]{x, y}; }
+    public double[] toArray() { return new double[]{getX(), getY()}; }
 
     public double getCurvature() {
         return curvature;
@@ -81,16 +74,18 @@ public class Waypoint {
      * @return the distance between the points
      */
     public double distance(Waypoint point) {
-        return Math.sqrt((x - point.getX())*(getX() - point.getX()) + (getY() - point.getY())*(getY() - point.getY()));
+        return Math.sqrt((getX() - point.getX())*(getX() - point.getX()) + (getY() - point.getY())*(getY() - point.getY()));
     }
 
     @Override
     public String toString() {
-        return "x: " + x + " y: " + y;
+        return "x: " + getX() + " y: " + getY();
     }
 
-
-    public boolean equals(Waypoint other) {
-        return x == other.x && y == other.y;
+    @Override
+    public boolean equals(Object point) {
+        if(!(point instanceof Waypoint)) return false;
+        Waypoint other = (Waypoint) point;
+        return getX() == other.getX() && getY() == other.getY();
     }
 }
