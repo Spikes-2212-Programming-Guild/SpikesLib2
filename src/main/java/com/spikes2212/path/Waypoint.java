@@ -1,7 +1,5 @@
 package com.spikes2212.path;
 
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-
 /**
  * This class represents a point in 2d space, with additional fields used for path generation and following.
  *
@@ -9,7 +7,15 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
  */
 public class Waypoint {
 
-    private Translation2d position;
+    /**
+     * The x coordinate.
+     */
+    private final double x;
+
+    /**
+     * The y coordinate.
+     */
+    private final double y;
 
     /**
      * The velocity at the given point (used for path following).
@@ -27,15 +33,16 @@ public class Waypoint {
     private double curvature;
 
     public Waypoint(double x, double y) {
-        this.position = new Translation2d(x,y);
+        this.x = x;
+        this.y = y;
     }
 
     public double getX() {
-        return position.getX();
+        return x;
     }
 
     public double getY() {
-        return position.getY();
+        return y;
     }
 
     public double getV() {
@@ -58,7 +65,7 @@ public class Waypoint {
      * returns an array of the point's coordinates
      * @return an array of the point's coordinates
      */
-    public double[] toArray() { return new double[]{getX(), getY()}; }
+    public double[] toArray() { return new double[]{x, y}; }
 
     public double getCurvature() {
         return curvature;
@@ -74,18 +81,11 @@ public class Waypoint {
      * @return the distance between the points
      */
     public double distance(Waypoint point) {
-        return Math.sqrt((getX() - point.getX())*(getX() - point.getX()) + (getY() - point.getY())*(getY() - point.getY()));
+        return Math.sqrt((x - point.getX())*(getX() - point.getX()) + (getY() - point.getY())*(getY() - point.getY()));
     }
 
     @Override
     public String toString() {
-        return "x: " + getX() + " y: " + getY();
-    }
-
-    @Override
-    public boolean equals(Object point) {
-        if(!(point instanceof Waypoint)) return false;
-        Waypoint other = (Waypoint) point;
-        return getX() == other.getX() && getY() == other.getY();
+        return "x: " + x + " y: " + y;
     }
 }
