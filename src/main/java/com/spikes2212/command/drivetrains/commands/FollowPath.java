@@ -16,19 +16,17 @@ public class FollowPath extends CommandBase {
     private PurePursuitController purePursuitController;
     private FeedForwardController rightFeedForwardController;
     private FeedForwardController leftFeedForwardController;
-    private PIDVASettings leftSettings;
-    private PIDVASettings rightSettings;
+    private PIDVASettings pidvaSettings;
     private PIDController leftController;
     private PIDController rightController;
 
     public FollowPath(OdometryDrivetrain drivetrain, Path path, double lookaheadDistance,
-                      PIDVASettings leftSettings, PIDVASettings rightSettings) {
+                      PIDVASettings pidvaSettings) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
-        this.leftSettings = leftSettings;
-        this.rightSettings = rightSettings;
+        this.pidvaSettings = pidvaSettings;
     }
 
     @Override
@@ -39,12 +37,12 @@ public class FollowPath extends CommandBase {
         purePursuitController.getOdometryHandler().set(purePursuitController.getPath().getPoints().get(0).getY(),
                 purePursuitController.getPath().getPoints().get(0).getX());
         purePursuitController.reset();
-        leftFeedForwardController = new FeedForwardController(leftSettings.getkV(), leftSettings.getkA(), 0.02);
-        rightFeedForwardController = new FeedForwardController(rightSettings.getkV(), rightSettings.getkA(), 0.02);
+        leftFeedForwardController = new FeedForwardController(pidvaSettings.getkV(), pidvaSettings.getkA(), 0.02);
+        rightFeedForwardController = new FeedForwardController(pidvaSettings.getkV(), pidvaSettings.getkA(), 0.02);
         leftFeedForwardController.reset();
         rightFeedForwardController.reset();
-        leftController = new PIDController(leftSettings.getkP(), leftSettings.getkI(), leftSettings.getkD());
-        rightController = new PIDController(rightSettings.getkP(), rightSettings.getkI(), rightSettings.getkD());
+        leftController = new PIDController(pidvaSettings.getkP(), pidvaSettings.getkI(), pidvaSettings.getkD());
+        rightController = new PIDController(pidvaSettings.getkP(), pidvaSettings.getkI(), pidvaSettings.getkD());
     }
 
     @Override
