@@ -2,8 +2,18 @@ package com.spikes2212.control;
 
 import java.util.function.Supplier;
 
+/**
+ * {@inheritDoc}
+ * This class also has a velocity and acceleration constants, used for PIDVA control.
+ */
 public class PIDVASettings extends PIDSettings {
+    /**
+     * The velocity constant.
+     */
     private Supplier<Double> kV;
+    /**
+     * The acceleration constant.
+     */
     private Supplier<Double> kA;
 
     public PIDVASettings(double kP, double tolerance, double waitTime, Supplier<Double> kV, Supplier<Double> kA) {

@@ -155,6 +155,10 @@ public class PurePursuitController {
         lookaheadPoint = path.getPoints().get(0);
     }
 
+    /**
+     * returns whether the PurePursuitController has finished following the path.
+     * @return whether the PurePursuitController has finished following the path
+     */
     public boolean done() {
         return lookaheadPoint.equals(path.getPoints().get(path.getPoints().size()-1));
     }
