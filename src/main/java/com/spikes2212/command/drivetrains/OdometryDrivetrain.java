@@ -5,30 +5,13 @@ import edu.wpi.first.wpilibj.SpeedController;
 
 public abstract class OdometryDrivetrain extends TankDrivetrain {
 
-    private OdometryHandler handler;
-    private double width;
-
-    public OdometryDrivetrain(SpeedController left, SpeedController right, OdometryHandler handler, double width) {
+    public OdometryDrivetrain(SpeedController left, SpeedController right) {
         super(left, right);
-        this.handler = handler;
-        this.width = width;
     }
 
-    public OdometryHandler getHandler() {
-        return handler;
-    }
+    public abstract OdometryHandler getHandler();
 
-    public void setHandler(OdometryHandler handler) {
-        this.handler = handler;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
+    public abstract double getWidth();
 
     public abstract void zeroSensors();
 
