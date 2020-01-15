@@ -5,7 +5,7 @@ import com.spikes2212.control.PIDVASettings;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class PurePursuitCommand extends CommandBase {
+public class FollowPath extends CommandBase {
 
     private OdometryDrivetrain drivetrain;
     private Path path;
@@ -18,8 +18,8 @@ public class PurePursuitCommand extends CommandBase {
     private PIDController leftController;
     private PIDController rightController;
 
-    public PurePursuitCommand(OdometryDrivetrain drivetrain, Path path, double lookaheadDistance,
-                              PIDVASettings leftSettings, PIDVASettings rightSettings) {
+    public FollowPath(OdometryDrivetrain drivetrain, Path path, double lookaheadDistance,
+                      PIDVASettings leftSettings, PIDVASettings rightSettings) {
         this.drivetrain = drivetrain;
         addRequirements(drivetrain);
         this.path = path;
