@@ -62,6 +62,7 @@ public class FollowPath extends CommandBase {
     public void end(boolean interrupted) {
         leftController.close();
         rightController.close();
+        drivetrain.stop();
     }
 
     @Override
