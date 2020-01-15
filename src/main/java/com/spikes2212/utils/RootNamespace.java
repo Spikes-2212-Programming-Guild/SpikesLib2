@@ -2,10 +2,14 @@ package com.spikes2212.utils;
 
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class RootNamespace implements Namespace {
+    private static final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
 
     protected String name;
     private NetworkTable table;
@@ -49,8 +53,13 @@ public class RootNamespace implements Namespace {
 
     @Override
     public void putData(String key, Sendable value) {
-        NetworkTableEntry entry = this.table.getEntry(key);
-        entry.setValue(value);
+        Sendable sddata = TABLES_TO_DATA.get(key);
+        if (sddata == null || sddata != value) {
+            TABLES_TO_DATA.put(key, value);
+            NetworkTable dataTable = table.getSubTable(key);
+            SendableRegistry.publish(value, dataTable);
+            dataTable.getEntry(".name").setString(key);
+        }
     }
 
     @Override
