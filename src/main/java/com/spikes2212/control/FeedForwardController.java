@@ -57,6 +57,10 @@ public class FeedForwardController {
         return period;
     }
 
+    public void reset() {
+        this.previousTarget = 0;
+    }
+
     /**
      * Calculates the desired output using a simple feed forward method.
      * This method should be called with the period given in the constructor.
