@@ -1,7 +1,5 @@
 package com.spikes2212.path;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  * This class represents a PurePursuitController.
  * You should the getSpeeds method periodically.
@@ -9,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author T
  */
 public class PurePursuitController {
-    private OdometryHandler handler;
+    private OdometryHandler odometryHandler;
     private Path path;
     private int lastClosestIndex = 0, lastLookaheadIndex = 0;
     private double lookaheadDistance;
@@ -17,9 +15,9 @@ public class PurePursuitController {
     private Waypoint lookaheadPoint;
     private double distanceTolerance;
 
-    public PurePursuitController(OdometryHandler handler, Path path, double lookaheadDistance,
+    public PurePursuitController(OdometryHandler odometryHandler, Path path, double lookaheadDistance,
                                  double distanceTolerance, double robotWidth) {
-        this.handler = handler;
+        this.odometryHandler = odometryHandler;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
         this.distanceTolerance = distanceTolerance;
@@ -27,9 +25,9 @@ public class PurePursuitController {
         this.lookaheadPoint = path.getPoints().get(0);
     }
 
-    public PurePursuitController(OdometryHandler handler, Path path, double lookaheadDistance,
+    public PurePursuitController(OdometryHandler odometryHandler, Path path, double lookaheadDistance,
                                  double robotWidth) {
-        this.handler = handler;
+        this.odometryHandler = odometryHandler;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
         this.distanceTolerance = 0.01;
@@ -37,12 +35,12 @@ public class PurePursuitController {
         this.lookaheadPoint = path.getPoints().get(0);
     }
 
-    public OdometryHandler getHandler() {
-        return handler;
+    public OdometryHandler getOdometryHandler() {
+        return odometryHandler;
     }
 
-    public void setHandler(OdometryHandler handler) {
-        this.handler = handler;
+    public void setOdometryHandler(OdometryHandler odometryHandler) {
+        this.odometryHandler = odometryHandler;
     }
 
     public Path getPath() {
@@ -70,7 +68,7 @@ public class PurePursuitController {
     }
 
     private Waypoint closestPoint() {
-        Waypoint robot = handler.getWaypoint();
+        Waypoint robot = odometryHandler.getWaypoint();
         double minDistance = Double.POSITIVE_INFINITY, distance;
         int minIndex = lastClosestIndex;
         for (int i = lastClosestIndex; i < path.getPoints().size(); i++) {
@@ -84,7 +82,7 @@ public class PurePursuitController {
     }
 
     private Waypoint getLookaheadPoint(){
-        Waypoint robot = handler.getWaypoint();
+        Waypoint robot = odometryHandler.getWaypoint();
         for (int i = lastLookaheadIndex; i < path.getPoints().size() - 1; i++) {
             Waypoint segment = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
                     , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY());
@@ -118,10 +116,10 @@ public class PurePursuitController {
     }
 
     private double pathCurvature() {
-        Waypoint robot = handler.getWaypoint();
+        Waypoint robot = odometryHandler.getWaypoint();
         Waypoint lookahead = getLookaheadPoint();
         if(lookahead == null) return Double.POSITIVE_INFINITY;
-        double yaw = Math.toRadians(90 - handler.getYaw());
+        double yaw = Math.toRadians(90 - odometryHandler.getYaw());
         double slope = Math.tan(yaw);
         double freeTerm = slope * robot.getX() - robot.getY();
         double x = Math.abs(-slope * lookahead.getX() + lookahead.getY() + freeTerm) /
@@ -160,6 +158,6 @@ public class PurePursuitController {
      * @return whether the PurePursuitController has finished following the path
      */
     public boolean done() {
-        return lookaheadPoint.equals(path.getPoints().get(path.getPoints().size()-1));
+        return lookaheadPoint == path.getPoints().get(path.getPoints().size()-1);
     }
 }

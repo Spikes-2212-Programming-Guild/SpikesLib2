@@ -20,8 +20,8 @@ public class FollowPath extends CommandBase {
 
     public FollowPath(OdometryDrivetrain drivetrain, Path path, double lookaheadDistance,
                       PIDVASettings leftSettings, PIDVASettings rightSettings) {
-        this.drivetrain = drivetrain;
         addRequirements(drivetrain);
+        this.drivetrain = drivetrain;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
         this.leftSettings = leftSettings;
@@ -30,10 +30,10 @@ public class FollowPath extends CommandBase {
 
     @Override
     public void initialize() {
-        drivetrain.resetSensors();
+        drivetrain.zeroSensors();
         purePursuitController = new PurePursuitController(drivetrain.getHandler(), path, lookaheadDistance,
                 drivetrain.getWidth());
-        purePursuitController.getHandler().set(purePursuitController.getPath().getPoints().get(0).getY(),
+        purePursuitController.getOdometryHandler().set(purePursuitController.getPath().getPoints().get(0).getY(),
                 purePursuitController.getPath().getPoints().get(0).getX());
         purePursuitController.reset();
         leftFeedForwardController = new FeedForwardController(leftSettings.getkV(), leftSettings.getkA(), 0.02);
@@ -42,8 +42,6 @@ public class FollowPath extends CommandBase {
         rightFeedForwardController.reset();
         leftController = new PIDController(leftSettings.getkP(), leftSettings.getkI(), leftSettings.getkD());
         rightController = new PIDController(rightSettings.getkP(), rightSettings.getkI(), rightSettings.getkD());
-        leftController.setTolerance(leftSettings.getTolerance());
-        rightController.setTolerance(rightSettings.getTolerance());
     }
 
     @Override
@@ -60,8 +58,6 @@ public class FollowPath extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        leftController.close();
-        rightController.close();
         drivetrain.stop();
     }
 

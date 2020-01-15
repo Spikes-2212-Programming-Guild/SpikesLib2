@@ -64,12 +64,12 @@ public class FeedForwardController {
     /**
      * Calculates the desired output using a simple feed forward method.
      * This method should be called with the period given in the constructor.
-     * @param target the target velocity
+     * @param setpoint the target velocity
      * @return the desired output
      */
-    public double calculate(double target) {
-        double targetDerivative = (target - previousTarget) / period;
-        previousTarget = target;
-        return kV * target + kA * targetDerivative;
+    public double calculate(double setpoint) {
+        double targetDerivative = (setpoint - previousTarget) / period;
+        previousTarget = setpoint;
+        return kV * setpoint + kA * targetDerivative;
     }
 }

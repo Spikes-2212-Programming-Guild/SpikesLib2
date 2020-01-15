@@ -30,7 +30,7 @@ public abstract class OdometryDrivetrain extends TankDrivetrain {
         this.width = width;
     }
 
-    public abstract void resetSensors();
+    public abstract void zeroSensors();
 
     public abstract double getLeftRate();
 

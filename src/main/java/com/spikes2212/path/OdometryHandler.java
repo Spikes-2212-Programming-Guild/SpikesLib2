@@ -55,7 +55,7 @@ public class OdometryHandler {
         lastRightPosition = rightPosition;
 
 
-        var newPose = pose.exp(
+        Pose2d newPose = pose.exp(
                 new Twist2d(averageDeltaDistance, 0.0, angle.getRadians()));
 
         pose = new Pose2d(newPose.getTranslation(), Rotation2d.fromDegrees(yaw));
