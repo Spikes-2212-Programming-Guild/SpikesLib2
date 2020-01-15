@@ -4,11 +4,11 @@
 # Ignore Gradle build output directory
 build
 
-# IntelliJ Bullshit #
+# intellij configuration files
 *.iml
 *.xml
 .idea
 
-# Eclipse Bullshit #
+# eclipse configuration files
 .classpath
 .project
