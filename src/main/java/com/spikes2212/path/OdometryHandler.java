@@ -94,5 +94,7 @@ public class OdometryHandler {
 
     public void set(double x, double y) {
         this.pose = new Pose2d(new Translation2d(x, y), new Rotation2d(yaw.get()));
+        this.lastLeftPosition = 0;
+        this.lastRightPosition = 0;
     }
 }
