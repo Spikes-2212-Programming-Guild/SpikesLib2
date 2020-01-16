@@ -4,8 +4,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 public class PigeonWrapper {
-    public double[] arr = new double[3];
-    PigeonIMU pigeon;
+    public double[] values = new double[3];
+    private PigeonIMU pigeon;
 
     public PigeonWrapper(int canPort) {
         pigeon = new PigeonIMU(canPort);
@@ -16,23 +16,23 @@ public class PigeonWrapper {
     }
 
     public double getX() {
-        pigeon.getAccumGyro(arr);
-        return arr[0];
+        pigeon.getAccumGyro(values);
+        return values[0];
     }
 
     public double getY() {
-        pigeon.getAccumGyro(arr);
-        return arr[1];
+        pigeon.getAccumGyro(values);
+        return values[1];
     }
 
     public double getZ() {
-        pigeon.getAccumGyro(arr);
-        return arr[2];
+        pigeon.getAccumGyro(values);
+        return values[2];
     }
 
     public double getYaw() {
-        pigeon.getYawPitchRoll(arr);
-        return arr[0];
+        pigeon.getYawPitchRoll(values);
+        return values[0];
     }
 
     public void setYaw(double yaw) {
