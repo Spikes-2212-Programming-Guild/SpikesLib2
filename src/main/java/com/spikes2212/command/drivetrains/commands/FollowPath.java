@@ -55,8 +55,6 @@ public class FollowPath extends CommandBase {
         double rightSpeed = rightFeedForwardController.calculate(speeds[1]) + rightController.calculate(
                 drivetrain.getRightRate(), speeds[1]
         );
-        SmartDashboard.putNumber("left speed converted", leftSpeed);
-        SmartDashboard.putNumber("right speed converted", rightSpeed);
         drivetrain.tankDrive(leftSpeed, rightSpeed);
     }
 
