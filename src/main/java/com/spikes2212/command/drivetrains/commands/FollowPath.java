@@ -6,7 +6,6 @@ import com.spikes2212.control.PIDVASettings;
 import com.spikes2212.path.Path;
 import com.spikes2212.path.PurePursuitController;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class FollowPath extends CommandBase {
