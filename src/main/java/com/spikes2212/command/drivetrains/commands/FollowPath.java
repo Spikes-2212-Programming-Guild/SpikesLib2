@@ -6,6 +6,7 @@ import com.spikes2212.control.PIDVASettings;
 import com.spikes2212.path.Path;
 import com.spikes2212.path.PurePursuitController;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class FollowPath extends CommandBase {
@@ -34,8 +35,8 @@ public class FollowPath extends CommandBase {
         drivetrain.zeroSensors();
         purePursuitController = new PurePursuitController(drivetrain.getHandler(), path, lookaheadDistance,
                 drivetrain.getWidth());
-        purePursuitController.getOdometryHandler().set(purePursuitController.getPath().getPoints().get(0).getY(),
-                purePursuitController.getPath().getPoints().get(0).getX());
+        purePursuitController.getOdometryHandler().set(purePursuitController.getPath().getPoints().get(0).getX(),
+                purePursuitController.getPath().getPoints().get(0).getY());
         purePursuitController.reset();
         leftFeedForwardController = new FeedForwardController(pidvaSettings.getkV(), pidvaSettings.getkA(), 0.02);
         rightFeedForwardController = new FeedForwardController(pidvaSettings.getkV(), pidvaSettings.getkA(), 0.02);
@@ -54,6 +55,8 @@ public class FollowPath extends CommandBase {
         double rightSpeed = rightFeedForwardController.calculate(speeds[1]) + rightController.calculate(
                 drivetrain.getRightRate(), speeds[1]
         );
+        SmartDashboard.putNumber("left speed converted", leftSpeed);
+        SmartDashboard.putNumber("right speed converted", rightSpeed);
         drivetrain.tankDrive(leftSpeed, rightSpeed);
     }
 
