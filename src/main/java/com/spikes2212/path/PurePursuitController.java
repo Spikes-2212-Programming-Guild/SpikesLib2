@@ -13,15 +13,20 @@ public class PurePursuitController {
     private double lookaheadDistance;
     private double robotWidth;
 
-
-    private double lastVelocity = 0;
+    private RateLimiter rateLimiter;
 
     public PurePursuitController(OdometryHandler odometryHandler, Path path, double lookaheadDistance,
-                                 double distanceTolerance, double robotWidth) {
+                                 double maxAcceleration, double robotWidth, double period) {
         this.odometryHandler = odometryHandler;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
         this.robotWidth = robotWidth;
+        this.rateLimiter = new RateLimiter(maxAcceleration, period);
+    }
+
+    public PurePursuitController(OdometryHandler odometryHandler, Path path, double lookaheadDistance,
+                                 double maxAcceleration, double robotWidth) {
+        this(odometryHandler, path, lookaheadDistance, maxAcceleration, robotWidth, 0.02);
     }
 
     public OdometryHandler getOdometryHandler() {
@@ -47,7 +52,6 @@ public class PurePursuitController {
     public void setLookaheadDistance(double lookaheadDistance) {
         this.lookaheadDistance = lookaheadDistance;
     }
-
 
     private Waypoint closestPoint() {
         Waypoint robot = odometryHandler.getWaypoint();
@@ -116,10 +120,10 @@ public class PurePursuitController {
      * @return the target side speeds as an array
      */
     public double[] getTargetSpeeds(){
-        Waypoint closest = closestPoint();
+        double velocity = rateLimiter.calculate(closestPoint().getV());
         double pathCurvature = pathCurvature();
-        return new double[]{closest.getV() * (2 + pathCurvature * robotWidth) / 2,
-                closest.getV() * (2 - pathCurvature * robotWidth) / 2};
+        return new double[]{velocity * (2 + pathCurvature * robotWidth) / 2,
+                velocity * (2 - pathCurvature * robotWidth) / 2};
     }
 
     /**
