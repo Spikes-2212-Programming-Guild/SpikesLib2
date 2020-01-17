@@ -12,27 +12,16 @@ public class PurePursuitController {
     private int lastClosestIndex = 0, lastLookaheadIndex = 0;
     private double lookaheadDistance;
     private double robotWidth;
-    private Waypoint lookaheadPoint;
-    private double distanceTolerance;
+
+
+    private double lastVelocity = 0;
 
     public PurePursuitController(OdometryHandler odometryHandler, Path path, double lookaheadDistance,
                                  double distanceTolerance, double robotWidth) {
         this.odometryHandler = odometryHandler;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
-        this.distanceTolerance = distanceTolerance;
         this.robotWidth = robotWidth;
-        this.lookaheadPoint = path.getPoints().get(0);
-    }
-
-    public PurePursuitController(OdometryHandler odometryHandler, Path path, double lookaheadDistance,
-                                 double robotWidth) {
-        this.odometryHandler = odometryHandler;
-        this.path = path;
-        this.lookaheadDistance = lookaheadDistance;
-        this.distanceTolerance = 0.01;
-        this.robotWidth = robotWidth;
-        this.lookaheadPoint = path.getPoints().get(0);
     }
 
     public OdometryHandler getOdometryHandler() {
@@ -59,13 +48,6 @@ public class PurePursuitController {
         this.lookaheadDistance = lookaheadDistance;
     }
 
-    public double getDistanceTolerance() {
-        return distanceTolerance;
-    }
-
-    public void setDistanceTolerance(double distanceTolerance) {
-        this.distanceTolerance = distanceTolerance;
-    }
 
     private Waypoint closestPoint() {
         Waypoint robot = odometryHandler.getWaypoint();
@@ -99,20 +81,17 @@ public class PurePursuitController {
                 double t2 = (-b + discriminant) / (2 * a);
                 if (t1 >= 0 && t1 <= 1) {
                     lastLookaheadIndex = i;
-                    lookaheadPoint = new Waypoint(path.getPoints().get(i).getX() + t1 * segment.getX(),
+                    return new Waypoint(path.getPoints().get(i).getX() + t1 * segment.getX(),
                             path.getPoints().get(i).getY() + t1 * segment.getY());
-                    return lookaheadPoint;
                 }
                 if (t2 >= 0 && t2 <= 1) {
                     lastLookaheadIndex = i;
-                    lookaheadPoint = new Waypoint(path.getPoints().get(i).getX() + t2 * segment.getX(),
+                    return new Waypoint(path.getPoints().get(i).getX() + t2 * segment.getX(),
                             path.getPoints().get(i).getY() + t2 * segment.getY());
-                    return lookaheadPoint;
                 }
             }
         }
-        lookaheadPoint = path.getPoints().get(path.getPoints().size() - 1);
-        return lookaheadPoint;
+        return null;
     }
 
     private double pathCurvature() {
@@ -150,7 +129,6 @@ public class PurePursuitController {
     public void reset() {
         lastClosestIndex = 0;
         lastLookaheadIndex = 0;
-        lookaheadPoint = path.getPoints().get(0);
     }
 
     /**
@@ -158,6 +136,6 @@ public class PurePursuitController {
      * @return whether the PurePursuitController has finished following the path
      */
     public boolean done() {
-        return lookaheadPoint == path.getPoints().get(path.getPoints().size()-1);
+        return closestPoint().equals(path.getPoints().get(path.getPoints().size()-1));
     }
 }
