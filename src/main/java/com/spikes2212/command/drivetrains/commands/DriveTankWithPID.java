@@ -21,13 +21,14 @@ public class DriveTankWithPID extends CommandBase {
      */
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop rightPIDLoop, PIDLoop leftPIDLoop, Supplier<Double> rightSetpoint, Supplier<Double> leftSetpoint) {
-        super();
+        this.addRequirements(drivetrain);
         this.drivetrain = drivetrain;
-        this.rightPIDLoop = rightPIDLoop;
-        this.leftPIDLoop = leftPIDLoop;
         this.rightSetpoint = rightSetpoint;
         this.leftSetpoint = leftSetpoint;
-        this.addRequirements(drivetrain);
+        this.rightPIDLoop = rightPIDLoop;
+        this.rightPIDLoop.setSetpoint(rightSetpoint.get());
+        this.leftPIDLoop = leftPIDLoop;
+        this.leftPIDLoop.setSetpoint(leftSetpoint.get());
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop rightPIDLoop, PIDLoop leftPIDLoop, double rightSetpoint, double leftSetpoint) {
