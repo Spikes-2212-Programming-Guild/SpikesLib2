@@ -11,12 +11,6 @@ import java.util.function.Supplier;
 public class RootNamespace implements Namespace {
     private static final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
 
-    static {
-        RootNamespace n = new RootNamespace("test");
-        Supplier<Integer> s = () -> 1;
-        n.putNumber("test", s);
-    }
-
     protected String name;
     private Map<String, Supplier<String>> stringFields;
     private Map<String, Supplier<? extends Number>> numberFields;
