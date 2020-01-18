@@ -4,6 +4,7 @@ import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -21,6 +22,9 @@ public class RootNamespace implements Namespace {
         this.name = name;
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
         this.table = inst.getTable(this.name);
+        stringFields = new HashMap<>();
+        numberFields = new HashMap<>();
+        booleanFields = new HashMap<>();
     }
 
     @Override
