@@ -59,7 +59,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     @Override
-    public void putNumber(String key, Supplier<Number> value) {
+    public void putNumber(String key, Supplier<? extends Number> value) {
         parent.putNumber(name + separator + key, value);
     }
 

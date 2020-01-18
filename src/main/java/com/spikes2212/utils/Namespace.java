@@ -22,7 +22,7 @@ public interface Namespace {
 
     String getString(String key);
 
-    void putNumber(String key, Supplier<Number> value);
+    void putNumber(String key, Supplier<? extends Number> value);
 
     double getNumber(String key);
 

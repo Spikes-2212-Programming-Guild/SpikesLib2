@@ -10,9 +10,16 @@ import java.util.function.Supplier;
 
 public class RootNamespace implements Namespace {
     private static final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
+
+    static {
+        RootNamespace n = new RootNamespace("test");
+        Supplier<Integer> s = () -> 1;
+        n.putNumber("test", s);
+    }
+
     protected String name;
     private Map<String, Supplier<String>> stringFields;
-    private Map<String, Supplier<Number>> numberFields;
+    private Map<String, Supplier<? extends Number>> numberFields;
     private Map<String, Supplier<Boolean>> booleanFields;
     private NetworkTable table;
 
@@ -76,7 +83,7 @@ public class RootNamespace implements Namespace {
         remove(key);
         NetworkTableEntry entry = this.table.getEntry(key);
         entry.setString(value.get());
-        stringFields.put(key,value);
+        stringFields.put(key, value);
     }
 
     @Override
@@ -87,11 +94,11 @@ public class RootNamespace implements Namespace {
     }
 
     @Override
-    public void putNumber(String key, Supplier<Number> value) {
+    public void putNumber(String key, Supplier<? extends Number> value) {
         remove(key);
         NetworkTableEntry entry = this.table.getEntry(key);
         entry.setNumber(value.get());
-        numberFields.put(key,value);
+        numberFields.put(key, value);
     }
 
     @Override
@@ -106,7 +113,7 @@ public class RootNamespace implements Namespace {
         remove(key);
         NetworkTableEntry entry = this.table.getEntry(key);
         entry.setBoolean(value.get());
-        booleanFields.put(key,value);
+        booleanFields.put(key, value);
     }
 
     @Override
@@ -128,17 +135,24 @@ public class RootNamespace implements Namespace {
             entry.setString(map.getValue().get());
         }
     }
+
     private void updateNumber() {
-        for (Map.Entry<String, Supplier<Number>> map : numberFields.entrySet()) {
+        for (Map.Entry<String, Supplier<? extends Number>> map : numberFields.entrySet()) {
             NetworkTableEntry entry = this.table.getEntry(map.getKey());
             entry.setNumber(map.getValue().get());
         }
     }
+
     private void updateBoolean() {
         for (Map.Entry<String, Supplier<Boolean>> map : booleanFields.entrySet()) {
             NetworkTableEntry entry = this.table.getEntry(map.getKey());
             entry.setBoolean(map.getValue().get());
         }
     }
-    public void updateData(){updateBoolean();updateNumber();updateString();}
+
+    public void updateData() {
+        updateBoolean();
+        updateNumber();
+        updateString();
+    }
 }
