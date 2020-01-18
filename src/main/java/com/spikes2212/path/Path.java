@@ -160,7 +160,7 @@ public class Path {
         }
     }
 
-    public Path importFromCSV(java.nio.file.Path path) {
+    public static Path importFromCSV(java.nio.file.Path path) {
         List<Waypoint> waypoints = new LinkedList<>();
         try {
             List<String> lines = Files.readAllLines(path);
