@@ -69,10 +69,5 @@ public class TankDrivetrain extends SubsystemBase {
         rightController.stopMotor();
     }
 
-    protected void initDefaultCommand() {
-
-    }
-
-
 }
 
