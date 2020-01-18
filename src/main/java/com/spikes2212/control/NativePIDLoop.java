@@ -71,10 +71,9 @@ public class NativePIDLoop implements PIDLoop {
     private Consumer<Double> output;
 
 
-    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+    public NativePIDLoop(PIDSettings pidSettings, Supplier<Double> source, Consumer<Double> output,
                          Frequency frequency, boolean continuous, double minContinuousValue, double maxContinuousValue) {
         this.pidSettings = pidSettings;
-        this.setpoint = setpoint;
         this.frequency = frequency;
         this.source = source;
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
@@ -84,18 +83,18 @@ public class NativePIDLoop implements PIDLoop {
         setContinuousMode(continuous, minContinuousValue, maxContinuousValue);
     }
 
-    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+    public NativePIDLoop(PIDSettings pidSettings, Supplier<Double> source, Consumer<Double> output,
                          Frequency frequency) {
-        this(pidSettings, setpoint, source, output, frequency, false, 0.0, 0.0);
+        this(pidSettings, source, output, frequency, false, 0.0, 0.0);
     }
 
-    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
+    public NativePIDLoop(PIDSettings pidSettings, Supplier<Double> source, Consumer<Double> output) {
+        this(pidSettings, source, output, Frequency.DEFAULT, false, 0, 0);
     }
 
-    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+    public NativePIDLoop(PIDSettings pidSettings, Supplier<Double> source, Consumer<Double> output,
                          boolean continuous, double minContinuousValue, double maxContinuousValue) {
-        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
+        this(pidSettings, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
     }
 
     public double getSetpoint() {
