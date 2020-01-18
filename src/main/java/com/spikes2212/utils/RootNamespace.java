@@ -117,7 +117,7 @@ public class RootNamespace implements Namespace {
         return value.getBoolean();
     }
 
-    private void remove(String name) {
+    public void remove(String name) {
         stringFields.remove(name);
         numberFields.remove(name);
         booleanFields.remove(name);
