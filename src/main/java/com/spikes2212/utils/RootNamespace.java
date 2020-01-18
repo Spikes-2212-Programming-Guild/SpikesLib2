@@ -150,7 +150,7 @@ public class RootNamespace implements Namespace {
         }
     }
 
-    public void updateData() {
+    public void update() {
         updateBoolean();
         updateNumber();
         updateString();
