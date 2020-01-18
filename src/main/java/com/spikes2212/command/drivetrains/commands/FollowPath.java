@@ -35,8 +35,8 @@ public class FollowPath extends CommandBase {
     @Override
     public void initialize() {
         drivetrain.zeroSensors();
-        purePursuitController = new PurePursuitController(drivetrain.getHandler(), path, maxAcceleration,
-                lookaheadDistance, drivetrain.getWidth());
+        purePursuitController = new PurePursuitController(drivetrain.getHandler(), path,
+                lookaheadDistance,  maxAcceleration, drivetrain.getWidth());
         purePursuitController.getOdometryHandler().set(purePursuitController.getPath().getPoints().get(0).getX(),
                 purePursuitController.getPath().getPoints().get(0).getY());
         purePursuitController.reset();
