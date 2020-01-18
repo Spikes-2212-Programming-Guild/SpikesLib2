@@ -13,6 +13,7 @@ public class FollowPath extends CommandBase {
     private OdometryDrivetrain drivetrain;
     private Path path;
     private double lookaheadDistance;
+    private double maxAcceleration;
     private PurePursuitController purePursuitController;
     private FeedForwardController rightFeedForwardController;
     private FeedForwardController leftFeedForwardController;
@@ -21,19 +22,20 @@ public class FollowPath extends CommandBase {
     private PIDController rightController;
 
     public FollowPath(OdometryDrivetrain drivetrain, Path path, double lookaheadDistance,
-                      PIDVASettings pidvaSettings) {
+                      PIDVASettings pidvaSettings, double maxAcceleration) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
         this.pidvaSettings = pidvaSettings;
+        this.maxAcceleration = maxAcceleration;
     }
 
     @Override
     public void initialize() {
         drivetrain.zeroSensors();
-        purePursuitController = new PurePursuitController(drivetrain.getHandler(), path, lookaheadDistance,
-                drivetrain.getWidth());
+        purePursuitController = new PurePursuitController(drivetrain.getHandler(), path,
+                lookaheadDistance,  maxAcceleration, drivetrain.getWidth());
         purePursuitController.getOdometryHandler().set(purePursuitController.getPath().getPoints().get(0).getX(),
                 purePursuitController.getPath().getPoints().get(0).getY());
         purePursuitController.reset();
