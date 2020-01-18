@@ -10,24 +10,24 @@ import java.util.function.Supplier;
 public class DriveArcadeWithPID extends CommandBase {
 
     private final TankDrivetrain drivetrain;
-    private final PIDLoop movementPIDLoop;
+    private final PIDLoop pidLoop;
     private Supplier<Double> setpoint;
 
     /**
      * @param drivetrain      is the {@link TankDrivetrain} the command moves.
-     * @param movementPIDLoop is the {@link PIDLoop} that calculates and sets the speed to the drivetrain.
+     * @param pidLoop is the {@link PIDLoop} that calculates and sets the speed to the drivetrain.
      */
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop, Supplier<Double> setpoint) {
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop pidLoop, Supplier<Double> setpoint) {
         this.addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.setpoint = setpoint;
-        this.movementPIDLoop = movementPIDLoop;
-        this.movementPIDLoop.setSetpoint(setpoint.get());
+        this.pidLoop = pidLoop;
+        this.pidLoop.setSetpoint(setpoint.get());
     }
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop, double setpoint){
-        this(drivetrain, movementPIDLoop, () -> setpoint);
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop pidLoop, double setpoint){
+        this(drivetrain, pidLoop, () -> setpoint);
     }
 
     /**
@@ -35,7 +35,7 @@ public class DriveArcadeWithPID extends CommandBase {
      */
     @Override
     public void initialize() {
-        movementPIDLoop.enable();
+        pidLoop.enable();
     }
 
     /**
@@ -43,19 +43,19 @@ public class DriveArcadeWithPID extends CommandBase {
      */
     @Override
     public void execute() {
-        movementPIDLoop.setSetpoint(setpoint.get());
-        movementPIDLoop.update();
+        pidLoop.setSetpoint(setpoint.get());
+        pidLoop.update();
     }
 
     @Override
     public void end(boolean interrupted) {
-        movementPIDLoop.disable();
+        pidLoop.disable();
         drivetrain.stop();
     }
 
     @Override
     public boolean isFinished() {
-        return movementPIDLoop.onTarget();
+        return pidLoop.onTarget();
     }
 
 }

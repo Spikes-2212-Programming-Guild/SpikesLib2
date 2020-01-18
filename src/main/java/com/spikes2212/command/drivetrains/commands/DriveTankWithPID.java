@@ -26,8 +26,8 @@ public class DriveTankWithPID extends CommandBase {
         this.rightSetpoint = rightSetpoint;
         this.leftSetpoint = leftSetpoint;
         this.rightPIDLoop = rightPIDLoop;
-        this.rightPIDLoop.setSetpoint(rightSetpoint.get());
         this.leftPIDLoop = leftPIDLoop;
+        this.rightPIDLoop.setSetpoint(rightSetpoint.get());
         this.leftPIDLoop.setSetpoint(leftSetpoint.get());
     }
 
