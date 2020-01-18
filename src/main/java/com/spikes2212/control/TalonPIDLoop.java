@@ -56,32 +56,30 @@ public class TalonPIDLoop implements PIDLoop {
 
     private double lastTimeNotOnTarget;
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings,
                         Predicate<Double> canMove) {
-        this(motor, PIDSettings, setpoint, canMove, () -> 1.0);
+        this(motor, PIDSettings, canMove, () -> 1.0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings,
                         Predicate<Double> canMove, Supplier<Double> peakOutput) {
-        this(motor, PIDSettings, setpoint, canMove, peakOutput, ControlMode.Position);
+        this(motor, PIDSettings, canMove, peakOutput, ControlMode.Position);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings,
                         Predicate<Double> canMove, Supplier<Double> peakOutput, ControlMode controlMode) {
-        this(motor, PIDSettings, setpoint, canMove, peakOutput, controlMode, 0);
+        this(motor, PIDSettings, canMove, peakOutput, controlMode, 0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings,
                         Predicate<Double> canMove, Supplier<Double> peakOutput, ControlMode controlMode, int loop) {
-        this(motor, PIDSettings, setpoint, canMove, peakOutput, controlMode, loop, 30);
+        this(motor, PIDSettings, canMove, peakOutput, controlMode, loop, 30);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
-                        Predicate<Double> canMove, Supplier<Double> peakOutput, ControlMode controlMode, int loop,
-                        int timeout) {
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, Predicate<Double> canMove,
+                        Supplier<Double> peakOutput, ControlMode controlMode, int loop, int timeout) {
         this.motor = motor;
         this.PIDSettings = PIDSettings;
-        this.setpoint = setpoint;
         this.canMove = canMove;
         this.peakOutput = peakOutput;
         this.controlMode = controlMode;
@@ -90,27 +88,27 @@ public class TalonPIDLoop implements PIDLoop {
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings,
                         Predicate<Double> canMove, double peakOutput) {
-        this(motor, PIDSettings, setpoint, canMove, peakOutput, ControlMode.Position);
+        this(motor, PIDSettings, canMove, peakOutput, ControlMode.Position);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings,
                         Predicate<Double> canMove, double peakOutput,
                         ControlMode controlMode) {
-        this(motor, PIDSettings, setpoint, canMove, peakOutput, controlMode, 0);
+        this(motor, PIDSettings, canMove, peakOutput, controlMode, 0);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings,
                         Predicate<Double> canMove, double peakOutput, ControlMode controlMode,
                         int loop) {
-        this(motor, PIDSettings, setpoint, canMove, peakOutput, controlMode, loop, 30);
+        this(motor, PIDSettings, canMove, peakOutput, controlMode, loop, 30);
     }
 
-    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings, double setpoint,
+    public TalonPIDLoop(BaseMotorController motor, PIDSettings PIDSettings,
                         Predicate<Double> canMove, double peakOutput, ControlMode controlMode,
                         int loop, int timeout) {
-        this(motor, PIDSettings, setpoint, canMove, () -> peakOutput, controlMode, loop, timeout);
+        this(motor, PIDSettings, canMove, () -> peakOutput, controlMode, loop, timeout);
     }
 
     private void initialize() {
