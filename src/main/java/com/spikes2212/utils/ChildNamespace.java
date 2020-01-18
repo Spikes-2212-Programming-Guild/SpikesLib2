@@ -49,7 +49,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     @Override
-    public void putString(String key, String value) {
+    public void putString(String key, Supplier<String> value) {
         parent.putString(name + separator + key, value);
     }
 
@@ -59,7 +59,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     @Override
-    public void putNumber(String key, double value) {
+    public void putNumber(String key, Supplier<? extends Number> value) {
         parent.putNumber(name + separator + key, value);
     }
 
@@ -69,7 +69,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     @Override
-    public void putBoolean(String key, boolean value) {
+    public void putBoolean(String key, Supplier<Boolean> value) {
         parent.putBoolean(name + separator + key, value);
     }
 

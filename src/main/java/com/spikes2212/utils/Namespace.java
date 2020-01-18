@@ -18,15 +18,15 @@ public interface Namespace {
 
     Sendable getSendable(String key);
 
-    void putString(String key, String value);
+    void putString(String key, Supplier<String> value);
 
     String getString(String key);
 
-    void putNumber(String key, double value);
+    void putNumber(String key, Supplier<? extends Number> value);
 
     double getNumber(String key);
 
-    void putBoolean(String key, boolean value);
+    void putBoolean(String key, Supplier<Boolean> value);
 
     boolean getBoolean(String key);
 }
