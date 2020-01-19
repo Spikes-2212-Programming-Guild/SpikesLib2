@@ -45,7 +45,7 @@ public class DriveArcade extends CommandBase {
      */
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
-        this.addRequirements(drivetrain);
+        addRequirements(drivetrain);
         this.tankDrivetrain = drivetrain;
         this.moveValueSupplier = moveValueSupplier;
         this.rotateValueSupplier = rotateValueSupplier;
