@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -14,7 +13,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  */
 
-public class RioPIDLoop implements PIDLoop {
+public class NativePIDLoop implements PIDLoop {
 
     /**
      * An enum that represents the frequency the PID loop runs in.
@@ -71,36 +70,31 @@ public class RioPIDLoop implements PIDLoop {
      */
     private Consumer<Double> output;
 
-    /**
-     * A lock that synchronizes the different threads.
-     */
-    private ReentrantLock lock;
 
-
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
-                      Frequency frequency, boolean continuous, double minContinuousValue, double maxContinuousValue) {
+    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+                         Frequency frequency, boolean continuous, double minContinuousValue, double maxContinuousValue) {
         this.pidSettings = pidSettings;
         this.setpoint = setpoint;
         this.frequency = frequency;
         this.source = source;
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
         this.output = output;
+        controller = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD(), frequency.period);
         notifier = new Notifier(this::periodic);
-        lock = new ReentrantLock();
         setContinuousMode(continuous, minContinuousValue, maxContinuousValue);
     }
 
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
-                      Frequency frequency) {
+    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+                         Frequency frequency) {
         this(pidSettings, setpoint, source, output, frequency, false, 0.0, 0.0);
     }
 
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output) {
+    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output) {
         this(pidSettings, setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
     }
 
-    public RioPIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
-                      boolean continuous, double minContinuousValue, double maxContinuousValue) {
+    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+                         boolean continuous, double minContinuousValue, double maxContinuousValue) {
         this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
     }
 
@@ -132,17 +126,11 @@ public class RioPIDLoop implements PIDLoop {
 
     @Override
     public void enable() {
-        controller = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD(), frequency.period);
         notifier.startPeriodic(frequency.period);
     }
 
     private void periodic() {
-        lock.lock();
-        try {
-            output.accept(controller.calculate(source.get()));
-        } finally {
-            lock.unlock();
-        }
+        output.accept(controller.calculate(source.get()));
     }
 
     @Override
@@ -160,13 +148,8 @@ public class RioPIDLoop implements PIDLoop {
 
     @Override
     public void update() {
-        lock.lock();
-        try {
-            controller.setSetpoint(setpoint);
-            controller.setTolerance(pidSettings.getTolerance());
-        } finally {
-            lock.unlock();
-        }
+        controller.setSetpoint(setpoint);
+        controller.setTolerance(pidSettings.getTolerance());
     }
 
     @Override
