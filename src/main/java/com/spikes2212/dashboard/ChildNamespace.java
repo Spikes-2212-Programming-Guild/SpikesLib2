@@ -1,7 +1,5 @@
-package com.spikes2212.utils;
+package com.spikes2212.dashboard;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.wpilibj.Sendable;
 
 import java.util.function.Supplier;

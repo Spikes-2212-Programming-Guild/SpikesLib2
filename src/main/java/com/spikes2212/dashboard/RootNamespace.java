@@ -1,10 +1,9 @@
-package com.spikes2212.utils;
+package com.spikes2212.dashboard;
 
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
