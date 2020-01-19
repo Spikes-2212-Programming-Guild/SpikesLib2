@@ -19,7 +19,7 @@ public class DriveArcadeWithPID extends CommandBase {
      */
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop pidLoop, Supplier<Double> setpoint) {
-        this.addRequirements(drivetrain);
+        addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.setpoint = setpoint;
         this.pidLoop = pidLoop;
