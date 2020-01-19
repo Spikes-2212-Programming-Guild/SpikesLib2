@@ -132,9 +132,10 @@ public class NativePIDLoop implements PIDLoop {
         notifier.startPeriodic(frequency.period);
     }
 
-    private void periodic() {
+    private synchronized void periodic() {
         lastOutput = controller.calculate(source.get());
         outputConsumer.accept(lastOutput);
+
     }
 
     @Override
@@ -152,8 +153,10 @@ public class NativePIDLoop implements PIDLoop {
 
     @Override
     public void update() {
-        controller.setSetpoint(setpoint);
-        controller.setTolerance(pidSettings.getTolerance());
+        synchronized (this) {
+            controller.setSetpoint(setpoint);
+            controller.setTolerance(pidSettings.getTolerance());
+        }
     }
 
     @Override
