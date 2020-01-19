@@ -110,17 +110,17 @@ public class RootNamespace implements Namespace {
         booleanFields.put(key, value);
     }
 
+    public void remove(String name) {
+        stringFields.remove(name);
+        numberFields.remove(name);
+        booleanFields.remove(name);
+    }
+
     @Override
     public boolean getBoolean(String key) {
         NetworkTableEntry entry = this.table.getEntry(key);
         NetworkTableValue value = entry.getValue();
         return value.getBoolean();
-    }
-
-    private void remove(String name) {
-        stringFields.remove(name);
-        numberFields.remove(name);
-        booleanFields.remove(name);
     }
 
     private void updateString() {
