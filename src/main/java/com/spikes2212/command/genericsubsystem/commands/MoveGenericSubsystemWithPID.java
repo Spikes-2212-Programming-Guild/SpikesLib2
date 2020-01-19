@@ -6,10 +6,28 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
 
+/**
+ * This command moves a {@link GenericSubsystem} according to a {@link Supplier}
+ * or a constant speed until it can't move anymore.
+ *
+ * @author Yuval Levy
+ * @see GenericSubsystem
+ */
 public class MoveGenericSubsystemWithPID extends CommandBase {
 
+    /**
+     * the subsystem the command moves.
+     */
     private final GenericSubsystem subsystem;
+
+    /**
+     * the pid loop that calculates the speed for the command
+     */
     private final PIDLoop pidLoop;
+
+    /**
+     * the setpoint for the subsystem.
+     */
     private Supplier<Double> setpoint;
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDLoop pidLoop, Supplier<Double> setpoint) {
@@ -42,6 +60,6 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return pidLoop.onTarget();
+        return pidLoop.onTarget() || subsystem.canMove(pidLoop.getOutput());
     }
 }

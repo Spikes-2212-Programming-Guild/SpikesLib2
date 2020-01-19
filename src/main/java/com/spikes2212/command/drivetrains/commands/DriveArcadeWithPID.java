@@ -14,7 +14,7 @@ public class DriveArcadeWithPID extends CommandBase {
     private Supplier<Double> setpoint;
 
     /**
-     * @param drivetrain      is the {@link TankDrivetrain} the command moves.
+     * @param drivetrain is the {@link TankDrivetrain} the command moves.
      * @param pidLoop is the {@link PIDLoop} that calculates and sets the speed to the drivetrain.
      */
 
