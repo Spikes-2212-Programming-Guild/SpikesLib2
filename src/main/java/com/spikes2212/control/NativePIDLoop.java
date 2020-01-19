@@ -155,8 +155,8 @@ public class NativePIDLoop implements PIDLoop {
     public void update() {
         synchronized (this) {
             controller.setSetpoint(setpoint);
+            controller.setTolerance(pidSettings.getTolerance());
         }
-        controller.setTolerance(pidSettings.getTolerance());
     }
 
     @Override
