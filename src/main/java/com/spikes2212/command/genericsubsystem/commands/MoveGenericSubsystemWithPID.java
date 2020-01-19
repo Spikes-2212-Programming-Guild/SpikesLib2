@@ -31,7 +31,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     private Supplier<Double> setpoint;
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDLoop pidLoop, Supplier<Double> setpoint) {
-        this.addRequirements(subsystem);
+        addRequirements(subsystem);
         this.subsystem = subsystem;
         this.pidLoop = pidLoop;
         this.setpoint = setpoint;

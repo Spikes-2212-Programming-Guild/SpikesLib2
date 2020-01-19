@@ -41,7 +41,6 @@ public abstract class GenericSubsystem extends SubsystemBase {
      * @param maxSpeed the maximum speed
      */
     public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
-        super();
         this.maxSpeed = maxSpeed;
         this.minSpeed = minSpeed;
     }

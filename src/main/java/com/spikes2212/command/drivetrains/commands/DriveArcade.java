@@ -45,12 +45,11 @@ public class DriveArcade extends CommandBase {
      */
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
-        super();
+        this.addRequirements(drivetrain);
         this.tankDrivetrain = drivetrain;
         this.moveValueSupplier = moveValueSupplier;
         this.rotateValueSupplier = rotateValueSupplier;
         this.isFinished = isFinished;
-        this.addRequirements(drivetrain);
     }
 
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
@@ -64,11 +63,6 @@ public class DriveArcade extends CommandBase {
 
     public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished) {
         this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished);
-    }
-
-    @Override
-    public void initialize() {
-
     }
 
     /**
