@@ -34,4 +34,9 @@ public interface PIDLoop {
      * @param setpoint the new setpoint to aim towards
      */
     void setSetpoint(double setpoint);
+
+    /**
+     * returns the last output from the pid controller.
+     */
+    double getOutput();
 }
