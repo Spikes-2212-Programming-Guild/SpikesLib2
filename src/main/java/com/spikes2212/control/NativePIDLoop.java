@@ -68,34 +68,37 @@ public class NativePIDLoop implements PIDLoop {
     /**
      * The output of RioPIDLoop.
      */
-    private Consumer<Double> output;
+    private Consumer<Double> outputConsumer;
 
+    /**
+     * the last output of the pid controller
+     */
+    private double lastOutput;
 
-    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+    public NativePIDLoop(PIDSettings pidSettings, Supplier<Double> source, Consumer<Double> outputConsumer,
                          Frequency frequency, boolean continuous, double minContinuousValue, double maxContinuousValue) {
         this.pidSettings = pidSettings;
-        this.setpoint = setpoint;
         this.frequency = frequency;
         this.source = source;
         this.lastTimeNotOnTarget = Timer.getFPGATimestamp();
-        this.output = output;
+        this.outputConsumer = outputConsumer;
         controller = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD(), frequency.period);
         notifier = new Notifier(this::periodic);
         setContinuousMode(continuous, minContinuousValue, maxContinuousValue);
     }
 
-    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+    public NativePIDLoop(PIDSettings pidSettings, Supplier<Double> source, Consumer<Double> outputConsumer,
                          Frequency frequency) {
-        this(pidSettings, setpoint, source, output, frequency, false, 0.0, 0.0);
+        this(pidSettings, source, outputConsumer, frequency, false, 0.0, 0.0);
     }
 
-    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output) {
-        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, false, 0, 0);
+    public NativePIDLoop(PIDSettings pidSettings, Supplier<Double> source, Consumer<Double> outputConsumer) {
+        this(pidSettings, source, outputConsumer, Frequency.DEFAULT, false, 0, 0);
     }
 
-    public NativePIDLoop(PIDSettings pidSettings, double setpoint, Supplier<Double> source, Consumer<Double> output,
+    public NativePIDLoop(PIDSettings pidSettings, Supplier<Double> source, Consumer<Double> outputConsumer,
                          boolean continuous, double minContinuousValue, double maxContinuousValue) {
-        this(pidSettings, setpoint, source, output, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
+        this(pidSettings, source, outputConsumer, Frequency.DEFAULT, continuous, minContinuousValue, maxContinuousValue);
     }
 
     public double getSetpoint() {
@@ -120,8 +123,8 @@ public class NativePIDLoop implements PIDLoop {
         return source;
     }
 
-    public Consumer<Double> getOutput() {
-        return output;
+    public double getOutput() {
+        return lastOutput;
     }
 
     @Override
@@ -130,7 +133,8 @@ public class NativePIDLoop implements PIDLoop {
     }
 
     private void periodic() {
-        output.accept(controller.calculate(source.get()));
+        lastOutput = controller.calculate(source.get());
+        outputConsumer.accept(lastOutput);
     }
 
     @Override

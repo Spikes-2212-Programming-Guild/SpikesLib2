@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 /**
- * This command moves a {@link GenericSubsystem} according to a {@link Supplier}
- * or a constant speed until it cannot move any more.
+ * This command moves a {@link GenericSubsystem} according to a {@link com.spikes2212.control.PIDLoop}
+ * until it reaches its target or until it can't move anymore .
  *
  * @author Yuval Levy
  * @see GenericSubsystem

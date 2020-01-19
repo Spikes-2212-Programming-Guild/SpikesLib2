@@ -9,10 +9,10 @@ import java.util.function.Supplier;
 public class DriveTankWithPID extends CommandBase {
 
     private final TankDrivetrain drivetrain;
-    private final PIDLoop rightPIDLoop;
     private final PIDLoop leftPIDLoop;
-    private Supplier<Double> rightSetpoint;
+    private final PIDLoop rightPIDLoop;
     private Supplier<Double> leftSetpoint;
+    private Supplier<Double> rightSetpoint;
 
     /**
      * @param drivetrain    is the {@link TankDrivetrain} the command moves.
@@ -20,17 +20,20 @@ public class DriveTankWithPID extends CommandBase {
      * @param rightSetpoint is the setpoint for the PIDLoop.
      */
 
-    public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop rightPIDLoop, PIDLoop leftPIDLoop, Supplier<Double> rightSetpoint, Supplier<Double> leftSetpoint) {
-        super();
-        this.drivetrain = drivetrain;
-        this.rightPIDLoop = rightPIDLoop;
-        this.leftPIDLoop = leftPIDLoop;
-        this.rightSetpoint = rightSetpoint;
-        this.leftSetpoint = leftSetpoint;
+    public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop leftPIDLoop, PIDLoop rightPIDLoop,
+                            Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint) {
         this.addRequirements(drivetrain);
+        this.drivetrain = drivetrain;
+        this.leftPIDLoop = leftPIDLoop;
+        this.rightPIDLoop = rightPIDLoop;
+        this.leftSetpoint = leftSetpoint;
+        this.rightSetpoint = rightSetpoint;
+        this.rightPIDLoop.setSetpoint(rightSetpoint.get());
+        this.leftPIDLoop.setSetpoint(leftSetpoint.get());
     }
 
-    public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop rightPIDLoop, PIDLoop leftPIDLoop, double rightSetpoint, double leftSetpoint) {
+    public DriveTankWithPID(TankDrivetrain drivetrain, PIDLoop leftPIDLoop, PIDLoop rightPIDLoop,
+                            double leftSetpoint, double rightSetpoint) {
         this(drivetrain, rightPIDLoop, leftPIDLoop, () -> rightSetpoint, () -> leftSetpoint);
     }
 
@@ -39,9 +42,8 @@ public class DriveTankWithPID extends CommandBase {
      */
     @Override
     public void initialize() {
-        rightPIDLoop.enable();
-
         leftPIDLoop.enable();
+        rightPIDLoop.enable();
     }
 
     /**
@@ -49,16 +51,16 @@ public class DriveTankWithPID extends CommandBase {
      */
     @Override
     public void execute() {
-        rightPIDLoop.setSetpoint(leftSetpoint.get());
         leftPIDLoop.setSetpoint(rightSetpoint.get());
-        rightPIDLoop.update();
+        rightPIDLoop.setSetpoint(leftSetpoint.get());
         leftPIDLoop.update();
+        rightPIDLoop.update();
     }
 
     @Override
     public void end(boolean interrupted) {
-        rightPIDLoop.disable();
         leftPIDLoop.disable();
+        rightPIDLoop.disable();
         drivetrain.stop();
     }
 
