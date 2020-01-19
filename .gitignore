@@ -4,11 +4,4 @@
 # Ignore Gradle build output directory
 build
 
-# intellij configuration files
-*.iml
-*.xml
 .idea
-
-# eclipse configuration files
-.classpath
-.project

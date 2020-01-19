@@ -1,4 +1,4 @@
-package com.spikes2212.utils;
+package com.spikes2212.util;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;

@@ -1,4 +1,4 @@
-package com.spikes2212.utils;
+package com.spikes2212.util;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
