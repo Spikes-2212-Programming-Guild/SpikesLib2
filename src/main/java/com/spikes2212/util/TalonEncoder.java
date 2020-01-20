@@ -1,8 +1,9 @@
 package com.spikes2212.util;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 
 /**
  * This class makes an encoder that is connected to a {@link WPI_TalonSRX} to a
@@ -10,9 +11,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  *
  * @author Tuval
  */
-public class TalonSRXEncoder {
+public class TalonEncoder {
 
-    private TalonSRX talon;
+    private BaseTalon talon;
     private double distancePerPulse;
 
     /**
@@ -24,8 +25,7 @@ public class TalonSRXEncoder {
      *                         scale of the value of the encoder.
      */
 
-    public TalonSRXEncoder(TalonSRX talon, double distancePerPulse) {
-
+    public TalonEncoder(BaseTalon talon, double distancePerPulse) {
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
         talon.setSensorPhase(true);
 
@@ -39,7 +39,7 @@ public class TalonSRXEncoder {
      *
      * @param talon The talon the encoder is connected to.
      */
-    public TalonSRXEncoder(TalonSRX talon) {
+    public TalonEncoder(BaseTalon talon) {
         this(talon, 1);
     }
 
