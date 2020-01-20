@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import edu.wpi.first.wpilibj.Timer;
 
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -27,6 +28,11 @@ public class TalonPIDLoop implements PIDLoop {
      * The setpoint the loop should go towards.
      */
     private double setpoint;
+
+    /**
+     * The `canMove` method of the Subsystem this PIDLoop belongs to.
+     */
+    private Predicate<Double> canMove;
 
     /**
      * The maximum output of the loop in any direction.
