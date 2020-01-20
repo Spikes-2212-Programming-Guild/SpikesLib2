@@ -20,18 +20,6 @@ public class DriveArcade extends CommandBase {
     protected final Supplier<Double> rotateValueSupplier;
     protected final Supplier<Boolean> isFinished;
 
-
-    /**
-     * This constructs a new {@link DriveArcade} command that moves the given
-     * {@link TankDrivetrain} according to constant linear and rotational speeds.
-     *
-     * @param drivetrain  the tank drivetrain this command opperates on.
-     * @param moveValue   the speed to move straight with. Positive values go forwards.
-     * @param rotateValue the speed to turn with. Positive values turn left.
-     * @param isFinished a condition to end the command.
-     */
-
-
     /**
      * This constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s
