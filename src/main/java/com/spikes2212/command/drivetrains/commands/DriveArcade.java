@@ -20,18 +20,6 @@ public class DriveArcade extends CommandBase {
     protected final Supplier<Double> rotateValueSupplier;
     protected final Supplier<Boolean> isFinished;
 
-
-    /**
-     * This constructs a new {@link DriveArcade} command that moves the given
-     * {@link TankDrivetrain} according to constant linear and rotational speeds.
-     *
-     * @param drivetrain  the tank drivetrain this command opperates on.
-     * @param moveValue   the speed to move straight with. Positive values go forwards.
-     * @param rotateValue the speed to turn with. Positive values turn left.
-     * @param isFinished a condition to end the command.
-     */
-
-
     /**
      * This constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s
@@ -45,12 +33,11 @@ public class DriveArcade extends CommandBase {
      */
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
-        super();
+        addRequirements(drivetrain);
         this.tankDrivetrain = drivetrain;
         this.moveValueSupplier = moveValueSupplier;
         this.rotateValueSupplier = rotateValueSupplier;
         this.isFinished = isFinished;
-        this.addRequirements(drivetrain);
     }
 
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
@@ -64,11 +51,6 @@ public class DriveArcade extends CommandBase {
 
     public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished) {
         this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished);
-    }
-
-    @Override
-    public void initialize() {
-
     }
 
     /**

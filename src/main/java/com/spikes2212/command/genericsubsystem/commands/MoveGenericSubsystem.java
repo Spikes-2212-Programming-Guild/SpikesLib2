@@ -30,10 +30,9 @@ public class MoveGenericSubsystem extends CommandBase {
      *                      should be moved with. Must only supply values between -1 and 1.
      */
     public MoveGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> speedSupplier) {
-        super();
+        addRequirements(subsystem);
         this.subsystem = subsystem;
         this.speedSupplier = speedSupplier;
-        this.addRequirements(subsystem);
     }
 
     public MoveGenericSubsystem(GenericSubsystem subsystem, double speedSupplier) {

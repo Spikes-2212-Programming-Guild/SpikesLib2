@@ -21,7 +21,6 @@ public class TankDrivetrain extends SubsystemBase {
     private DifferentialDrive drive;
 
     public TankDrivetrain(SpeedController left, SpeedController right) {
-        super();
         this.leftController = left;
         this.rightController = right;
         drive = new DifferentialDrive(leftController, rightController);
@@ -61,7 +60,7 @@ public class TankDrivetrain extends SubsystemBase {
      *                   forward.
      */
     public void setRight(double speedRight) {
-        rightController.set(speedRight);
+        rightController.set(-speedRight);
     }
 
     public void stop() {
