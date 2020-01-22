@@ -9,9 +9,14 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  */
 public interface TalonSubsystem extends Subsystem {
     /**
-     * Configure the Talon motor controller.
+     * Configure the Talon motor controller and its control loops.
      */
     void config();
+
+    /**
+     * Update any control loops running on the Talon.
+     */
+    void update();
 
     /**
      * Change the `setpoint` the subsystem is aiming towards.
