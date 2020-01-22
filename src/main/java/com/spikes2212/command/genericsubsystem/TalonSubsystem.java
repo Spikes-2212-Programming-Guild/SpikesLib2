@@ -11,12 +11,12 @@ public interface TalonSubsystem extends Subsystem {
     /**
      * Configure the Talon motor controller and its control loops.
      */
-    void config();
+    void configureLoop();
 
     /**
      * Update any control loops running on the Talon.
      */
-    void update(double setpoint);
+    void pidSet(double setpoint);
 
     /**
      * Stop running control loops on the Talon.

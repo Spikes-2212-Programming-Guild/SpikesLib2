@@ -25,12 +25,12 @@ public class MoveTalonSubsystem extends CommandBase {
 
     @Override
     public void initialize() {
-        subsystem.config();
+        subsystem.configureLoop();
     }
 
     @Override
     public void execute() {
-        subsystem.update(setpoint);
+        subsystem.pidSet(setpoint);
     }
 
     @Override
