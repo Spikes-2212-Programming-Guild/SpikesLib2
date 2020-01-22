@@ -24,13 +24,13 @@ public class FollowPath extends CommandBase {
     private PIDController rightController;
 
     public FollowPath(OdometryDrivetrain drivetrain, Path path, double lookaheadDistance,
-                      PIDSettings pidSettings, FFSettings FFSettings, double maxAcceleration) {
+                      PIDSettings pidSettings, FFSettings ffSettings, double maxAcceleration) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
         this.pidSettings = pidSettings;
-        this.FFSettings = FFSettings;
+        this.FFSettings = ffSettings;
         this.maxAcceleration = maxAcceleration;
     }
 
