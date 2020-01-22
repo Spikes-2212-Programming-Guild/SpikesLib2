@@ -3,7 +3,7 @@ package com.spikes2212.command.drivetrains.commands;
 import com.spikes2212.command.drivetrains.OdometryDrivetrain;
 import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.PIDSettings;
-import com.spikes2212.control.SVAGSettings;
+import com.spikes2212.control.FFSettings;
 import com.spikes2212.path.Path;
 import com.spikes2212.path.PurePursuitController;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -19,18 +19,18 @@ public class FollowPath extends CommandBase {
     private FeedForwardController rightFeedForwardController;
     private FeedForwardController leftFeedForwardController;
     private PIDSettings pidSettings;
-    private SVAGSettings svagSettings;
+    private FFSettings FFSettings;
     private PIDController leftController;
     private PIDController rightController;
 
     public FollowPath(OdometryDrivetrain drivetrain, Path path, double lookaheadDistance,
-                      PIDSettings pidSettings, SVAGSettings svagSettings, double maxAcceleration) {
+                      PIDSettings pidSettings, FFSettings FFSettings, double maxAcceleration) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
         this.pidSettings = pidSettings;
-        this.svagSettings = svagSettings;
+        this.FFSettings = FFSettings;
         this.maxAcceleration = maxAcceleration;
     }
 
@@ -42,8 +42,8 @@ public class FollowPath extends CommandBase {
         purePursuitController.getOdometryHandler().set(purePursuitController.getPath().getPoints().get(0).getX(),
                 purePursuitController.getPath().getPoints().get(0).getY());
         purePursuitController.reset();
-        leftFeedForwardController = new FeedForwardController(svagSettings.getkV(), svagSettings.getkA(), 0.02);
-        rightFeedForwardController = new FeedForwardController(svagSettings.getkV(), svagSettings.getkA(), 0.02);
+        leftFeedForwardController = new FeedForwardController(FFSettings.getkV(), FFSettings.getkA(), 0.02);
+        rightFeedForwardController = new FeedForwardController(FFSettings.getkV(), FFSettings.getkA(), 0.02);
         leftFeedForwardController.reset();
         rightFeedForwardController.reset();
         leftController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
