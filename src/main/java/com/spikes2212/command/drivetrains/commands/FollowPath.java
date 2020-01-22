@@ -42,8 +42,8 @@ public class FollowPath extends CommandBase {
         purePursuitController.getOdometryHandler().set(purePursuitController.getPath().getPoints().get(0).getX(),
                 purePursuitController.getPath().getPoints().get(0).getY());
         purePursuitController.reset();
-        leftFeedForwardController = new FeedForwardController(svagSettings.getkV().get(), svagSettings.getkA().get(), 0.02);
-        rightFeedForwardController = new FeedForwardController(svagSettings.getkV().get(), svagSettings.getkA().get(), 0.02);
+        leftFeedForwardController = new FeedForwardController(svagSettings.getkV(), svagSettings.getkA(), 0.02);
+        rightFeedForwardController = new FeedForwardController(svagSettings.getkV(), svagSettings.getkA(), 0.02);
         leftFeedForwardController.reset();
         rightFeedForwardController.reset();
         leftController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());

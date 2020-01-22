@@ -50,32 +50,32 @@ public class SVAGSettings {
         this.kG = kG;
     }
 
-    public Supplier<Double> getkS() {
-        return kS;
+    public double getkS() {
+        return kS.get();
     }
 
     public void setkS(Supplier<Double> kS) {
         this.kS = kS;
     }
 
-    public Supplier<Double> getkV() {
-        return kV;
+    public double getkV() {
+        return kV.get();
     }
 
     public void setkV(Supplier<Double> kV) {
         this.kV = kV;
     }
 
-    public Supplier<Double> getkA() {
-        return kA;
+    public double getkA() {
+        return kA.get();
     }
 
     public void setkA(Supplier<Double> kA) {
         this.kA = kA;
     }
 
-    public Supplier<Double> getkG() {
-        return kG;
+    public double getkG() {
+        return kG.get();
     }
 
     public void setkG(Supplier<Double> kG) {
