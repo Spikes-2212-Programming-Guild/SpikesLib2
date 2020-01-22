@@ -25,6 +25,10 @@ public class MoveTalonSubsystem extends CommandBase {
         this.setpoint = setpoint;
     }
 
+    public MoveTalonSubsystem(TalonSubsystem subsystem, double setpoint) {
+        this(subsystem, () -> setpoint);
+    }
+
     @Override
     public void initialize() {
         subsystem.configureLoop();
