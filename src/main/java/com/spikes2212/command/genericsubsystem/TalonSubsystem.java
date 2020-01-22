@@ -16,17 +16,17 @@ public interface TalonSubsystem extends Subsystem {
     /**
      * Update any control loops running on the Talon.
      */
-    void update();
-
-    /**
-     * Change the `setpoint` the subsystem is aiming towards.
-     *
-     * @param setpoint the new setpoint to aim towards
-     */
-    void setSetpoint(double setpoint);
+    void update(double setpoint);
 
     /**
      * Stop running control loops on the Talon.
      */
     void finish();
+
+    /**
+     * Check whether the loop is currently on the target setpoint.
+     *
+     * @return `true` when on target setpoint, `false` otherwise
+     */
+    boolean onTarget(double setpoint);
 }
