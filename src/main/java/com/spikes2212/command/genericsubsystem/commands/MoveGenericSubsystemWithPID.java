@@ -1,7 +1,9 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-import com.spikes2212.control.PIDLoop;
+import com.spikes2212.control.PIDSettings;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
@@ -14,52 +16,65 @@ import java.util.function.Supplier;
  * @see GenericSubsystem
  */
 public class MoveGenericSubsystemWithPID extends CommandBase {
-
     /**
      * the subsystem the command moves.
      */
     private final GenericSubsystem subsystem;
 
     /**
-     * the pid loop that calculates the speed for the command
+     * A supplier that returns the subsystem's current location.
      */
-    private final PIDLoop pidLoop;
+    private Supplier<Double> source;
+
+    /**
+     * The PID Settings for the PID control loop.
+     */
+    private PIDSettings pidSettings;
 
     /**
      * the setpoint for the subsystem.
      */
     private Supplier<Double> setpoint;
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDLoop pidLoop, Supplier<Double> setpoint) {
+    /**
+     * An object that makes the necessary calculations for the PID control loop.
+     */
+    private PIDController pidController;
+
+    /**
+     * The last time the subsystem didn't reach target.
+     */
+    private double lastTimeNotOnTarget;
+
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, Supplier<Double> setpoint) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
-        this.pidLoop = pidLoop;
+        this.pidSettings = pidSettings;
         this.setpoint = setpoint;
-        this.pidLoop.setSetpoint(setpoint.get());
+        this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDLoop pidLoop, double setpoint){
-        this(subsystem, pidLoop, ()-> setpoint);
-    }
-
-    @Override
-    public void initialize() {
-        pidLoop.enable();
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, double setpoint) {
+        this(subsystem, pidSettings, () -> setpoint);
     }
 
     @Override
     public void execute() {
-        pidLoop.update();
+        pidController.setTolerance(pidSettings.getTolerance());
+        subsystem.move(pidController.calculate(source.get(), setpoint.get()));
     }
 
     @Override
     public void end(boolean interrupted) {
         subsystem.stop();
-        pidLoop.disable();
     }
 
     @Override
     public boolean isFinished() {
-        return pidLoop.onTarget() || subsystem.canMove(pidLoop.getOutput());
+        if(!pidController.atSetpoint()) {
+            lastTimeNotOnTarget = Timer.getFPGATimestamp();
+        }
+
+        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= pidSettings.getWaitTime();
     }
 }
