@@ -2,7 +2,7 @@ package com.spikes2212.control;
 
 import java.util.function.Supplier;
 
-public class FFSettings {
+public class FeedForwardSettings {
     /**
      * The static constant
      */
@@ -23,27 +23,27 @@ public class FFSettings {
      */
     private Supplier<Double> kG;
 
-    public FFSettings(Supplier<Double> kS, Supplier<Double> kV, Supplier<Double> kA) {
+    public FeedForwardSettings(Supplier<Double> kS, Supplier<Double> kV, Supplier<Double> kA) {
         this(kS, kV, kA, () -> 0.0);
     }
 
-    public FFSettings(Supplier<Double> kV, Supplier<Double> kA) {
+    public FeedForwardSettings(Supplier<Double> kV, Supplier<Double> kA) {
         this(() -> 0.0, kV, kA, () -> 0.0);
     }
 
-    public FFSettings(double kS, double kV, double kA) {
+    public FeedForwardSettings(double kS, double kV, double kA) {
         this(() -> kS, () -> kV, () -> kA, () -> 0.0);
     }
 
-    public FFSettings(double kV, double kA) {
+    public FeedForwardSettings(double kV, double kA) {
         this(() -> 0.0, () -> kV, () -> kA, () -> 0.0);
     }
 
-    public FFSettings(double kS, double kV, double kA, double kG) {
+    public FeedForwardSettings(double kS, double kV, double kA, double kG) {
         this(() -> kS, () -> kV, () -> kA, () -> kG);
     }
 
-    public FFSettings(Supplier<Double> kS, Supplier<Double> kV, Supplier<Double> kA, Supplier<Double> kG) {
+    public FeedForwardSettings(Supplier<Double> kS, Supplier<Double> kV, Supplier<Double> kA, Supplier<Double> kG) {
         this.kS = kS;
         this.kV = kV;
         this.kA = kA;

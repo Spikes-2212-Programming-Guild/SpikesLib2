@@ -1,7 +1,7 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-import com.spikes2212.control.FFSettings;
+import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.PIDSettings;
 import edu.wpi.first.wpilibj.Timer;
@@ -36,7 +36,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     /*
      *
      */
-    private FFSettings ffSettings;
+    private FeedForwardSettings feedForwardSettings;
     /**
      * the setpoint for the subsystem.
      */
@@ -57,18 +57,18 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private double lastTimeNotOnTarget;
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, Supplier<Double> setpoint, FFSettings ffSettings) {
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, Supplier<Double> setpoint, FeedForwardSettings feedForwardSettings) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.pidSettings = pidSettings;
-        this.ffSettings = ffSettings;
+        this.feedForwardSettings = feedForwardSettings;
         this.setpoint = setpoint;
-        this.feedForwardController = new FeedForwardController(ffSettings.getkS(), ffSettings.getkV(), ffSettings.getkA(), ffSettings.getkG(), 0.02);
+        this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(), feedForwardSettings.getkA(), feedForwardSettings.getkG(), 0.02);
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, double setpoint, FFSettings ffSettings) {
-        this(subsystem, pidSettings, () -> setpoint, ffSettings);
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, double setpoint, FeedForwardSettings feedForwardSettings) {
+        this(subsystem, pidSettings, () -> setpoint, feedForwardSettings);
     }
 
     @Override
