@@ -70,14 +70,6 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-        pidController.setTolerance(pidSettings.getTolerance());
-        pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
-        feedForwardController.setSVAG(feedForwardSettings.getkS(), feedForwardController.getkV(),
-                feedForwardController.getkA(), feedForwardController.getkG());
-    }
-
-    @Override
     public void execute() {
         pidController.setTolerance(pidSettings.getTolerance());
         pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
