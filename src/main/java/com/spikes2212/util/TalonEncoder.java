@@ -10,8 +10,14 @@ import com.ctre.phoenix.motorcontrol.can.BaseTalon;
  * @author Tuval
  */
 public class TalonEncoder {
-
+    /**
+     * The Talon this encoder is connected to.
+     */
     private BaseTalon talon;
+
+    /**
+     * The distance the subsystem with this encoder passes with every encoder tick.
+     */
     private double distancePerPulse;
 
     /**
