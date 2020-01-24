@@ -4,6 +4,8 @@ import java.util.function.Supplier;
 
 /**
  * The PID constants used in a {@link PIDLoop}, and the error tolerance and loop wait time.
+ *
+ * @author Eran Goldstein
  */
 public class PIDSettings {
     /**
