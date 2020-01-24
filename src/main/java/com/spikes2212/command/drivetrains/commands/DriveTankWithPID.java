@@ -22,15 +22,14 @@ public class DriveTankWithPID extends CommandBase {
     private double leftLastTimeNotOnTarget;
     private double rightLastTimeNotOnTarget;
 
-    public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings, PIDController leftPIDController,
-                            PIDController rightPIDController, Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint,
-                            Supplier<Double> leftSource, Supplier<Double> rightSource) {
+    public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings, Supplier<Double> leftSetpoint,
+                            Supplier<Double> rightSetpoint, Supplier<Double> leftSource, Supplier<Double> rightSource) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.leftPIDSettings = leftPIDSettings;
-        this.leftPIDController = leftPIDController;
+        this.leftPIDController = new PIDController(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD());
         this.rightPIDSettings = rightPIDSettings;
-        this.rightPIDController = rightPIDController;
+        this.rightPIDController = new PIDController(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD());
         this.leftSetpoint = leftSetpoint;
         this.rightSetpoint = rightSetpoint;
         this.leftSource = leftSource;
@@ -42,7 +41,7 @@ public class DriveTankWithPID extends CommandBase {
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDController leftPIDController, PIDSettings rightPIDSettings,
                             PIDController rightPIDController, double leftSetpoint, double rightSetpoint,
                             Supplier<Double> leftSource, Supplier<Double> rightSource) {
-        this(drivetrain, leftPIDSettings, rightPIDSettings, leftPIDController, rightPIDController, () -> leftSetpoint, () -> rightSetpoint, leftSource, rightSource);
+        this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource, rightSource);
     }
 
     /**
