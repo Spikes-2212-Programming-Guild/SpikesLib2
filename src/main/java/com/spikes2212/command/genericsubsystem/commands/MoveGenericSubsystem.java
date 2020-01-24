@@ -15,8 +15,14 @@ import java.util.function.Supplier;
  * @see GenericSubsystem
  */
 public class MoveGenericSubsystem extends CommandBase {
-
+    /**
+     * The {@link GenericSubsystem} this command moves.
+     */
     protected final GenericSubsystem subsystem;
+
+    /**
+     * The speed at which this command moves the subsystem.
+     */
     protected final Supplier<Double> speedSupplier;
 
     /**
@@ -37,7 +43,6 @@ public class MoveGenericSubsystem extends CommandBase {
     public MoveGenericSubsystem(GenericSubsystem subsystem, double speedSupplier) {
         this(subsystem, () -> speedSupplier);
     }
-
 
     @Override
     public void initialize() {
