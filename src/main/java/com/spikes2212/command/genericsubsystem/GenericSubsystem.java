@@ -60,14 +60,14 @@ public abstract class GenericSubsystem extends SubsystemBase {
     }
 
     /**
-     * This method applies a given speed to the subsystem.
+     * Applies a given speed to the subsystem.
      *
      * @param speed the speed
      */
     public abstract void apply(double speed);
 
     /**
-     * This method returns whether the subsystem can move safely.
+     * Returns whether the subsystem can move safely.
      *
      * @param speed the speed
      * @return whether the subsystem can move safely
