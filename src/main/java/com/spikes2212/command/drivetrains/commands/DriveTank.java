@@ -9,15 +9,29 @@ import java.util.function.Supplier;
  * This command moves a {@link TankDrivetrain} using speeds supplied to the left and the right sides independently.
  */
 public class DriveTank extends CommandBase {
-
+    /**
+     * The {@link TankDrivetrain} this command will move.
+     */
     protected final TankDrivetrain tankDrivetrain;
+
+    /**
+     * The speed the left side of the {@link TankDrivetrain} should move with.
+     */
     protected final Supplier<Double> leftSpeedSupplier;
+
+    /**
+     * The speed the right side of the {@link TankDrivetrain} should move with.
+     */
     protected final Supplier<Double> rightSpeedSupplier;
+
+    /**
+     * A supplier that returns `true` when the command should finished and `false` otherwise.
+     */
     Supplier<Boolean> isFinished;
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} acording to speed values from Double
+     * {@link TankDrivetrain} according to speed values from Double
      * {@link Supplier}s for left and right sides.<br>
      * Positive values move forwards.
      *
