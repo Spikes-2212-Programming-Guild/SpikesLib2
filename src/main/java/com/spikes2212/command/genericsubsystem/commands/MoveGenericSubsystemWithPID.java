@@ -73,12 +73,20 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     public void initialize() {
         pidController.setTolerance(pidSettings.getTolerance());
         pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        feedForwardController.setSVAG(feedForwardSettings.getkS(), feedForwardController.getkV(),
+                feedForwardController.getkA(), feedForwardController.getkG());
     }
 
     @Override
     public void execute() {
+        pidController.setTolerance(pidSettings.getTolerance());
+        pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        feedForwardController.setSVAG(feedForwardSettings.getkS(), feedForwardController.getkV(),
+                feedForwardController.getkA(), feedForwardController.getkG());
+
+        double pidValue = pidController.calculate(source.get(), setpoint.get());
         double svagValue = feedForwardController.calculate(setpoint.get());
-        subsystem.move((pidController.calculate(source.get(), setpoint.get()) + svagValue) / 2);
+        subsystem.move((pidValue + svagValue) / 2);
     }
 
     @Override
