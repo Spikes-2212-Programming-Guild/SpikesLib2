@@ -7,6 +7,8 @@ import java.util.function.Supplier;
 
 /**
  * Move a {@link TalonSubsystem} using its Talon's control loops.
+ *
+ * @author Eran Goldstein
  */
 public class MoveTalonSubsystem extends CommandBase {
     /**
