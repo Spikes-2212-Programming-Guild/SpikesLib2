@@ -1,9 +1,7 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-import com.spikes2212.control.FeedForwardSettings;
-import com.spikes2212.control.FeedForwardController;
-import com.spikes2212.control.PIDSettings;
+import com.spikes2212.control.*;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -74,13 +72,13 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     @Override
     public void initialize() {
         pidController.setTolerance(pidSettings.getTolerance());
-        pidController.setPID(pidSettings.getkP(),pidSettings.getkI(),pidSettings.getkD());
+        pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 
     @Override
     public void execute() {
-        double svagValue=feedForwardController.calculate(setpoint.get());
-        subsystem.move((pidController.calculate(source.get(), setpoint.get())+svagValue)/2);
+        double svagValue = feedForwardController.calculate(setpoint.get());
+        subsystem.move((pidController.calculate(source.get(), setpoint.get()) + svagValue) / 2);
     }
 
     @Override
@@ -90,7 +88,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (!pidController.atSetpoint()) {
+        if(!pidController.atSetpoint()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
