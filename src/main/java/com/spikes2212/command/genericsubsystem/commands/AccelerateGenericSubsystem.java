@@ -1,13 +1,12 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
-import java.util.function.Supplier;
-
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-
 import edu.wpi.first.wpilibj.Timer;
 
+import java.util.function.Supplier;
+
 /**
- * This command accelerate the speed of a {@link GenericSubsystem} linearly so it will
+ * This command accelerates the speed of a {@link GenericSubsystem} linearly so that it will
  * reach a wanted speed after a given time.
  *
  * @author Yuval Levy
@@ -26,7 +25,7 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
      * time.
      *
      * @param subsystem   the {@link GenericSubsystem} this command should move.
-     * @param wantedSpeed the speed the subsystem should move after the time.
+     * @param wantedSpeed the speed the subsystem should move at the end of the command.
      * @param time        the time it takes for the subsystem to get to the speed.
      */
     public AccelerateGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> wantedSpeed, double time) {
@@ -44,7 +43,7 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
      * time.
      *
      * @param subsystem   the {@link GenericSubsystem} this command should move.
-     * @param wantedSpeed the speed the subsystem should move after the time.
+     * @param wantedSpeed the speed the subsystem should move at the end of the command.
      * @param time        the time it takes for the subsystem to get to the speed.
      */
     public AccelerateGenericSubsystem(GenericSubsystem subsystem, double wantedSpeed, double time) {
