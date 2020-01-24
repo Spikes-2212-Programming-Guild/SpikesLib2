@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
- * This class represents a type of Drivetrain that its left and right sides are
+ * This class represents a type of Drivetrain with left and right sides that are
  * controlled independently, allowing it to move by giving each side a speed
  * value separately.
  * <p>
  * It can move forwards/backwards by giving both its sides an equal speed or
- * turn by giving the sides different speeds
+ * turn by giving the sides different speeds.
  *
  * @author Yuval Levy
  */
