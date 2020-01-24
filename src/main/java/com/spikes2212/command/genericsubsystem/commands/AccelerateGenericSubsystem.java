@@ -81,5 +81,4 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
     public boolean isFinished() {
         return super.isFinished() || currentSpeed == speedSupplier.get();
     }
-
 }

@@ -87,6 +87,4 @@ public abstract class GenericSubsystem extends SubsystemBase {
     public double getSpeed() {
         return currentSpeed;
     }
-
-
 }

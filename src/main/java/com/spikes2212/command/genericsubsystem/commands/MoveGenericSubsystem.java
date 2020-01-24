@@ -61,5 +61,4 @@ public class MoveGenericSubsystem extends CommandBase {
     public boolean isFinished() {
         return !subsystem.canMove(speedSupplier.get());
     }
-
 }
