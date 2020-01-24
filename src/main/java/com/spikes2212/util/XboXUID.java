@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.*;
 
+/**
+ * An Xbox controller.
+ */
 public class XboXUID extends Joystick {
-
     /**
      * Constructs a new {@link XboXUID} using the port of the USB on the driver
      * station.
@@ -13,6 +15,7 @@ public class XboXUID extends Joystick {
      * @param port The port on the Driver Station that the joystick is plugged into.
      */
     XboxController xbox;
+
     public XboXUID(int port) {
         super(port);
         xbox=new XboxController(port);
@@ -51,7 +54,7 @@ public class XboXUID extends Joystick {
      * @return the yellow button on the joystick.
      */
     public JoystickButton getYellowButton() {
-		return new JoystickButton(this,XboxController.Button.kY.value);
+        return new JoystickButton(this,XboxController.Button.kY.value);
     }
 
     /**
@@ -60,7 +63,7 @@ public class XboXUID extends Joystick {
      * @return the start button on the joystick.
      */
     public JoystickButton getButtonStart() {
-		return new JoystickButton(this,XboxController.Button.kStart.value);
+        return new JoystickButton(this,XboxController.Button.kStart.value);
     }
 
     /**
@@ -69,7 +72,7 @@ public class XboXUID extends Joystick {
      * @return the back button on the joystick.
      */
     public JoystickButton getButtonBack() {
-		return new JoystickButton(this,XboxController.Button.kBack.value);
+        return new JoystickButton(this,XboxController.Button.kBack.value);
     }
 
     /**
@@ -126,7 +129,7 @@ public class XboXUID extends Joystick {
      * @return the right bumper button on the joystick.
      */
     public JoystickButton getRBButton() {
-		return new JoystickButton(this,XboxController.Button.kBumperRight.value);
+        return new JoystickButton(this,XboxController.Button.kBumperRight.value);
     }
 
     /**
@@ -135,7 +138,7 @@ public class XboXUID extends Joystick {
      * @return the left bumper button on the joystick.
      */
     public JoystickButton getLBButton() {
-		return new JoystickButton(this,XboxController.Button.kBumperLeft.value);
+        return new JoystickButton(this,XboxController.Button.kBumperLeft.value);
     }
 
     /**
@@ -144,7 +147,7 @@ public class XboXUID extends Joystick {
      * @return the button on the right stick.
      */
     public JoystickButton getRightStickButton() {
-		return new JoystickButton(this,XboxController.Button.kStickRight.value);
+        return new JoystickButton(this,XboxController.Button.kStickRight.value);
     }
 
     /**
@@ -153,7 +156,7 @@ public class XboXUID extends Joystick {
      * @return the button on the left stick.
      */
     public JoystickButton getLeftStickButton() {
-		return new JoystickButton(this,XboxController.Button.kStickLeft.value);
+        return new JoystickButton(this,XboxController.Button.kStickLeft.value);
     }
 
     /**
@@ -198,12 +201,12 @@ public class XboXUID extends Joystick {
      * @return the up arrow button.
      */
     public Button getUpButton() {
-		return new Button() {
-			@Override
-			public boolean get() {
-				return getPOV() == 0;
-			}
-		};
+        return new Button() {
+            @Override
+            public boolean get() {
+                return getPOV() == 0;
+            }
+        };
     }
 
     /**
