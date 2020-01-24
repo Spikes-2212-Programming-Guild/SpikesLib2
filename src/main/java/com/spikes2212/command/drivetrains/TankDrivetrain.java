@@ -15,9 +15,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * @author Yuval Levy
  */
 public class TankDrivetrain extends SubsystemBase {
-
+    /**
+     * The motor controller for the left side of the drivetrain.
+     */
     protected SpeedController leftController;
+
+    /**
+     * The motor controller for the right side of the drivetrain.
+     */
     protected SpeedController rightController;
+
+    /**
+     * A WPILib object that calculates and assigns speed values to the motor controllers.
+     */
     private DifferentialDrive drive;
 
     public TankDrivetrain(SpeedController left, SpeedController right) {
