@@ -12,10 +12,24 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  */
 public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
-
+    /**
+     * The time this subsystem should take to accelerate up to the required speed.
+     */
     protected final double time;
+
+    /**
+     * The acceleration this command will apply to get to the required speed in the required time.
+     */
     private double acceleration;
+
+    /**
+     * The current speed of the subsystem.
+     */
     private double currentSpeed;
+
+    /**
+     * The time this command started running.
+     */
     private double startTime;
 
     /**
