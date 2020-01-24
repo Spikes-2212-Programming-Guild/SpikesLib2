@@ -1,9 +1,9 @@
 package com.spikes2212.command.drivetrains.commands;
 
-import java.util.function.Supplier;
-
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import java.util.function.Supplier;
 
 
 /**
@@ -15,9 +15,24 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 
 public class DriveArcade extends CommandBase {
+    /**
+     * The {@link TankDrivetrain} this command will move.
+     */
     protected final TankDrivetrain tankDrivetrain;
+
+    /**
+     * The speed to move forward.
+     */
     protected final Supplier<Double> moveValueSupplier;
+
+    /**
+     * The turning speed.
+     */
     protected final Supplier<Double> rotateValueSupplier;
+
+    /**
+     * A supplier that returns `true` when the command has finished and `false` otherwise.
+     */
     protected final Supplier<Boolean> isFinished;
 
     /**
@@ -70,5 +85,4 @@ public class DriveArcade extends CommandBase {
     public void end(boolean interrupted) {
         tankDrivetrain.stop();
     }
-
 }
