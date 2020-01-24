@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.Supplier;
 
 /**
- * This class represents a generic subsystem that moves within a limitation, or
- * without one.
+ * This class represents a generic subsystem that moves within or without limits.
  *
  * @author Yuval Levy
  */
