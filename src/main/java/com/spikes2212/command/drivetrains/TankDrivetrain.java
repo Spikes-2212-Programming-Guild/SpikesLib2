@@ -54,7 +54,7 @@ public class TankDrivetrain extends SubsystemBase {
     }
 
     /**
-     * Moves the right side of this drivetrain with a given speed.
+     * Moves the right side of this drivetrain by a given speed.
      *
      * @param speedRight the speed to set to the right side. Positive values move this side
      *                   forward.
