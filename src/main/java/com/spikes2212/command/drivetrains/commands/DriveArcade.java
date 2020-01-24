@@ -40,7 +40,7 @@ public class DriveArcade extends CommandBase {
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
-     * @param drivetrain          the tank drivetrain this command opperates on.
+     * @param drivetrain          the tank drivetrain this command operates on.
      * @param moveValueSupplier   the double {@link Supplier} supplying the speed to move forward
      *                            with. Positive values go forwards.
      * @param rotateValueSupplier the double {@link Supplier} supplying the speed to turn with.
