@@ -51,7 +51,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     private FeedForwardController feedForwardController;
 
     /**
-     * The last time the subsystem didn't reach target.
+     * The last time the subsystem didn't reach the target.
      */
     private double lastTimeNotOnTarget;
 
