@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  * @see GenericSubsystem
  */
-public class MoveGenericSubsystemWithPID extends CommandBase {
+public class MoveGenericSubsystemWithPIDAndFeedForward extends CommandBase {
     /**
      * the subsystem the command moves.
      */
@@ -31,10 +31,11 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private PIDSettings pidSettings;
 
-    /*
-     *
+    /**
+     * The Feed Forward Settings for the feed forward control loop.
      */
     private FeedForwardSettings feedForwardSettings;
+
     /**
      * the setpoint for the subsystem.
      */
@@ -45,8 +46,8 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private PIDController pidController;
 
-    /*
-     *
+    /**
+     * An object that makes the necessary calculations for the feed forward control loop.
      */
     private FeedForwardController feedForwardController;
 
@@ -55,7 +56,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private double lastTimeNotOnTarget;
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, Supplier<Double> setpoint, FeedForwardSettings feedForwardSettings) {
+    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings, Supplier<Double> setpoint, FeedForwardSettings feedForwardSettings) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.pidSettings = pidSettings;
@@ -65,7 +66,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, double setpoint, FeedForwardSettings feedForwardSettings) {
+    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings, double setpoint, FeedForwardSettings feedForwardSettings) {
         this(subsystem, pidSettings, () -> setpoint, feedForwardSettings);
     }
 
