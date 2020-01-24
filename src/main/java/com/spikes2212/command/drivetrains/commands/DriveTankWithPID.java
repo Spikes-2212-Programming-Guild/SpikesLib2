@@ -8,18 +8,63 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
 
+/**
+ * A command that moves a drivetrain using two PID loops, one for each side.
+ */
 public class DriveTankWithPID extends CommandBase {
-
+    /**
+     * The drivetrain this command operates on.
+     */
     private final TankDrivetrain drivetrain;
+
+    /**
+     * The PID Settings for the PID loop operating on the left side of the drivetrain.
+     */
     private PIDSettings leftPIDSettings;
+
+    /**
+     * The PID Settings for the PID loop operating on the right side of the drivetrain.
+     */
     private PIDSettings rightPIDSettings;
+
+    /**
+     * The PID Controller of the PID loop operating on the left side of the drivetrain.
+     */
     private PIDController leftPIDController;
+
+    /**
+     * The PID Controller of the PID loop operating on the right side of the drivetrain.
+     */
     private PIDController rightPIDController;
+
+    /**
+     * The setpoint the left side of the drivetrain should reach.
+     */
     private Supplier<Double> leftSetpoint;
+
+    /**
+     * The setpoint the right side of the drivetrain should reach.
+     */
     private Supplier<Double> rightSetpoint;
+
+    /**
+     * How far the left side of the drivetrain drove.
+     */
     private Supplier<Double> leftSource;
+
+    /**
+     * How far the right side of the drivetrain drove.
+     */
     private Supplier<Double> rightSource;
+
+    /**
+     * The last time the left side of the drivetrain was not within its target zone.
+     */
     private double leftLastTimeNotOnTarget;
+
+    /**
+     * The last time the right side of the drivetrain was not within its target zone.
+     */
     private double rightLastTimeNotOnTarget;
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings, Supplier<Double> leftSetpoint,
@@ -44,9 +89,6 @@ public class DriveTankWithPID extends CommandBase {
         this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource, rightSource);
     }
 
-    /**
-     * updates the PIDLoop's setpoint.
-     */
     @Override
     public void execute() {
         leftPIDController.setSetpoint(rightSetpoint.get());
