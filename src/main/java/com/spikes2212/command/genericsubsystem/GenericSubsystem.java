@@ -11,9 +11,19 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  */
 public abstract class GenericSubsystem extends SubsystemBase {
-
+    /**
+     * The current speed of this subsystem.
+     */
     private double currentSpeed = 0;
+
+    /**
+     * The maximum speed this subsystem may reach.
+     */
     private Supplier<Double> maxSpeed;
+
+    /**
+     * The minimum speed this subsystem may reach.
+     */
     private Supplier<Double> minSpeed;
 
     /**
@@ -51,9 +61,9 @@ public abstract class GenericSubsystem extends SubsystemBase {
      * @param speed the speed to move the subsystem with.
      */
     public final void move(double speed) {
-        if (speed < minSpeed.get()) speed = minSpeed.get();
-        if (speed > maxSpeed.get()) speed = maxSpeed.get();
-        if (canMove(speed)) {
+        if(speed < minSpeed.get()) speed = minSpeed.get();
+        if(speed > maxSpeed.get()) speed = maxSpeed.get();
+        if(canMove(speed)) {
             apply(speed);
             currentSpeed = speed;
         }
