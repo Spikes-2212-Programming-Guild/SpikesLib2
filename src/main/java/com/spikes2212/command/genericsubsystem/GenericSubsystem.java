@@ -61,9 +61,9 @@ public abstract class GenericSubsystem extends SubsystemBase {
      * @param speed the speed to move the subsystem with.
      */
     public final void move(double speed) {
-        if(speed < minSpeed.get()) speed = minSpeed.get();
-        if(speed > maxSpeed.get()) speed = maxSpeed.get();
-        if(canMove(speed)) {
+        if (speed < minSpeed.get()) speed = minSpeed.get();
+        if (speed > maxSpeed.get()) speed = maxSpeed.get();
+        if (canMove(speed)) {
             apply(speed);
             currentSpeed = speed;
         }
@@ -77,7 +77,7 @@ public abstract class GenericSubsystem extends SubsystemBase {
     public abstract void apply(double speed);
 
     /**
-     * Returns whether the subsystem can move safely.
+     * Check whether the subsystem can move safely.
      *
      * @param speed the speed
      * @return whether the subsystem can move safely
