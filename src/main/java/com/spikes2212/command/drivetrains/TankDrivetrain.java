@@ -26,9 +26,9 @@ public class TankDrivetrain extends SubsystemBase {
     protected SpeedController rightController;
 
     /**
-     * A WPILib object that calculates and assigns speed values to the motor controllers.
+     * A WPILib utility that calculates and assigns speed values to the motor controllers.
      */
-    private DifferentialDrive drive;
+    protected DifferentialDrive drive;
 
     public TankDrivetrain(SpeedController left, SpeedController right) {
         this.leftController = left;
