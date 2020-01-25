@@ -63,11 +63,6 @@ public class DriveTank extends CommandBase {
         this(drivetrain, () -> leftSpeed, () -> rightSpeed, () -> false);
     }
 
-
-    @Override
-    public void initialize() {
-    }
-
     /**
      * sets the values for both the leftSpeedSupplier and the rightSpeedSupplier.
      */
