@@ -31,7 +31,7 @@ public class DriveArcade extends CommandBase {
     protected final Supplier<Double> rotateValueSupplier;
 
     /**
-     * A supplier that returns `true` when the command should finished and `false` otherwise.
+     * A supplier that checks if the command is finished.
      */
     protected final Supplier<Boolean> isFinished;
 
