@@ -21,7 +21,7 @@ public class MoveGenericSubsystem extends CommandBase {
     protected final GenericSubsystem subsystem;
 
     /**
-     * The speed at which this command moves the subsystem.
+     * The speed the subsystem will move at.
      */
     protected final Supplier<Double> speedSupplier;
 
