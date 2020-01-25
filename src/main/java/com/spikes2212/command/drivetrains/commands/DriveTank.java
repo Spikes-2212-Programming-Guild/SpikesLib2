@@ -15,12 +15,12 @@ public class DriveTank extends CommandBase {
     protected final TankDrivetrain tankDrivetrain;
 
     /**
-     * The speed the left side of the {@link TankDrivetrain} should move with.
+     * The speed the left side of the {@link TankDrivetrain} should move at.
      */
     protected final Supplier<Double> leftSpeedSupplier;
 
     /**
-     * The speed the right side of the {@link TankDrivetrain} should move with.
+     * The speed the right side of the {@link TankDrivetrain} should move at.
      */
     protected final Supplier<Double> rightSpeedSupplier;
 
@@ -37,9 +37,9 @@ public class DriveTank extends CommandBase {
      *
      * @param drivetrain         the drivetrain this command requires and moves.
      * @param leftSpeedSupplier  the double {@link Supplier} supplying the speed to move in the
-     *                           left side with.
+     *                           left side at.
      * @param rightSpeedSupplier the double {@link Supplier} supplying the speed to move in the
-     *                           right side with.
+     *                           right side at.
      */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
                      Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished) {
