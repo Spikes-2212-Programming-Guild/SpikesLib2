@@ -89,7 +89,7 @@ public class MoveGenericSubsystemWithPIDAndFeedForward extends CommandBase {
     public void execute() {
         pidController.setTolerance(pidSettings.getTolerance());
         pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
-        feedForwardController.setSVAG(feedForwardSettings.getkS(), feedForwardController.getkV(),
+        feedForwardController.setGains(feedForwardSettings.getkS(), feedForwardController.getkV(),
                 feedForwardController.getkA(), feedForwardController.getkG());
 
         double pidValue = pidController.calculate(source.get(), setpoint.get());

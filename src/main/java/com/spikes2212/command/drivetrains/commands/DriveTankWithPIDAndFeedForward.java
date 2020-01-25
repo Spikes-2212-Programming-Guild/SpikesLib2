@@ -128,9 +128,9 @@ public class DriveTankWithPIDAndFeedForward extends CommandBase {
         rightPIDController.setTolerance(rightPIDSettings.getTolerance());
         leftPIDController.setPID(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD());
         rightPIDController.setPID(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD());
-        leftFeedForwardController.setSVAG(leftFeedForwardSettings.getkS(), leftFeedForwardSettings.getkV(),
+        leftFeedForwardController.setGains(leftFeedForwardSettings.getkS(), leftFeedForwardSettings.getkV(),
                 leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG());
-        rightFeedForwardController.setSVAG(rightFeedForwardSettings.getkS(), rightFeedForwardSettings.getkV(),
+        rightFeedForwardController.setGains(rightFeedForwardSettings.getkS(), rightFeedForwardSettings.getkV(),
                 rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG());
         drivetrain.tankDrive((leftPIDController.calculate(leftSource.get()) +
                         leftFeedForwardController.calculate(leftSetpoint.get()) / 2),

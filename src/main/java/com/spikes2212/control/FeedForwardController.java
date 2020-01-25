@@ -4,7 +4,6 @@ package com.spikes2212.control;
  * This class represents a FeedForwardController.
  */
 public class FeedForwardController {
-
     /**
      * The static constant
      */
@@ -53,18 +52,18 @@ public class FeedForwardController {
         this.previousTarget = 0;
     }
 
-    public void setVA(double kV, double kA) {
+    public void setGains(double kV, double kA) {
         this.kV = kV;
         this.kA = kA;
     }
 
-    public void setSVA(double kS, double kV, double kA) {
+    public void setGains(double kS, double kV, double kA) {
         this.kS = kS;
         this.kV = kV;
         this.kA = kA;
     }
 
-    public void setSVAG(double kS, double kV, double kA, double kG) {
+    public void setGains(double kS, double kV, double kA, double kG) {
         this.kS = kS;
         this.kV = kV;
         this.kA = kA;
