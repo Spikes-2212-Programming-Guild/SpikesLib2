@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Timer;
 import java.util.function.Supplier;
 
 /**
- * This command accelerates the speed of a {@link GenericSubsystem} linearly so that it will
+ * This command accelerates a {@link GenericSubsystem} linearly so that it will
  * reach a wanted speed after a given time.
  *
  * @author Yuval Levy
