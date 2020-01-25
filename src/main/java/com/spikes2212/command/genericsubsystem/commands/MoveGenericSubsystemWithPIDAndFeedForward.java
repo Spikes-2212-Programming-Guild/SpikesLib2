@@ -56,18 +56,33 @@ public class MoveGenericSubsystemWithPIDAndFeedForward extends CommandBase {
      */
     private double lastTimeNotOnTarget;
 
-    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings, Supplier<Double> setpoint, FeedForwardSettings feedForwardSettings) {
+    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                                     Supplier<Double> setpoint, Supplier<Double> source,
+                                                     FeedForwardSettings feedForwardSettings) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.pidSettings = pidSettings;
         this.feedForwardSettings = feedForwardSettings;
         this.setpoint = setpoint;
+        this.source = source;
         this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(), feedForwardSettings.getkA(), feedForwardSettings.getkG(), 0.02);
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 
-    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings, double setpoint, FeedForwardSettings feedForwardSettings) {
-        this(subsystem, pidSettings, () -> setpoint, feedForwardSettings);
+    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                                     double setpoint, double source,
+                                                     FeedForwardSettings feedForwardSettings) {
+        this(subsystem, pidSettings, () -> setpoint, () -> source, feedForwardSettings);
+    }
+
+    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                                     Supplier<Double> setpoint, Supplier<Double> source) {
+        this(subsystem, pidSettings, setpoint, source, FeedForwardSettings.EMPTY_FFSETTINGS);
+    }
+
+    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                                     double setpoint, double source) {
+        this(subsystem, pidSettings, () -> setpoint, () -> source, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
     @Override
@@ -89,7 +104,7 @@ public class MoveGenericSubsystemWithPIDAndFeedForward extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(!pidController.atSetpoint()) {
+        if (!pidController.atSetpoint()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
