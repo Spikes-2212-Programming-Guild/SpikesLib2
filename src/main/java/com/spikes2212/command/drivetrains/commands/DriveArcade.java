@@ -26,7 +26,7 @@ public class DriveArcade extends CommandBase {
     protected final Supplier<Double> moveValueSupplier;
 
     /**
-     * The turning speed.
+     * The rotational speed of the robot.
      */
     protected final Supplier<Double> rotateValueSupplier;
 
