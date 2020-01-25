@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  * @see GenericSubsystem
  */
-public class MoveGenericSubsystemWithPIDAndFeedForward extends CommandBase {
+public class MoveGenericSubsystemWithPID extends CommandBase {
     /**
      * the subsystem the command moves.
      */
@@ -56,9 +56,9 @@ public class MoveGenericSubsystemWithPIDAndFeedForward extends CommandBase {
      */
     private double lastTimeNotOnTarget;
 
-    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings,
-                                                     Supplier<Double> setpoint, Supplier<Double> source,
-                                                     FeedForwardSettings feedForwardSettings) {
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                       Supplier<Double> setpoint, Supplier<Double> source,
+                                       FeedForwardSettings feedForwardSettings) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.pidSettings = pidSettings;
@@ -69,19 +69,19 @@ public class MoveGenericSubsystemWithPIDAndFeedForward extends CommandBase {
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 
-    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings,
-                                                     double setpoint, double source,
-                                                     FeedForwardSettings feedForwardSettings) {
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                       double setpoint, double source,
+                                       FeedForwardSettings feedForwardSettings) {
         this(subsystem, pidSettings, () -> setpoint, () -> source, feedForwardSettings);
     }
 
-    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings,
-                                                     Supplier<Double> setpoint, Supplier<Double> source) {
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                       Supplier<Double> setpoint, Supplier<Double> source) {
         this(subsystem, pidSettings, setpoint, source, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
-    public MoveGenericSubsystemWithPIDAndFeedForward(GenericSubsystem subsystem, PIDSettings pidSettings,
-                                                     double setpoint, double source) {
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                       double setpoint, double source) {
         this(subsystem, pidSettings, () -> setpoint, () -> source, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 

@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 /**
  * A command that moves a drivetrain using two PID loops, one for each side.
  */
-public class DriveTankWithPIDAndFeedForward extends CommandBase {
+public class DriveTankWithPID extends CommandBase {
     /**
      * The drivetrain this command operates on.
      */
@@ -74,10 +74,10 @@ public class DriveTankWithPIDAndFeedForward extends CommandBase {
     private FeedForwardController leftFeedForwardController;
     private FeedForwardController rightFeedForwardController;
 
-    public DriveTankWithPIDAndFeedForward(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
-                                          Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
-                                          Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
-                                          FeedForwardSettings rightFeedForwardSettings) {
+    public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
+                            Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
+                            Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
+                            FeedForwardSettings rightFeedForwardSettings) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.leftPIDSettings = leftPIDSettings;
@@ -98,24 +98,24 @@ public class DriveTankWithPIDAndFeedForward extends CommandBase {
                 rightFeedForwardSettings.getkV(), rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG());
     }
 
-    public DriveTankWithPIDAndFeedForward(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
-                                          Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
-                                          Supplier<Double> rightSource) {
+    public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
+                            Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
+                            Supplier<Double> rightSource) {
         this(drivetrain, leftPIDSettings, rightPIDSettings, leftSetpoint, rightSetpoint, leftSource, rightSource,
                 FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
-    public DriveTankWithPIDAndFeedForward(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
-                                          double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
-                                          Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
-                                          FeedForwardSettings rightFeedForwardSettings) {
+    public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
+                            double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
+                            Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
+                            FeedForwardSettings rightFeedForwardSettings) {
         this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource,
                 rightSource, leftFeedForwardSettings, rightFeedForwardSettings);
     }
 
-    public DriveTankWithPIDAndFeedForward(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
-                                          double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
-                                          Supplier<Double> rightSource) {
+    public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
+                            double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
+                            Supplier<Double> rightSource) {
         this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource,
                 rightSource, FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
