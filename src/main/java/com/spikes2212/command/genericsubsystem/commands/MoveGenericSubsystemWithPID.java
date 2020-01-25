@@ -1,9 +1,7 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-import com.spikes2212.control.FeedForwardSettings;
-import com.spikes2212.control.FeedForwardController;
-import com.spikes2212.control.PIDSettings;
+import com.spikes2212.control.*;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -33,10 +31,11 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private PIDSettings pidSettings;
 
-    /*
-     *
+    /**
+     * The Feed Forward Settings for the feed forward control loop.
      */
     private FeedForwardSettings feedForwardSettings;
+
     /**
      * the setpoint for the subsystem.
      */
@@ -47,8 +46,8 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private PIDController pidController;
 
-    /*
-     *
+    /**
+     * An object that makes the necessary calculations for the feed forward control loop.
      */
     private FeedForwardController feedForwardController;
 
@@ -57,30 +56,45 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private double lastTimeNotOnTarget;
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, Supplier<Double> setpoint, FeedForwardSettings feedForwardSettings) {
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                       Supplier<Double> setpoint, Supplier<Double> source,
+                                       FeedForwardSettings feedForwardSettings) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.pidSettings = pidSettings;
         this.feedForwardSettings = feedForwardSettings;
         this.setpoint = setpoint;
+        this.source = source;
         this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(), feedForwardSettings.getkA(), feedForwardSettings.getkG(), 0.02);
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings, double setpoint, FeedForwardSettings feedForwardSettings) {
-        this(subsystem, pidSettings, () -> setpoint, feedForwardSettings);
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                       double setpoint, double source,
+                                       FeedForwardSettings feedForwardSettings) {
+        this(subsystem, pidSettings, () -> setpoint, () -> source, feedForwardSettings);
     }
 
-    @Override
-    public void initialize() {
-        pidController.setTolerance(pidSettings.getTolerance());
-        pidController.setPID(pidSettings.getkP(),pidSettings.getkI(),pidSettings.getkD());
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                       Supplier<Double> setpoint, Supplier<Double> source) {
+        this(subsystem, pidSettings, setpoint, source, FeedForwardSettings.EMPTY_FFSETTINGS);
+    }
+
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
+                                       double setpoint, double source) {
+        this(subsystem, pidSettings, () -> setpoint, () -> source, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
     @Override
     public void execute() {
-        double svagValue=feedForwardController.calculate(setpoint.get());
-        subsystem.move((pidController.calculate(source.get(), setpoint.get())+svagValue)/2);
+        pidController.setTolerance(pidSettings.getTolerance());
+        pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        feedForwardController.setGains(feedForwardSettings.getkS(), feedForwardController.getkV(),
+                feedForwardController.getkA(), feedForwardController.getkG());
+
+        double pidValue = pidController.calculate(source.get(), setpoint.get());
+        double svagValue = feedForwardController.calculate(setpoint.get());
+        subsystem.move((pidValue + svagValue) / 2);
     }
 
     @Override

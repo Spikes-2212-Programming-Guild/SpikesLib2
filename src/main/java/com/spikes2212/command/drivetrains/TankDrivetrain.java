@@ -34,11 +34,16 @@ public class TankDrivetrain extends SubsystemBase {
      * @param speedRight the speed to set to the right side. Positive values move this side
      *                   forward.
      */
-
     public void tankDrive(double speedLeft, double speedRight) {
         drive.tankDrive(speedLeft, speedRight);
     }
 
+    /**
+     * Moves the drivetrain with the given forward and angular speed.
+     *
+     * @param moveValue   the forward movement speed.
+     * @param rotateValue the angular movement speed.
+     */
     public void arcadeDrive(double moveValue, double rotateValue) {
         drive.arcadeDrive(moveValue, rotateValue);
     }
@@ -63,10 +68,11 @@ public class TankDrivetrain extends SubsystemBase {
         rightController.set(-speedRight);
     }
 
+    /**
+     * Stop the drivetrain's movement completely.
+     */
     public void stop() {
         leftController.stopMotor();
         rightController.stopMotor();
     }
-
 }
-
