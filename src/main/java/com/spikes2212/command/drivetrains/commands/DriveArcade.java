@@ -21,7 +21,7 @@ public class DriveArcade extends CommandBase {
     protected final TankDrivetrain tankDrivetrain;
 
     /**
-     * The speed to move forward.
+     * The forward speed of the robot.
      */
     protected final Supplier<Double> moveValueSupplier;
 
