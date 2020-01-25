@@ -76,17 +76,7 @@ public class DriveArcadeWithPID extends CommandBase {
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, Supplier<Double> source,
                               Supplier<Double> setpoint, Supplier<Double> moveValue) {
-        addRequirements(drivetrain);
-        this.drivetrain = drivetrain;
-        this.setpoint = setpoint;
-        this.pidSettings = pidSettings;
-        this.feedForwardSettings = FeedForwardSettings.EMPTY_FFSETTINGS;
-        this.source = source;
-        this.moveValue = moveValue;
-        this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
-        this.pidController.setSetpoint(setpoint.get());
-        this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
-                feedForwardSettings.getkA(), feedForwardSettings.getkG());
+        this(drivetrain, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS, source, setpoint, moveValue);
     }
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, Supplier<Double> source,
