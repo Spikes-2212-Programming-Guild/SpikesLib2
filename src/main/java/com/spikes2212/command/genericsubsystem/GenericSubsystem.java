@@ -89,5 +89,10 @@ public abstract class GenericSubsystem extends SubsystemBase {
         return currentSpeed;
     }
 
+    /**
+     * Add any commands or data from this subsystem to the dashboard.
+     */
+    public void configureDashboard() {
 
+    }
 }
