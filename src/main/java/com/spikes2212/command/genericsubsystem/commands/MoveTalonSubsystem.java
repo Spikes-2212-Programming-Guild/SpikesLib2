@@ -1,6 +1,7 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.TalonSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
@@ -19,14 +20,20 @@ public class MoveTalonSubsystem extends CommandBase {
      */
     private final Supplier<Double> setpoint;
 
-    public MoveTalonSubsystem(TalonSubsystem subsystem, Supplier<Double> setpoint) {
+    private final Supplier<Double> waitTime;
+    private double lastTimeNotOnTarget;
+
+
+    public MoveTalonSubsystem(TalonSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> waitTime) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.setpoint = setpoint;
+        this.waitTime = waitTime;
+        this.lastTimeNotOnTarget = 0;
     }
 
-    public MoveTalonSubsystem(TalonSubsystem subsystem, double setpoint) {
-        this(subsystem, () -> setpoint);
+    public MoveTalonSubsystem(TalonSubsystem subsystem, double setpoint, Supplier<Double> waitTime) {
+        this(subsystem, () -> setpoint, waitTime);
     }
 
     @Override
@@ -46,6 +53,10 @@ public class MoveTalonSubsystem extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return subsystem.onTarget(setpoint.get());
+        if(!subsystem.onTarget(setpoint.get())) {
+            lastTimeNotOnTarget = Timer.getFPGATimestamp();
+        }
+
+        return subsystem.onTarget(setpoint.get()) && Timer.getFPGATimestamp() - lastTimeNotOnTarget <= waitTime.get();
     }
 }
