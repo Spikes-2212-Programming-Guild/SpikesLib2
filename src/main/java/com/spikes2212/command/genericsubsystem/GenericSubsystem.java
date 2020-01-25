@@ -6,24 +6,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.Supplier;
 
 /**
- * This class represents a generic subsystem that moves within or without limits.
+ * This class represents a generic subsystem that moves within a limitation, or
+ * without one.
  *
  * @author Yuval Levy
  */
 public abstract class GenericSubsystem extends SubsystemBase {
-    /**
-     * The current speed of this subsystem.
-     */
+
     private double currentSpeed = 0;
-
-    /**
-     * The maximum speed this subsystem may reach.
-     */
     private Supplier<Double> maxSpeed;
-
-    /**
-     * The minimum speed this subsystem may reach.
-     */
     private Supplier<Double> minSpeed;
 
     /**
@@ -70,14 +61,14 @@ public abstract class GenericSubsystem extends SubsystemBase {
     }
 
     /**
-     * Applies a given speed to the subsystem.
+     * This method applies a given speed to the subsystem.
      *
      * @param speed the speed
      */
     public abstract void apply(double speed);
 
     /**
-     * Check whether the subsystem can move safely.
+     * This method returns whether the subsystem can move safely.
      *
      * @param speed the speed
      * @return whether the subsystem can move safely
@@ -97,4 +88,6 @@ public abstract class GenericSubsystem extends SubsystemBase {
     public double getSpeed() {
         return currentSpeed;
     }
+
+
 }

@@ -1,28 +1,23 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 
-import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import java.util.function.Supplier;
+
+import com.spikes2212.command.genericsubsystem.GenericSubsystem;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 /**
- * This command moves a {@link GenericSubsystem} according to a {@link Supplier}
- * or a constant speed until it can't move anymore.
+ * This command moves a {@link GenericSubsystem} according to a {@link com.spikes2212.control.PIDLoop}
+ * until it reaches its target or until it can't move anymore .
  *
  * @author Yuval Levy
  * @see GenericSubsystem
  */
 public class MoveGenericSubsystem extends CommandBase {
-    /**
-     * The {@link GenericSubsystem} this command moves.
-     */
-    protected final GenericSubsystem subsystem;
 
-    /**
-     * The speed the subsystem will move at.
-     */
+    protected final GenericSubsystem subsystem;
     protected final Supplier<Double> speedSupplier;
 
     /**
@@ -43,6 +38,7 @@ public class MoveGenericSubsystem extends CommandBase {
     public MoveGenericSubsystem(GenericSubsystem subsystem, double speedSupplier) {
         this(subsystem, () -> speedSupplier);
     }
+
 
     @Override
     public void initialize() {
@@ -66,4 +62,5 @@ public class MoveGenericSubsystem extends CommandBase {
     public boolean isFinished() {
         return !subsystem.canMove(speedSupplier.get());
     }
+
 }

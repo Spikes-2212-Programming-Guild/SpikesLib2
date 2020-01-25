@@ -75,4 +75,5 @@ public class ChildNamespace extends RootNamespace {
     public boolean getBoolean(String key) {
         return parent.getBoolean(name + separator + key);
     }
+
 }

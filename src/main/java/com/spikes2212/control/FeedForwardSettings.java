@@ -2,12 +2,9 @@ package com.spikes2212.control;
 
 import java.util.function.Supplier;
 
-/**
- * The SVAG constants used in a feed forward control loop.
- *
- * @author Tal Sitton
- */
 public class FeedForwardSettings {
+    public static final FeedForwardSettings EMPTY_FFSETTINGS = new FeedForwardSettings(0, 0);
+
     /**
      * The static constant
      */

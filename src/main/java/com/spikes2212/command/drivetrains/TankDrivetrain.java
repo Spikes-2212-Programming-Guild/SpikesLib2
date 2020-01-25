@@ -5,30 +5,20 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
- * This class represents a type of Drivetrain with left and right sides that are
+ * This class represents a type of Drivetrain that its left and right sides are
  * controlled independently, allowing it to move by giving each side a speed
  * value separately.
  * <p>
  * It can move forwards/backwards by giving both its sides an equal speed or
- * turn by giving the sides different speeds.
+ * turn by giving the sides different speeds
  *
  * @author Yuval Levy
  */
 public class TankDrivetrain extends SubsystemBase {
-    /**
-     * The motor controller for the left side of the drivetrain.
-     */
+
     protected SpeedController leftController;
-
-    /**
-     * The motor controller for the right side of the drivetrain.
-     */
     protected SpeedController rightController;
-
-    /**
-     * A WPILib utility that calculates and assigns speed values to the motor controllers.
-     */
-    protected DifferentialDrive drive;
+    private DifferentialDrive drive;
 
     public TankDrivetrain(SpeedController left, SpeedController right) {
         this.leftController = left;
@@ -44,11 +34,16 @@ public class TankDrivetrain extends SubsystemBase {
      * @param speedRight the speed to set to the right side. Positive values move this side
      *                   forward.
      */
-
     public void tankDrive(double speedLeft, double speedRight) {
         drive.tankDrive(speedLeft, speedRight);
     }
 
+    /**
+     * Moves the drivetrain with the given forward and angular speed.
+     *
+     * @param moveValue   the forward movement speed.
+     * @param rotateValue the angular movement speed.
+     */
     public void arcadeDrive(double moveValue, double rotateValue) {
         drive.arcadeDrive(moveValue, rotateValue);
     }
@@ -64,7 +59,7 @@ public class TankDrivetrain extends SubsystemBase {
     }
 
     /**
-     * Moves the right side of this drivetrain by a given speed.
+     * Moves the right side of this drivetrain with a given speed.
      *
      * @param speedRight the speed to set to the right side. Positive values move this side
      *                   forward.
@@ -73,6 +68,9 @@ public class TankDrivetrain extends SubsystemBase {
         rightController.set(-speedRight);
     }
 
+    /**
+     * Stop the drivetrain's movement completely.
+     */
     public void stop() {
         leftController.stopMotor();
         rightController.stopMotor();
