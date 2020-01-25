@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 /**
  * This command moves a {@link GenericSubsystem} using a PID closed loop and a feed forward open loop
- * until it reaches its target or until it can't move anymore.
+ * to a given setpoint or until it can't move anymore.
  *
  * @author Yuval Levy
  * @see GenericSubsystem
