@@ -39,7 +39,7 @@ public class RootNamespace implements Namespace {
         NetworkTableEntry entry = this.table.getEntry(name);
         entry.setPersistent();
         entry.setNumber(value);
-        return () -> (Integer) entry.getNumber(value);
+        return () -> entry.getNumber(value).intValue();
     }
 
     @Override
