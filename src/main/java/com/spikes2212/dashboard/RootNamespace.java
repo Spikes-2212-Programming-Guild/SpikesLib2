@@ -1,6 +1,7 @@
 package com.spikes2212.dashboard;
 
 import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 
@@ -28,27 +29,29 @@ public class RootNamespace implements Namespace {
 
     @Override
     public Supplier<Double> addConstantDouble(String name, double value) {
-        NetworkTableEntry entry = this.table.getEntry(name);
-        entry.setPersistent();
-        entry.setDouble(value);
-        return () -> entry.getDouble(value);
+        if(!Preferences.getInstance().containsKey(name)) {
+            Preferences.getInstance().putDouble(name, value);
+        }
+
+        return () -> Preferences.getInstance().getDouble(name, value);
     }
 
     @Override
     public Supplier<Integer> addConstantInt(String name, int value) {
-        NetworkTableEntry entry = this.table.getEntry(name);
-        entry.setPersistent();
-        entry.setNumber(value);
-        return () -> (Integer) entry.getNumber(value);
+        if(!Preferences.getInstance().containsKey(name)) {
+            Preferences.getInstance().putInt(name, value);
+        }
+
+        return () -> Preferences.getInstance().getInt(name, value);
     }
 
     @Override
     public Supplier<String> addConstantString(String name, String value) {
-        NetworkTableEntry entry = this.table.getEntry(name);
-        entry.setPersistent();
-        entry.setString(value);
-        entry.setString(value);
-        return () -> entry.getString(value);
+        if(!Preferences.getInstance().containsKey(name)) {
+            Preferences.getInstance().putString(name, value);
+        }
+
+        return () -> Preferences.getInstance().getString(name, value);
     }
 
     @Override
