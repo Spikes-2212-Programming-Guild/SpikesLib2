@@ -57,6 +57,6 @@ public class MoveTalonSubsystem extends CommandBase {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
-        return subsystem.onTarget(setpoint.get()) && Timer.getFPGATimestamp() - lastTimeNotOnTarget <= waitTime.get();
+        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= waitTime.get();
     }
 }
