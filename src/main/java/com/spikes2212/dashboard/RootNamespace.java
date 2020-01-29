@@ -28,26 +28,32 @@ public class RootNamespace implements Namespace {
 
     @Override
     public Supplier<Double> addConstantDouble(String name, double value) {
-        if (! table.containsKey(name))
-            table.getEntry(name).setDouble(value);
-
-        return () -> table.getEntry(name).getDouble(value);
+        NetworkTableEntry entry = table.getEntry(name);
+        if (! table.containsKey(name)) {
+            entry.setDouble(value);
+            entry.setPersistent();
+        }
+        return () -> entry.getDouble(value);
     }
 
     @Override
     public Supplier<Integer> addConstantInt(String name, int value) {
-        if (! table.containsKey(name))
-            table.getEntry(name).setNumber(value);
-
-        return () -> table.getEntry(name).getNumber(value).intValue();
+        NetworkTableEntry entry = table.getEntry(name);
+        if (! table.containsKey(name)) {
+            entry.setNumber(value);
+            entry.setPersistent();
+        }
+        return () -> entry.getNumber(value).intValue();
     }
 
     @Override
     public Supplier<String> addConstantString(String name, String value) {
-        if (! table.containsKey(name))
-            table.getEntry(name).setString(value);
-
-        return () -> table.getEntry(name).getString(value);
+        NetworkTableEntry entry = table.getEntry(name);
+        if (! table.containsKey(name)) {
+            entry.setString(value);
+            entry.setPersistent();
+        }
+        return () -> entry.getString(value);
     }
 
     @Override
