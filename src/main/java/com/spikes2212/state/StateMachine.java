@@ -9,7 +9,8 @@ public abstract class StateMachine<T extends Enum<T>> {
     private Map<T, Command> transformations;
     private T state;
 
-    public StateMachine() {
+    public StateMachine(T initialState) {
+        setState(initialState);
         transformations = new HashMap<>();
         generateTransformations();
 
