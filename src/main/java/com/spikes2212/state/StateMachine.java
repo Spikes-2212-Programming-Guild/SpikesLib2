@@ -5,21 +5,31 @@ import edu.wpi.first.wpilibj2.command.Command;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class StateMachine<T extends Enum<T>, State> {
-    Map<T, Command> name;
+public abstract class StateMachine<T extends Enum<T>> {
+    private Map<T, Command> transformations;
+    private T state;
 
-    protected void addTransformation(T state, Command command) {
-        name.put(state, command);
+    public StateMachine() {
+        transformations = new HashMap<>();
+        generateTransformations();
+
     }
 
-    public Command Transform(T state) {
-        return name.get(state);
+    protected void setState(T state) {
+        this.state = state;
+    }
+
+    public T getState() {
+        return state;
     }
 
     protected abstract void generateTransformations();
 
-    public StateMachine() {
-        generateTransformations();
-        name = new HashMap<>();
+    protected void addTransformation(T state, Command command) {
+        transformations.put(state, command.andThen(() -> setState(state)));
+    }
+
+    public Command transformTo(T state) {
+        return transformations.get(state);
     }
 }
