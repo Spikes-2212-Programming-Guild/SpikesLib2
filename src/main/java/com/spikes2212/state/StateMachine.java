@@ -30,7 +30,7 @@ public abstract class StateMachine<T extends Enum<T>> {
         transformations.put(state, command.andThen(() -> setState(state)));
     }
 
-    public Command transformTo(T state) {
+    public Command getTransformationFor(T state) {
         return transformations.get(state);
     }
 }
