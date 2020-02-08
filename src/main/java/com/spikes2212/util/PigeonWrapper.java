@@ -44,10 +44,8 @@ public class PigeonWrapper {
     }
 
     public void calibrate() {
-        pigeon.enterCalibrationMode(PigeonIMU.CalibrationMode.BootTareGyroAccel);
-        setYaw(0);
+        calibrate(0);
     }
-
 
     public void calibrate(double yaw) {
         pigeon.enterCalibrationMode(PigeonIMU.CalibrationMode.BootTareGyroAccel);
