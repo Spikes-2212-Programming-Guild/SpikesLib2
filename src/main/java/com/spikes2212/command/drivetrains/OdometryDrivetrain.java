@@ -18,4 +18,9 @@ public abstract class OdometryDrivetrain extends TankDrivetrain {
     public abstract double getLeftRate();
 
     public abstract double getRightRate();
+
+    @Override
+    public void periodic() {
+        getHandler().calculate();
+    }
 }

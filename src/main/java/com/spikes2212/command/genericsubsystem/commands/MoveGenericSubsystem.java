@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 /**
- * This command moves a {@link GenericSubsystem} according to a {@link Supplier}
- * or a constant speed until it cannot move any more.
+ * This command moves a {@link GenericSubsystem} according to a {@link com.spikes2212.control.PIDLoop}
+ * until it reaches its target or until it can't move anymore .
  *
  * @author Yuval Levy
  * @see GenericSubsystem
@@ -30,10 +30,9 @@ public class MoveGenericSubsystem extends CommandBase {
      *                      should be moved with. Must only supply values between -1 and 1.
      */
     public MoveGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> speedSupplier) {
-        super();
+        addRequirements(subsystem);
         this.subsystem = subsystem;
         this.speedSupplier = speedSupplier;
-        this.addRequirements(subsystem);
     }
 
     public MoveGenericSubsystem(GenericSubsystem subsystem, double speedSupplier) {

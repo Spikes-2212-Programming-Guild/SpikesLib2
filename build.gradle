@@ -23,8 +23,8 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.14.1'
-    implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.14.1'
+    implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.17.6'
+    implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.17.6'
     implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2020.1.2'
     implementation group: 'edu.wpi.first.wpilibNewCommands', name: 'wpilibNewCommands-java', version: '2020.1.2'
     implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2020.1.2'

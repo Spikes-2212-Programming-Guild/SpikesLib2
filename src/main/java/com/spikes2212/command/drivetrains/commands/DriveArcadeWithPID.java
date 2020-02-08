@@ -1,41 +1,87 @@
 package com.spikes2212.command.drivetrains.commands;
 
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-import com.spikes2212.control.PIDLoop;
+import com.spikes2212.control.FeedForwardController;
+import com.spikes2212.control.FeedForwardSettings;
+import com.spikes2212.control.PIDSettings;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
 
-
+/**
+ * A command that moves a drivetrain with a set speed forward and with a PID loop to a certain angle.
+ */
 public class DriveArcadeWithPID extends CommandBase {
-
+    /**
+     * The drivetrain this command operates on.
+     */
     private final TankDrivetrain drivetrain;
-    private final PIDLoop movementPIDLoop;
+
+    /**
+     * The PID Settings for the turning PID loop.
+     */
+    private PIDSettings pidSettings;
+
+    /**
+     * The PID Controller for the turning PID loop.
+     */
+    private PIDController pidController;
+
+    private FeedForwardSettings feedForwardSettings;
+    private FeedForwardController feedForwardController;
+
+    /**
+     * The angle of the drivetrain.
+     */
+    private Supplier<Double> source;
+
+    /**
+     * The last time the drivetrain's angle wasn't within the target range.
+     */
+    private double lastTimeNotOnTarget;
+
+    /**
+     * The angle the drivetrain should reach.
+     */
     private Supplier<Double> setpoint;
 
     /**
-     * @param drivetrain      is the {@link TankDrivetrain} the command moves.
-     * @param movementPIDLoop is the {@link PIDLoop} that calculates and sets the speed to the drivetrain.
+     * The speed at which to move the drivetrain forward.
      */
+    private Supplier<Double> moveValue;
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop, Supplier<Double> setpoint) {
-        super();
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings,
+                              FeedForwardSettings feedForwardSettings, Supplier<Double> source,
+                              Supplier<Double> setpoint, Supplier<Double> moveValue) {
+        addRequirements(drivetrain);
         this.drivetrain = drivetrain;
-        this.movementPIDLoop = movementPIDLoop;
         this.setpoint = setpoint;
-        this.addRequirements(drivetrain);
+        this.pidSettings = pidSettings;
+        this.feedForwardSettings = feedForwardSettings;
+        this.source = source;
+        this.moveValue = moveValue;
+        this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        this.pidController.setSetpoint(setpoint.get());
+        this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
+                feedForwardSettings.getkA(), feedForwardSettings.getkG());
     }
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDLoop movementPIDLoop, double setpoint){
-        this(drivetrain, movementPIDLoop, () -> setpoint);
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings,
+                              FeedForwardSettings feedForwardSettings, Supplier<Double> source, double setpoint,
+                              double moveValue) {
+        this(drivetrain, pidSettings, feedForwardSettings, source, () -> setpoint, () -> moveValue);
     }
 
-    /**
-     * starts the given PIDLoop.
-     */
-    @Override
-    public void initialize() {
-        movementPIDLoop.enable();
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, Supplier<Double> source,
+                              Supplier<Double> setpoint, Supplier<Double> moveValue) {
+        this(drivetrain, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS, source, setpoint, moveValue);
+    }
+
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, Supplier<Double> source,
+                              double setpoint, double moveValue) {
+        this(drivetrain, pidSettings, source, () -> setpoint, () -> moveValue);
     }
 
     /**
@@ -43,19 +89,23 @@ public class DriveArcadeWithPID extends CommandBase {
      */
     @Override
     public void execute() {
-        movementPIDLoop.setSetpoint(setpoint.get());
-        movementPIDLoop.update();
+        pidController.setSetpoint(setpoint.get());
+        pidController.setTolerance(pidSettings.getTolerance());
+        pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        drivetrain.arcadeDrive(moveValue.get(), pidController.calculate(source.get(), setpoint.get()));
     }
 
     @Override
     public void end(boolean interrupted) {
-        movementPIDLoop.disable();
         drivetrain.stop();
     }
 
     @Override
     public boolean isFinished() {
-        return movementPIDLoop.onTarget();
-    }
+        if (!pidController.atSetpoint()) {
+            lastTimeNotOnTarget = Timer.getFPGATimestamp();
+        }
 
+        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= pidSettings.getWaitTime();
+    }
 }
