@@ -1,12 +1,14 @@
 package com.spikes2212.state;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class StateMachine<T extends Enum<T>> {
-    private Map<T, Command> transformations;
+    private Map<T, CommandBase> transformations;
     private T state;
 
     public StateMachine(T initialState) {
@@ -27,10 +29,10 @@ public abstract class StateMachine<T extends Enum<T>> {
     protected abstract void generateTransformations();
 
     protected void addTransformation(T state, Command command) {
-        transformations.put(state, command.andThen(() -> setState(state)));
+        transformations.put(state, new InstantCommand(() -> setState(state)).andThen(command));
     }
 
-    public Command getTransformationFor(T state) {
+    public CommandBase getTransformationFor(T state) {
         return transformations.get(state);
     }
 }
