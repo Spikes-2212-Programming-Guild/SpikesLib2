@@ -1,6 +1,7 @@
 package com.spikes2212.state;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,6 @@ public abstract class StateMachine<T extends Enum<T>> {
     }
 
     public Command getTransformationFor(T state) {
-        return transformations.get(state);
+        return new ScheduleCommand(transformations.get(state));
     }
 }
