@@ -1,5 +1,6 @@
 package com.spikes2212.util;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight {
@@ -37,39 +38,35 @@ public class Limelight {
         }
     }
 
-    public Limelight() {
+    private NetworkTable networkTable;
 
+    public Limelight() {
+        networkTable = NetworkTableInstance.getDefault().getTable("limelight");
     }
 
     public void changeLedMode(LedMode mode) {
-        NetworkTableInstance.getDefault().getTable("limelight").
-                getEntry("ledMode").setNumber(mode.getState());
+        networkTable.getEntry("ledMode").setNumber(mode.getState());
     }
 
     public void changeCameraMode(CameraMode mode) {
-        NetworkTableInstance.getDefault().getTable("limelight").
-                getEntry("camMode").setNumber(mode.getMode());
+        networkTable.getEntry("camMode").setNumber(mode.getMode());
     }
 
     public void setPipeline(int pipelineNum) {
-        NetworkTableInstance.getDefault().getTable("limelight").
-                getEntry("pipeline").setNumber(pipelineNum);
+        networkTable.getEntry("pipeline").setNumber(pipelineNum);
     }
 
     public double getHorizontalAngleToTarget() {
-        return NetworkTableInstance.getDefault().getTable("limelight").
-                getEntry("tx").getDouble(0);
+        return networkTable.getEntry("tx").getDouble(0);
     }
 
     public double getVerticalAngleToTarget() {
-        return NetworkTableInstance.getDefault().getTable("limelight").
-                getEntry("ty").getDouble(0);
+        return networkTable.getEntry("ty").getDouble(0);
 
     }
 
     public double getTargetArea() {
-        return NetworkTableInstance.getDefault().getTable("limelight").
-                getEntry("ta").getDouble(0);
+        return networkTable.getEntry("ta").getDouble(0);
 
     }
 
