@@ -122,8 +122,4 @@ public class FeedForwardController {
         previousTarget = setpoint;
         return kG + kS * Math.signum(setpoint) + kV * setpoint + kA * targetDerivative;
     }
-
-    public double maxAchievableVelocity(double maxVoltage, double acceleration) {
-        return (maxVoltage - kS - kG - acceleration * kA) / kV;
-    }
 }
