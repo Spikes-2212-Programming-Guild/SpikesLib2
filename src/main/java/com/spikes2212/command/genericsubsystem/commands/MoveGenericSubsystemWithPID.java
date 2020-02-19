@@ -56,9 +56,8 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private double lastTimeNotOnTarget;
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
-                                       Supplier<Double> setpoint, Supplier<Double> source,
-                                       FeedForwardSettings feedForwardSettings) {
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
+                                       PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.pidSettings = pidSettings;
@@ -69,20 +68,19 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
-                                       double setpoint, double source,
-                                       FeedForwardSettings feedForwardSettings) {
-        this(subsystem, pidSettings, () -> setpoint, () -> source, feedForwardSettings);
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
+                                       PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+        this(subsystem, () -> setpoint, () -> source, pidSettings, feedForwardSettings);
     }
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
-                                       Supplier<Double> setpoint, Supplier<Double> source) {
-        this(subsystem, pidSettings, setpoint, source, FeedForwardSettings.EMPTY_FFSETTINGS);
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
+                                       PIDSettings pidSettings) {
+        this(subsystem, setpoint, source, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, PIDSettings pidSettings,
-                                       double setpoint, double source) {
-        this(subsystem, pidSettings, () -> setpoint, () -> source, FeedForwardSettings.EMPTY_FFSETTINGS);
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
+                                       PIDSettings pidSettings) {
+        this(subsystem, () -> setpoint, () -> source, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
     @Override
@@ -104,7 +102,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (!pidController.atSetpoint()) {
+        if(!pidController.atSetpoint()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
