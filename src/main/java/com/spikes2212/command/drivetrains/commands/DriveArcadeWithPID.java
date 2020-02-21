@@ -87,7 +87,6 @@ public class DriveArcadeWithPID extends CommandBase {
      */
     @Override
     public void execute() {
-        pidController.setSetpoint(setpoint.get());
         pidController.setTolerance(pidSettings.getTolerance());
         pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
 
