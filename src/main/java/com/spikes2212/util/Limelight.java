@@ -1,8 +1,14 @@
 package com.spikes2212.util;
 
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
+/**
+ * A wrapper and interface for the limelight device.
+ *
+ * @author yuval levy
+ */
 public class Limelight {
 
     public enum LedMode {
@@ -12,14 +18,14 @@ public class Limelight {
         BLINK(2),
         ON(3);
 
-        int state;
+        int mode;
 
-        LedMode(int state) {
-            this.state = state;
+        LedMode(int mode) {
+            this.mode = mode;
         }
 
-        int getState() {
-            return state;
+        int getMode() {
+            return mode;
         }
     }
 
@@ -38,36 +44,83 @@ public class Limelight {
         }
     }
 
+    /**
+     * The limelight's network table.
+     */
     private NetworkTable networkTable;
 
+    /**
+     * The limelight's led mode
+     * Represented by the enum {@link LedMode}
+     */
+    private NetworkTableEntry ledMode;
+
+    /**
+     * The limelight's cam mode
+     * Represented by the enum {@link CameraMode}
+     */
+    private NetworkTableEntry camMode;
+
+    /**
+     * The limelight's current pipeline index.
+     * Index's value should be between 0 and 9
+     */
+    private NetworkTableEntry pipeline;
+
+    /**
+     * The horizontal angle to the target the limelight sees.
+     */
+    private NetworkTableEntry tx;
+
+    /**
+     * The vertical angle to the target the limelight sees.
+     */
+    private NetworkTableEntry ty;
+
+    /**
+     * The area of the target the limelight sees.
+     */
+    private NetworkTableEntry ta;
+
+    public Limelight(String limelightName) {
+
+        networkTable = NetworkTableInstance.getDefault().getTable(limelightName);
+
+        ledMode = networkTable.getEntry("ledMode");
+        camMode = networkTable.getEntry("camMode");
+        pipeline = networkTable.getEntry("pipeline");
+
+        tx = networkTable.getEntry("tx");
+        ty = networkTable.getEntry("ty");
+        ta = networkTable.getEntry("ta");
+    }
+
     public Limelight() {
-        networkTable = NetworkTableInstance.getDefault().getTable("limelight");
+        this("limelight");
     }
 
-    public void changeLedMode(LedMode mode) {
-        networkTable.getEntry("ledMode").setNumber(mode.getState());
+    public void setLedMode(LedMode mode) {
+        ledMode.setNumber(mode.getMode());
     }
 
-    public void changeCameraMode(CameraMode mode) {
-        networkTable.getEntry("camMode").setNumber(mode.getMode());
+    public void setCameraMode(CameraMode mode) {
+        camMode.setNumber(mode.getMode());
     }
 
     public void setPipeline(int pipelineNum) {
-        networkTable.getEntry("pipeline").setNumber(pipelineNum);
+        pipeline.setNumber(pipelineNum);
     }
 
     public double getHorizontalAngleToTarget() {
-        return networkTable.getEntry("tx").getDouble(0);
+        return tx.getDouble(0);
     }
 
     public double getVerticalAngleToTarget() {
-        return networkTable.getEntry("ty").getDouble(0);
-
+        return ty.getDouble(0);
     }
 
     public double getTargetArea() {
-        return networkTable.getEntry("ta").getDouble(0);
-
+        return ta.getDouble(0);
     }
 
 }
