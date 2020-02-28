@@ -50,9 +50,9 @@ public class DriveArcadeWithPID extends CommandBase {
      */
     private Supplier<Double> moveValue;
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings,
-                              FeedForwardSettings feedForwardSettings, Supplier<Double> source,
-                              Supplier<Double> setpoint, Supplier<Double> moveValue) {
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
+                              Supplier<Double> moveValue, PIDSettings pidSettings,
+                              FeedForwardSettings feedForwardSettings) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.setpoint = setpoint;
@@ -66,20 +66,19 @@ public class DriveArcadeWithPID extends CommandBase {
                 feedForwardSettings.getkA(), feedForwardSettings.getkG());
     }
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings,
-                              FeedForwardSettings feedForwardSettings, Supplier<Double> source, double setpoint,
-                              double moveValue) {
-        this(drivetrain, pidSettings, feedForwardSettings, source, () -> setpoint, () -> moveValue);
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, double moveValue,
+                              PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+        this(drivetrain, source, () -> setpoint, () -> moveValue, pidSettings, feedForwardSettings);
     }
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, Supplier<Double> source,
-                              Supplier<Double> setpoint, Supplier<Double> moveValue) {
-        this(drivetrain, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS, source, setpoint, moveValue);
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
+                              Supplier<Double> moveValue, PIDSettings pidSettings) {
+        this(drivetrain, source, setpoint, moveValue, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, Supplier<Double> source,
-                              double setpoint, double moveValue) {
-        this(drivetrain, pidSettings, source, () -> setpoint, () -> moveValue);
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, double moveValue,
+                              PIDSettings pidSettings) {
+        this(drivetrain, source, () -> setpoint, () -> moveValue, pidSettings);
     }
 
     /**

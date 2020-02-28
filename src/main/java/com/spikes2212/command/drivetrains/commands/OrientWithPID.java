@@ -7,22 +7,22 @@ import com.spikes2212.control.PIDSettings;
 import java.util.function.Supplier;
 
 public class OrientWithPID extends DriveArcadeWithPID {
-    public OrientWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
-                         Supplier<Double> source, Supplier<Double> setpoint) {
-        super(drivetrain, pidSettings, feedForwardSettings, source, setpoint, () -> 0.0);
+    public OrientWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
+                         PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+        super(drivetrain, source, setpoint, () -> 0.0, pidSettings, feedForwardSettings);
     }
 
-    public OrientWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
-                         Supplier<Double> source, double setpoint) {
-        this(drivetrain, pidSettings, feedForwardSettings, source, () -> setpoint);
+    public OrientWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, PIDSettings pidSettings,
+                         FeedForwardSettings feedForwardSettings) {
+        this(drivetrain, source, () -> setpoint, pidSettings, feedForwardSettings);
     }
 
-    public OrientWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, Supplier<Double> source,
-                         Supplier<Double> setpoint) {
-        this(drivetrain, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS, source, setpoint);
+    public OrientWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
+                         PIDSettings pidSettings) {
+        this(drivetrain, source, setpoint, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
-    public OrientWithPID(TankDrivetrain drivetrain, PIDSettings pidSettings, Supplier<Double> source, double setpoint) {
-        this(drivetrain, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS, source, setpoint);
+    public OrientWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, PIDSettings pidSettings) {
+        this(drivetrain, source, setpoint, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 }
