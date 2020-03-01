@@ -92,7 +92,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
 
         double pidValue = pidController.calculate(source.get(), setpoint.get());
         double svagValue = feedForwardController.calculate(setpoint.get());
-        subsystem.move((pidValue + svagValue) / 2);
+        subsystem.move(pidValue + svagValue);
     }
 
     @Override
