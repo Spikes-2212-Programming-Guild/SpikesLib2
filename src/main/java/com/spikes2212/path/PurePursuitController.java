@@ -140,6 +140,6 @@ public class PurePursuitController {
      * @return whether the PurePursuitController has finished following the path
      */
     public boolean done() {
-        return closestPoint().equals(path.getPoints().get(path.getPoints().size()-1));
+        return closestPoint().equals(path.getPoints().get(path.getPoints().size() - 1));
     }
 }
