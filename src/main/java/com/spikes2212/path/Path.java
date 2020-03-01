@@ -23,7 +23,7 @@ public class Path {
     /**
      * Initializes a path.
      * @param spacing the distance between two points filled in between points given as parameters
-     * @param smoothWeight how smooth to make the path, should be about 0.75 to 0.98
+     * @param smoothWeight how smooth to make the path
      * @param tolerance the smoothing tolerance
      * @param maxVelocity the robot's maximum velocity
      * @param turningConstant speed constant at curves (the higher it is, the faster you turn)
@@ -48,10 +48,10 @@ public class Path {
         return points;
     }
 
-    private void generate(double spacing, double smooth_weight, double tolerance,
+    private void generate(double spacing, double smoothWeight, double tolerance,
                           double maxVelocity, double k, double maxAcceleration) {
         fill(spacing);
-        smooth(smooth_weight, tolerance);
+        smooth(smoothWeight, tolerance);
         calculateDistances();
         calculateCurvatures();
         calculateMaxVelocities(maxVelocity, k);
@@ -74,8 +74,8 @@ public class Path {
         }
     }
 
-    private void smooth(double smooth_weight, double tolerance) {
-        double data_weight = 1 - smooth_weight;
+    private void smooth(double smoothWeight, double tolerance) {
+        double dataWeight = 1 - smoothWeight;
         double [][] path = new double[points.size()][2];
         for (int i = 0; i < points.size(); i++) {
             path[i] = points.get(i).toArray();
@@ -87,8 +87,8 @@ public class Path {
             for(int i = 1; i < path.length - 1; i++) {
                 for(int j = 0; j < path[i].length; j++) {
                     double aux = path[i][j];
-                    path[i][j] += data_weight * (ogPath[i][j] - path[i][j])
-                            + smooth_weight * (path[i-1][j] + path[i+1][j] - 2 * path[i][j]);
+                    path[i][j] += dataWeight * (ogPath[i][j] - path[i][j])
+                            + smoothWeight * (path[i-1][j] + path[i+1][j] - 2 * path[i][j]);
                     change += Math.abs(aux - path[i][j]);
                 }
             }
@@ -149,12 +149,12 @@ public class Path {
      */
     public void exportToCSV(java.nio.file.Path path) {
         try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.US_ASCII)) {
-            String s = "x,y,velocity,distance,curvature\n";
+            StringBuilder s = new StringBuilder("x,y,velocity,distance,curvature\n");
             for (Waypoint w : getPoints()) {
-                s += w.getX() + "," + w.getY() + "," + w.getV() + "," + w.getD() + ","
-                        + w.getCurvature() + "\n";
+                s.append(w.getX()).append(",").append(w.getY()).append(",").append(w.getV()).append(",")
+                        .append(w.getD()).append(",").append(w.getCurvature()).append("\n");
             }
-            writer.write(s,0,s.length());
+            writer.write(s.toString(),0,s.length());
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package com.spikes2212.control.noice;
+package com.spikes2212.control.noise;
 
 public class RunningAverageFilter implements NoiseFilter {
 
