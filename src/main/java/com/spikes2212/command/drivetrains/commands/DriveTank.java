@@ -1,10 +1,9 @@
 package com.spikes2212.command.drivetrains.commands;
 
-import java.util.function.Supplier;
-
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import java.util.function.Supplier;
 
 /**
  * This command moves a {@link TankDrivetrain} using speeds supplied to the left and the right sides independently.
@@ -59,11 +58,6 @@ public class DriveTank extends CommandBase {
 
     public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed) {
         this(drivetrain, () -> leftSpeed, () -> rightSpeed, () -> false);
-    }
-
-
-    @Override
-    public void initialize() {
     }
 
     /**

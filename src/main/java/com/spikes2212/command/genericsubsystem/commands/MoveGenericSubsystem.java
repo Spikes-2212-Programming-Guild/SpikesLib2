@@ -1,11 +1,10 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 
-import java.util.function.Supplier;
-
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import java.util.function.Supplier;
 
 
 /**
@@ -37,12 +36,6 @@ public class MoveGenericSubsystem extends CommandBase {
 
     public MoveGenericSubsystem(GenericSubsystem subsystem, double speedSupplier) {
         this(subsystem, () -> speedSupplier);
-    }
-
-
-    @Override
-    public void initialize() {
-
     }
 
     /**
