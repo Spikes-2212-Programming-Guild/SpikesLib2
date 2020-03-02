@@ -19,6 +19,8 @@ public abstract class OdometryDrivetrain extends TankDrivetrain {
 
     public abstract double getRightRate();
 
+    public abstract void setInverted(boolean inverted);
+
     @Override
     public void periodic() {
         getHandler().calculate();
