@@ -6,10 +6,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.*;
 
-public class Path {
+public class Paths {
 
     /**
      * @param spacing         the distance between two path filled in between path given as parameters
@@ -141,7 +141,7 @@ public class Path {
      * @param path the path to export
      * @param file the CSV file
      */
-    public static void exportToCSV(List<Waypoint> path, java.nio.file.Path file) {
+    public static void exportToCSV(List<Waypoint> path, Path file) {
         try(BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.US_ASCII)) {
             StringBuilder s = new StringBuilder("x,y,velocity,distance,curvature\n");
             for(Waypoint w : path) {
@@ -160,7 +160,7 @@ public class Path {
      * @param path the csv file to import from
      * @return the path
      */
-    public static List<Waypoint> loadFromCSV(java.nio.file.Path path) {
+    public static List<Waypoint> loadFromCSV(Path path) {
         List<Waypoint> waypoints = new ArrayList<>();
         try {
             List<String> lines = Files.readAllLines(path);
@@ -181,6 +181,6 @@ public class Path {
     }
 
     public static List<Waypoint> loadFromCSV(String name) {
-        return loadFromCSV(Paths.get(Filesystem.getDeployDirectory().toString(), name));
+        return loadFromCSV(java.nio.file.Paths.get(Filesystem.getDeployDirectory().toString(), name));
     }
 }
