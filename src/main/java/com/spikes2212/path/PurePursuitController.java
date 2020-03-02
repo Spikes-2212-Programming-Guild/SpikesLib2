@@ -1,5 +1,7 @@
 package com.spikes2212.path;
 
+import java.util.List;
+
 /**
  * This class represents a PurePursuitController.
  * You should the getSpeeds method periodically.
@@ -8,14 +10,14 @@ package com.spikes2212.path;
  */
 public class PurePursuitController {
     private OdometryHandler odometryHandler;
-    private Path path;
+    private List<Waypoint> path;
     private int lastClosestIndex = 0, lastLookaheadIndex = 0;
     private double lookaheadDistance;
     private double robotWidth;
 
     private RateLimiter rateLimiter;
 
-    public PurePursuitController(OdometryHandler odometryHandler, Path path, double lookaheadDistance,
+    public PurePursuitController(OdometryHandler odometryHandler, List<Waypoint> path, double lookaheadDistance,
                                  double maxAcceleration, double robotWidth, double period) {
         this.odometryHandler = odometryHandler;
         this.path = path;
@@ -24,7 +26,7 @@ public class PurePursuitController {
         this.rateLimiter = new RateLimiter(maxAcceleration, period);
     }
 
-    public PurePursuitController(OdometryHandler odometryHandler, Path path, double lookaheadDistance,
+    public PurePursuitController(OdometryHandler odometryHandler, List<Waypoint> path, double lookaheadDistance,
                                  double maxAcceleration, double robotWidth) {
         this(odometryHandler, path, lookaheadDistance, maxAcceleration, robotWidth, 0.02);
     }
@@ -37,11 +39,11 @@ public class PurePursuitController {
         this.odometryHandler = odometryHandler;
     }
 
-    public Path getPath() {
+    public List<Waypoint> getPath() {
         return path;
     }
 
-    public void setPath(Path path) {
+    public void setPath(List<Waypoint> path) {
         this.path = path;
     }
 
@@ -57,41 +59,41 @@ public class PurePursuitController {
         Waypoint robot = odometryHandler.getWaypoint();
         double minDistance = Double.POSITIVE_INFINITY, distance;
         int minIndex = lastClosestIndex;
-        for (int i = lastClosestIndex; i < path.getPoints().size(); i++) {
-            if ((distance = path.getPoints().get(i).distance(robot)) < minDistance) {
+        for(int i = lastClosestIndex; i < path.size(); i++) {
+            if((distance = path.get(i).distance(robot)) < minDistance) {
                 minIndex = i;
                 minDistance = distance;
             }
         }
         lastClosestIndex = minIndex;
-        return path.getPoints().get(minIndex);
+        return path.get(minIndex);
     }
 
-    private Waypoint getLookaheadPoint(){
+    private Waypoint getLookaheadPoint() {
         Waypoint robot = odometryHandler.getWaypoint();
-        for (int i = lastLookaheadIndex; i < path.getPoints().size() - 1; i++) {
-            Waypoint segment = new Waypoint(path.getPoints().get(i + 1).getX() - path.getPoints().get(i).getX()
-                    , path.getPoints().get(i + 1).getY() - path.getPoints().get(i).getY());
-            Waypoint robotToStart = new Waypoint(path.getPoints().get(i).getX() - robot.getX()
-                    , path.getPoints().get(i).getY() - robot.getY());
+        for(int i = lastLookaheadIndex; i < path.size() - 1; i++) {
+            Waypoint segment = new Waypoint(path.get(i + 1).getX() - path.get(i).getX()
+                    , path.get(i + 1).getY() - path.get(i).getY());
+            Waypoint robotToStart = new Waypoint(path.get(i).getX() - robot.getX()
+                    , path.get(i).getY() - robot.getY());
             double a = segment.getX() * segment.getX() + segment.getY() * segment.getY();
             double b = 2 * (robotToStart.getX() * segment.getX() + robotToStart.getY() * segment.getY());
             double c = robotToStart.getX() * robotToStart.getX() + robotToStart.getY() * robotToStart.getY()
                     - lookaheadDistance * lookaheadDistance;
             double discriminant = b * b - 4 * a * c;
-            if (discriminant >= 0) {
+            if(discriminant >= 0) {
                 discriminant = Math.sqrt(discriminant);
                 double t1 = (-b - discriminant) / (2 * a);
                 double t2 = (-b + discriminant) / (2 * a);
-                if (t1 >= 0 && t1 <= 1) {
+                if(t1 >= 0 && t1 <= 1) {
                     lastLookaheadIndex = i;
-                    return new Waypoint(path.getPoints().get(i).getX() + t1 * segment.getX(),
-                            path.getPoints().get(i).getY() + t1 * segment.getY());
+                    return new Waypoint(path.get(i).getX() + t1 * segment.getX(),
+                            path.get(i).getY() + t1 * segment.getY());
                 }
                 if (t2 >= 0 && t2 <= 1) {
                     lastLookaheadIndex = i;
-                    return new Waypoint(path.getPoints().get(i).getX() + t2 * segment.getX(),
-                            path.getPoints().get(i).getY() + t2 * segment.getY());
+                    return new Waypoint(path.get(i).getX() + t2 * segment.getX(),
+                            path.get(i).getY() + t2 * segment.getY());
                 }
             }
         }
@@ -116,7 +118,8 @@ public class PurePursuitController {
     /**
      * Returns the target speeds for left and right as an array.
      * Left speed at index 0, right speed at index 1.
-     * The Path has ended when the speeds become {@code Double.POSITIVE_INFINITY}.
+     * The List<Waypoint> has ended when the speeds become {@code Double.POSITIVE_INFINITY}.
+     *
      * @return the target side speeds as an array
      */
     public double[] getTargetSpeeds(){
@@ -140,6 +143,6 @@ public class PurePursuitController {
      * @return whether the PurePursuitController has finished following the path
      */
     public boolean done() {
-        return closestPoint().equals(path.getPoints().get(path.getPoints().size() - 1));
+        return closestPoint().equals(path.get(path.size() - 1));
     }
 }
