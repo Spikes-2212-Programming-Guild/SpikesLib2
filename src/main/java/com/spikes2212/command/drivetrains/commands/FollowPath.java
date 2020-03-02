@@ -24,7 +24,8 @@ public class FollowPath extends CommandBase {
     private PIDController rightController;
 
     public FollowPath(OdometryDrivetrain drivetrain, List<Waypoint> path, double lookaheadDistance,
-                      PIDSettings pidSettings, FeedForwardSettings feedForwardSettings, double maxAcceleration) {
+                      PIDSettings pidSettings, FeedForwardSettings feedForwardSettings, double maxAcceleration,
+                      boolean inverted) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.path = path;
@@ -32,6 +33,7 @@ public class FollowPath extends CommandBase {
         this.pidSettings = pidSettings;
         this.FeedForwardSettings = feedForwardSettings;
         this.maxAcceleration = maxAcceleration;
+        drivetrain.setInverted(inverted);
     }
 
     @Override
