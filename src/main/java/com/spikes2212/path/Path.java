@@ -12,18 +12,19 @@ import java.util.*;
 public class Path {
 
     /**
-     * @param spacing         the distance between two points filled in between points given as parameters
+     * @param spacing         the distance between two path filled in between path given as parameters
      * @param smoothWeight    how smooth to make the path, should be about 0.75 to 0.98
      * @param tolerance       the smoothing tolerance
      * @param maxVelocity     the robot's maximum velocity
      * @param turningConstant speed constant at curves (the higher it is, the faster you turn)
      * @param maxAcceleration the robot's maximum acceleration
-     * @param points          the initial points on the path. Apart from the edges, non of the points are guaranteed
+     * @param path            the initial points on the path. Apart from the edges, non of the points are guaranteed
      *                        to be on the final path
      * @return the generated path
      */
-    public static List<Waypoint> generate(List<Waypoint> points, double spacing, double smoothWeight, double tolerance,
+    public static List<Waypoint> generate(List<Waypoint> path, double spacing, double smoothWeight, double tolerance,
                                           double maxVelocity, double turningConstant, double maxAcceleration) {
+        List<Waypoint> points = new ArrayList<>(path);
         fill(points, spacing);
         smooth(points, smoothWeight, tolerance);
         calculateDistances(points);
@@ -33,15 +34,32 @@ public class Path {
         return points;
     }
 
-    private static void fill(List<Waypoint> points, double spacing) {
-        for(int i = 0; i < points.size() - 1; i++) {
-            Waypoint startPoint = points.get(i);
-            double length = points.get(i).distance(points.get(i + 1));
-            int pointsThatFit = (int)(length / spacing);
-            Waypoint vector = new Waypoint((points.get(i + 1).getX() - points.get(i).getX()) * (spacing / length),
-                    (points.get(i + 1).getY() - points.get(i).getY()) * (spacing / length));
-            for(int j = 0; j < pointsThatFit; j++, i++) {
-                points.add(i + 1, new Waypoint(
+    /**
+     * @param spacing         the distance between two path filled in between path given as parameters
+     * @param smoothWeight    how smooth to make the path, should be about 0.75 to 0.98
+     * @param tolerance       the smoothing tolerance
+     * @param maxVelocity     the robot's maximum velocity
+     * @param turningConstant speed constant at curves (the higher it is, the faster you turn)
+     * @param maxAcceleration the robot's maximum acceleration
+     * @param path            the initial points on the path. Apart from the edges, non of the points are guaranteed
+     *                        to be on the final path
+     * @return the generated path
+     */
+    public static List<Waypoint> generate(double spacing, double smoothWeight, double tolerance, double maxVelocity,
+                                          double turningConstant, double maxAcceleration, Waypoint... path) {
+        return generate(Arrays.asList(path), spacing, smoothWeight, tolerance, maxVelocity, turningConstant,
+                maxAcceleration);
+    }
+
+    private static void fill(List<Waypoint> path, double spacing) {
+        for(int i = 0; i < path.size() - 1; i++) {
+            Waypoint startPoint = path.get(i);
+            double length = path.get(i).distance(path.get(i + 1));
+            int pathThatFit = (int)(length / spacing);
+            Waypoint vector = new Waypoint((path.get(i + 1).getX() - path.get(i).getX()) * (spacing / length),
+                    (path.get(i + 1).getY() - path.get(i).getY()) * (spacing / length));
+            for(int j = 0; j < pathThatFit; j++, i++) {
+                path.add(i + 1, new Waypoint(
                         startPoint.getX() + vector.getX() * (j + 1),
                         startPoint.getY() + vector.getY() * (j + 1)
                 ));
@@ -49,70 +67,70 @@ public class Path {
         }
     }
 
-    private static void smooth(List<Waypoint> points, double smoothWeight, double tolerance) {
+    private static void smooth(List<Waypoint> path, double smoothWeight, double tolerance) {
         double dataWeight = 1 - smoothWeight;
-        double[][] path = new double[points.size()][2];
-        for(int i = 0; i < points.size(); i++) {
-            path[i] = points.get(i).toArray();
+        double[][] newPath = new double[path.size()][2];
+        for(int i = 0; i < path.size(); i++) {
+            newPath[i] = path.get(i).toArray();
         }
-        double[][] ogPath = Arrays.copyOf(path, path.length);
+        double[][] ogPath = Arrays.copyOf(newPath, newPath.length);
         double change = tolerance;
         while(change >= tolerance) {
             change = 0;
-            for(int i = 1; i < path.length - 1; i++) {
-                for(int j = 0; j < path[i].length; j++) {
-                    double aux = path[i][j];
-                    path[i][j] += dataWeight * (ogPath[i][j] - path[i][j])
-                            + smoothWeight * (path[i -1][j] + path[i+1][j] - 2 * path[i][j]);
-                    change += Math.abs(aux - path[i][j]);
+            for(int i = 1; i < newPath.length - 1; i++) {
+                for(int j = 0; j < newPath[i].length; j++) {
+                    double aux = newPath[i][j];
+                    newPath[i][j] += dataWeight * (ogPath[i][j] - newPath[i][j])
+                            + smoothWeight * (newPath[i - 1][j] + newPath[i + 1][j] - 2 * newPath[i][j]);
+                    change += Math.abs(aux - newPath[i][j]);
                 }
             }
         }
 
-        for (int i = 0; i < path.length; i++) {
-            points.set(i, new Waypoint(path[i][0], path[i][1]));
+        for(int i = 0; i < newPath.length; i++) {
+            path.set(i, new Waypoint(newPath[i][0], newPath[i][1]));
         }
     }
 
-    private static void calculateDistances(List<Waypoint> points) {
+    private static void calculateDistances(List<Waypoint> path) {
         double previousDistance = 0;
-        points.get(0).setD(0);
-        for(int i = 1; i < points.size(); i++) {
-            previousDistance += points.get(i).distance(points.get(i - 1));
-            points.get(i).setD(previousDistance);
+        path.get(0).setD(0);
+        for(int i = 1; i < path.size(); i++) {
+            previousDistance += path.get(i).distance(path.get(i - 1));
+            path.get(i).setD(previousDistance);
         }
     }
 
-    private static void calculateCurvatures(List<Waypoint> points) {
-        for(int i = 1; i < points.size() - 1; i++) {
-            double x1 = points.get(i).getX();
-            double y1 = points.get(i).getY();
-            double x2 = points.get(i - 1).getX();
-            double y2 = points.get(i - 1).getY();
-            double x3 = points.get(i + 1).getX();
-            double y3 = points.get(i + 1).getY();
+    private static void calculateCurvatures(List<Waypoint> path) {
+        for(int i = 1; i < path.size() - 1; i++) {
+            double x1 = path.get(i).getX();
+            double y1 = path.get(i).getY();
+            double x2 = path.get(i - 1).getX();
+            double y2 = path.get(i - 1).getY();
+            double x3 = path.get(i + 1).getX();
+            double y3 = path.get(i + 1).getY();
             if(x1 == x2) x2 += 0.000001;
             double k1 = 0.5 * (x1 * x1 + y1 * y1 - x2 * x2 - y2 * y2) / (x1 - x2);
             double k2 = (y1 - y2) / (x1 - x2);
             double b = 0.5 * (x2 * x2 - 2 * x2 * k1 + y2 * y2 - x3 * x3 + 2 * x3 * k1 - y3 * y3) / (x3 * k2 - y3 + y2 - x2 * k2);
             double a = k1 - k2 * b;
             double r = Math.sqrt((x1 - a) * (x1 - a) + (y1 - b) * (y1 - b));
-            points.get(i).setCurvature(1 / r);
+            path.get(i).setCurvature(1 / r);
         }
     }
 
-    private static void calculateMaxVelocities(List<Waypoint> points, double maxVelocity, double turningConstant) {
-        for(Waypoint p : points) {
+    private static void calculateMaxVelocities(List<Waypoint> path, double maxVelocity, double turningConstant) {
+        for(Waypoint p : path) {
             p.setV(Math.min(maxVelocity, turningConstant / p.getCurvature()));
         }
     }
 
-    private static void smoothVelocities(List<Waypoint> points, double maxAcceleration) {
-        points.get(points.size() - 1).setV(0);
-        for(int i = points.size() - 2; i >= 0; i--) {
-            double distance = points.get(i).distance(points.get(i + 1));
-            points.get(i).setV(Math.min(points.get(i).getV(),
-                    Math.sqrt(Math.pow(points.get(i + 1).getV(), 2) + 2 * maxAcceleration * distance)));
+    private static void smoothVelocities(List<Waypoint> path, double maxAcceleration) {
+        path.get(path.size() - 1).setV(0);
+        for(int i = path.size() - 2; i >= 0; i--) {
+            double distance = path.get(i).distance(path.get(i + 1));
+            path.get(i).setV(Math.min(path.get(i).getV(),
+                    Math.sqrt(Math.pow(path.get(i + 1).getV(), 2) + 2 * maxAcceleration * distance)));
         }
     }
 
@@ -120,12 +138,13 @@ public class Path {
      * Exports the path to a CSV file with the following format:
      * x,y,velocity,distance,curvature.
      *
-     * @param path the CSV file
+     * @param path the path to export
+     * @param file the CSV file
      */
-    public static void exportToCSV(List<Waypoint> points, java.nio.file.Path path) {
-        try(BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.US_ASCII)) {
+    public static void exportToCSV(List<Waypoint> path, java.nio.file.Path file) {
+        try(BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.US_ASCII)) {
             StringBuilder s = new StringBuilder("x,y,velocity,distance,curvature\n");
-            for(Waypoint w : points) {
+            for(Waypoint w : path) {
                 s.append(w.getX()).append(",").append(w.getY()).append(",").append(w.getV()).append(",")
                         .append(w.getD()).append(",").append(w.getCurvature()).append("\n");
             }
@@ -135,6 +154,12 @@ public class Path {
         }
     }
 
+    /**
+     * loads a path from the given csv file
+     *
+     * @param path the csv file to import from
+     * @return the path
+     */
     public static List<Waypoint> loadFromCSV(java.nio.file.Path path) {
         List<Waypoint> waypoints = new ArrayList<>();
         try {
