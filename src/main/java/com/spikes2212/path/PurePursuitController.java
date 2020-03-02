@@ -18,17 +18,17 @@ public class PurePursuitController {
     private RateLimiter rateLimiter;
 
     public PurePursuitController(OdometryHandler odometryHandler, List<Waypoint> path, double lookaheadDistance,
-                                 double maxAcceleration, double robotWidth, double period) {
+                                 double maxRate, double robotWidth, double period) {
         this.odometryHandler = odometryHandler;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
         this.robotWidth = robotWidth;
-        this.rateLimiter = new RateLimiter(maxAcceleration, period);
+        this.rateLimiter = new RateLimiter(maxRate, period);
     }
 
     public PurePursuitController(OdometryHandler odometryHandler, List<Waypoint> path, double lookaheadDistance,
-                                 double maxAcceleration, double robotWidth) {
-        this(odometryHandler, path, lookaheadDistance, maxAcceleration, robotWidth, 0.02);
+                                 double maxRate, double robotWidth) {
+        this(odometryHandler, path, lookaheadDistance, maxRate, robotWidth, 0.02);
     }
 
     public OdometryHandler getOdometryHandler() {
