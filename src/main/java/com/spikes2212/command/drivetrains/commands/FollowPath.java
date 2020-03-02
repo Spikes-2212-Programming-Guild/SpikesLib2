@@ -41,8 +41,7 @@ public class FollowPath extends CommandBase {
         drivetrain.zeroSensors();
         purePursuitController = new PurePursuitController(drivetrain.getHandler(), path,
                 lookaheadDistance, maxAcceleration, drivetrain.getWidth());
-        purePursuitController.getOdometryHandler().set(purePursuitController.getPath().get(0).getX(),
-                purePursuitController.getPath().get(0).getY());
+        purePursuitController.getOdometryHandler().set(0, 0);
         purePursuitController.reset();
         leftFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(), 0.02);
         rightFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(), 0.02);
