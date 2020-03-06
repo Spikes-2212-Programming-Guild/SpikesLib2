@@ -107,8 +107,6 @@ public class Limelight {
 
     /**
      * Horizontal side length of the rough bounding box.
-     * <p>
-     * Not the god of thunder.
      */
     private NetworkTableEntry thor;
 
