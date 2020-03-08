@@ -5,18 +5,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ButtonLayout<T extends Enum<T>> {
-    private Map<T, Command> layout;
-
-    public ButtonLayout() {
-        layout = new HashMap<>();
-    }
+public abstract class ButtonLayout<T extends Enum<T>> {
+    private Map<T, Command> buttons = new HashMap<>();
 
     public void addButton(T button, Command command) {
-        layout.put(button, command);
+        buttons.put(button, command);
     }
 
     public Command getCommandForButton(T button) {
-        return layout.get(button);
+        return buttons.get(button);
     }
 }
