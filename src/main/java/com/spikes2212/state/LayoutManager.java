@@ -1,6 +1,7 @@
 package com.spikes2212.state;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ public abstract class LayoutManager<T extends Enum<T>, K extends Enum<K>> {
     }
 
     public Command getCommandFor(K button) {
-        return allLayouts.get(currentLayout).getCommandForButton(button);
+        return new SelectCommand( () -> allLayouts.get(currentLayout).getCommandForButton(button) );
     }
 
     public void setLayout(T layout) {
