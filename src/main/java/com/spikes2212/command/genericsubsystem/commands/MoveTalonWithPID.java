@@ -10,13 +10,36 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+/**
+ * This command makes a Talon speed controller run a PID loop.
+ */
 public class MoveTalonWithPID extends CommandBase {
 
+    /**
+     * The {@link PIDTalon} with the necessary details.
+     */
     private PIDTalon talon;
+    /**
+     * A {@link Supplier} that returns the maximum speed allowed for the PID loop.
+     */
     private Supplier<Double> maxSpeed;
+    /**
+     * A {@link Supplier} that returns the minimum speed allowed for the PID loop.
+     */
     private Supplier<Double> minSpeed;
+    /**
+     * A {@link Supplier} that returns the target setpoint for the PID loop.
+     */
     private Supplier<Double> setpoint;
+    /**
+     * The Talon's timeout. Any process that changes the Talon's configurations will time out after that many ms.
+     * Use 0 if you want to have no time limit on such processes.
+     */
     private int timeout;
+    /**
+     * A {@link Predicate} that receives the speed of the motor and
+     * returns whether that speed is valid for that motor.
+     */
     private Predicate<Double> canMove;
     private double lastTimeNotOnTarget;
 
@@ -51,7 +74,7 @@ public class MoveTalonWithPID extends CommandBase {
         this.minSpeed = minSpeed;
         this.setpoint = setpoint;
         this.timeout = timeout;
-        this.canMove = v->true;
+        this.canMove = v -> true;
     }
 
     public MoveTalonWithPID(Subsystem subsystem, PIDTalon talon, Supplier<Double> maxSpeed,
@@ -83,7 +106,7 @@ public class MoveTalonWithPID extends CommandBase {
         this.minSpeed = minSpeed;
         this.setpoint = setpoint;
         this.timeout = timeout;
-        this.canMove = v->true;
+        this.canMove = v -> true;
     }
 
     @Override
@@ -103,7 +126,7 @@ public class MoveTalonWithPID extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(!talon.onTarget(setpoint.get())){
+        if (!talon.onTarget(setpoint.get())) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
