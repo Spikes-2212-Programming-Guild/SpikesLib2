@@ -8,16 +8,20 @@ import com.spikes2212.control.PIDSettings;
 import java.util.function.Supplier;
 
 public class PIDTalon {
+
     private WPI_TalonSRX talon;
-
     private PIDSettings settings;
+    private Supplier<Double> kF;
+    private ControlMode mode;
 
-    public PIDTalon(WPI_TalonSRX talon, PIDSettings settings) {
+    public PIDTalon(WPI_TalonSRX talon, PIDSettings settings, Supplier<Double> kF, ControlMode mode) {
         this.talon = talon;
         this.settings = settings;
+        this.kF= kF;
+        this.mode = mode;
     }
 
-    public void configureLoop(Supplier<Double> kF, Supplier<Double> maxSpeed, Supplier<Double> minSpeed, int timeout) {
+    public void configureLoop(Supplier<Double> maxSpeed, Supplier<Double> minSpeed, int timeout) {
         talon.configFactoryDefault();
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, timeout);
 
@@ -33,10 +37,11 @@ public class PIDTalon {
         talon.config_kF(0, kF.get(), timeout);
     }
 
-    public void pidSet(ControlMode mode, double setpoint, int timeout) {
+    public void pidSet(double setpoint, int timeout) {
         talon.config_kP(0, settings.getkP(), timeout);
         talon.config_kI(0, settings.getkI(), timeout);
         talon.config_kD(0, settings.getkD(), timeout);
+        talon.config_kF(0, kF.get(), timeout);
         talon.set(mode, setpoint);
     }
 
@@ -46,6 +51,10 @@ public class PIDTalon {
 
     public boolean onTarget(double setpoint) {
         return Math.abs(setpoint - talon.getSelectedSensorPosition()) <= settings.getTolerance();
+    }
+
+    public WPI_TalonSRX getTalon() {
+        return talon;
     }
 
     public PIDSettings getSettings() {
