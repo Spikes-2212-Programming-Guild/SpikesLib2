@@ -1,4 +1,4 @@
-package com.spikes2212.command.genericsubsystem;
+package com.spikes2212.control;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
