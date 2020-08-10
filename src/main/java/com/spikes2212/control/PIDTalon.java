@@ -45,7 +45,9 @@ public class PIDTalon {
      * Configures the Talon speed controller's PID constants as well as others that help maintain safety.
      * @param maxSpeed A {@link Supplier} that returns the maximum speed allowed for the PID loop.
      * @param minSpeed A {@link Supplier} that returns the minimum speed allowed for the PID loop.
-     * @param timeout The process's timeout. Use 0 for no time limit.
+     * @param timeout The Talon's timeout.
+     *                Any process that changes the Talon's configurations will time out after that many ms.
+     *                Use 0 if you want to have no time limit on such processes.
      */
     public void configureLoop(Supplier<Double> maxSpeed, Supplier<Double> minSpeed, int timeout) {
         talon.configFactoryDefault();
@@ -66,7 +68,9 @@ public class PIDTalon {
     /**
      * Sets the Talon speed controller to move as dictated by the PID calculation.
      * @param setpoint The PID loop's setpoint.
-     * @param timeout The process's timeout. Use 0 for no time limit.
+     * @param timeout The Talon's timeout.
+     *                Any process that changes the Talon's configurations will time out after that many ms.
+     *                Use 0 if you want to have no time limit on such processes.
      */
     public void pidSet(double setpoint, int timeout) {
         talon.config_kP(0, settings.getkP(), timeout);
