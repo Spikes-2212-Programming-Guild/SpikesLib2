@@ -14,7 +14,13 @@ import java.util.function.Supplier;
 public abstract class GenericSubsystem extends SubsystemBase {
 
     private double currentSpeed = 0;
+    /**
+     * A {@link Supplier} that returns the maximum speed of the subsytem.
+     */
     public final Supplier<Double> maxSpeed;
+    /**
+     * A {@link Supplier} that returns the minimum speed of the subsystem.
+     */
     public final Supplier<Double> minSpeed;
 
     /**
