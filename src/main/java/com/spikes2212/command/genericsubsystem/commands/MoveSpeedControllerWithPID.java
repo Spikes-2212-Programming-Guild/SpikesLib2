@@ -1,6 +1,5 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
 import com.spikes2212.control.PIDSpeedController;
 import com.spikes2212.control.PIDTalon;
@@ -44,37 +43,6 @@ public class MoveSpeedControllerWithPID extends CommandBase {
     private double lastTimeNotOnTarget;
 
     public MoveSpeedControllerWithPID(Subsystem subsystem, PIDTalon speedController, Supplier<Double> maxSpeed,
-                                      Supplier<Double> minSpeed, ControlMode mode, Supplier<Double> setpoint,
-                                      Predicate<Double> canMove) {
-        addRequirements(subsystem);
-        this.speedController = speedController;
-        this.maxSpeed = maxSpeed;
-        this.minSpeed = minSpeed;
-        this.setpoint = setpoint;
-        this.canMove = canMove;
-    }
-
-    public MoveSpeedControllerWithPID(GenericSubsystem genericSubsystem, PIDTalon speedController, ControlMode mode,
-                                      Supplier<Double> setpoint) {
-        addRequirements(genericSubsystem);
-        this.speedController = speedController;
-        this.maxSpeed = genericSubsystem.maxSpeed;
-        this.minSpeed = genericSubsystem.minSpeed;
-        this.setpoint = setpoint;
-        this.canMove = genericSubsystem::canMove;
-    }
-
-    public MoveSpeedControllerWithPID(Subsystem subsystem, PIDTalon speedController, Supplier<Double> maxSpeed,
-                                      Supplier<Double> minSpeed, ControlMode mode, Supplier<Double> setpoint) {
-        addRequirements(subsystem);
-        this.speedController = speedController;
-        this.maxSpeed = maxSpeed;
-        this.minSpeed = minSpeed;
-        this.setpoint = setpoint;
-        this.canMove = v -> true;
-    }
-
-    public MoveSpeedControllerWithPID(Subsystem subsystem, PIDTalon speedController, Supplier<Double> maxSpeed,
                                       Supplier<Double> minSpeed, Supplier<Double> setpoint, Predicate<Double> canMove) {
         addRequirements(subsystem);
         this.speedController = speedController;
@@ -84,23 +52,14 @@ public class MoveSpeedControllerWithPID extends CommandBase {
         this.canMove = canMove;
     }
 
-    public MoveSpeedControllerWithPID(GenericSubsystem genericSubsystem, PIDTalon speedController, Supplier<Double> setpoint) {
-        addRequirements(genericSubsystem);
-        this.speedController = speedController;
-        this.maxSpeed = genericSubsystem.maxSpeed;
-        this.minSpeed = genericSubsystem.minSpeed;
-        this.setpoint = setpoint;
-        this.canMove = genericSubsystem::canMove;
+    public MoveSpeedControllerWithPID(GenericSubsystem genericSubsystem, PIDTalon speedController,
+                                      Supplier<Double> setpoint) {
+        this(genericSubsystem, speedController, genericSubsystem.maxSpeed, genericSubsystem.minSpeed, setpoint, genericSubsystem::canMove);
     }
 
     public MoveSpeedControllerWithPID(Subsystem subsystem, PIDTalon speedController, Supplier<Double> maxSpeed,
                                       Supplier<Double> minSpeed, Supplier<Double> setpoint) {
-        addRequirements(subsystem);
-        this.speedController = speedController;
-        this.maxSpeed = maxSpeed;
-        this.minSpeed = minSpeed;
-        this.setpoint = setpoint;
-        this.canMove = v -> true;
+        this(subsystem, speedController, maxSpeed, minSpeed, setpoint, v -> true);
     }
 
     @Override
