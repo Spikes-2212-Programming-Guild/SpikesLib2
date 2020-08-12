@@ -2,6 +2,11 @@ package com.spikes2212.control;
 
 import java.util.function.Supplier;
 
+/**
+ * A speed controller that can run a PID loop.
+ *
+ * @author Eran Goldstein
+ */
 public interface PIDSpeedController {
     /**
      * Configures this speed controller's PID constants as well as others that help maintain safety.
