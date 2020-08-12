@@ -115,4 +115,39 @@ public class PIDTalon implements PIDSpeedController {
     public void finish() {
         talon.stopMotor();
     }
+
+    @Override
+    public void set(double speed) {
+        talon.set(speed);
+    }
+
+    @Override
+    public double get() {
+        return talon.get();
+    }
+
+    @Override
+    public void setInverted(boolean isInverted) {
+        talon.setInverted(isInverted);
+    }
+
+    @Override
+    public boolean getInverted() {
+        return talon.getInverted();
+    }
+
+    @Override
+    public void disable() {
+        talon.disable();
+    }
+
+    @Override
+    public void stopMotor() {
+        talon.stopMotor();
+    }
+
+    @Override
+    public void pidWrite(double output) {
+        talon.pidWrite(output);
+    }
 }
