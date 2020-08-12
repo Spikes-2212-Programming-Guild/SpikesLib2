@@ -2,7 +2,6 @@ package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
 import com.spikes2212.control.PIDSpeedController;
-import com.spikes2212.control.PIDTalon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -42,7 +41,7 @@ public class MoveSpeedControllerWithPID extends CommandBase {
     private Predicate<Double> canMove;
     private double lastTimeNotOnTarget;
 
-    public MoveSpeedControllerWithPID(Subsystem subsystem, PIDTalon speedController, Supplier<Double> maxSpeed,
+    public MoveSpeedControllerWithPID(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
                                       Supplier<Double> minSpeed, Supplier<Double> setpoint, Predicate<Double> canMove) {
         addRequirements(subsystem);
         this.speedController = speedController;
@@ -52,12 +51,12 @@ public class MoveSpeedControllerWithPID extends CommandBase {
         this.canMove = canMove;
     }
 
-    public MoveSpeedControllerWithPID(GenericSubsystem genericSubsystem, PIDTalon speedController,
+    public MoveSpeedControllerWithPID(GenericSubsystem genericSubsystem, PIDSpeedController speedController,
                                       Supplier<Double> setpoint) {
         this(genericSubsystem, speedController, genericSubsystem.maxSpeed, genericSubsystem.minSpeed, setpoint, genericSubsystem::canMove);
     }
 
-    public MoveSpeedControllerWithPID(Subsystem subsystem, PIDTalon speedController, Supplier<Double> maxSpeed,
+    public MoveSpeedControllerWithPID(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
                                       Supplier<Double> minSpeed, Supplier<Double> setpoint) {
         this(subsystem, speedController, maxSpeed, minSpeed, setpoint, v -> true);
     }
