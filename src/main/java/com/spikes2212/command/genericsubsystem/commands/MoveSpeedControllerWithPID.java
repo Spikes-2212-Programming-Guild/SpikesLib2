@@ -41,6 +41,16 @@ public class MoveSpeedControllerWithPID extends CommandBase {
     private Predicate<Double> canMove;
     private double lastTimeNotOnTarget;
 
+    /**
+     * A full constructor for {@code MoveSpeedControllerWithPID}.
+     *
+     * @param subsystem       the subsystem this command requires
+     * @param speedController the {@link PIDSpeedController} this command runs a PID loop on
+     * @param maxSpeed        the maximum speed of the subsystem
+     * @param minSpeed        the minimum speed of the subsystem
+     * @param setpoint        the setpoint which the PID loop should reach
+     * @param canMove         a predicate that returns true for speeds at which the subsystem can move
+     */
     public MoveSpeedControllerWithPID(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
                                       Supplier<Double> minSpeed, Supplier<Double> setpoint, Predicate<Double> canMove) {
         addRequirements(subsystem);
@@ -51,11 +61,28 @@ public class MoveSpeedControllerWithPID extends CommandBase {
         this.canMove = canMove;
     }
 
+    /**
+     * A constructor that uses a {@link GenericSubsystem}.
+     *
+     * @param genericSubsystem the subsystem this command requires
+     * @param speedController  the {@link PIDSpeedController} this command runs a PID loop on
+     * @param setpoint         the setpoint which the PID loop should reach
+     */
     public MoveSpeedControllerWithPID(GenericSubsystem genericSubsystem, PIDSpeedController speedController,
                                       Supplier<Double> setpoint) {
         this(genericSubsystem, speedController, genericSubsystem.maxSpeed, genericSubsystem.minSpeed, setpoint, genericSubsystem::canMove);
     }
 
+    /**
+     * A partial constructor, omitting {@code canMove}. Assumes the subsystem can always move at any speed between
+     * {@code maxSpeed} and {@code minSpeed}.
+     *
+     * @param subsystem       the subsystem this command requires
+     * @param speedController the {@link PIDSpeedController} this command runs a PID loop on
+     * @param maxSpeed        the maximum speed of the subsystem
+     * @param minSpeed        the minimum speed of the subsystem
+     * @param setpoint        the setpoint which the PID loop should reach
+     */
     public MoveSpeedControllerWithPID(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
                                       Supplier<Double> minSpeed, Supplier<Double> setpoint) {
         this(subsystem, speedController, maxSpeed, minSpeed, setpoint, v -> true);
