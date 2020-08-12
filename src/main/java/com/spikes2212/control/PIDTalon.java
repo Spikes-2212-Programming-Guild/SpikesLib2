@@ -84,11 +84,9 @@ public class PIDTalon implements PIDSpeedController {
         talon.set(mode, setpoint);
     }
 
-    /**
-     * Finishing the PID loop. Put any necessary finalization code here.
-     */
-    public void finish() {
-        talon.stopMotor();
+    @Override
+    public double getSpeed() {
+        return talon.getMotorOutputPercent();
     }
 
     /**
@@ -101,21 +99,15 @@ public class PIDTalon implements PIDSpeedController {
         return Math.abs(setpoint - talon.getSelectedSensorPosition()) <= settings.getTolerance();
     }
 
-    /**
-     * Returns the {@link WPI_TalonSRX} on which the PID is calculated.
-     *
-     * @return The {@link WPI_TalonSRX} on which the PID is calculated.
-     */
-    public WPI_TalonSRX getTalon() {
-        return talon;
+    @Override
+    public double getWaitTime() {
+        return settings.getWaitTime();
     }
 
     /**
-     * Returns the PID loop's {@link PIDSettings}.
-     *
-     * @return The PID loop's {@link PIDSettings}.
+     * Finishing the PID loop. Put any necessary finalization code here.
      */
-    public PIDSettings getSettings() {
-        return settings;
+    public void finish() {
+        talon.stopMotor();
     }
 }
