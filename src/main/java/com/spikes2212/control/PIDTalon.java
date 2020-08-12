@@ -34,7 +34,7 @@ public class PIDTalon implements PIDSpeedController {
     private final ControlMode mode;
 
     /**
-     * The talon motor's timeout.
+     * The talon's timeout.
      */
     private int timeout;
 
@@ -54,12 +54,7 @@ public class PIDTalon implements PIDSpeedController {
         this.timeout = timeout;
     }
 
-    /**
-     * Configures the Talon speed controller's PID constants as well as others that help maintain safety.
-     *
-     * @param maxSpeed A {@link Supplier} that returns the maximum speed allowed for the PID loop.
-     * @param minSpeed A {@link Supplier} that returns the minimum speed allowed for the PID loop.
-     */
+    @Override
     public void configureLoop(Supplier<Double> maxSpeed, Supplier<Double> minSpeed) {
         talon.configFactoryDefault();
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, timeout);
@@ -76,11 +71,7 @@ public class PIDTalon implements PIDSpeedController {
         talon.config_kF(0, kF.get(), timeout);
     }
 
-    /**
-     * Sets the Talon speed controller to move as dictated by the PID calculation.
-     *
-     * @param setpoint The PID loop's setpoint.
-     */
+    @Override
     public void pidSet(double setpoint) {
         talon.config_kP(0, settings.getkP(), timeout);
         talon.config_kI(0, settings.getkI(), timeout);
@@ -89,12 +80,7 @@ public class PIDTalon implements PIDSpeedController {
         talon.set(mode, setpoint);
     }
 
-    /**
-     * Returns whether the PID loop is close enough to the target setpoint.
-     *
-     * @param setpoint The target setpoint.
-     * @return Whether the PID loop is close enough to the target setpoint.
-     */
+    @Override
     public boolean onTarget(double setpoint) {
         return Math.abs(setpoint - talon.getSelectedSensorPosition()) <= settings.getTolerance();
     }
@@ -104,9 +90,7 @@ public class PIDTalon implements PIDSpeedController {
         return settings.getWaitTime();
     }
 
-    /**
-     * Finishing the PID loop. Put any necessary finalization code here.
-     */
+    @Override
     public void finish() {
         talon.stopMotor();
     }
