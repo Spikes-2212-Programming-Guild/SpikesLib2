@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 /**
  * This command makes a {@link PIDSpeedController} run a PID loop.
  */
-public class MoveSpeedControllerWithPID extends CommandBase {
+public class MovePIDSpeedController extends CommandBase {
 
     /**
      * The {@link PIDSpeedController} with the necessary details.
@@ -51,8 +51,8 @@ public class MoveSpeedControllerWithPID extends CommandBase {
      * @param setpoint        the setpoint which the PID loop should reach
      * @param canMove         a predicate that returns true for speeds at which the subsystem can move
      */
-    public MoveSpeedControllerWithPID(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
-                                      Supplier<Double> minSpeed, Supplier<Double> setpoint, Predicate<Double> canMove) {
+    public MovePIDSpeedController(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
+                                  Supplier<Double> minSpeed, Supplier<Double> setpoint, Predicate<Double> canMove) {
         addRequirements(subsystem);
         this.speedController = speedController;
         this.maxSpeed = maxSpeed;
@@ -68,8 +68,8 @@ public class MoveSpeedControllerWithPID extends CommandBase {
      * @param speedController  the {@link PIDSpeedController} this command runs a PID loop on
      * @param setpoint         the setpoint which the PID loop should reach
      */
-    public MoveSpeedControllerWithPID(GenericSubsystem genericSubsystem, PIDSpeedController speedController,
-                                      Supplier<Double> setpoint) {
+    public MovePIDSpeedController(GenericSubsystem genericSubsystem, PIDSpeedController speedController,
+                                  Supplier<Double> setpoint) {
         this(genericSubsystem, speedController, genericSubsystem.maxSpeed, genericSubsystem.minSpeed, setpoint, genericSubsystem::canMove);
     }
 
@@ -83,8 +83,8 @@ public class MoveSpeedControllerWithPID extends CommandBase {
      * @param minSpeed        the minimum speed of the subsystem
      * @param setpoint        the setpoint which the PID loop should reach
      */
-    public MoveSpeedControllerWithPID(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
-                                      Supplier<Double> minSpeed, Supplier<Double> setpoint) {
+    public MovePIDSpeedController(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
+                                  Supplier<Double> minSpeed, Supplier<Double> setpoint) {
         this(subsystem, speedController, maxSpeed, minSpeed, setpoint, v -> true);
     }
 
