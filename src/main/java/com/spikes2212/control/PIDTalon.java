@@ -6,6 +6,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import java.util.function.Supplier;
 
+/**
+ * A {@link WPI_TalonSRX} that can run a PID loop.
+ *
+ * @author Tuval Rivkind Barlev
+ */
 public class PIDTalon implements PIDSpeedController {
 
     /**
