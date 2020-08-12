@@ -29,8 +29,6 @@ public interface PIDSpeedController extends SpeedController {
      */
     void pidSet(double setpoint);
 
-    double getSpeed();
-
     /**
      * Returns whether the PID loop is close enough to the target setpoint.
      *

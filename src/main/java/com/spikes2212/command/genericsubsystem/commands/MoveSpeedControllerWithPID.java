@@ -109,7 +109,7 @@ public class MoveSpeedControllerWithPID extends CommandBase {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
-        return !canMove.test(speedController.getSpeed()) ||
+        return !canMove.test(speedController.get()) ||
                 Timer.getFPGATimestamp() - lastTimeNotOnTarget >= speedController.getWaitTime();
     }
 }

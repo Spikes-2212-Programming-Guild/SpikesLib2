@@ -89,11 +89,6 @@ public class PIDTalon implements PIDSpeedController {
         talon.set(mode, setpoint);
     }
 
-    @Override
-    public double getSpeed() {
-        return talon.getMotorOutputPercent();
-    }
-
     /**
      * Returns whether the PID loop is close enough to the target setpoint.
      *
