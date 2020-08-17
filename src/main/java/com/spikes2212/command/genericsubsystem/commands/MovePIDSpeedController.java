@@ -105,11 +105,12 @@ public class MovePIDSpeedController extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        double currentTime = Timer.getFPGATimestamp();
         if (!speedController.onTarget(setpoint.get())) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
         return !canMove.test(speedController.get()) ||
-                Timer.getFPGATimestamp() - lastTimeNotOnTarget >= speedController.getWaitTime();
+                currentTime - lastTimeNotOnTarget >= speedController.getWaitTime();
     }
 }
