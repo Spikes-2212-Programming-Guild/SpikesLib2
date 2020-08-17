@@ -7,6 +7,7 @@ import com.spikes2212.control.PIDSettings;
 import java.util.function.Supplier;
 
 public class OrientWithPID extends DriveArcadeWithPID {
+
     public OrientWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
                          PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
         super(drivetrain, source, setpoint, () -> 0.0, pidSettings, feedForwardSettings);
@@ -25,4 +26,5 @@ public class OrientWithPID extends DriveArcadeWithPID {
     public OrientWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, PIDSettings pidSettings) {
         this(drivetrain, source, setpoint, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
+
 }

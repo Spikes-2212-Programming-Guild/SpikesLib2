@@ -145,6 +145,8 @@ public class DriveTankWithPID extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        double currentTime = Timer.getFPGATimestamp();
+
         if (!leftPIDController.atSetpoint()) {
             leftLastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
@@ -153,7 +155,7 @@ public class DriveTankWithPID extends CommandBase {
             rightLastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
-        return Timer.getFPGATimestamp() - leftLastTimeNotOnTarget >= leftPIDSettings.getWaitTime()
-                && Timer.getFPGATimestamp() - rightLastTimeNotOnTarget >= rightPIDSettings.getWaitTime();
+        return currentTime - leftLastTimeNotOnTarget >= leftPIDSettings.getWaitTime()
+                && currentTime - rightLastTimeNotOnTarget >= rightPIDSettings.getWaitTime();
     }
 }
