@@ -67,7 +67,7 @@ public class PIDSparkMax implements PIDSpeedController {
     public void configureLoop(Supplier<Double> maxSpeed, Supplier<Double> minSpeed) {
         sparkMax.restoreFactoryDefaults();
 
-        pidController.setOutputRange(maxSpeed.get(), minSpeed.get());
+        pidController.setOutputRange(minSpeed.get(), maxSpeed.get());
 
         pidController.setP(settings.getkP());
         pidController.setI(settings.getkI());
