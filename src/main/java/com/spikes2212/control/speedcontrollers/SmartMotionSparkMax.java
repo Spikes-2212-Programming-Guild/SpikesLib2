@@ -37,16 +37,16 @@ public class SmartMotionSparkMax extends PIDSparkMax {
     public void configureLoop(Supplier<Double> maxSpeed, Supplier<Double> minSpeed) {
         super.configureLoop(maxSpeed, minSpeed);
 
-        pidController.setSmartMotionMinOutputVelocity(motionSettings.getMinVelocity().get(), 0);
-        pidController.setSmartMotionMaxVelocity(motionSettings.getMinVelocity().get(), 0);
-        pidController.setSmartMotionMaxAccel(motionSettings.getMaxAcceleration().get(), 0);
+        pidController.setSmartMotionMinOutputVelocity(motionSettings.getMinVelocity(), 0);
+        pidController.setSmartMotionMaxVelocity(motionSettings.getMinVelocity(), 0);
+        pidController.setSmartMotionMaxAccel(motionSettings.getMaxAcceleration(), 0);
     }
 
     @Override
     public void pidSet(double setpoint) {
-        pidController.setSmartMotionMinOutputVelocity(motionSettings.getMinVelocity().get(), 0);
-        pidController.setSmartMotionMaxVelocity(motionSettings.getMinVelocity().get(), 0);
-        pidController.setSmartMotionMaxAccel(motionSettings.getMaxAcceleration().get(), 0);
+        pidController.setSmartMotionMinOutputVelocity(motionSettings.getMinVelocity(), 0);
+        pidController.setSmartMotionMaxVelocity(motionSettings.getMinVelocity(), 0);
+        pidController.setSmartMotionMaxAccel(motionSettings.getMaxAcceleration(), 0);
 
         super.pidSet(setpoint);
     }

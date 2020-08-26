@@ -32,24 +32,24 @@ public class SmartMotionSettings {
         this(() -> 0.0, maxVelocity, maxAcceleration);
     }
 
-    public Supplier<Double> getMinVelocity() {
-        return minVelocity;
+    public double getMinVelocity() {
+        return minVelocity.get();
     }
 
     public void setMinVelocity(Supplier<Double> minVelocity) {
         this.minVelocity = minVelocity;
     }
 
-    public Supplier<Double> getMaxVelocity() {
-        return maxVelocity;
+    public double getMaxVelocity() {
+        return maxVelocity.get();
     }
 
     public void setMaxVelocity(Supplier<Double> maxVelocity) {
         this.maxVelocity = maxVelocity;
     }
 
-    public Supplier<Double> getMaxAcceleration() {
-        return maxAcceleration;
+    public double getMaxAcceleration() {
+        return maxAcceleration.get();
     }
 
     public void setMaxAcceleration(Supplier<Double> maxAcceleration) {
