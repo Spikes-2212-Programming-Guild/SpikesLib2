@@ -1,4 +1,4 @@
-package com.spikes2212.control;
+package com.spikes2212.control.speedcontrollers;
 
 import edu.wpi.first.wpilibj.SpeedController;
 

@@ -1,7 +1,8 @@
-package com.spikes2212.control;
+package com.spikes2212.control.speedcontrollers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.*;
+import com.spikes2212.control.PIDSettings;
 
 import java.util.function.Supplier;
 
