@@ -31,7 +31,7 @@ public interface PIDSpeedController extends SpeedController {
      * @param setpoint The target setpoint.
      * @return Whether the PID loop is close enough to the target setpoint.
      */
-    boolean onTarget(double setpoint);
+    boolean onTarget(double setpoint) throws Exception;
 
     double getWaitTime();
 

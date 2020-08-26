@@ -6,45 +6,45 @@ public class MotionMagicSettings {
     /**
      * The maximum acceleration.
      */
-    private Supplier<Double> targetAcceleration;
+    private Supplier<Integer> targetAcceleration;
 
     /**
      * The maximum velocity.
      */
-    private Supplier<Double> maxVelocity;
+    private Supplier<Integer> maxVelocity;
 
     /**
      * The smoothness of the acceleration graph (between 0-8).
      */
-    private Supplier<Double> smoothing;
+    private Supplier<Integer> smoothing;
 
-    public MotionMagicSettings(Supplier<Double> targetAcceleration, Supplier<Double> maxVelocity, Supplier<Double> smoothing) {
+    public MotionMagicSettings(Supplier<Integer> targetAcceleration, Supplier<Integer> maxVelocity, Supplier<Integer> smoothing) {
         this.targetAcceleration = targetAcceleration;
         this.maxVelocity = maxVelocity;
         this.smoothing = smoothing;
     }
 
-    public Supplier<Double> getTargetAcceleration() {
-        return targetAcceleration;
+    public int getTargetAcceleration() {
+        return targetAcceleration.get();
     }
 
-    public void setTargetAcceleration(Supplier<Double> targetAcceleration) {
+    public void setTargetAcceleration(Supplier<Integer> targetAcceleration) {
         this.targetAcceleration = targetAcceleration;
     }
 
-    public Supplier<Double> getMaxVelocity() {
-        return maxVelocity;
+    public int getMaxVelocity() {
+        return maxVelocity.get();
     }
 
-    public void setMaxVelocity(Supplier<Double> maxVelocity) {
+    public void setMaxVelocity(Supplier<Integer> maxVelocity) {
         this.maxVelocity = maxVelocity;
     }
 
-    public Supplier<Double> getSmoothing() {
-        return smoothing;
+    public int getSmoothing() {
+        return smoothing.get();
     }
 
-    public void setSmoothing(Supplier<Double> smoothing) {
+    public void setSmoothing(Supplier<Integer> smoothing) {
         this.smoothing = smoothing;
     }
 }

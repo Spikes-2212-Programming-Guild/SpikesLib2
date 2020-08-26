@@ -16,7 +16,7 @@ public class PIDTalon implements PIDSpeedController {
     /**
      * The {@link WPI_TalonSRX} on which the PID is calculated.
      */
-    private final WPI_TalonSRX talon;
+    protected final WPI_TalonSRX talon;
 
     /**
      * The PID loop's {@link PIDFSettings}.
@@ -31,7 +31,7 @@ public class PIDTalon implements PIDSpeedController {
     /**
      * The talon's timeout.
      */
-    private int timeout;
+    protected int timeout;
 
     /**
      * Constructs a PIDTalon instance with the given parameters as field values.
@@ -61,7 +61,7 @@ public class PIDTalon implements PIDSpeedController {
         talon.config_kP(0, settings.getkP(), timeout);
         talon.config_kI(0, settings.getkI(), timeout);
         talon.config_kD(0, settings.getkD(), timeout);
-        talon.config_kF(0,settings.getkF(), timeout);
+        talon.config_kF(0, settings.getkF(), timeout);
     }
 
     @Override
@@ -74,8 +74,19 @@ public class PIDTalon implements PIDSpeedController {
     }
 
     @Override
-    public boolean onTarget(double setpoint) {
-        return Math.abs(setpoint - talon.getSelectedSensorPosition()) <= settings.getTolerance();
+    public boolean onTarget(double setpoint) throws Exception {
+        switch (mode) {
+            case Position:
+            case MotionMagic:
+            case MotionProfile:
+            case MotionProfileArc:
+            case PercentOutput:
+                return Math.abs(setpoint - talon.getSelectedSensorPosition()) <= settings.getTolerance();
+            case Velocity:
+                return Math.abs(setpoint - talon.getSelectedSensorVelocity()) <= settings.getTolerance();
+            default:
+                throw new Exception("unknown mode");
+        }
     }
 
     @Override
