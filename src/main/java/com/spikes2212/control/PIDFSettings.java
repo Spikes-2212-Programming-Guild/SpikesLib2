@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 /**
  * The PID constants used in a PID loop, and the error tolerance and loop wait time.
  */
-public class PIDSettings {
+public class PIDFSettings {
     /**
      * The proportional component of the PID settings.
      */
@@ -15,6 +15,11 @@ public class PIDSettings {
      * The integral component of the PID settings.
      */
     private Supplier<Double> kI;
+
+    /**
+     * The time required to stay on target.
+     */
+    private Supplier<Double> kF;
 
     /**
      * The derivative component of the PID settings.
@@ -31,23 +36,37 @@ public class PIDSettings {
      */
     private Supplier<Double> waitTime;
 
-    public PIDSettings(double kP, double tolerance, double waitTime) {
+    public PIDFSettings(double kP, double tolerance, double waitTime) {
         this(kP, 0.0, 0.0, tolerance, waitTime);
     }
 
-    public PIDSettings(double kP, double kI, double kD, double tolerance, double waitTime) {
+    public PIDFSettings(double kP, double kI, double kD, double tolerance, double waitTime) {
         this(() -> kP, () -> kI, () -> kD, () -> tolerance, () -> waitTime);
     }
 
-    public PIDSettings(Supplier<Double> kP, Supplier<Double> tolerance, Supplier<Double> waitTime) {
+    public PIDFSettings(double kP, double kI, double kD, double kF, double tolerance, double waitTime) {
+        this(() -> kP, () -> kI, () -> kD, () -> kF, () -> tolerance, () -> waitTime);
+    }
+
+    public PIDFSettings(Supplier<Double> kP, Supplier<Double> tolerance, Supplier<Double> waitTime) {
         this(kP, () -> 0.0, () -> 0.0, tolerance, waitTime);
     }
 
-    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance,
-                       Supplier<Double> waitTime) {
+    public PIDFSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance,
+                        Supplier<Double> waitTime) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
+        this.tolerance = tolerance;
+        this.waitTime = waitTime;
+    }
+
+    public PIDFSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> kF, Supplier<Double> tolerance,
+                        Supplier<Double> waitTime) {
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
+        this.kF = kF;
         this.tolerance = tolerance;
         this.waitTime = waitTime;
     }
@@ -62,6 +81,14 @@ public class PIDSettings {
 
     public double getkI() {
         return kI.get();
+    }
+
+    public Supplier<Double> getkF() {
+        return kF;
+    }
+
+    public void setkF(Supplier<Double> kF) {
+        this.kF = kF;
     }
 
     public void setkI(Supplier<Double> kI) {

@@ -19,9 +19,9 @@ public class PIDTalon implements PIDSpeedController {
     private final WPI_TalonSRX talon;
 
     /**
-     * The PID loop's {@link PIDSettings}.
+     * The PID loop's {@link PIDFSettings}.
      */
-    private final PIDSettings settings;
+    private final PIDFSettings settings;
 
     /**
      * The PID loop's feed forward constant.
@@ -42,11 +42,11 @@ public class PIDTalon implements PIDSpeedController {
      * Constructs a PIDTalon instance with the given parameters as field values.
      *
      * @param talon    The Talon speed controller on which the PID loop is calculated.
-     * @param settings The PID loop's {@link PIDSettings}.
+     * @param settings The PID loop's {@link PIDFSettings}.
      * @param kF       The PID loop's feed forward constant.
      * @param mode     The PID loop's {@link ControlMode}.
      */
-    public PIDTalon(WPI_TalonSRX talon, PIDSettings settings, Supplier<Double> kF, ControlMode mode, int timeout) {
+    public PIDTalon(WPI_TalonSRX talon, PIDFSettings settings, Supplier<Double> kF, ControlMode mode, int timeout) {
         this.talon = talon;
         this.settings = settings;
         this.kF = kF;
