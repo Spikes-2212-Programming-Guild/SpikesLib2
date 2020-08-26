@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  *
  * @author Tuval Rivkind Barlev
  */
-public class PIDTalon implements PIDSpeedController {
+public class PIDTalon implements ClosedLoopSpeedController {
 
     /**
      * The {@link WPI_TalonSRX} on which the PID is calculated.
