@@ -10,9 +10,9 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
- * This command makes a {@link ClosedLoopSpeedController} run a PID loop.
+ * This command makes a {@link ClosedLoopSpeedController} run a closed control loop.
  */
-public class MovePIDSpeedController extends CommandBase {
+public class RunClosedLoop extends CommandBase {
 
     /**
      * The {@link ClosedLoopSpeedController} with the necessary details.
@@ -51,8 +51,8 @@ public class MovePIDSpeedController extends CommandBase {
      * @param setpoint        the setpoint which the PID loop should reach
      * @param canMove         a predicate that returns true for speeds at which the subsystem can move
      */
-    public MovePIDSpeedController(Subsystem subsystem, ClosedLoopSpeedController speedController, Supplier<Double> maxSpeed,
-                                  Supplier<Double> minSpeed, Supplier<Double> setpoint, Predicate<Double> canMove) {
+    public RunClosedLoop(Subsystem subsystem, ClosedLoopSpeedController speedController, Supplier<Double> maxSpeed,
+                         Supplier<Double> minSpeed, Supplier<Double> setpoint, Predicate<Double> canMove) {
         addRequirements(subsystem);
         this.speedController = speedController;
         this.maxSpeed = maxSpeed;
@@ -68,8 +68,8 @@ public class MovePIDSpeedController extends CommandBase {
      * @param speedController  the {@link ClosedLoopSpeedController} this command runs a PID loop on
      * @param setpoint         the setpoint which the PID loop should reach
      */
-    public MovePIDSpeedController(GenericSubsystem genericSubsystem, ClosedLoopSpeedController speedController,
-                                  Supplier<Double> setpoint) {
+    public RunClosedLoop(GenericSubsystem genericSubsystem, ClosedLoopSpeedController speedController,
+                         Supplier<Double> setpoint) {
         this(genericSubsystem, speedController, genericSubsystem.maxSpeed, genericSubsystem.minSpeed, setpoint, genericSubsystem::canMove);
     }
 
@@ -83,8 +83,8 @@ public class MovePIDSpeedController extends CommandBase {
      * @param minSpeed        the minimum speed of the subsystem
      * @param setpoint        the setpoint which the PID loop should reach
      */
-    public MovePIDSpeedController(Subsystem subsystem, ClosedLoopSpeedController speedController, Supplier<Double> maxSpeed,
-                                  Supplier<Double> minSpeed, Supplier<Double> setpoint) {
+    public RunClosedLoop(Subsystem subsystem, ClosedLoopSpeedController speedController, Supplier<Double> maxSpeed,
+                         Supplier<Double> minSpeed, Supplier<Double> setpoint) {
         this(subsystem, speedController, maxSpeed, minSpeed, setpoint, v -> true);
     }
 
