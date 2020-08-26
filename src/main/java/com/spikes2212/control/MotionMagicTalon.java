@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import java.util.function.Supplier;
 
-public class SmartMotionSparkMax extends PIDTalon {
+public class MotionMagicTalon extends PIDTalon {
 
     /**
      * Constructs a PIDTalon instance with the given parameters as field values.
@@ -15,7 +15,7 @@ public class SmartMotionSparkMax extends PIDTalon {
      * @param mode     The PID loop's {@link ControlMode}.
      * @param timeout
      */
-    public SmartMotionSparkMax(WPI_TalonSRX talon, PIDFSettings settings, ControlMode mode, int timeout) {
+    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings settings, ControlMode mode, int timeout) {
         super(talon, settings, mode, timeout);
     }
 }
