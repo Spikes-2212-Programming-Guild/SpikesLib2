@@ -18,19 +18,19 @@ public class FollowPath extends CommandBase {
     private PurePursuitController purePursuitController;
     private FeedForwardController rightFeedForwardController;
     private FeedForwardController leftFeedForwardController;
-    private PIDSettings pidSettings;
+    private PIDFSettings PIDFSettings;
     private FeedForwardSettings FeedForwardSettings;
     private PIDController leftController;
     private PIDController rightController;
 
     public FollowPath(OdometryDrivetrain drivetrain, List<Waypoint> path, double lookaheadDistance,
-                      PIDSettings pidSettings, FeedForwardSettings feedForwardSettings, double maxAcceleration,
+                      PIDFSettings PIDFSettings, FeedForwardSettings feedForwardSettings, double maxAcceleration,
                       boolean inverted) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.path = path;
         this.lookaheadDistance = lookaheadDistance;
-        this.pidSettings = pidSettings;
+        this.PIDFSettings = PIDFSettings;
         this.FeedForwardSettings = feedForwardSettings;
         this.maxAcceleration = maxAcceleration;
         drivetrain.setInverted(inverted);
@@ -47,8 +47,8 @@ public class FollowPath extends CommandBase {
         rightFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(), 0.02);
         leftFeedForwardController.reset();
         rightFeedForwardController.reset();
-        leftController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
-        rightController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        leftController = new PIDController(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
+        rightController = new PIDController(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
     }
 
     @Override

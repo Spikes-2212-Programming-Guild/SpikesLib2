@@ -31,9 +31,9 @@ public class PIDSparkMax implements PIDSpeedController {
     private final CANEncoder encoder;
 
     /**
-     * The PID loop's {@link PIDSettings}.
+     * The PID loop's {@link PIDFSettings}.
      */
-    private final PIDSettings settings;
+    private final PIDFSettings settings;
 
     /**
      * The PID loop's feed forward constant.
@@ -49,11 +49,11 @@ public class PIDSparkMax implements PIDSpeedController {
      * Constructs a PIDSparkMax instance with the given parameters as field values.
      *
      * @param sparkMax The Spark Max speed controller on which the PID loop is calculated.
-     * @param settings The PID loop's {@link PIDSettings}.
+     * @param settings The PID loop's {@link PIDFSettings}.
      * @param kF       The PID loop's feed forward constant.
      * @param mode     The PID loop's {@link ControlMode}.
      */
-    public PIDSparkMax(CANSparkMax sparkMax, PIDSettings settings, Supplier<Double> kF, ControlType mode, int timeout) {
+    public PIDSparkMax(CANSparkMax sparkMax, PIDFSettings settings, Supplier<Double> kF, ControlType mode, int timeout) {
         this.sparkMax = sparkMax;
         this.pidController = sparkMax.getPIDController();
         this.encoder = sparkMax.getEncoder();

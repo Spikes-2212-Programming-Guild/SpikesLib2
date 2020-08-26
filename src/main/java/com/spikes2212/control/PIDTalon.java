@@ -19,14 +19,9 @@ public class PIDTalon implements PIDSpeedController {
     private final WPI_TalonSRX talon;
 
     /**
-     * The PID loop's {@link PIDSettings}.
+     * The PID loop's {@link PIDFSettings}.
      */
-    private final PIDSettings settings;
-
-    /**
-     * The PID loop's feed forward constant.
-     */
-    private final Supplier<Double> kF;
+    private final PIDFSettings settings;
 
     /**
      * The PID loop's {@link ControlMode}.
@@ -42,14 +37,12 @@ public class PIDTalon implements PIDSpeedController {
      * Constructs a PIDTalon instance with the given parameters as field values.
      *
      * @param talon    The Talon speed controller on which the PID loop is calculated.
-     * @param settings The PID loop's {@link PIDSettings}.
-     * @param kF       The PID loop's feed forward constant.
+     * @param settings The PID loop's {@link PIDFSettings}.
      * @param mode     The PID loop's {@link ControlMode}.
      */
-    public PIDTalon(WPI_TalonSRX talon, PIDSettings settings, Supplier<Double> kF, ControlMode mode, int timeout) {
+    public PIDTalon(WPI_TalonSRX talon, PIDFSettings settings, ControlMode mode, int timeout) {
         this.talon = talon;
         this.settings = settings;
-        this.kF = kF;
         this.mode = mode;
         this.timeout = timeout;
     }
@@ -68,7 +61,7 @@ public class PIDTalon implements PIDSpeedController {
         talon.config_kP(0, settings.getkP(), timeout);
         talon.config_kI(0, settings.getkI(), timeout);
         talon.config_kD(0, settings.getkD(), timeout);
-        talon.config_kF(0, kF.get(), timeout);
+        talon.config_kF(0,settings.getkF(), timeout);
     }
 
     @Override
@@ -76,7 +69,7 @@ public class PIDTalon implements PIDSpeedController {
         talon.config_kP(0, settings.getkP(), timeout);
         talon.config_kI(0, settings.getkI(), timeout);
         talon.config_kD(0, settings.getkD(), timeout);
-        talon.config_kF(0, kF.get(), timeout);
+        talon.config_kF(0, settings.getkF(), timeout);
         talon.set(mode, setpoint);
     }
 
