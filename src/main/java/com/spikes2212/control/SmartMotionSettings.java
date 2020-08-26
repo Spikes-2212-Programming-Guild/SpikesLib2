@@ -2,9 +2,24 @@ package com.spikes2212.control;
 
 import java.util.function.Supplier;
 
+/**
+ * The smart motion constants used in a smart motion loop, in addition to the regular PID constants.
+ */
 public class SmartMotionSettings {
+
+    /**
+     * The minimum velocity of the motor during this smart motion loop.
+     */
     private Supplier<Double> minVelocity;
+
+    /**
+     * The maximum velocity of the motor during this smart motion loop.
+     */
     private Supplier<Double> maxVelocity;
+
+    /**
+     * The maximum acceleration of the motor during this smart motion loop.
+     */
     private Supplier<Double> maxAcceleration;
 
     public SmartMotionSettings(Supplier<Double> minVelocity, Supplier<Double> maxVelocity, Supplier<Double> maxAcceleration) {
