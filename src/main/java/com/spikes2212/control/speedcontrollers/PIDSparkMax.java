@@ -21,7 +21,7 @@ public class PIDSparkMax implements ClosedLoopSpeedController {
     /**
      * The {@link CANPIDController} which is responsible for handling the PID loop.
      */
-    private final CANPIDController pidController;
+    protected final CANPIDController pidController;
 
     /**
      * The {@link CANEncoder} of the motor connected to the spark max.
