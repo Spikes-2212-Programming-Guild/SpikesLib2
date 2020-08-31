@@ -5,6 +5,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import java.util.function.Supplier;
 
+/**
+ * A {@link WPI_TalonSRX} that can run a PID loop.
+ *
+ * @author Tal Sitton
+ */
+
 public class MotionMagicTalon extends PIDTalon {
 
     private final MotionMagicSettings motionMagicSettings;
@@ -12,17 +18,17 @@ public class MotionMagicTalon extends PIDTalon {
     /**
      * Constructs a PIDTalon instance with the given parameters as field values.
      *
-     * @param talon    The Talon speed controller on which the PID loop is calculated.
-     * @param settings The PID loop's {@link PIDFSettings}.
-     * @param timeout
+     * @param talon    the Talon speed controller on which the PID loop is calculated
+     * @param pidfSettings the PID loop's {@link PIDFSettings}
+     * @param timeout  the timeout of the motion magic
      */
-    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings settings, MotionMagicSettings mmSettings, int timeout) {
-        super(talon, settings, ControlMode.MotionMagic, timeout);
+    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings pidfSettings, MotionMagicSettings mmSettings, int timeout) {
+        super(talon, pidfSettings, ControlMode.MotionMagic, timeout);
         motionMagicSettings = mmSettings;
     }
 
-    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings settings, MotionMagicSettings mmSettings) {
-        this(talon, settings, mmSettings, 30);
+    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings pidfSettings, MotionMagicSettings mmSettings) {
+        this(talon, pidfSettings, mmSettings, 30);
     }
 
     @Override

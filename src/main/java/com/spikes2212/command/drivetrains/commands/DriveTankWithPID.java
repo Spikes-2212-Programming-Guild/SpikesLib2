@@ -18,22 +18,22 @@ public class DriveTankWithPID extends CommandBase {
     private final TankDrivetrain drivetrain;
 
     /**
-     * The PIDF Settings for the PIDF loop operating on the left side of the drivetrain.
+     * The PIDF Settings for the PID loop operating on the left side of the drivetrain.
      */
     private PIDFSettings leftPIDFSettings;
 
     /**
-     * The PIDF Settings for the PIDF loop operating on the right side of the drivetrain.
+     * The PIDF Settings for the PID loop operating on the right side of the drivetrain.
      */
     private PIDFSettings rightPIDFSettings;
 
     /**
-     * The PIDF Controller of the PIDF loop operating on the left side of the drivetrain.
+     * The PIDF Controller of the PID loop operating on the left side of the drivetrain.
      */
     private PIDController leftPIDController;
 
     /**
-     * The PIDF Controller of the PIDF loop operating on the right side of the drivetrain.
+     * The PIDF Controller of the PID loop operating on the right side of the drivetrain.
      */
     private PIDController rightPIDController;
 

@@ -27,7 +27,7 @@ public class PIDFSettings {
     private Supplier<Double> kF;
 
     /**
-     * The acceptable distance from the target.
+     * The acceptable distance from the setpoint.
      */
     private Supplier<Double> tolerance;
 
@@ -35,6 +35,16 @@ public class PIDFSettings {
      * The time required to stay on target.
      */
     private Supplier<Double> waitTime;
+
+    public PIDFSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> kF, Supplier<Double> tolerance,
+                        Supplier<Double> waitTime) {
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
+        this.kF = kF;
+        this.tolerance = tolerance;
+        this.waitTime = waitTime;
+    }
 
     public PIDFSettings(double kP, double tolerance, double waitTime) {
         this(kP, 0.0, 0.0, tolerance, waitTime);
@@ -54,22 +64,7 @@ public class PIDFSettings {
 
     public PIDFSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance,
                         Supplier<Double> waitTime) {
-        this.kP = kP;
-        this.kI = kI;
-        this.kD = kD;
-        this.kF = () -> 0.0;
-        this.tolerance = tolerance;
-        this.waitTime = waitTime;
-    }
-
-    public PIDFSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> kF, Supplier<Double> tolerance,
-                        Supplier<Double> waitTime) {
-        this.kP = kP;
-        this.kI = kI;
-        this.kD = kD;
-        this.kF = kF;
-        this.tolerance = tolerance;
-        this.waitTime = waitTime;
+        this(kP, kI, kD, () -> 0.0, tolerance, waitTime);
     }
 
     public double getkP() {

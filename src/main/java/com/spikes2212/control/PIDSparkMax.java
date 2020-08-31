@@ -33,7 +33,7 @@ public class PIDSparkMax implements PIDSpeedController {
     /**
      * The PID loop's {@link PIDFSettings}.
      */
-    private final PIDFSettings settings;
+    private final PIDFSettings pidfSettings;
 
     /**
      * The PID loop's {@link ControlType}.
@@ -44,14 +44,14 @@ public class PIDSparkMax implements PIDSpeedController {
      * Constructs a PIDSparkMax instance with the given parameters as field values.
      *
      * @param sparkMax The Spark Max speed controller on which the PID loop is calculated.
-     * @param settings The PID loop's {@link PIDFSettings}.
+     * @param pidfSettings The PID loop's {@link PIDFSettings}.
      * @param mode     The PID loop's {@link ControlMode}.
      */
-    public PIDSparkMax(CANSparkMax sparkMax, PIDFSettings settings, ControlType mode, int timeout) {
+    public PIDSparkMax(CANSparkMax sparkMax, PIDFSettings pidfSettings, ControlType mode, int timeout) {
         this.sparkMax = sparkMax;
         this.pidController = sparkMax.getPIDController();
         this.encoder = sparkMax.getEncoder();
-        this.settings = settings;
+        this.pidfSettings = pidfSettings;
         this.mode = mode;
         sparkMax.setCANTimeout(timeout);
     }
@@ -62,30 +62,30 @@ public class PIDSparkMax implements PIDSpeedController {
 
         pidController.setOutputRange(minSpeed.get(), maxSpeed.get());
 
-        pidController.setP(settings.getkP());
-        pidController.setI(settings.getkI());
-        pidController.setD(settings.getkD());
-        pidController.setFF(settings.getkF());
+        pidController.setP(pidfSettings.getkP());
+        pidController.setI(pidfSettings.getkI());
+        pidController.setD(pidfSettings.getkD());
+        pidController.setFF(pidfSettings.getkF());
     }
 
     @Override
     public void pidSet(double setpoint) {
-        pidController.setP(settings.getkP());
-        pidController.setI(settings.getkI());
-        pidController.setD(settings.getkD());
-        pidController.setFF(settings.getkF());
+        pidController.setP(pidfSettings.getkP());
+        pidController.setI(pidfSettings.getkI());
+        pidController.setD(pidfSettings.getkD());
+        pidController.setFF(pidfSettings.getkF());
 
         pidController.setReference(setpoint, mode);
     }
 
     @Override
     public boolean onTarget(double setpoint) {
-        return Math.abs(setpoint - encoder.getPosition()) <= settings.getTolerance();
+        return Math.abs(setpoint - encoder.getPosition()) <= pidfSettings.getTolerance();
     }
 
     @Override
     public double getWaitTime() {
-        return settings.getWaitTime();
+        return pidfSettings.getWaitTime();
     }
 
     @Override

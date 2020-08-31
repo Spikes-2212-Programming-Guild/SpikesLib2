@@ -2,6 +2,10 @@ package com.spikes2212.control;
 
 import java.util.function.Supplier;
 
+/**
+ * The MotionMagic constants used in a PID loop.
+ */
+
 public class MotionMagicSettings {
     /**
      * The maximum acceleration.

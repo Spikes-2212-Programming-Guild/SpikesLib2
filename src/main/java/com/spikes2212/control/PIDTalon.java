@@ -21,7 +21,7 @@ public class PIDTalon implements PIDSpeedController {
     /**
      * The PID loop's {@link PIDFSettings}.
      */
-    private final PIDFSettings settings;
+    private final PIDFSettings pidfSettings;
 
     /**
      * The PID loop's {@link ControlMode}.
@@ -36,13 +36,13 @@ public class PIDTalon implements PIDSpeedController {
     /**
      * Constructs a PIDTalon instance with the given parameters as field values.
      *
-     * @param talon    The Talon speed controller on which the PID loop is calculated.
-     * @param settings The PID loop's {@link PIDFSettings}.
-     * @param mode     The PID loop's {@link ControlMode}.
+     * @param talon        The Talon speed controller on which the PID loop is calculated.
+     * @param pidfSettings The PID loop's {@link PIDFSettings}.
+     * @param mode         The PID loop's {@link ControlMode}.
      */
-    public PIDTalon(WPI_TalonSRX talon, PIDFSettings settings, ControlMode mode, int timeout) {
+    public PIDTalon(WPI_TalonSRX talon, PIDFSettings pidfSettings, ControlMode mode, int timeout) {
         this.talon = talon;
-        this.settings = settings;
+        this.pidfSettings = pidfSettings;
         this.mode = mode;
         this.timeout = timeout;
     }
@@ -58,18 +58,18 @@ public class PIDTalon implements PIDSpeedController {
         talon.configPeakOutputReverse(minSpeed.get(), timeout);
 
         talon.configAllowableClosedloopError(0, 0, timeout);
-        talon.config_kP(0, settings.getkP(), timeout);
-        talon.config_kI(0, settings.getkI(), timeout);
-        talon.config_kD(0, settings.getkD(), timeout);
-        talon.config_kF(0, settings.getkF(), timeout);
+        talon.config_kP(0, pidfSettings.getkP(), timeout);
+        talon.config_kI(0, pidfSettings.getkI(), timeout);
+        talon.config_kD(0, pidfSettings.getkD(), timeout);
+        talon.config_kF(0, pidfSettings.getkF(), timeout);
     }
 
     @Override
     public void pidSet(double setpoint) {
-        talon.config_kP(0, settings.getkP(), timeout);
-        talon.config_kI(0, settings.getkI(), timeout);
-        talon.config_kD(0, settings.getkD(), timeout);
-        talon.config_kF(0, settings.getkF(), timeout);
+        talon.config_kP(0, pidfSettings.getkP(), timeout);
+        talon.config_kI(0, pidfSettings.getkI(), timeout);
+        talon.config_kD(0, pidfSettings.getkD(), timeout);
+        talon.config_kF(0, pidfSettings.getkF(), timeout);
         talon.set(mode, setpoint);
     }
 
@@ -81,9 +81,9 @@ public class PIDTalon implements PIDSpeedController {
             case MotionProfile:
             case MotionProfileArc:
             case PercentOutput:
-                return Math.abs(setpoint - talon.getSelectedSensorPosition()) <= settings.getTolerance();
+                return Math.abs(setpoint - talon.getSelectedSensorPosition()) <= pidfSettings.getTolerance();
             case Velocity:
-                return Math.abs(setpoint - talon.getSelectedSensorVelocity()) <= settings.getTolerance();
+                return Math.abs(setpoint - talon.getSelectedSensorVelocity()) <= pidfSettings.getTolerance();
             default:
                 throw new IllegalArgumentException("unknown mode");
         }
@@ -91,7 +91,7 @@ public class PIDTalon implements PIDSpeedController {
 
     @Override
     public double getWaitTime() {
-        return settings.getWaitTime();
+        return pidfSettings.getWaitTime();
     }
 
     @Override
