@@ -1,7 +1,7 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-import com.spikes2212.control.PIDSpeedController;
+import com.spikes2212.control.speedcontrollers.ClosedLoopSpeedController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -10,14 +10,14 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
- * This command makes a {@link PIDSpeedController} run a PID loop.
+ * This command makes a {@link ClosedLoopSpeedController} run a closed control loop.
  */
-public class MovePIDSpeedController extends CommandBase {
+public class RunClosedLoop extends CommandBase {
 
     /**
-     * The {@link PIDSpeedController} with the necessary details.
+     * The {@link ClosedLoopSpeedController} with the necessary details.
      */
-    private PIDSpeedController speedController;
+    private ClosedLoopSpeedController speedController;
 
     /**
      * A {@link Supplier} that returns the maximum speed allowed for the PID loop.
@@ -45,14 +45,14 @@ public class MovePIDSpeedController extends CommandBase {
      * A full constructor for {@code MoveSpeedControllerWithPID}.
      *
      * @param subsystem       the subsystem this command requires
-     * @param speedController the {@link PIDSpeedController} this command runs a PID loop on
+     * @param speedController the {@link ClosedLoopSpeedController} this command runs a PID loop on
      * @param maxSpeed        the maximum speed of the subsystem
      * @param minSpeed        the minimum speed of the subsystem
      * @param setpoint        the setpoint which the PID loop should reach
      * @param canMove         a predicate that returns true for speeds at which the subsystem can move
      */
-    public MovePIDSpeedController(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
-                                  Supplier<Double> minSpeed, Supplier<Double> setpoint, Predicate<Double> canMove) {
+    public RunClosedLoop(Subsystem subsystem, ClosedLoopSpeedController speedController, Supplier<Double> maxSpeed,
+                         Supplier<Double> minSpeed, Supplier<Double> setpoint, Predicate<Double> canMove) {
         addRequirements(subsystem);
         this.speedController = speedController;
         this.maxSpeed = maxSpeed;
@@ -65,11 +65,11 @@ public class MovePIDSpeedController extends CommandBase {
      * A constructor that uses a {@link GenericSubsystem}.
      *
      * @param genericSubsystem the subsystem this command requires
-     * @param speedController  the {@link PIDSpeedController} this command runs a PID loop on
+     * @param speedController  the {@link ClosedLoopSpeedController} this command runs a PID loop on
      * @param setpoint         the setpoint which the PID loop should reach
      */
-    public MovePIDSpeedController(GenericSubsystem genericSubsystem, PIDSpeedController speedController,
-                                  Supplier<Double> setpoint) {
+    public RunClosedLoop(GenericSubsystem genericSubsystem, ClosedLoopSpeedController speedController,
+                         Supplier<Double> setpoint) {
         this(genericSubsystem, speedController, genericSubsystem.maxSpeed, genericSubsystem.minSpeed, setpoint, genericSubsystem::canMove);
     }
 
@@ -78,13 +78,13 @@ public class MovePIDSpeedController extends CommandBase {
      * {@code maxSpeed} and {@code minSpeed}.
      *
      * @param subsystem       the subsystem this command requires
-     * @param speedController the {@link PIDSpeedController} this command runs a PID loop on
+     * @param speedController the {@link ClosedLoopSpeedController} this command runs a PID loop on
      * @param maxSpeed        the maximum speed of the subsystem
      * @param minSpeed        the minimum speed of the subsystem
      * @param setpoint        the setpoint which the PID loop should reach
      */
-    public MovePIDSpeedController(Subsystem subsystem, PIDSpeedController speedController, Supplier<Double> maxSpeed,
-                                  Supplier<Double> minSpeed, Supplier<Double> setpoint) {
+    public RunClosedLoop(Subsystem subsystem, ClosedLoopSpeedController speedController, Supplier<Double> maxSpeed,
+                         Supplier<Double> minSpeed, Supplier<Double> setpoint) {
         this(subsystem, speedController, maxSpeed, minSpeed, setpoint, v -> true);
     }
 

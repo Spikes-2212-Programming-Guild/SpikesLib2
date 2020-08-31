@@ -1,8 +1,9 @@
-package com.spikes2212.control;
+package com.spikes2212.control.speedcontrollers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.spikes2212.control.PIDSettings;
 
 import java.util.function.Supplier;
 
@@ -11,7 +12,7 @@ import java.util.function.Supplier;
  *
  * @author Tuval Rivkind Barlev
  */
-public class PIDTalon implements PIDSpeedController {
+public class PIDTalon implements ClosedLoopSpeedController {
 
     /**
      * The {@link WPI_TalonSRX} on which the PID is calculated.

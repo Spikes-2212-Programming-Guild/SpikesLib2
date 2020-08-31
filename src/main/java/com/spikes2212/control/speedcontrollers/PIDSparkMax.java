@@ -1,10 +1,8 @@
-package com.spikes2212.control;
+package com.spikes2212.control.speedcontrollers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
+import com.revrobotics.*;
+import com.spikes2212.control.PIDSettings;
 
 import java.util.function.Supplier;
 
@@ -13,7 +11,7 @@ import java.util.function.Supplier;
  *
  * @author Eran Goldstein
  */
-public class PIDSparkMax implements PIDSpeedController {
+public class PIDSparkMax implements ClosedLoopSpeedController {
 
     /**
      * The {@link CANSparkMax} on which the PID is calculated.
@@ -23,7 +21,7 @@ public class PIDSparkMax implements PIDSpeedController {
     /**
      * The {@link CANPIDController} which is responsible for handling the PID loop.
      */
-    private final CANPIDController pidController;
+    protected final CANPIDController pidController;
 
     /**
      * The {@link CANEncoder} of the motor connected to the spark max.

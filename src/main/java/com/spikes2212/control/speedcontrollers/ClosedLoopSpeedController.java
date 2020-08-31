@@ -1,4 +1,4 @@
-package com.spikes2212.control;
+package com.spikes2212.control.speedcontrollers;
 
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -9,7 +9,8 @@ import java.util.function.Supplier;
  *
  * @author Eran Goldstein
  */
-public interface PIDSpeedController extends SpeedController {
+public interface ClosedLoopSpeedController extends SpeedController {
+
     /**
      * Configures this speed controller's PID constants as well as others that help maintain safety.
      *
