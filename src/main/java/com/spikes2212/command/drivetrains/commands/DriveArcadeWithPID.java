@@ -1,7 +1,7 @@
 package com.spikes2212.command.drivetrains.commands;
 
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-import com.spikes2212.control.*;
+import com.spikes2212.control.PIDFSettings;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -27,9 +27,6 @@ public class DriveArcadeWithPID extends CommandBase {
      */
     private PIDController pidController;
 
-    private FeedForwardSettings feedForwardSettings;
-    private FeedForwardController feedForwardController;
-
     /**
      * The angle of the drivetrain.
      */
@@ -51,29 +48,15 @@ public class DriveArcadeWithPID extends CommandBase {
     private Supplier<Double> moveValue;
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
-                              Supplier<Double> moveValue, PIDFSettings PIDFSettings,
-                              FeedForwardSettings feedForwardSettings) {
+                              Supplier<Double> moveValue, PIDFSettings PIDFSettings) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.setpoint = setpoint;
         this.PIDFSettings = PIDFSettings;
-        this.feedForwardSettings = feedForwardSettings;
         this.source = source;
         this.moveValue = moveValue;
         this.pidController = new PIDController(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
         this.pidController.setSetpoint(setpoint.get());
-        this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
-                feedForwardSettings.getkA(), feedForwardSettings.getkG());
-    }
-
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, double moveValue,
-                              PIDFSettings PIDFSettings, FeedForwardSettings feedForwardSettings) {
-        this(drivetrain, source, () -> setpoint, () -> moveValue, PIDFSettings, feedForwardSettings);
-    }
-
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
-                              Supplier<Double> moveValue, PIDFSettings PIDFSettings) {
-        this(drivetrain, source, setpoint, moveValue, PIDFSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, double moveValue,
@@ -89,11 +72,8 @@ public class DriveArcadeWithPID extends CommandBase {
         pidController.setTolerance(PIDFSettings.getTolerance());
         pidController.setPID(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
 
-        feedForwardController.setGains(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
-                feedForwardSettings.getkA(), feedForwardSettings.getkG());
-
         drivetrain.arcadeDrive(moveValue.get(), pidController.calculate(source.get(), setpoint.get()) +
-                feedForwardController.calculate(setpoint.get()));
+                PIDFSettings.getkF());
     }
 
     @Override

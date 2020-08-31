@@ -74,7 +74,7 @@ public class PIDTalon implements PIDSpeedController {
     }
 
     @Override
-    public boolean onTarget(double setpoint) throws Exception {
+    public boolean onTarget(double setpoint) {
         switch (mode) {
             case Position:
             case MotionMagic:
@@ -85,7 +85,7 @@ public class PIDTalon implements PIDSpeedController {
             case Velocity:
                 return Math.abs(setpoint - talon.getSelectedSensorVelocity()) <= settings.getTolerance();
             default:
-                throw new Exception("unknown mode");
+                throw new IllegalArgumentException("unknown mode");
         }
     }
 

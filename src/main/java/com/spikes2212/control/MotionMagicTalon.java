@@ -21,6 +21,10 @@ public class MotionMagicTalon extends PIDTalon {
         motionMagicSettings = mmSeetings;
     }
 
+    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings settings, MotionMagicSettings mmSeetings) {
+        this(talon, settings, mmSeetings, 30);
+    }
+
     @Override
     public void configureLoop(Supplier<Double> maxSpeed, Supplier<Double> minSpeed) {
         super.configureLoop(maxSpeed, minSpeed);
@@ -34,5 +38,6 @@ public class MotionMagicTalon extends PIDTalon {
         talon.configMotionAcceleration(motionMagicSettings.getTargetAcceleration());
         talon.configMotionCruiseVelocity(motionMagicSettings.getMaxVelocity());
         talon.configMotionSCurveStrength(motionMagicSettings.getSmoothing());
+        super.pidSet(setpoint);
     }
 }

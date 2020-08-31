@@ -1,7 +1,7 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-import com.spikes2212.control.*;
+import com.spikes2212.control.PIDFSettings;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -32,11 +32,6 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     private PIDFSettings PIDFSettings;
 
     /**
-     * The Feed Forward Settings for the feed forward control loop.
-     */
-    private FeedForwardSettings feedForwardSettings;
-
-    /**
      * the setpoint for the subsystem.
      */
     private Supplier<Double> setpoint;
@@ -47,51 +42,32 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     private PIDController pidController;
 
     /**
-     * An object that makes the necessary calculations for the feed forward control loop.
-     */
-    private FeedForwardController feedForwardController;
-
-    /**
      * The last time the subsystem didn't reach target.
      */
     private double lastTimeNotOnTarget;
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
-                                       PIDFSettings PIDFSettings, FeedForwardSettings feedForwardSettings) {
+                                       PIDFSettings PIDFSettings) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.PIDFSettings = PIDFSettings;
-        this.feedForwardSettings = feedForwardSettings;
         this.setpoint = setpoint;
         this.source = source;
-        this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(), feedForwardSettings.getkA(), feedForwardSettings.getkG(), 0.02);
         this.pidController = new PIDController(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
     }
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
-                                       PIDFSettings PIDFSettings, FeedForwardSettings feedForwardSettings) {
-        this(subsystem, () -> setpoint, () -> source, PIDFSettings, feedForwardSettings);
-    }
-
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
                                        PIDFSettings PIDFSettings) {
-        this(subsystem, setpoint, source, PIDFSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
-    }
-
-    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
-                                       PIDFSettings PIDFSettings) {
-        this(subsystem, () -> setpoint, () -> source, PIDFSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
+        this(subsystem, () -> setpoint, () -> source, PIDFSettings);
     }
 
     @Override
     public void execute() {
         pidController.setTolerance(PIDFSettings.getTolerance());
         pidController.setPID(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
-        feedForwardController.setGains(feedForwardSettings.getkS(), feedForwardController.getkV(),
-                feedForwardController.getkA(), feedForwardController.getkG());
 
         double pidValue = pidController.calculate(source.get(), setpoint.get());
-        double svagValue = feedForwardController.calculate(setpoint.get());
+        double svagValue = PIDFSettings.getkF();
         subsystem.move(pidValue + svagValue);
     }
 
@@ -104,7 +80,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     public boolean isFinished() {
         double currentTime = Timer.getFPGATimestamp();
 
-        if(!pidController.atSetpoint()) {
+        if (!pidController.atSetpoint()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 

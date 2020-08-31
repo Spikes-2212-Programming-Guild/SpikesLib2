@@ -7,25 +7,25 @@ import java.util.function.Supplier;
  */
 public class PIDFSettings {
     /**
-     * The proportional component of the PID settings.
+     * The proportional component of the PIDF settings.
      */
     private Supplier<Double> kP;
 
     /**
-     * The integral component of the PID settings.
+     * The integral component of the PIDF settings.
      */
     private Supplier<Double> kI;
 
     /**
-     * The time required to stay on target.
-     */
-    private Supplier<Double> kF;
-
-    /**
-     * The derivative component of the PID settings.
+     * The derivative component of the PIDF settings.
      */
     private Supplier<Double> kD;
 
+    /**
+     * The feed forward component of the PIDF settings required to stay on target.
+     */
+    private Supplier<Double> kF;
+    
     /**
      * The acceptable distance from the target.
      */
@@ -83,14 +83,6 @@ public class PIDFSettings {
         return kI.get();
     }
 
-    public double getkF() {
-        return kF.get();
-    }
-
-    public void setkF(Supplier<Double> kF) {
-        this.kF = kF;
-    }
-
     public void setkI(Supplier<Double> kI) {
         this.kI = kI;
     }
@@ -101,6 +93,14 @@ public class PIDFSettings {
 
     public void setkD(Supplier<Double> kD) {
         this.kD = kD;
+    }
+
+    public double getkF() {
+        return kF.get();
+    }
+
+    public void setkF(Supplier<Double> kF) {
+        this.kF = kF;
     }
 
     public double getTolerance() {
