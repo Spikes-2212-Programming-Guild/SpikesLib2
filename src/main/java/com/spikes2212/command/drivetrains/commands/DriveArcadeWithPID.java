@@ -18,12 +18,12 @@ public class DriveArcadeWithPID extends CommandBase {
     private final TankDrivetrain drivetrain;
 
     /**
-     * The PID Settings for the turning PID loop.
+     * The PIDF Settings for the turning PIDF loop.
      */
-    private PIDFSettings PIDFSettings;
+    private PIDFSettings pidfSettings;
 
     /**
-     * The PID Controller for the turning PID loop.
+     * The PIDF Controller for the turning PIDF loop.
      */
     private PIDController pidController;
 
@@ -48,20 +48,20 @@ public class DriveArcadeWithPID extends CommandBase {
     private Supplier<Double> moveValue;
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
-                              Supplier<Double> moveValue, PIDFSettings PIDFSettings) {
+                              Supplier<Double> moveValue, PIDFSettings pidfSettings) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.setpoint = setpoint;
-        this.PIDFSettings = PIDFSettings;
+        this.pidfSettings = pidfSettings;
         this.source = source;
         this.moveValue = moveValue;
-        this.pidController = new PIDController(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
+        this.pidController = new PIDController(pidfSettings.getkP(), pidfSettings.getkI(), pidfSettings.getkD());
         this.pidController.setSetpoint(setpoint.get());
     }
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, double moveValue,
-                              PIDFSettings PIDFSettings) {
-        this(drivetrain, source, () -> setpoint, () -> moveValue, PIDFSettings);
+                              PIDFSettings pidfSettings) {
+        this(drivetrain, source, () -> setpoint, () -> moveValue, pidfSettings);
     }
 
     /**
@@ -69,11 +69,11 @@ public class DriveArcadeWithPID extends CommandBase {
      */
     @Override
     public void execute() {
-        pidController.setTolerance(PIDFSettings.getTolerance());
-        pidController.setPID(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
+        pidController.setTolerance(pidfSettings.getTolerance());
+        pidController.setPID(pidfSettings.getkP(), pidfSettings.getkI(), pidfSettings.getkD());
 
         drivetrain.arcadeDrive(moveValue.get(), pidController.calculate(source.get(), setpoint.get()) +
-                PIDFSettings.getkF());
+                pidfSettings.getkF());
     }
 
     @Override
@@ -89,6 +89,6 @@ public class DriveArcadeWithPID extends CommandBase {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
-        return currentTime - lastTimeNotOnTarget >= PIDFSettings.getWaitTime();
+        return currentTime - lastTimeNotOnTarget >= pidfSettings.getWaitTime();
     }
 }

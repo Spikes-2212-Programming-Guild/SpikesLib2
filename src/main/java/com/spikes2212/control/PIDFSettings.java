@@ -25,7 +25,7 @@ public class PIDFSettings {
      * The feed forward component of the PIDF settings required to stay on target.
      */
     private Supplier<Double> kF;
-    
+
     /**
      * The acceptable distance from the target.
      */
@@ -41,7 +41,7 @@ public class PIDFSettings {
     }
 
     public PIDFSettings(double kP, double kI, double kD, double tolerance, double waitTime) {
-        this(() -> kP, () -> kI, () -> kD, () -> tolerance, () -> waitTime);
+        this(() -> kP, () -> kI, () -> kD, () -> 0.0, () -> tolerance, () -> waitTime);
     }
 
     public PIDFSettings(double kP, double kI, double kD, double kF, double tolerance, double waitTime) {
@@ -57,6 +57,7 @@ public class PIDFSettings {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
+        this.kF = () -> 0.0;
         this.tolerance = tolerance;
         this.waitTime = waitTime;
     }

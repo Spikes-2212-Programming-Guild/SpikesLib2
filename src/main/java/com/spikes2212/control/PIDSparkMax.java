@@ -36,11 +36,6 @@ public class PIDSparkMax implements PIDSpeedController {
     private final PIDFSettings settings;
 
     /**
-     * The PID loop's feed forward constant.
-     */
-    private final Supplier<Double> kF;
-
-    /**
      * The PID loop's {@link ControlType}.
      */
     private final ControlType mode;
@@ -50,15 +45,13 @@ public class PIDSparkMax implements PIDSpeedController {
      *
      * @param sparkMax The Spark Max speed controller on which the PID loop is calculated.
      * @param settings The PID loop's {@link PIDFSettings}.
-     * @param kF       The PID loop's feed forward constant.
      * @param mode     The PID loop's {@link ControlMode}.
      */
-    public PIDSparkMax(CANSparkMax sparkMax, PIDFSettings settings, Supplier<Double> kF, ControlType mode, int timeout) {
+    public PIDSparkMax(CANSparkMax sparkMax, PIDFSettings settings, ControlType mode, int timeout) {
         this.sparkMax = sparkMax;
         this.pidController = sparkMax.getPIDController();
         this.encoder = sparkMax.getEncoder();
         this.settings = settings;
-        this.kF = kF;
         this.mode = mode;
         sparkMax.setCANTimeout(timeout);
     }
@@ -72,7 +65,7 @@ public class PIDSparkMax implements PIDSpeedController {
         pidController.setP(settings.getkP());
         pidController.setI(settings.getkI());
         pidController.setD(settings.getkD());
-        pidController.setFF(kF.get());
+        pidController.setFF(settings.getkF());
     }
 
     @Override
@@ -80,7 +73,7 @@ public class PIDSparkMax implements PIDSpeedController {
         pidController.setP(settings.getkP());
         pidController.setI(settings.getkI());
         pidController.setD(settings.getkD());
-        pidController.setFF(kF.get());
+        pidController.setFF(settings.getkF());
 
         pidController.setReference(setpoint, mode);
     }

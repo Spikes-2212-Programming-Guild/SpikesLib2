@@ -27,7 +27,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     private Supplier<Double> source;
 
     /**
-     * The PID Settings for the PID control loop.
+     * The PIDF Settings for the PID control loop.
      */
     private PIDFSettings PIDFSettings;
 
@@ -42,7 +42,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     private PIDController pidController;
 
     /**
-     * The last time the subsystem didn't reach target.
+     * The last time the subsystem didn't reach the target.
      */
     private double lastTimeNotOnTarget;
 

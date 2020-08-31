@@ -1,8 +1,6 @@
 package com.spikes2212.command.drivetrains.commands;
 
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-import com.spikes2212.control.FeedForwardController;
-import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDFSettings;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -20,22 +18,22 @@ public class DriveTankWithPID extends CommandBase {
     private final TankDrivetrain drivetrain;
 
     /**
-     * The PID Settings for the PID loop operating on the left side of the drivetrain.
+     * The PIDF Settings for the PIDF loop operating on the left side of the drivetrain.
      */
     private PIDFSettings leftPIDFSettings;
 
     /**
-     * The PID Settings for the PID loop operating on the right side of the drivetrain.
+     * The PIDF Settings for the PIDF loop operating on the right side of the drivetrain.
      */
     private PIDFSettings rightPIDFSettings;
 
     /**
-     * The PID Controller of the PID loop operating on the left side of the drivetrain.
+     * The PIDF Controller of the PIDF loop operating on the left side of the drivetrain.
      */
     private PIDController leftPIDController;
 
     /**
-     * The PID Controller of the PID loop operating on the right side of the drivetrain.
+     * The PIDF Controller of the PIDF loop operating on the right side of the drivetrain.
      */
     private PIDController rightPIDController;
 
@@ -69,15 +67,9 @@ public class DriveTankWithPID extends CommandBase {
      */
     private double rightLastTimeNotOnTarget;
 
-    private FeedForwardSettings leftFeedForwardSettings;
-    private FeedForwardSettings rightFeedForwardSettings;
-    private FeedForwardController leftFeedForwardController;
-    private FeedForwardController rightFeedForwardController;
-
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDFSettings leftPIDFSettings, PIDFSettings rightPIDFSettings,
                             Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
-                            Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
-                            FeedForwardSettings rightFeedForwardSettings) {
+                            Supplier<Double> rightSource) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.leftPIDFSettings = leftPIDFSettings;
@@ -90,34 +82,13 @@ public class DriveTankWithPID extends CommandBase {
         this.rightSource = rightSource;
         this.leftPIDController.setSetpoint(leftSetpoint.get());
         this.rightPIDController.setSetpoint(rightSetpoint.get());
-        this.leftFeedForwardSettings = leftFeedForwardSettings;
-        this.rightFeedForwardSettings = rightFeedForwardSettings;
-        this.leftFeedForwardController = new FeedForwardController(leftFeedForwardSettings.getkS(),
-                leftFeedForwardSettings.getkV(), leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG());
-        this.rightFeedForwardController = new FeedForwardController(rightFeedForwardSettings.getkS(),
-                rightFeedForwardSettings.getkV(), rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG());
-    }
-
-    public DriveTankWithPID(TankDrivetrain drivetrain, PIDFSettings leftPIDFSettings, PIDFSettings rightPIDFSettings,
-                            Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
-                            Supplier<Double> rightSource) {
-        this(drivetrain, leftPIDFSettings, rightPIDFSettings, leftSetpoint, rightSetpoint, leftSource, rightSource,
-                FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
-    }
-
-    public DriveTankWithPID(TankDrivetrain drivetrain, PIDFSettings leftPIDFSettings, PIDFSettings rightPIDFSettings,
-                            double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
-                            Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
-                            FeedForwardSettings rightFeedForwardSettings) {
-        this(drivetrain, leftPIDFSettings, rightPIDFSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource,
-                rightSource, leftFeedForwardSettings, rightFeedForwardSettings);
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDFSettings leftPIDFSettings, PIDFSettings rightPIDFSettings,
                             double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
                             Supplier<Double> rightSource) {
         this(drivetrain, leftPIDFSettings, rightPIDFSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource,
-                rightSource, FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
+                rightSource);
     }
 
     @Override
@@ -128,14 +99,10 @@ public class DriveTankWithPID extends CommandBase {
         rightPIDController.setTolerance(rightPIDFSettings.getTolerance());
         leftPIDController.setPID(leftPIDFSettings.getkP(), leftPIDFSettings.getkI(), leftPIDFSettings.getkD());
         rightPIDController.setPID(rightPIDFSettings.getkP(), rightPIDFSettings.getkI(), rightPIDFSettings.getkD());
-        leftFeedForwardController.setGains(leftFeedForwardSettings.getkS(), leftFeedForwardSettings.getkV(),
-                leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG());
-        rightFeedForwardController.setGains(rightFeedForwardSettings.getkS(), rightFeedForwardSettings.getkV(),
-                rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG());
         drivetrain.tankDrive((leftPIDController.calculate(leftSource.get()) +
-                        leftFeedForwardController.calculate(leftSetpoint.get()) / 2),
+                        leftPIDFSettings.getkF()),
                 rightPIDController.calculate(rightSource.get()) +
-                        leftFeedForwardController.calculate(rightSetpoint.get()) / 2);
+                        rightPIDFSettings.getkF());
     }
 
     @Override

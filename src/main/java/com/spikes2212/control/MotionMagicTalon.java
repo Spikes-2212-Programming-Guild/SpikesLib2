@@ -28,14 +28,14 @@ public class MotionMagicTalon extends PIDTalon {
     @Override
     public void configureLoop(Supplier<Double> maxSpeed, Supplier<Double> minSpeed) {
         super.configureLoop(maxSpeed, minSpeed);
-        talon.configMotionAcceleration(motionMagicSettings.getTargetAcceleration());
+        talon.configMotionAcceleration(motionMagicSettings.getMaximumAcceleration());
         talon.configMotionCruiseVelocity(motionMagicSettings.getMaxVelocity());
         talon.configMotionSCurveStrength(motionMagicSettings.getSmoothing());
     }
 
     @Override
     public void pidSet(double setpoint) {
-        talon.configMotionAcceleration(motionMagicSettings.getTargetAcceleration());
+        talon.configMotionAcceleration(motionMagicSettings.getMaximumAcceleration());
         talon.configMotionCruiseVelocity(motionMagicSettings.getMaxVelocity());
         talon.configMotionSCurveStrength(motionMagicSettings.getSmoothing());
         super.pidSet(setpoint);

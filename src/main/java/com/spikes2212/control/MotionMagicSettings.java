@@ -6,7 +6,7 @@ public class MotionMagicSettings {
     /**
      * The maximum acceleration.
      */
-    private Supplier<Integer> targetAcceleration;
+    private Supplier<Integer> maximumAcceleration;
 
     /**
      * The maximum velocity.
@@ -18,18 +18,18 @@ public class MotionMagicSettings {
      */
     private Supplier<Integer> smoothing;
 
-    public MotionMagicSettings(Supplier<Integer> targetAcceleration, Supplier<Integer> maxVelocity, Supplier<Integer> smoothing) {
-        this.targetAcceleration = targetAcceleration;
+    public MotionMagicSettings(Supplier<Integer> maximumAcceleration, Supplier<Integer> maxVelocity, Supplier<Integer> smoothing) {
+        this.maximumAcceleration = maximumAcceleration;
         this.maxVelocity = maxVelocity;
         this.smoothing = smoothing;
     }
 
-    public int getTargetAcceleration() {
-        return targetAcceleration.get();
+    public int getMaximumAcceleration() {
+        return maximumAcceleration.get();
     }
 
-    public void setTargetAcceleration(Supplier<Integer> targetAcceleration) {
-        this.targetAcceleration = targetAcceleration;
+    public void setMaximumAcceleration(Supplier<Integer> maximumAcceleration) {
+        this.maximumAcceleration = maximumAcceleration;
     }
 
     public int getMaxVelocity() {
