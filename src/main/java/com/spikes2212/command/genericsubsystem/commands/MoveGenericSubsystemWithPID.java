@@ -29,7 +29,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     /**
      * The PIDF Settings for the PID control loop.
      */
-    private PIDFSettings PIDFSettings;
+    private PIDFSettings pidfSettings;
 
     /**
      * the setpoint for the subsystem.
@@ -47,27 +47,27 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     private double lastTimeNotOnTarget;
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
-                                       PIDFSettings PIDFSettings) {
+                                       PIDFSettings pidfSettings) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
-        this.PIDFSettings = PIDFSettings;
+        this.pidfSettings = pidfSettings;
         this.setpoint = setpoint;
         this.source = source;
-        this.pidController = new PIDController(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
+        this.pidController = new PIDController(pidfSettings.getkP(), pidfSettings.getkI(), pidfSettings.getkD());
     }
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
-                                       PIDFSettings PIDFSettings) {
-        this(subsystem, () -> setpoint, () -> source, PIDFSettings);
+                                       PIDFSettings pidfSettings) {
+        this(subsystem, () -> setpoint, () -> source, pidfSettings);
     }
 
     @Override
     public void execute() {
-        pidController.setTolerance(PIDFSettings.getTolerance());
-        pidController.setPID(PIDFSettings.getkP(), PIDFSettings.getkI(), PIDFSettings.getkD());
+        pidController.setTolerance(pidfSettings.getTolerance());
+        pidController.setPID(pidfSettings.getkP(), pidfSettings.getkI(), pidfSettings.getkD());
 
         double pidValue = pidController.calculate(source.get(), setpoint.get());
-        double svagValue = PIDFSettings.getkF();
+        double svagValue = pidfSettings.getkF();
         subsystem.move(pidValue + svagValue);
     }
 
@@ -84,6 +84,6 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
-        return currentTime - lastTimeNotOnTarget >= PIDFSettings.getWaitTime();
+        return currentTime - lastTimeNotOnTarget >= pidfSettings.getWaitTime();
     }
 }

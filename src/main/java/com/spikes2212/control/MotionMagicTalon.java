@@ -16,13 +16,13 @@ public class MotionMagicTalon extends PIDTalon {
      * @param settings The PID loop's {@link PIDFSettings}.
      * @param timeout
      */
-    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings settings, MotionMagicSettings mmSeetings, int timeout) {
+    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings settings, MotionMagicSettings mmSettings, int timeout) {
         super(talon, settings, ControlMode.MotionMagic, timeout);
-        motionMagicSettings = mmSeetings;
+        motionMagicSettings = mmSettings;
     }
 
-    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings settings, MotionMagicSettings mmSeetings) {
-        this(talon, settings, mmSeetings, 30);
+    public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings settings, MotionMagicSettings mmSettings) {
+        this(talon, settings, mmSettings, 30);
     }
 
     @Override
