@@ -43,9 +43,9 @@ public class PIDSparkMax implements PIDSpeedController {
     /**
      * Constructs a PIDSparkMax instance with the given parameters as field values.
      *
-     * @param sparkMax The Spark Max speed controller on which the PID loop is calculated.
+     * @param sparkMax     The Spark Max speed controller on which the PID loop is calculated.
      * @param pidfSettings The PID loop's {@link PIDFSettings}.
-     * @param mode     The PID loop's {@link ControlMode}.
+     * @param mode         The PID loop's {@link ControlMode}.
      */
     public PIDSparkMax(CANSparkMax sparkMax, PIDFSettings pidfSettings, ControlType mode, int timeout) {
         this.sparkMax = sparkMax;

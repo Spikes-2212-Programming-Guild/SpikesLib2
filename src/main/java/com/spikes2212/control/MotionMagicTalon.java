@@ -10,7 +10,6 @@ import java.util.function.Supplier;
  *
  * @author Tal Sitton
  */
-
 public class MotionMagicTalon extends PIDTalon {
 
     private final MotionMagicSettings motionMagicSettings;
@@ -18,9 +17,9 @@ public class MotionMagicTalon extends PIDTalon {
     /**
      * Constructs a MotionMagicTalon instance with the given parameters as field values.
      *
-     * @param talon    the Talon speed controller on which the PID loop is calculated
+     * @param talon        the Talon speed controller on which the PID loop is calculated
      * @param pidfSettings the PID loop's {@link PIDFSettings}
-     * @param timeout  the timeout of the motion magic
+     * @param timeout      the timeout of the motion magic
      */
     public MotionMagicTalon(WPI_TalonSRX talon, PIDFSettings pidfSettings, MotionMagicSettings mmSettings, int timeout) {
         super(talon, pidfSettings, ControlMode.MotionMagic, timeout);
