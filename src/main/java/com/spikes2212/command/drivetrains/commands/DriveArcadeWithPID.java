@@ -33,7 +33,7 @@ public class DriveArcadeWithPID extends CommandBase {
     private Supplier<Double> source;
 
     /**
-     * The last time the drivetrain's angle wasn't within the target range.
+     * The last time the drivetrain's angle wasn't within its target.
      */
     private double lastTimeNotOnTarget;
 

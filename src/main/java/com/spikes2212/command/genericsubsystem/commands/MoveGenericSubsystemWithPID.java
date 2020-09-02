@@ -42,7 +42,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
     private PIDController pidController;
 
     /**
-     * The last time the subsystem didn't reach its target.
+     * The last time the subsystem wasn't within its target.
      */
     private double lastTimeNotOnTarget;
 
