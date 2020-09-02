@@ -67,8 +67,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
         pidController.setPID(pidfSettings.getkP(), pidfSettings.getkI(), pidfSettings.getkD());
 
         double pidValue = pidController.calculate(source.get(), setpoint.get());
-        double svagValue = pidfSettings.getkF();
-        subsystem.move(pidValue + svagValue);
+        subsystem.move(pidValue + pidfSettings.getkF());
     }
 
     @Override
