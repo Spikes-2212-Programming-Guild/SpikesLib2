@@ -4,9 +4,11 @@ import java.util.function.Supplier;
 
 /**
  * The MotionMagic constants used in a PID loop.
+ *
+ * @author Tal Sitton
  */
-
 public class MotionMagicSettings {
+
     /**
      * The maximum acceleration.
      */

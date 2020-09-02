@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import java.util.function.Supplier;
 
 /**
- * A {@link WPI_TalonSRX} that can run a PID loop.
+ * A {@link WPI_TalonSRX} that can use the Talon's MotionMagic feature.
  *
  * @author Tal Sitton
  */
@@ -16,7 +16,7 @@ public class MotionMagicTalon extends PIDTalon {
     private final MotionMagicSettings motionMagicSettings;
 
     /**
-     * Constructs a PIDTalon instance with the given parameters as field values.
+     * Constructs a MotionMagicTalon instance with the given parameters as field values.
      *
      * @param talon    the Talon speed controller on which the PID loop is calculated
      * @param pidfSettings the PID loop's {@link PIDFSettings}

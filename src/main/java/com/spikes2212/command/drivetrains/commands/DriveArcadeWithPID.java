@@ -18,12 +18,12 @@ public class DriveArcadeWithPID extends CommandBase {
     private final TankDrivetrain drivetrain;
 
     /**
-     * The PIDF Settings for the turning pid loop.
+     * The PIDF Settings for the turning PID loop.
      */
     private PIDFSettings pidfSettings;
 
     /**
-     * The PIDF Controller for the turning pid loop.
+     * The PID Controller for the turning PID loop.
      */
     private PIDController pidController;
 
@@ -65,7 +65,7 @@ public class DriveArcadeWithPID extends CommandBase {
     }
 
     /**
-     * updates the PIDLoop's setpoint.
+     * updates the PID loop's setpoint.
      */
     @Override
     public void execute() {
