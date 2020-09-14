@@ -3,6 +3,7 @@ package com.spikes2212.control;
 import java.util.function.Supplier;
 
 public class FeedForwardSettings {
+
     public static final FeedForwardSettings EMPTY_FFSETTINGS = new FeedForwardSettings(0, 0);
 
     /**
