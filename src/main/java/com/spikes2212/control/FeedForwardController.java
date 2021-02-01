@@ -4,6 +4,7 @@ package com.spikes2212.control;
  * This class represents a FeedForwardController.
  */
 public class FeedForwardController {
+
     /**
      * The static constant
      */

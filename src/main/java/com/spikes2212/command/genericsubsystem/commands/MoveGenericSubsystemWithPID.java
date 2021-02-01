@@ -102,10 +102,12 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        double currentTime = Timer.getFPGATimestamp();
+
         if(!pidController.atSetpoint()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
-        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= pidSettings.getWaitTime();
+        return currentTime - lastTimeNotOnTarget >= pidSettings.getWaitTime();
     }
 }

@@ -6,11 +6,9 @@ public class ExponentialFilter implements NoiseFilter {
 
     private double previous;
 
-
     public ExponentialFilter(double w) {
         this.w = w;
     }
-
 
     @Override
     public double calculate(double measurement) {

@@ -1,6 +1,6 @@
 # SpikesLib2
 
-SpikesLib is a library that extends [WPILib](https://github.com/wpilibsuite/allwpilib) written by the FRC team The Spikes#2212.
+SpikesLib is a library that extends [WPILib](https://github.com/wpilibsuite/allwpilib) written by the FRC team The Spikes #2212.
 
 
 ## 2020 Season
@@ -12,6 +12,7 @@ The old version is still available at the [old repository](https://github.com/Sp
 
 - command - extensions for WPILib's Command Based framework
 - control - controller wrappers and custom controllers
+- dashbaord - classes for easier interfacing with the smart dashboard
 - path - path following code and pure pursuit algorithm
 - util - additional utilities
 
@@ -20,6 +21,6 @@ The old version is still available at the [old repository](https://github.com/Sp
 
 SpikesLib is developed in a feature branches workflow. <br>
 All feature branches are merged into _```dev```_ branch after testing, which in turn is merged into 
-_```master```_ after it passing complete testing <br>
+_```master```_ after it passes complete testing <br>
 
 Branches should be named according to the following convention - _```name-package-feature```_

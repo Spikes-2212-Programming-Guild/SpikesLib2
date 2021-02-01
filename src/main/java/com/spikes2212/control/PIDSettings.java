@@ -3,9 +3,10 @@ package com.spikes2212.control;
 import java.util.function.Supplier;
 
 /**
- * The PID constants used in a {@link PIDLoop}, and the error tolerance and loop wait time.
+ * The PID constants used in a PID loop, and the error tolerance and loop wait time.
  */
 public class PIDSettings {
+
     /**
      * The proportional component of the PID settings.
      */

@@ -32,7 +32,6 @@ public interface Namespace {
         this.putNumber(key, () -> number);
     }
 
-
     double getNumber(String key);
 
     void putBoolean(String key, Supplier<Boolean> value);
