@@ -110,6 +110,7 @@ public class Paths {
             double x3 = path.get(i + 1).getX();
             double y3 = path.get(i + 1).getY();
             if(x1 == x2) x2 += 0.000001;
+            if(y1 == y2 && y1 == y3) y2 += 0.000001;
             double k1 = 0.5 * (x1 * x1 + y1 * y1 - x2 * x2 - y2 * y2) / (x1 - x2);
             double k2 = (y1 - y2) / (x1 - x2);
             double b = 0.5 * (x2 * x2 - 2 * x2 * k1 + y2 * y2 - x3 * x3 + 2 * x3 * k1 - y3 * y3) / (x3 * k2 - y3 + y2 - x2 * k2);
