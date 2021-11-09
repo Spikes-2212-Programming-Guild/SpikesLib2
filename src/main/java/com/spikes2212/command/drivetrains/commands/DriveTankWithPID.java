@@ -12,8 +12,11 @@ import java.util.function.Supplier;
 
 /**
  * A command that moves a drivetrain using two PID loops, one for each side.
+ *
+ * @author Yuval Levy
  */
 public class DriveTankWithPID extends CommandBase {
+
     /**
      * The drivetrain this command operates on.
      */
@@ -69,9 +72,24 @@ public class DriveTankWithPID extends CommandBase {
      */
     private double rightLastTimeNotOnTarget;
 
+    /**
+     * The FeedForwards Settings of the FeedForward loop operating on the left side of the drivetrain.
+     */
     private FeedForwardSettings leftFeedForwardSettings;
+
+    /**
+     * The FeedForwards Settings of the FeedForward loop operating on the right side of the drivetrain.
+     */
     private FeedForwardSettings rightFeedForwardSettings;
+
+    /**
+     * The FeedForwards Controller of the FeedForward loop operating on the left side of the drivetrain.
+     */
     private FeedForwardController leftFeedForwardController;
+
+    /**
+     * The FeedForwards Controller of the FeedForward loop operating on the right side of the drivetrain.
+     */
     private FeedForwardController rightFeedForwardController;
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
@@ -157,3 +175,4 @@ public class DriveTankWithPID extends CommandBase {
                 && Timer.getFPGATimestamp() - rightLastTimeNotOnTarget >= rightPIDSettings.getWaitTime();
     }
 }
+
