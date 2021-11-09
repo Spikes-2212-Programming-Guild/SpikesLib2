@@ -10,24 +10,34 @@ import java.util.function.Supplier;
 
 /**
  * A command that moves a drivetrain with a set speed forward and with a PID loop to a certain angle.
+ *
+ * @author Yuval Levy
  */
 public class DriveArcadeWithPID extends CommandBase {
+
     /**
      * The drivetrain this command operates on.
      */
     private final TankDrivetrain drivetrain;
 
     /**
-     * The PID Settings for the turning PID loop.
+     * The PID settings for the turning PID loop.
      */
     private PIDSettings pidSettings;
 
     /**
-     * The PID Controller for the turning PID loop.
+     * The PID controller for the turning PID loop.
      */
     private PIDController pidController;
 
+    /**
+     * The FeedForward settings for the turning FeedForwards loop.
+     */
     private FeedForwardSettings feedForwardSettings;
+
+    /**
+     * The FeedForward controller for the turning FeedForwards loop.
+     */
     private FeedForwardController feedForwardController;
 
     /**
@@ -81,9 +91,6 @@ public class DriveArcadeWithPID extends CommandBase {
         this(drivetrain, source, () -> setpoint, () -> moveValue, pidSettings);
     }
 
-    /**
-     * updates the PIDLoop's setpoint.
-     */
     @Override
     public void execute() {
         pidController.setTolerance(pidSettings.getTolerance());
