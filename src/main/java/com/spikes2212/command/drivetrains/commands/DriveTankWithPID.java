@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * A command that moves a drivetrain using two PID loops, one for each side.
+ * A command that moves a {@link TankDrivetrain} using two PID loops, one for each side.
  *
  * @author Yuval Levy
  */

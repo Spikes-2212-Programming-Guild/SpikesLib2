@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * A command that moves a drivetrain with a set speed forward and with a PID loop to a certain angle.
+ * A command that moves a {@link TankDrivetrain} with a set speed forward and with a PID loop to a certain angle.
  *
  * @author Yuval Levy
  */
