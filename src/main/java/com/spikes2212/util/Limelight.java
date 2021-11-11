@@ -34,7 +34,7 @@ public class Limelight {
     }
 
     /**
-     * @return the distance between the limelight and the target (in meters)
+     * @return the distance between the limelight and the target
      */
     private double calculateDistance() {
         double objectWidth = targetWidth.get();
@@ -43,7 +43,7 @@ public class Limelight {
     }
 
     /**
-     * @return target real height (in meters)
+     * @return target real height
      */
     private double calculateHeight() {
         double realPixelSize = targetWidth.get() / getTargetWidthInPixels();
