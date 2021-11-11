@@ -82,10 +82,6 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
         subsystem.move(pidValue + svagValue);
     }
 
-    @Override
-    public void end(boolean interrupted) {
-        subsystem.stop();
-    }
 
     @Override
     public boolean isFinished() {
@@ -94,5 +90,10 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
         }
 
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= pidSettings.getWaitTime();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        subsystem.stop();
     }
 }

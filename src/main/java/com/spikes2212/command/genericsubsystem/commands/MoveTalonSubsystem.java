@@ -48,16 +48,16 @@ public class MoveTalonSubsystem extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
-        subsystem.finish();
-    }
-
-    @Override
     public boolean isFinished() {
         if(!subsystem.onTarget(setpoint.get())) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget > waitTime.get();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        subsystem.finish();
     }
 }

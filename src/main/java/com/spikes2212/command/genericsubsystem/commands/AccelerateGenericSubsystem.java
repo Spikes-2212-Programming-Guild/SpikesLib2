@@ -72,13 +72,12 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
     }
 
     @Override
-    public void end(boolean interrupted) {
-        subsystem.stop();
-    }
-
-    @Override
     public boolean isFinished() {
         return super.isFinished() || currentSpeed == speedSupplier.get();
     }
 
+    @Override
+    public void end(boolean interrupted) {
+        subsystem.stop();
+    }
 }

@@ -46,13 +46,12 @@ public class MoveGenericSubsystem extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
-        subsystem.stop();
-    }
-
-    @Override
     public boolean isFinished() {
         return !subsystem.canMove(speedSupplier.get());
     }
 
+    @Override
+    public void end(boolean interrupted) {
+        subsystem.stop();
+    }
 }
