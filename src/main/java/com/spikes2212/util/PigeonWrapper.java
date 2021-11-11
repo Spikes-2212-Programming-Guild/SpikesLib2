@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 /**
- * @author Simon Kharmatsky
+ * @author Tal Sitton
  */
 public class PigeonWrapper {
     public double[] values = new double[3];

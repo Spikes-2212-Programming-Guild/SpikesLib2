@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.*;
 import java.util.Set;
 
 /**
- * @author Ergoold
+ * @author Eran Gold
  * a command that repeats a sequence of commands indefinitely
  */
 

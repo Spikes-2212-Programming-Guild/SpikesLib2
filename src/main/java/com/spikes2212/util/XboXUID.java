@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.*;
 
 /**
- * @author Simon Kharmatsky
+ * @author Tal Sitton
  */
 public class XboXUID extends Joystick {
 
