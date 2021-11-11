@@ -9,7 +9,6 @@ import java.util.function.Supplier;
 
 /**
  * This class is a limelight wrapper that includes a function that calculates the distance of the limelight from a target in meters.
- * using the autofocus properties of the limelight.
  * This class assumes you are using the 960x720 processing resolution on the limelight.
  *
  * @author Yotam Yizhar
@@ -20,7 +19,7 @@ public class Limelight {
     private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
     private static Namespace ConstantNamespace = rootNamespace.addChild("Constants");
     private static NetworkTableInstance table;
-    private static final double FOCUS_LENGTH = 425; // The focus length (distance between the limelight and it's focus) of the limelight
+    private static final double FOCAL_LENGTH = 425; // The focal length, the distance between the lens and the sensor of the limelight (in px).
 
     private static Supplier<Double> targetWidth = ConstantNamespace.addConstantDouble("Target Width", 0);
 
@@ -31,16 +30,16 @@ public class Limelight {
         rootNamespace.putNumber("Vertical offset from target", this::getVerticalOffsetFromTarget);
         rootNamespace.putNumber("Target screen fill percent", this::getTargetAreaPercentage);
         rootNamespace.putNumber("Pipeline latency", this::getTargetLatency);
-        rootNamespace.putNumber("Distance to target", this::calculateDistance);
+        rootNamespace.putNumber("Distance from target", this::calculateDistance);
     }
 
     /**
-     * @return distance between the limelight and the target (in meters)
+     * @return the distance between the limelight and the target (in meters)
      */
     private double calculateDistance() {
         double objectWidth = targetWidth.get();
         double objectWidthInPixels = getTargetWidthInPixels();
-        return (FOCUS_LENGTH * objectWidth) / objectWidthInPixels;
+        return (FOCAL_LENGTH * objectWidth) / objectWidthInPixels;
     }
 
     /**
@@ -93,7 +92,7 @@ public class Limelight {
     }
 
     /**
-     * @return Gets the target height in pixels (0 pixels to 960 pixels)
+     * @return the target height in pixels (0 pixels to 960 pixels)
      */
     public double getTargetHeightInPixels() {
         return getValue("tvert").getDouble(0.00);
