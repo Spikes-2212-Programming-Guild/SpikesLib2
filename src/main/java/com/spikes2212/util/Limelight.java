@@ -84,7 +84,7 @@ public class Limelight {
     }
 
     /**
-     * @return the target width in pixels (0 pixels to 720 pixels).
+     * @return the target width in pixels (0 pixels to 720 pixels)
      */
     public double getTargetWidthInPixels() {
         return getValue("thor").getDouble(0.00);
@@ -98,7 +98,7 @@ public class Limelight {
     }
 
     /**
-     * Sets pipeline number (0-9 value).
+     * sets pipeline number (0-9 value)
      *
      * @param number pipeline number (0-9)
      */
