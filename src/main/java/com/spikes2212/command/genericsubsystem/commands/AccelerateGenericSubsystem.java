@@ -26,7 +26,6 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
      * time.
      *
      * @param subsystem   the {@link GenericSubsystem} this command should move.
-     * @param wantedSpeed the speed the subsystem should move after the time.
      * @param time        the time it takes for the subsystem to get to the speed.
      */
     public AccelerateGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> wantedSpeed, double time) {
@@ -44,7 +43,6 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
      * time.
      *
      * @param subsystem   the {@link GenericSubsystem} this command should move.
-     * @param wantedSpeed the speed the subsystem should move after the time.
      * @param time        the time it takes for the subsystem to get to the speed.
      */
     public AccelerateGenericSubsystem(GenericSubsystem subsystem, double wantedSpeed, double time) {

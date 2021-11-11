@@ -16,9 +16,7 @@ import java.util.function.Supplier;
  * @see GenericSubsystem
  */
 public class MoveGenericSubsystemWithPID extends CommandBase {
-    /**
-     * the subsystem the command moves.
-     */
+
     private final GenericSubsystem subsystem;
 
     /**
@@ -26,14 +24,8 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private Supplier<Double> source;
 
-    /**
-     * The PID Settings for the PID control loop.
-     */
     private PIDSettings pidSettings;
 
-    /**
-     * The Feed Forward Settings for the feed forward control loop.
-     */
     private FeedForwardSettings feedForwardSettings;
 
     /**
@@ -41,14 +33,8 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
      */
     private Supplier<Double> setpoint;
 
-    /**
-     * An object that makes the necessary calculations for the PID control loop.
-     */
     private PIDController pidController;
 
-    /**
-     * An object that makes the necessary calculations for the feed forward control loop.
-     */
     private FeedForwardController feedForwardController;
 
     /**
@@ -64,7 +50,8 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
         this.feedForwardSettings = feedForwardSettings;
         this.setpoint = setpoint;
         this.source = source;
-        this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(), feedForwardSettings.getkA(), feedForwardSettings.getkG(), 0.02);
+        this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
+                feedForwardSettings.getkA(), feedForwardSettings.getkG(), 0.02);
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 

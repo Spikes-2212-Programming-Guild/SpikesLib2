@@ -8,8 +8,7 @@ import java.util.function.Supplier;
 
 
 /**
- * This command moves a {@link GenericSubsystem} according to a {@link com.spikes2212.control.PIDLoop}
- * until it reaches its target or until it can't move anymore .
+ * This command moves a {@link GenericSubsystem} until it reaches its target or until it can't move anymore .
  *
  * @author Yuval Levy
  * @see GenericSubsystem

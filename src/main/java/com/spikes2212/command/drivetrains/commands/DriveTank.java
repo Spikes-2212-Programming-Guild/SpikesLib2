@@ -6,8 +6,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
+ * @author
  * This command moves a {@link TankDrivetrain} using speeds supplied to the left and the right sides independently.
  */
+
 public class DriveTank extends CommandBase {
 
     protected final TankDrivetrain tankDrivetrain;
@@ -21,8 +23,6 @@ public class DriveTank extends CommandBase {
      * Positive values move forwards.
      *
      * @param drivetrain the tank drivetrain this command operates on.
-     * @param leftSpeed  the speed to move the left side with.
-     * @param rightSpeed the speed to move the right side with.
      */
 
 
@@ -33,10 +33,7 @@ public class DriveTank extends CommandBase {
      * Positive values move forwards.
      *
      * @param drivetrain         the drivetrain this command requires and moves.
-     * @param leftSpeedSupplier  the double {@link Supplier} supplying the speed to move in the
-     *                           left side with.
-     * @param rightSpeedSupplier the double {@link Supplier} supplying the speed to move in the
-     *                           right side with.
+
      */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
                      Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished) {

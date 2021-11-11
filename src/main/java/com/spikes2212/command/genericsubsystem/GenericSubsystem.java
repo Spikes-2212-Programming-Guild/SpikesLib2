@@ -18,6 +18,17 @@ public abstract class GenericSubsystem extends SubsystemBase {
     private Supplier<Double> minSpeed;
 
     /**
+     * Constructs a new instance of GenericSubsystem with the given minSpeed supplier and maxSpeed supplier.
+     *
+     * @param minSpeed the minimum speed
+     * @param maxSpeed the maximum speed
+     */
+    public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed){
+        this.maxSpeed = maxSpeed;
+        this.minSpeed = minSpeed;
+    }
+
+    /**
      * Constructs a new instance of GenericSubsystem.
      */
     public GenericSubsystem() {
@@ -26,29 +37,17 @@ public abstract class GenericSubsystem extends SubsystemBase {
 
     /**
      * Constructs a new instance of GenericSubsystem with the given minSpeed and maxSpeed.
-     *
-     * @param minSpeed the minimum speed
-     * @param maxSpeed the maximum speed
      */
     public GenericSubsystem(double minSpeed, double maxSpeed) {
         this(() -> minSpeed, () -> maxSpeed);
     }
 
-    /**
-     * Constructs a new instance of GenericSubsystem with the given minSpeed supplier and maxSpeed supplier.
-     *
-     * @param minSpeed the minimum speed
-     * @param maxSpeed the maximum speed
-     */
-    public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
-        this.maxSpeed = maxSpeed;
-        this.minSpeed = minSpeed;
-    }
+
 
     /**
-     * Moves this {@link GenericSubsystem} with the given speed, as long as it is
-     * within the limits specified when this {@link GenericSubsystem} was constructed.
-     *
+     * Moves this {@link GenericSubsystem} with the given speed, if the speed is not within the limits
+     * specified when this{@link GenericSubsystem} was constructed, the speed become the minimum or maximum
+     * speed.
      * @param speed the speed to move the subsystem with.
      */
     public final void move(double speed) {
@@ -70,21 +69,14 @@ public abstract class GenericSubsystem extends SubsystemBase {
     /**
      * This method returns whether the subsystem can move safely.
      *
-     * @param speed the speed
      * @return whether the subsystem can move safely
      */
     public abstract boolean canMove(double speed);
 
-    /**
-     * Stops this subsystem's movement.
-     */
+
     public abstract void stop();
 
-    /**
-     * Return the current speed of this {@link GenericSubsystem}.
-     *
-     * @return the current speed of this {@link GenericSubsystem}.
-     */
+
     public double getSpeed() {
         return currentSpeed;
     }
