@@ -8,8 +8,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import java.util.function.Supplier;
 
 /**
- * This class is a limelight wrapper that includes a function that calculates the distance of the limelight from a target
+ * This class is a limelight wrapper that includes a function that calculates the distance of the limelight from a target in meters.
  * using the autofocus properties of the limelight.
+ * This class assumes you are using the 960x720 processing resolution on the limelight.
  *
  * @author Yotam Yizhar
  */
@@ -19,129 +20,80 @@ public class Limelight {
     private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
     private static Namespace ConstantNamespace = rootNamespace.addChild("Constants");
     private static NetworkTableInstance table;
-    private static double focusLength;
+    private static final double FOCUS_LENGTH = 425; // The focus length (distance between the limelight and it's focus) of the limelight
 
     private static Supplier<Double> targetWidth = ConstantNamespace.addConstantDouble("Target Width", 0);
-    private static Supplier<Double> resolutionHeight = ConstantNamespace.addConstantDouble("Camera resolution height", 240);
-    private static Supplier<Double> resolutionWidth = ConstantNamespace.addConstantDouble("Camera resolution width", 320);
-    private static Supplier<Double> distance = ConstantNamespace.addConstantDouble("Target distance", 1.8);
 
 
-    public Limelight(double focusLength) {
-        this.focusLength = focusLength;
-
+    public Limelight() {
         rootNamespace.putBoolean("Is on target", this::isOnTarget);
-        rootNamespace.putNumber("Limelight X", this::getHorizontalOffsetFromTarget);
-        rootNamespace.putNumber("Limelight Y", this::getVerticalOffsetFromTarget);
-        rootNamespace.putNumber("Limelight Area", this::getTargetAreaPercentage);
-        rootNamespace.putNumber("Limelight Target Latency", this::getTargetLatency);
-        rootNamespace.putNumber("Target Angle", this::getVerticalOffsetFromTarget);
-        rootNamespace.putNumber("Calculated Target Height", this::calculateTargetHeight);
-        rootNamespace.putNumber("Object focus", this::getFocus);
-        rootNamespace.putNumber("Get distance", this::calculateDistance);
+        rootNamespace.putNumber("Horizontal offset from target", this::getHorizontalOffsetFromTarget);
+        rootNamespace.putNumber("Vertical offset from target", this::getVerticalOffsetFromTarget);
+        rootNamespace.putNumber("Target screen fill percent", this::getTargetAreaPercentage);
+        rootNamespace.putNumber("Pipeline latency", this::getTargetLatency);
+        rootNamespace.putNumber("Distance to target", this::calculateDistance);
     }
 
     /**
-     * Get target height in proportion to the width.
-     *
-     * @return target height in meters
-     */
-    private double calculateTargetHeight() {
-        double pixelsPerMeterWidth = getTargetWidthInPixels() / targetWidth.get();
-        double pixelsPerMeterHeight = pixelsPerMeterWidth * resolutionHeight.get() / resolutionWidth.get();
-        return getTargetHeightInPixels() / pixelsPerMeterHeight;
-    }
-
-    /**
-     * Uses a set distance that is given via the network table to calculate the focus of the limelight.
-     *
-     * @return limelight focus length (in pixels)
-     */
-    private double getFocus() {
-        double objectWidth = targetWidth.get();
-        double objectDistance = distance.get();
-        double objectWidthInPixelsT = getTargetWidthInPixels();
-        return (objectWidthInPixelsT * objectDistance) / objectWidth;
-    }
-
-    /**
-     * Uses the autofocus properties of the limelight to calculate its distance from the target.
-     *
-     * @return limelight distance to target (in meters)
+     * @return distance between the limelight and the target (in meters)
      */
     private double calculateDistance() {
         double objectWidth = targetWidth.get();
         double objectWidthInPixels = getTargetWidthInPixels();
-        return (focusLength * objectWidth) / objectWidthInPixels;
+        return (FOCUS_LENGTH * objectWidth) / objectWidthInPixels;
     }
 
     /**
-     * Gets whether a target is detected by the Limelight.
-     *
-     * @return true if a target is detected, false otherwise
+     * @return whether a target is detected by the limelight
      */
     public boolean isOnTarget() {
         return getValue("tv").getDouble(0) == 1;
     }
 
     /**
-     * Horizontal offset from crosshair to target (-27 degrees to 27 degrees).
-     *
-     * @return tx as reported by the Limelight
+     * @return the horizontal offset from crosshair to target (-27 degrees to 27 degrees)
      */
     public double getHorizontalOffsetFromTarget() {
         return getValue("tx").getDouble(0.00);
     }
 
     /**
-     * Vertical offset from crosshair to target (-20.5 degrees to 20.5 degrees).
-     *
-     * @return ty as reported by the Limelight
+     * @return the vertical offset from crosshair to target (-20.5 degrees to 20.5 degrees)
      */
     public double getVerticalOffsetFromTarget() {
         return getValue("ty").getDouble(0.00);
     }
 
     /**
-     * Area that the detected target takes up in total camera FOV (0% to 100%).
-     *
-     * @return area of target
+     * @return the area that the detected target takes up in total camera FOV (0% to 100%)
      */
     public double getTargetAreaPercentage() {
         return getValue("ta").getDouble(0.00);
     }
 
     /**
-     * Gets target skew or rotation (-90 degrees to 0 degrees).
-     *
-     * @return target skew
+     * @return the target skew or rotation (-90 degrees to 0 degrees)
      */
     public double getTargetSkew() {
         return getValue("ts").getDouble(0.00);
     }
 
     /**
-     * Gets target latency (ms).
-     *
-     * @return target latency
+     * @return target latency (ms)
      */
     public double getTargetLatency() {
         return getValue("tl").getDouble(0.00);
     }
 
     /**
-     * Gets the target width in pixels (0 pixels to 320 pixels).
-     *
-     * @return target width (pixels)
+     * @return the target width in pixels (0 pixels to 720 pixels).
      */
     public double getTargetWidthInPixels() {
         return getValue("thor").getDouble(0.00);
     }
 
     /**
-     * Gets the target width in pixels (0 pixels to 320 pixels).
-     *
-     * @return target height (pixels)
+     * @return Gets the target height in pixels (0 pixels to 960 pixels)
      */
     public double getTargetHeightInPixels() {
         return getValue("tvert").getDouble(0.00);
@@ -164,7 +116,7 @@ public class Limelight {
      * Helper method to get an entry from the Limelight NetworkTable.
      *
      * @param key key for entry
-     * @return NetworkTableEntry of given entry
+     * @return the value of the given entry
      */
     private static NetworkTableEntry getValue(String key) {
         if (table == null) {
