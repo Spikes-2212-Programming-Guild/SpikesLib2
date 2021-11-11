@@ -3,6 +3,9 @@ package com.spikes2212.util;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+/**
+ * @author Simon Kharmatsky
+ */
 public class PigeonWrapper {
     public double[] values = new double[3];
     private PigeonIMU pigeon;
@@ -67,7 +70,7 @@ public class PigeonWrapper {
     }
 
     /**
-     * calibrates the piegon wrapper based on the yaw sent
+     * calibrates the piegon based on the yaw sent
      *
      * @param yaw the yaw the wrapper shall be calibrated to
      */

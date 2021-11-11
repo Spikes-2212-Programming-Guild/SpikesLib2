@@ -1,5 +1,8 @@
 package com.spikes2212.control.noise;
 
+/**
+ * @author Simon Kharmatsky
+ */
 public class ExponentialFilter implements NoiseFilter {
 
     private double w;

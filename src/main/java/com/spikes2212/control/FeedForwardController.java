@@ -1,7 +1,8 @@
 package com.spikes2212.control;
 
 /**
- * This class represents a FeedForwardController.
+ * @author Simon Kharmatsky
+ * A class which represents a FeedForwardController.
  */
 public class FeedForwardController {
     /**
@@ -25,8 +26,7 @@ public class FeedForwardController {
     private double kG;
 
     /**
-     * The previous target.
-     * Used for the derivative.
+     * The previous target used for the derivative.
      */
     private double previousTarget;
 

@@ -2,6 +2,9 @@ package com.spikes2212.control.noise;
 
 import java.util.function.Supplier;
 
+/**
+ * Simon Kharmatsky
+ */
 public class NoiseReducer implements Supplier<Double> {
 
     private Supplier<Double> source;

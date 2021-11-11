@@ -3,12 +3,13 @@ package com.spikes2212.control;
 import java.util.function.Supplier;
 
 /**
+ * @author Simon Kharmatsky
  * Constants for a FeedForwardController
  */
 public class FeedForwardSettings {
 
     /**
-     * empty FeedForwardSettings, which effectively make the FeedForwardController do nothing.
+     * Empty FeedForwardSettings, which effectively make the FeedForwardController do nothing.
      */
     public static final FeedForwardSettings EMPTY_FFSETTINGS = new FeedForwardSettings(0, 0);
 

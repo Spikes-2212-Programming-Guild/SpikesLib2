@@ -3,6 +3,7 @@ package com.spikes2212.control;
 import java.util.function.Supplier;
 
 /**
+ * @author Ergoold
  * The PID constants used in a PIDLoop, and the error tolerance and loop wait time.
  */
 public class PIDSettings {
