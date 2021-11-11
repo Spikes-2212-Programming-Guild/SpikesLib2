@@ -5,7 +5,6 @@ public class RunningAverageFilter implements NoiseFilter {
     private double sum = 0;
     private int count = 0;
 
-
     private void reset() {
         sum = 0;
         count = 0;

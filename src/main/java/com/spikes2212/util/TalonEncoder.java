@@ -59,6 +59,9 @@ public class TalonEncoder {
         return talon.getSelectedSensorPosition() * distancePerPulse;
     }
 
+    /**
+     * resets the talon's relative position
+     */
     public void reset() {
         talon.setSelectedSensorPosition(0);
     }

@@ -12,6 +12,11 @@ public class RepeatCommand extends CommandBase {
 
     private Command command;
 
+    /**
+     * Constructs a RepeatCommand that will repeat a SequentialCommandGroup that will include the commands given.
+     *
+     * @param command the commands to be repeated
+     */
     public RepeatCommand(Command... command) {
         this.command = new SequentialCommandGroup(command);
     }
@@ -24,9 +29,8 @@ public class RepeatCommand extends CommandBase {
     @Override
     public void execute() {
         command.execute();
-        if(command.isFinished()) {
+        if (command.isFinished())
             command.initialize();
-        }
     }
 
     @Override

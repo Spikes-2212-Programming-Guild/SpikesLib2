@@ -2,7 +2,14 @@ package com.spikes2212.control;
 
 import java.util.function.Supplier;
 
+/**
+ * Constants for a FeedForwardController
+ */
 public class FeedForwardSettings {
+
+    /**
+     * empty FeedForwardSettings, which effectively make the FeedForwardController do nothing.
+     */
     public static final FeedForwardSettings EMPTY_FFSETTINGS = new FeedForwardSettings(0, 0);
 
     /**
@@ -25,6 +32,13 @@ public class FeedForwardSettings {
      */
     private Supplier<Double> kG;
 
+    public FeedForwardSettings(Supplier<Double> kS, Supplier<Double> kV, Supplier<Double> kA, Supplier<Double> kG) {
+        this.kS = kS;
+        this.kV = kV;
+        this.kA = kA;
+        this.kG = kG;
+    }
+
     public FeedForwardSettings(Supplier<Double> kS, Supplier<Double> kV, Supplier<Double> kA) {
         this(kS, kV, kA, () -> 0.0);
     }
@@ -45,12 +59,6 @@ public class FeedForwardSettings {
         this(() -> kS, () -> kV, () -> kA, () -> kG);
     }
 
-    public FeedForwardSettings(Supplier<Double> kS, Supplier<Double> kV, Supplier<Double> kA, Supplier<Double> kG) {
-        this.kS = kS;
-        this.kV = kV;
-        this.kA = kA;
-        this.kG = kG;
-    }
 
     public double getkS() {
         return kS.get();

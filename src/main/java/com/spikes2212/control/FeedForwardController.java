@@ -35,14 +35,6 @@ public class FeedForwardController {
      */
     private double period;
 
-    public FeedForwardController(double kV, double kA, double period) {
-        this(0, kV, kA, 0, period);
-    }
-
-    public FeedForwardController(double kS, double kV, double kA, double period) {
-        this(kS, kV, kA, 0, period);
-    }
-
     public FeedForwardController(double kS, double kV, double kA, double kG, double period) {
         this.kS = kS;
         this.kV = kV;
@@ -51,6 +43,16 @@ public class FeedForwardController {
         this.period = period;
         this.previousTarget = 0;
     }
+
+    public FeedForwardController(double kV, double kA, double period) {
+        this(0, kV, kA, 0, period);
+    }
+
+    public FeedForwardController(double kS, double kV, double kA, double period) {
+        this(kS, kV, kA, 0, period);
+    }
+
+
 
     public void setGains(double kV, double kA) {
         this.kV = kV;
