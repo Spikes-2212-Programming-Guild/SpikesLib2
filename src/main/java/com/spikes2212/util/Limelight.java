@@ -8,8 +8,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import java.util.function.Supplier;
 
 /**
- * This class is a limelight wrapper that includes a function that calculates the distance of the limelight from a target in meters.
- * This class assumes you are using the 960x720 processing resolution on the limelight.
+ * This class is a limelight wrapper.
+ * <b>This class assumes you are using the 960x720 processing resolution on the limelight.</b>
  *
  * @author Yotam Yizhar
  */
@@ -17,11 +17,11 @@ import java.util.function.Supplier;
 public class Limelight {
 
     private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
-    private static Namespace ConstantNamespace = rootNamespace.addChild("Constants");
+    private static Namespace constantNamespace = rootNamespace.addChild("Constants");
     private static NetworkTableInstance table;
     private static final double FOCAL_LENGTH = 425; // The focal length, the distance between the lens and the sensor of the limelight (in px).
 
-    private static Supplier<Double> targetWidth = ConstantNamespace.addConstantDouble("Target Width", 0);
+    private static Supplier<Double> targetWidth = constantNamespace.addConstantDouble("Target Width", 0);
 
 
     public Limelight() {
@@ -112,7 +112,7 @@ public class Limelight {
     }
 
     /**
-     * Helper method to get an entry from the Limelight NetworkTable.
+     * Method to get an entry from the Limelight NetworkTable.
      *
      * @param key key for entry
      * @return the value of the given entry
