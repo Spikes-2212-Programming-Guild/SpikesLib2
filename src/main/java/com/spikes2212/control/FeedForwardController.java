@@ -2,7 +2,7 @@ package com.spikes2212.control;
 
 /**
  * @author Simon Kharmatsky
- * A class which represents a FeedForwardController.
+ * a class that represents a FeedForwardController
  */
 public class FeedForwardController {
     /**

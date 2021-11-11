@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * @author Ergoold
- * A command which repeats a sequence of commands indefinitely
+ * a command that repeats a sequence of commands indefinitely
  */
 
 public class RepeatCommand extends CommandBase {

@@ -72,7 +72,7 @@ public class PigeonWrapper {
     /**
      * calibrates the piegon based on the yaw sent
      *
-     * @param yaw the yaw the wrapper shall be calibrated to
+     * @param yaw the yaw the piegon shall be calibrated to
      */
     public void calibrate(double yaw) {
         pigeon.enterCalibrationMode(PigeonIMU.CalibrationMode.BootTareGyroAccel);
