@@ -30,6 +30,7 @@ public class Limelight {
         rootNamespace.putNumber("Target screen fill percent", this::getTargetAreaPercentage);
         rootNamespace.putNumber("Pipeline latency", this::getTargetLatency);
         rootNamespace.putNumber("Distance from target", this::calculateDistance);
+        rootNamespace.putNumber("Target Height", this::calculateHeight);
     }
 
     /**
@@ -39,6 +40,14 @@ public class Limelight {
         double objectWidth = targetWidth.get();
         double objectWidthInPixels = getTargetWidthInPixels();
         return (FOCAL_LENGTH * objectWidth) / objectWidthInPixels;
+    }
+
+    /**
+     * @return target real height (in meters)
+     */
+    private double calculateHeight() {
+        double realPixelSize = targetWidth.get() / getTargetWidthInPixels();
+        return realPixelSize * getTargetHeightInPixels();
     }
 
     /**
