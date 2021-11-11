@@ -8,7 +8,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import java.util.function.Supplier;
 
 public class Limelight {
-    public static final double LIMELIGHT_FOCUS = 425;
+
+    private int limelightFocus;
 
     private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
     private static Namespace ConstantNamespace = rootNamespace.addChild("Constants");
@@ -22,7 +23,8 @@ public class Limelight {
     private static Supplier<Double> distance = ConstantNamespace.addConstantDouble("Target distance", 1.8);
 
 
-    public Limelight() {
+    public Limelight(int focusLength) {
+        limelightFocus = focusLength;
         rootNamespace.putBoolean("Is on target", this::isOnTarget);
         rootNamespace.putNumber("Limelight X", this::getHorizontalOffsetFromTarget);
         rootNamespace.putNumber("Limelight Y", this::getVerticalOffsetFromTarget);
@@ -78,7 +80,7 @@ public class Limelight {
     private double getDistanceWithFocus() {
         double objectWidth = targetWidth.get();
         double objectWidthInPixels = getTargetWidthInPixels();
-        return (LIMELIGHT_FOCUS * objectWidth) / objectWidthInPixels;
+        return (limelightFocus * objectWidth) / objectWidthInPixels;
     }
 
     /**
