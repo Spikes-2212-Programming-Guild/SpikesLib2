@@ -18,7 +18,7 @@ public class Limelight {
     private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
     private static Namespace constantNamespace = rootNamespace.addChild("Constants");
     private static NetworkTableInstance table;
-    private static final double FOCAL_LENGTH = 425; // The focal length, the distance between the lens and the sensor of the limelight (in px).
+    private static final double FOCAL_LENGTH = 425; // The distance between the lens and the sensor of the limelight (in px).
 
     private static Supplier<Double> targetWidth = constantNamespace.addConstantDouble("Target Width", 0);
 
@@ -111,7 +111,7 @@ public class Limelight {
     }
 
     /**
-     * Method to get an entry from the Limelight NetworkTable.
+     * Retrieve an entry from the Limelight NetworkTable.
      *
      * @param key key for entry
      * @return the value of the given entry
