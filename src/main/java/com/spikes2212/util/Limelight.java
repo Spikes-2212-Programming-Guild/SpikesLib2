@@ -8,12 +8,11 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import java.util.function.Supplier;
 
 /**
- * This class is a limelight wrapper.
+ * This class is a limelight wrapper.<br>
  * <b>This class assumes you are using the 960x720 processing resolution on the limelight.</b>
  *
  * @author Yotam Yizhar
  */
-
 public class Limelight {
 
     private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
