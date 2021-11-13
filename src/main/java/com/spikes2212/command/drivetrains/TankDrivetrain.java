@@ -41,10 +41,10 @@ public class TankDrivetrain extends SubsystemBase {
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft  the speed to set to the left side. Positive values move this side
-     *                   forward.
-     * @param speedRight the speed to set to the right side. Positive values move this side
-     *                   forward.
+     * @param speedLeft    the speed to set to the left side. Positive values move this side
+     *                     forward.
+     * @param speedRight   the speed to set to the right side. Positive values move this side
+     *                     forward.
      * @param squareInputs whether to square the given inputs before putting them in the speed controllers
      */
     public void tankDrive(double speedLeft, double speedRight, boolean squareInputs) {
@@ -64,8 +64,8 @@ public class TankDrivetrain extends SubsystemBase {
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param moveValue   the forward movement speed.
-     * @param rotateValue the angular movement speed. Positive values go clockwise.
+     * @param moveValue    the forward movement speed.
+     * @param rotateValue  the angular movement speed. Positive values go clockwise.
      * @param squareInputs whether to square the given inputs before putting them in the speed controllers
      */
     public void arcadeDrive(double moveValue, double rotateValue, boolean squareInputs) {
@@ -75,7 +75,7 @@ public class TankDrivetrain extends SubsystemBase {
     /**
      * Moves the drivetrain while rotating it.
      *
-     * @param speed the forward movement speed.
+     * @param speed     the forward movement speed.
      * @param curvature the rotational movement speed. Positive values go clockwise.
      */
     public void curvatureDrive(double speed, double curvature) {
