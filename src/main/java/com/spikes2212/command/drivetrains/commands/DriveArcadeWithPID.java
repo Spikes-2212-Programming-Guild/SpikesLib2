@@ -104,16 +104,16 @@ public class DriveArcadeWithPID extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
-        drivetrain.stop();
-    }
-
-    @Override
     public boolean isFinished() {
         if (!pidController.atSetpoint()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= pidSettings.getWaitTime();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        drivetrain.stop();
     }
 }
