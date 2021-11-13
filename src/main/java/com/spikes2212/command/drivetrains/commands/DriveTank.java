@@ -48,9 +48,6 @@ public class DriveTank extends CommandBase {
         this(drivetrain, () -> leftSpeed, () -> rightSpeed, () -> false);
     }
 
-    /**
-     * Sets the values for both the leftSpeedSupplier and the rightSpeedSupplier.
-     */
     @Override
     public void execute() {
         tankDrivetrain.tankDrive(leftSpeedSupplier.get(), rightSpeedSupplier.get());
