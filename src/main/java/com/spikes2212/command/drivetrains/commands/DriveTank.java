@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * This command moves a {@link TankDrivetrain} using speeds supplied to the left and the right sides independently.
+ * A command that moves a {@link TankDrivetrain} using speeds supplied to the left and the right sides independently.
  *
  * @author Yuval Levy
  */
