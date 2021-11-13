@@ -23,7 +23,7 @@ public class DriveCurvature extends CommandBase {
     }
 
     public DriveCurvature(TankDrivetrain drivetrain, double speed, double rotation) {
-         this(drivetrain, () -> speed, () -> rotation);
+        this(drivetrain, () -> speed, () -> rotation);
     }
 
     @Override
