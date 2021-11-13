@@ -22,7 +22,6 @@ public class Limelight {
 
     private static Supplier<Double> targetWidth = constantNamespace.addConstantDouble("Target Width", 0);
 
-
     public Limelight() {
         rootNamespace.putBoolean("Is on target", this::isOnTarget);
         rootNamespace.putNumber("Horizontal offset from target", this::getHorizontalOffsetFromTarget);
@@ -43,7 +42,7 @@ public class Limelight {
     }
 
     /**
-     * @return target real height
+     * @return target height (in meters)
      */
     private double calculateHeight() {
         double realPixelSize = targetWidth.get() / getTargetWidthInPixels();
