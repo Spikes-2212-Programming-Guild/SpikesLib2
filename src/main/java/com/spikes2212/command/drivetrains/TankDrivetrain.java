@@ -72,6 +72,12 @@ public class TankDrivetrain extends SubsystemBase {
         drive.arcadeDrive(moveValue, rotateValue, squareInputs);
     }
 
+    /**
+     * Moves the drivetrain while rotating it.
+     *
+     * @param speed the forward movement speed.
+     * @param curvature the rotational movement speed. Positive values go clockwise.
+     */
     public void curvatureDrive(double speed, double curvature) {
         drive.curvatureDrive(speed, curvature, true);
     }
