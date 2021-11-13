@@ -15,7 +15,7 @@ public class DriveTank extends CommandBase {
     protected final TankDrivetrain tankDrivetrain;
     protected final Supplier<Double> leftSpeedSupplier;
     protected final Supplier<Double> rightSpeedSupplier;
-    Supplier<Boolean> isFinished;
+    protected final Supplier<Boolean> isFinished;
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
