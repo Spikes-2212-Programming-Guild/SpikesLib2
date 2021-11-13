@@ -55,7 +55,7 @@ public class TankDrivetrain extends SubsystemBase {
      * Moves the drivetrain with the given forward and angular speed.
      *
      * @param moveValue   the forward movement speed.
-     * @param rotateValue the angular movement speed.
+     * @param rotateValue the angular movement speed. Positive values go clockwise.
      */
     public void arcadeDrive(double moveValue, double rotateValue) {
         drive.arcadeDrive(moveValue, rotateValue);
@@ -65,7 +65,7 @@ public class TankDrivetrain extends SubsystemBase {
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
      * @param moveValue   the forward movement speed.
-     * @param rotateValue the angular movement speed.
+     * @param rotateValue the angular movement speed. Positive values go clockwise.
      * @param squareInputs whether to square the given inputs before putting them in the speed controllers
      */
     public void arcadeDrive(double moveValue, double rotateValue, boolean squareInputs) {
