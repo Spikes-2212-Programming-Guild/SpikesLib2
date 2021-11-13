@@ -94,9 +94,6 @@ public class TankDrivetrain extends SubsystemBase {
         rightController.set(-speedRight);
     }
 
-    /**
-     * Stop the drivetrain's movement completely.
-     */
     public void stop() {
         leftController.stopMotor();
         rightController.stopMotor();
