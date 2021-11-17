@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 /**
  * constants for a FeedForwardController
- * @author Simon Kharmatsky
+ * @author Tal Sitton
  */
 public class FeedForwardSettings {
 
