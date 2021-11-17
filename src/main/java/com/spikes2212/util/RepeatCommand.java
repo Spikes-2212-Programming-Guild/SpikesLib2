@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj2.command.*;
 import java.util.Set;
 
 /**
- * @author Eran Gold
  * a command that repeats a sequence of commands indefinitely
+ * @author Eran Gold
  */
 
 public class RepeatCommand extends CommandBase {

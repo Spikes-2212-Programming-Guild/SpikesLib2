@@ -3,8 +3,8 @@ package com.spikes2212.control;
 import java.util.function.Supplier;
 
 /**
+ * constants for a FeedForwardController
  * @author Simon Kharmatsky
- * Constants for a FeedForwardController
  */
 public class FeedForwardSettings {
 

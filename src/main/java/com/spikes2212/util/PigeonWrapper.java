@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 /**
+ * a wrapper class for the pigeon sensor
  * @author Tal Sitton
  */
 public class PigeonWrapper {

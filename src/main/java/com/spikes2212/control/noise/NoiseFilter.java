@@ -1,8 +1,8 @@
 package com.spikes2212.control.noise;
 
 /**
- * @author Simon Kharmatsky
  * an interface which is implemented by classes that handle noise-filtering
+ * @author Simon Kharmatsky
  */
 public interface NoiseFilter {
 
