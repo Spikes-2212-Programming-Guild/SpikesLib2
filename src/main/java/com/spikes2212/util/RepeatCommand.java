@@ -8,7 +8,6 @@ import java.util.Set;
  * a command that repeats a sequence of commands indefinitely
  * @author Eran Gold
  */
-
 public class RepeatCommand extends CommandBase {
 
     private Command command;

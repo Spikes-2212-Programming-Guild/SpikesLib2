@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 /**
- * a wrapper class for the pigeon sensor
+ * a wrapper class for the pigeon IMU sensor
  * @author Tal Sitton
  */
 public class PigeonWrapper {
@@ -21,7 +21,7 @@ public class PigeonWrapper {
     }
 
     /**
-     * @return the X axis from they gyro
+     * @return the X axis from the gyro
      */
     public double getX() {
         pigeon.getAccumGyro(values);
@@ -29,7 +29,7 @@ public class PigeonWrapper {
     }
 
     /**
-     * @return the Y axis from they gyro
+     * @return the Y axis from the gyro
      */
     public double getY() {
         pigeon.getAccumGyro(values);
@@ -37,7 +37,7 @@ public class PigeonWrapper {
     }
 
     /**
-     * @return the Z axis from they gyro
+     * @return the Z axis from the gyro
      */
     public double getZ() {
         pigeon.getAccumGyro(values);
