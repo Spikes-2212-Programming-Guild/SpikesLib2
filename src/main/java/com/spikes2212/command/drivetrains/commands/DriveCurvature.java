@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * This command moves a {@link TankDrivetrain} while rotating it, using the curvature drive method written by WPILIB.
+ * A command that moves a {@link TankDrivetrain} while rotating it, using the curvature drive method written by WPILIB.
  *
  * @author Simon Kharmatsky
  */
