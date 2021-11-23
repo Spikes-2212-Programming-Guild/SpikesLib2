@@ -8,8 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 /**
  * This class makes an encoder that is connected to a {@link WPI_TalonSRX} to a
  * PIDSource.
- *
- * @author Tuval
+ * @author Tuval Rivkinind Barlev
  */
 public class TalonEncoder {
 
@@ -59,6 +58,9 @@ public class TalonEncoder {
         return talon.getSelectedSensorPosition() * distancePerPulse;
     }
 
+    /**
+     * resets the talon's relative position
+     */
     public void reset() {
         talon.setSelectedSensorPosition(0);
     }

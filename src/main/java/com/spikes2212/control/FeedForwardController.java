@@ -1,7 +1,8 @@
 package com.spikes2212.control;
 
 /**
- * This class represents a FeedForwardController.
+ * a class that represents a FeedForward controller
+ * @author Tuval Rivkinind Barlev
  */
 public class FeedForwardController {
     /**
@@ -25,8 +26,7 @@ public class FeedForwardController {
     private double kG;
 
     /**
-     * The previous target.
-     * Used for the derivative.
+     * The previous target used for the derivative.
      */
     private double previousTarget;
 
@@ -34,14 +34,6 @@ public class FeedForwardController {
      * The calling period for the calculate function.
      */
     private double period;
-
-    public FeedForwardController(double kV, double kA, double period) {
-        this(0, kV, kA, 0, period);
-    }
-
-    public FeedForwardController(double kS, double kV, double kA, double period) {
-        this(kS, kV, kA, 0, period);
-    }
 
     public FeedForwardController(double kS, double kV, double kA, double kG, double period) {
         this.kS = kS;
@@ -51,6 +43,16 @@ public class FeedForwardController {
         this.period = period;
         this.previousTarget = 0;
     }
+
+    public FeedForwardController(double kV, double kA, double period) {
+        this(0, kV, kA, 0, period);
+    }
+
+    public FeedForwardController(double kS, double kV, double kA, double period) {
+        this(kS, kV, kA, 0, period);
+    }
+
+
 
     public void setGains(double kV, double kA) {
         this.kV = kV;

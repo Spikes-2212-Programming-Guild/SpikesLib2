@@ -5,13 +5,18 @@ import edu.wpi.first.wpilibj2.command.*;
 import java.util.Set;
 
 /**
- * This {@link Command} repeats a sequence of commands indefinitely
+ * a command that repeats a sequence of commands indefinitely
+ * @author Eran Gold
  */
-
 public class RepeatCommand extends CommandBase {
 
     private Command command;
 
+    /**
+     * Constructs a RepeatCommand that will repeat a SequentialCommandGroup that will include the commands given.
+     *
+     * @param command the commands to be repeated
+     */
     public RepeatCommand(Command... command) {
         this.command = new SequentialCommandGroup(command);
     }
@@ -24,9 +29,8 @@ public class RepeatCommand extends CommandBase {
     @Override
     public void execute() {
         command.execute();
-        if(command.isFinished()) {
+        if (command.isFinished())
             command.initialize();
-        }
     }
 
     @Override

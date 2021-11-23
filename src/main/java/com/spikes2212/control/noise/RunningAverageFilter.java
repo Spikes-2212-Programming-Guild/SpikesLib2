@@ -1,10 +1,13 @@
 package com.spikes2212.control.noise;
 
+/**
+ * a class that handles noise-filtering by controlling the speed of motors
+ * @author Simon Kharmatsky
+ */
 public class RunningAverageFilter implements NoiseFilter {
 
     private double sum = 0;
     private int count = 0;
-
 
     private void reset() {
         sum = 0;
