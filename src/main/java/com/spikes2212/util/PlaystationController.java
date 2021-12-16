@@ -35,10 +35,10 @@ public class PlaystationController extends Joystick {
         DOWN(180),
         LEFT(270);
 
-        public int val;
+        public int value;
 
         DPAD(int value) {
-            this.val = value;
+            this.value = value;
         }
 
     }
@@ -131,7 +131,7 @@ public class PlaystationController extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == DPAD.UP.val;
+                return getPOV() == DPAD.UP.value;
             }
         };
     }
@@ -140,7 +140,7 @@ public class PlaystationController extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == DPAD.DOWN.val;
+                return getPOV() == DPAD.DOWN.value;
             }
         };
     }
@@ -150,7 +150,7 @@ public class PlaystationController extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == DPAD.LEFT.val;
+                return getPOV() == DPAD.LEFT.value;
             }
         };
     }
@@ -159,7 +159,7 @@ public class PlaystationController extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == DPAD.RIGHT.val;
+                return getPOV() == DPAD.RIGHT.value;
             }
         };
     }
