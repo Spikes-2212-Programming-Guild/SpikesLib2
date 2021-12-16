@@ -19,7 +19,7 @@ public class PlaystationController extends Joystick {
      * Constructs a new {@link PS4Controller} using the port of the USB on the driver
      * station.
      *
-     * @param port The port on the Driver Station that the joystick is plugged into.
+     * @param port The port on the Driver Station that the controller is plugged into.
      */
     public PlaystationController(int port) {
         super(port);
