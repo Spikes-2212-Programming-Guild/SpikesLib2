@@ -24,7 +24,7 @@ public class Limelight {
     }
 
     /**
-     * @return the distance between the limelight and the target
+     * @return the distance between the limelight and the target using a pre-calculated formula with a graph
      */
     private double calculateDistance() {
         double x = getTargetWidthInPixels();
