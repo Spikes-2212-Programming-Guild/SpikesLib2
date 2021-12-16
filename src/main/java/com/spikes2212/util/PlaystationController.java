@@ -40,7 +40,6 @@ public class PlaystationController extends Joystick {
         DPAD(int value) {
             this.value = value;
         }
-
     }
 
     public JoystickButton getCrossButton() {
