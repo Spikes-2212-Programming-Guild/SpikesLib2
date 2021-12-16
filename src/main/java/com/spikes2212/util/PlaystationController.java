@@ -25,6 +25,9 @@ public class PlaystationController extends Joystick {
         super(port);
     }
 
+    /**
+     * D-PAD values.
+     */
     public enum POV {
 
         UP(0),
