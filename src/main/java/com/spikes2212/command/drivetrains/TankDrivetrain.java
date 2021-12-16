@@ -23,6 +23,7 @@ public class TankDrivetrain extends SubsystemBase {
     public TankDrivetrain(MotorController left, MotorController right) {
         this.leftController = left;
         this.rightController = right;
+        rightController.setInverted(true);
         drive = new DifferentialDrive(leftController, rightController);
     }
 
