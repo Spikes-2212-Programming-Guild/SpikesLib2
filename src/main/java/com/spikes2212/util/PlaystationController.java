@@ -59,11 +59,11 @@ public class PlaystationController extends Joystick {
         return new JoystickButton(this, PS4Controller.Button.kTriangle.value);
     }
 
-    public JoystickButton getButtonOptions() {
+    public JoystickButton getOptionsButton() {
         return new JoystickButton(this, PS4Controller.Button.kOptions.value);
     }
 
-    public JoystickButton getButtonShare() {
+    public JoystickButton getShareButton() {
         return new JoystickButton(this, PS4Controller.Button.kShare.value);
     }
 
