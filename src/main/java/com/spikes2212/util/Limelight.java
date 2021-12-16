@@ -1,11 +1,8 @@
 package com.spikes2212.util;
 
-import com.spikes2212.dashboard.Namespace;
 import com.spikes2212.dashboard.RootNamespace;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-
-import java.util.function.Supplier;
 
 /**
  * This class is a limelight wrapper.<br>
@@ -14,14 +11,8 @@ import java.util.function.Supplier;
  * @author Yotam Yizhar
  */
 public class Limelight {
-
     private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
-    private static Namespace constantNamespace = rootNamespace.addChild("Constants");
     private static NetworkTableInstance table;
-    private static final double FOCAL_LENGTH = 425; // the distance between the lens and the sensor of the limelight (in px).
-
-    private static Supplier<Double> targetWidth = constantNamespace.addConstantDouble("Target Width", 0);
-
 
     public Limelight() {
         rootNamespace.putBoolean("Is on target", this::isOnTarget);
@@ -33,12 +24,11 @@ public class Limelight {
     }
 
     /**
-     * @return the distance between the limelight and the target (in meters)
+     * @return the distance between the limelight and the target
      */
     private double calculateDistance() {
-        double objectWidth = targetWidth.get();
-        double objectWidthInPixels = getTargetWidthInPixels();
-        return (FOCAL_LENGTH * objectWidth) / objectWidthInPixels;
+        double x = getTargetWidthInPixels();
+        return 37.905 * Math.pow(x, -0.977) * 0.05 / getTargetWidthInPixels();
     }
 
     /**
