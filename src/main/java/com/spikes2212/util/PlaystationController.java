@@ -29,7 +29,6 @@ public class PlaystationController extends Joystick {
      * D-PAD values.
      */
     public enum DPAD {
-
         UP(0),
         RIGHT(90),
         DOWN(180),
