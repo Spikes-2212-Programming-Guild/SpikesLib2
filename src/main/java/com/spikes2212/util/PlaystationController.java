@@ -28,20 +28,16 @@ public class PlaystationController extends Joystick {
     /**
      * D-PAD values.
      */
-    public enum POV {
+    public enum DPAD {
 
         UP(0),
-        UPPER_RIGHT(45),
         RIGHT(90),
-        LOWER_RIGHT(135),
         DOWN(180),
-        LOWER_LEFT(225),
-        LEFT(270),
-        UPPER_LEFT(315);
+        LEFT(270);
 
         public int val;
 
-        POV(int value) {
+        DPAD(int value) {
             this.val = value;
         }
 
@@ -135,7 +131,7 @@ public class PlaystationController extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == POV.UP.val;
+                return getPOV() == DPAD.UP.val;
             }
         };
     }
@@ -144,7 +140,7 @@ public class PlaystationController extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == POV.DOWN.val;
+                return getPOV() == DPAD.DOWN.val;
             }
         };
     }
@@ -154,7 +150,7 @@ public class PlaystationController extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == POV.LEFT.val;
+                return getPOV() == DPAD.LEFT.val;
             }
         };
     }
@@ -163,44 +159,9 @@ public class PlaystationController extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == POV.RIGHT.val;
+                return getPOV() == DPAD.RIGHT.val;
             }
         };
     }
 
-    public Button getUpperRightButton() {
-        return new Button() {
-            @Override
-            public boolean get() {
-                return getPOV() == POV.UPPER_RIGHT.val;
-            }
-        };
-    }
-
-    public Button getLowerRightButton() {
-        return new Button() {
-            @Override
-            public boolean get() {
-                return getPOV() == POV.LOWER_RIGHT.val;
-            }
-        };
-    }
-
-    public Button getLowerLeftButton() {
-        return new Button() {
-            @Override
-            public boolean get() {
-                return getPOV() == POV.LOWER_LEFT.val;
-            }
-        };
-    }
-
-    public Button getUpperLeftButton() {
-        return new Button() {
-            @Override
-            public boolean get() {
-                return getPOV() == POV.UPPER_LEFT.val;
-            }
-        };
-    }
 }
