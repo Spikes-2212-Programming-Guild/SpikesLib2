@@ -10,8 +10,14 @@ import edu.wpi.first.wpilibj2.command.button.*;
  */
 
 enum DPad {
-    DOWN(180), UP(0), LEFT(270), RIGHT(90),
-    UPPER_RIGHT(45), LOWER_RIGHT(135), LOWER_LEFT(225), UPPER_LEFT(315);
+    DOWN(180),
+    UP(0),
+    LEFT(270),
+    RIGHT(90),
+    UPPER_RIGHT(45),
+    LOWER_RIGHT(135),
+    LOWER_LEFT(225),
+    UPPER_LEFT(315);
 
 
     public final int value;
