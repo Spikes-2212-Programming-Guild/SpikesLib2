@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * a class that handles the communication between an Xbox controller and the code
  * @author Tal Sitton
  */
-
 public class XboXUID extends Joystick {
 
     private XboxController xbox;
