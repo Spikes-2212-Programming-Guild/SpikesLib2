@@ -23,8 +23,8 @@ enum DPad {
 
     public final int value;
 
-    DPad(int degrees) {
-        this.value = degrees;
+    DPad(int value) {
+        this.value = value;
     }
 }
 
