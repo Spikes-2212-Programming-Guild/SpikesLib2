@@ -8,6 +8,23 @@ import edu.wpi.first.wpilibj2.command.button.*;
  * a class that handles the communication between an Xbox controller and the code
  * @author Tal Sitton
  */
+
+enum DPad {
+    DOWN(180), UP(0), LEFT(270), RIGHT(90),
+    UPPER_RIGHT(45), LOWER_RIGHT(135), LOWER_LEFT(225), UPPER_LEFT(315);
+
+
+    public final int degrees;
+
+    DPad(int degrees) {
+        this.degrees = degrees;
+    }
+
+    public int getDegrees() {
+        return degrees;
+    }
+}
+
 public class XboXUID extends Joystick {
 
     private XboxController xbox;
@@ -48,11 +65,11 @@ public class XboXUID extends Joystick {
     }
 
     public double getRTAxis() {
-        return xbox.getTriggerAxis(Hand.kRight);
+        return xbox.getRightTriggerAxis();
     }
 
     public double getLTAxis() {
-        return xbox.getTriggerAxis(Hand.kLeft);
+        return xbox.getLeftTriggerAxis();
     }
 
     public Trigger getRTButton() {
@@ -60,7 +77,7 @@ public class XboXUID extends Joystick {
 
             @Override
             public boolean get() {
-                return xbox.getTriggerAxis(Hand.kRight) == 1;
+                return xbox.getRightTriggerAxis() == 1;
             }
         };
     }
@@ -70,48 +87,48 @@ public class XboXUID extends Joystick {
 
             @Override
             public boolean get() {
-                return xbox.getTriggerAxis(Hand.kLeft) == 1;
+                return xbox.getLeftTriggerAxis() == 1;
             }
         };
     }
 
     public JoystickButton getRBButton() {
-        return new JoystickButton(this, XboxController.Button.kBumperRight.value);
+        return new JoystickButton(this, XboxController.Button.kRightBumper.value);
     }
 
     public JoystickButton getLBButton() {
-        return new JoystickButton(this, XboxController.Button.kBumperLeft.value);
+        return new JoystickButton(this, XboxController.Button.kLeftBumper.value);
     }
 
     public JoystickButton getRightStickButton() {
-        return new JoystickButton(this, XboxController.Button.kStickRight.value);
+        return new JoystickButton(this, XboxController.Button.kRightStick.value);
     }
 
     public JoystickButton getLeftStickButton() {
-        return new JoystickButton(this, XboxController.Button.kStickLeft.value);
+        return new JoystickButton(this, XboxController.Button.kLeftStick.value);
     }
 
     public double getRightX() {
-        return xbox.getX(Hand.kRight);
+        return xbox.getRightX();
     }
 
     public double getRightY() {
-        return xbox.getY(Hand.kRight);
+        return xbox.getRightY();
     }
 
     public double getLeftX() {
-        return xbox.getX(Hand.kLeft);
+        return xbox.getLeftX();
     }
 
     public double getLeftY() {
-        return xbox.getY(Hand.kLeft);
+        return xbox.getLeftY();
     }
 
     public Button getUpButton() {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == 0;
+                return getPOV() == DPad.UP.getDegrees();
             }
         };
     }
@@ -120,7 +137,7 @@ public class XboXUID extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == 180;
+                return getPOV() == DPad.DOWN.getDegrees();
             }
         };
     }
@@ -130,7 +147,7 @@ public class XboXUID extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == 270;
+                return getPOV() == DPad.LEFT.getDegrees();
             }
         };
     }
@@ -140,7 +157,7 @@ public class XboXUID extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == 90;
+                return getPOV() == DPad.RIGHT.getDegrees();
             }
         };
     }
@@ -149,7 +166,7 @@ public class XboXUID extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == 45;
+                return getPOV() == DPad.UPPER_RIGHT.getDegrees();
             }
         };
     }
@@ -158,7 +175,7 @@ public class XboXUID extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == 135;
+                return getPOV() == DPad.LOWER_RIGHT.getDegrees();
             }
         };
     }
@@ -167,7 +184,7 @@ public class XboXUID extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == 225;
+                return getPOV() == DPad.LOWER_LEFT.getDegrees();
             }
         };
     }
@@ -176,7 +193,7 @@ public class XboXUID extends Joystick {
         return new Button() {
             @Override
             public boolean get() {
-                return getPOV() == 315;
+                return getPOV() == DPad.UPPER_LEFT.getDegrees();
             }
         };
     }
