@@ -1,6 +1,6 @@
 package com.spikes2212.dashboard;
 
-import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.util.sendable.Sendable;
 
 import java.util.function.Supplier;
 

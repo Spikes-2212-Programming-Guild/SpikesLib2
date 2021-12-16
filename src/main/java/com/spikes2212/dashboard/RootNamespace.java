@@ -1,8 +1,12 @@
 package com.spikes2212.dashboard;
 
-import edu.wpi.first.networktables.*;
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableValue;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +33,7 @@ public class RootNamespace implements Namespace {
     @Override
     public Supplier<Double> addConstantDouble(String name, double value) {
         NetworkTableEntry entry = table.getEntry(name);
-        if (! table.containsKey(name)) {
+        if (!table.containsKey(name)) {
             entry.setDouble(value);
             entry.setPersistent();
         }
@@ -39,7 +43,7 @@ public class RootNamespace implements Namespace {
     @Override
     public Supplier<Integer> addConstantInt(String name, int value) {
         NetworkTableEntry entry = table.getEntry(name);
-        if (! table.containsKey(name)) {
+        if (!table.containsKey(name)) {
             entry.setNumber(value);
             entry.setPersistent();
         }
@@ -49,7 +53,7 @@ public class RootNamespace implements Namespace {
     @Override
     public Supplier<String> addConstantString(String name, String value) {
         NetworkTableEntry entry = table.getEntry(name);
-        if (! table.containsKey(name)) {
+        if (!table.containsKey(name)) {
             entry.setString(value);
             entry.setPersistent();
         }
@@ -67,7 +71,9 @@ public class RootNamespace implements Namespace {
         if (sddata == null || sddata != value) {
             TABLES_TO_DATA.put(key, value);
             NetworkTable dataTable = table.getSubTable(key);
-            SendableRegistry.publish(value, dataTable);
+            SendableBuilderImpl builder = new SendableBuilderImpl();
+            builder.setTable(dataTable);
+            SendableRegistry.publish(value, builder);
             dataTable.getEntry(".name").setString(key);
         }
     }
