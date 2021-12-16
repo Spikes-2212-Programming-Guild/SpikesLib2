@@ -25,22 +25,6 @@ public class PlaystationController extends Joystick {
         super(port);
     }
 
-    /**
-     * D-PAD values.
-     */
-    public enum DPAD {
-        UP(0),
-        RIGHT(90),
-        DOWN(180),
-        LEFT(270);
-
-        public int value;
-
-        DPAD(int value) {
-            this.value = value;
-        }
-    }
-
     public JoystickButton getCrossButton() {
         return new JoystickButton(this, PS4Controller.Button.kCross.value);
     }
