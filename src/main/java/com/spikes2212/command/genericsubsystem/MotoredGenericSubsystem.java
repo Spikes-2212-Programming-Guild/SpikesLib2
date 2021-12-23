@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import java.util.function.Supplier;
 
 /**
- * A motored controlled generic subsystem.
+ * A motor controlled generic subsystem.
  *
  * @author Ofri Rosenbaum
  * @see GenericSubsystem
