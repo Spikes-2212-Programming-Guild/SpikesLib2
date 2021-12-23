@@ -15,21 +15,7 @@ import java.util.function.Supplier;
 public class MotoredGenericSubsystem extends GenericSubsystem {
 
     private MotorControllerGroup motorControllerGroup;
-    private Supplier<Double> minSpeed;
-    private Supplier<Double> maxSpeed;
     protected RootNamespace rootNamespace;
-
-    /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name and
-     * the given {@code MotorController}s.
-     *
-     * @param namespaceName    the subsystem's rootNamespace name
-     * @param motorControllers the motor controllers in the subsystem
-     */
-    public MotoredGenericSubsystem(String namespaceName, MotorController... motorControllers) {
-        this.rootNamespace = new RootNamespace(namespaceName);
-        this.motorControllerGroup = new MotorControllerGroup(motorControllers);
-    }
 
     /**
      * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name, the given
@@ -48,6 +34,18 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
+     * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name and
+     * the given {@code MotorController}s.
+     *
+     * @param namespaceName    the subsystem's rootNamespace name
+     * @param motorControllers the motor controllers in the subsystem
+     */
+    public MotoredGenericSubsystem(String namespaceName, MotorController... motorControllers) {
+        this(() -> -1.0, () -> 1.0, namespaceName, motorControllers);
+    }
+
+
+    /**
      * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name, the given
      * maxSpeed, the given minSpeed and the {@code MotorController}s.
      *
@@ -58,9 +56,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      */
     public MotoredGenericSubsystem(double minSpeed, double maxSpeed, String namespaceName,
                                    MotorController... motorControllers) {
-        super(minSpeed, maxSpeed);
-        this.rootNamespace = new RootNamespace(namespaceName);
-        this.motorControllerGroup = new MotorControllerGroup(motorControllers);
+        this(() -> minSpeed, () -> maxSpeed, namespaceName, motorControllers);
+
     }
 
     @Override
