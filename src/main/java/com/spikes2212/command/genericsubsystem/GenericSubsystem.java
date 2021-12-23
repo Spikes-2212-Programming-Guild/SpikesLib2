@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 
 /**
  * This class represents a generic subsystem that moves within a limitation, or
- * without one.wq
+ * without one.
  *
  * @author Yuval Levy
  */
