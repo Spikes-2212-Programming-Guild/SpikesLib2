@@ -19,7 +19,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
 
     /**
      * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name, the given
-     * maxSpeed supplier, the given minSpeed supplier and the {@code MotorController}s.
+     * maxSpeed supplier, the given minSpeed supplier and the given {@code MotorController}s.
      *
      * @param minSpeed         the minimum speed
      * @param maxSpeed         the maximum speed
@@ -47,7 +47,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
 
     /**
      * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name, the given
-     * maxSpeed, the given minSpeed and the {@code MotorController}s.
+     * maxSpeed, the given minSpeed and the given {@code MotorController}s.
      *
      * @param minSpeed         the minimum speed
      * @param maxSpeed         the maximum speed
