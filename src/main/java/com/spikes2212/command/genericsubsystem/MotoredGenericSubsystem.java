@@ -23,7 +23,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      *
      * @param minSpeed         the minimum speed
      * @param maxSpeed         the maximum speed
-     * @param namespaceName    the subsystem's rootNamespace name
+     * @param namespaceName    the subsystem's rootNamespace's name
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed, String namespaceName,
@@ -39,7 +39,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      *
      * @param minSpeed         the minimum speed
      * @param maxSpeed         the maximum speed
-     * @param namespaceName    the subsystem's rootNamespace name
+     * @param namespaceName    the subsystem's rootNamespace's name
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(double minSpeed, double maxSpeed, String namespaceName,
@@ -52,7 +52,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name and
      * the given {@code MotorController}s.
      *
-     * @param namespaceName    the subsystem's rootNamespace name
+     * @param namespaceName    the subsystem's rootNamespace's name
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(String namespaceName, MotorController... motorControllers) {
