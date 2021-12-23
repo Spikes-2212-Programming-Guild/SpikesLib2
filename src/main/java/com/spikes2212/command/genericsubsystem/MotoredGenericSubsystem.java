@@ -14,7 +14,6 @@ import java.util.function.Supplier;
  */
 public class MotoredGenericSubsystem extends GenericSubsystem {
 
-    private double speed;
     private MotorControllerGroup motorControllerGroup;
     private Supplier<Double> minSpeed;
     private Supplier<Double> maxSpeed;
