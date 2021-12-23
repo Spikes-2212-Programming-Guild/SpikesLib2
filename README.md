@@ -3,10 +3,10 @@
 SpikesLib is a library that extends [WPILib](https://github.com/wpilibsuite/allwpilib) written by the FRC team The Spikes#2212.
 
 
-## 2020 Season
+## 2022 Season
 
-For this season, SpikesLib was moved to this repository due to the extensive changes in WPILib. <br>
-The old version is still available at the [old repository](https://github.com/Spikes-2212-Programming-Guild/SpikesLib)
+SpikesLib has was moved to this repository for the 2020 season. It has since been updated to WPILib 2022 beta 4. <br>
+The old version (2019) is still available at the [old repository](https://github.com/Spikes-2212-Programming-Guild/SpikesLib)
 
 ## Packages
 
