@@ -34,18 +34,6 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name and
-     * the given {@code MotorController}s.
-     *
-     * @param namespaceName    the subsystem's rootNamespace name
-     * @param motorControllers the motor controllers in the subsystem
-     */
-    public MotoredGenericSubsystem(String namespaceName, MotorController... motorControllers) {
-        this(() -> -1.0, () -> 1.0, namespaceName, motorControllers);
-    }
-
-
-    /**
      * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name, the given
      * maxSpeed, the given minSpeed and the given {@code MotorController}s.
      *
@@ -58,6 +46,17 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
                                    MotorController... motorControllers) {
         this(() -> minSpeed, () -> maxSpeed, namespaceName, motorControllers);
 
+    }
+
+    /**
+     * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name and
+     * the given {@code MotorController}s.
+     *
+     * @param namespaceName    the subsystem's rootNamespace name
+     * @param motorControllers the motor controllers in the subsystem
+     */
+    public MotoredGenericSubsystem(String namespaceName, MotorController... motorControllers) {
+        this(() -> -1.0, () -> 1.0, namespaceName, motorControllers);
     }
 
     @Override
