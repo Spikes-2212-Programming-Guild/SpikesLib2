@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 
 /**
  * This class represents a generic subsystem that moves within a limitation, or
- * without one.
+ * without one.wq
  *
  * @author Yuval Levy
  */
@@ -65,7 +65,7 @@ public abstract class GenericSubsystem extends SubsystemBase {
      *
      * @param speed the speed
      */
-    public abstract void apply(double speed);
+    protected abstract void apply(double speed);
 
     /**
      * This method returns whether the subsystem can move safely.
