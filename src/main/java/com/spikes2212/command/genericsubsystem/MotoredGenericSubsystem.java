@@ -60,7 +60,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     @Override
-    public void apply(double speed) {
+    protected void apply(double speed) {
         motorControllerGroup.set(speed);
     }
 
