@@ -13,6 +13,7 @@ group = 'com.github.Spikes-2212-Programming-Guild'
 //wpilibVersion = '2020.1.1.-beta-3'
 
 repositories {
+    jcenter()
     maven {
         url 'http://devsite.ctr-electronics.com/maven/release'
     }
