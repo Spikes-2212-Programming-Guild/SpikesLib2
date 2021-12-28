@@ -16,40 +16,41 @@ import java.util.function.Supplier;
  * @see GenericSubsystem
  */
 public class MoveGenericSubsystemWithPID extends CommandBase {
+
     /**
      * the subsystem the command moves.
      */
-    private final GenericSubsystem subsystem;
+    protected final GenericSubsystem subsystem;
 
     /**
      * A supplier that returns the subsystem's current location.
      */
-    private Supplier<Double> source;
+    protected final Supplier<Double> source;
 
     /**
      * The PID Settings for the PID control loop.
      */
-    private PIDSettings pidSettings;
+    protected final PIDSettings pidSettings;
 
     /**
      * The Feed Forward Settings for the feed forward control loop.
      */
-    private FeedForwardSettings feedForwardSettings;
+    protected final FeedForwardSettings feedForwardSettings;
 
     /**
      * the setpoint for the subsystem.
      */
-    private Supplier<Double> setpoint;
+    protected final Supplier<Double> setpoint;
 
     /**
      * An object that makes the necessary calculations for the PID control loop.
      */
-    private PIDController pidController;
+    protected final PIDController pidController;
 
     /**
      * An object that makes the necessary calculations for the feed forward control loop.
      */
-    private FeedForwardController feedForwardController;
+    protected final FeedForwardController feedForwardController;
 
     /**
      * The last time the subsystem didn't reach target.
@@ -102,7 +103,7 @@ public class MoveGenericSubsystemWithPID extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(!pidController.atSetpoint()) {
+        if (!pidController.atSetpoint()) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
