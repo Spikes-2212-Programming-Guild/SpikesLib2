@@ -5,12 +5,7 @@ plugins {
     id 'net.researchgate.release' version '2.6.0'
 }
 
-//sourceCompatibility = 11
-//targetCompatibility = 11
-
-
 group = 'com.github.Spikes-2212-Programming-Guild'
-//wpilibVersion = '2020.1.1.-beta-3'
 
 repositories {
     mavenCentral()
