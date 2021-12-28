@@ -1,194 +1,115 @@
 package com.spikes2212.util;
 
-import edu.wpi.first.networktables.*;
+import com.spikes2212.dashboard.RootNamespace;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
- * A wrapper and interface for the limelight device.
+ * This class is a limelight wrapper.<br>
+ * <b>This class assumes you are using the 960x720 processing resolution on the limelight.</b>
  *
- * @author yuval levy
+ * @author Yotam Yizhar
  */
 public class Limelight {
-
-    public enum LedMode {
-
-        BY_PIPELINE(0),
-        OFF(1),
-        BLINK(2),
-        ON(3);
-
-        int mode;
-
-        LedMode(int mode) {
-            this.mode = mode;
-        }
-
-        int getMode() {
-            return mode;
-        }
-    }
-
-    public enum CameraMode {
-        VISION_PROCESSING(0),
-        DRIVERS(1);
-
-        int mode;
-
-        CameraMode(int mode) {
-            this.mode = mode;
-        }
-
-        int getMode() {
-            return mode;
-        }
-    }
-
-    /**
-     * The limelight's network table.
-     */
-    private NetworkTable networkTable;
-
-    /**
-     * The limelight's led mode
-     * Represented by the enum {@link LedMode}
-     */
-    private NetworkTableEntry ledMode;
-
-    /**
-     * The limelight's cam mode
-     * Represented by the enum {@link CameraMode}
-     */
-    private NetworkTableEntry camMode;
-
-    /**
-     * The limelight's current pipeline index.
-     * Index's value should be between 0 and 9
-     */
-    private NetworkTableEntry pipeline;
-
-    /**
-     * Whether the limelight has any valid targets.
-     */
-    private NetworkTableEntry tv;
-
-    /**
-     * The horizontal angle to the target the limelight sees.
-     */
-    private NetworkTableEntry tx;
-
-    /**
-     * The vertical angle to the target the limelight sees.
-     */
-    private NetworkTableEntry ty;
-
-    /**
-     * The area of the target the limelight sees.
-     */
-    private NetworkTableEntry ta;
-
-    /**
-     * The skew or rotation.
-     */
-    private NetworkTableEntry ts;
-
-    /**
-     * The pipeline's latency contribution.
-     */
-    private NetworkTableEntry tl;
-
-    /**
-     * Side length of the shortest side of the fitted bounding box.
-     */
-    private NetworkTableEntry tshort;
-
-    /**
-     * Side length of the longest side of the fitted bounding box.
-     */
-    private NetworkTableEntry tlong;
-
-    /**
-     * Horizontal side length of the rough bounding box.
-     */
-    private NetworkTableEntry thor;
-
-    /**
-     * Vertical side length of the rough bounding box.
-     */
-    private NetworkTableEntry tvert;
-
-    public Limelight(String limelightName) {
-
-        networkTable = NetworkTableInstance.getDefault().getTable(limelightName);
-
-        ledMode = networkTable.getEntry("ledMode");
-        camMode = networkTable.getEntry("camMode");
-        pipeline = networkTable.getEntry("pipeline");
-
-        tv = networkTable.getEntry("tv");
-        tx = networkTable.getEntry("tx");
-        ty = networkTable.getEntry("ty");
-        ta = networkTable.getEntry("ta");
-        ts = networkTable.getEntry("ts");
-        tl = networkTable.getEntry("tl");
-        tshort = networkTable.getEntry("tshort");
-        tlong = networkTable.getEntry("tlong");
-        thor = networkTable.getEntry("thor");
-        tvert = networkTable.getEntry("tvert");
-    }
+    private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
+    private static NetworkTableInstance table;
 
     public Limelight() {
-        this("limelight");
+        rootNamespace.putBoolean("Is on target", this::isOnTarget);
+        rootNamespace.putNumber("Horizontal offset from target", this::getHorizontalOffsetFromTarget);
+        rootNamespace.putNumber("Vertical offset from target", this::getVerticalOffsetFromTarget);
+        rootNamespace.putNumber("Target screen fill percent", this::getTargetAreaPercentage);
+        rootNamespace.putNumber("Pipeline latency", this::getTargetLatency);
+        rootNamespace.putNumber("Distance from target", this::calculateDistance);
     }
 
-    public void setLedMode(LedMode mode) {
-        ledMode.setNumber(mode.getMode());
+    /**
+     * @return the distance between the limelight and the target using a (pre-calculated formula with a graph)
+     */
+    private double calculateDistance() {
+        double x = getTargetWidthInPixels();
+        return 37.905 * Math.pow(x, -0.977) * 0.05 / getTargetWidthInPixels();
     }
 
-    public void setCameraMode(CameraMode mode) {
-        camMode.setNumber(mode.getMode());
+    /**
+     * @return whether a target is detected by the limelight
+     */
+    public boolean isOnTarget() {
+        return getValue("tv").getDouble(0) == 1;
     }
 
-    public void setPipeline(int pipelineNum) {
-        pipeline.setNumber(pipelineNum);
+    /**
+     * @return the horizontal offset from crosshair to target (-27 degrees to 27 degrees)
+     */
+    public double getHorizontalOffsetFromTarget() {
+        return getValue("tx").getDouble(0.00);
     }
 
-    public boolean getHasValidTargets() {
-        return tv.getDouble(0) == 1;
+    /**
+     * @return the vertical offset from crosshair to target (-20.5 degrees to 20.5 degrees)
+     */
+    public double getVerticalOffsetFromTarget() {
+        return getValue("ty").getDouble(0.00);
     }
 
-    public double getHorizontalAngleToTarget() {
-        return tx.getDouble(0);
+    /**
+     * @return the area that the detected target takes up in total camera FOV (0% to 100%)
+     */
+    public double getTargetAreaPercentage() {
+        return getValue("ta").getDouble(0.00);
     }
 
-    public double getVerticalAngleToTarget() {
-        return ty.getDouble(0);
+    /**
+     * @return the target skew or rotation (-90 degrees to 0 degrees)
+     */
+    public double getTargetSkew() {
+        return getValue("ts").getDouble(0.00);
     }
 
-    public double getTargetArea() {
-        return ta.getDouble(0);
+    /**
+     * @return target latency (ms)
+     */
+    public double getTargetLatency() {
+        return getValue("tl").getDouble(0.00);
     }
 
-    public double getSkew() {
-        return ts.getDouble(0);
+    /**
+     * @return the target width in pixels (0 pixels to 720 pixels)
+     */
+    public double getTargetWidthInPixels() {
+        return getValue("thor").getDouble(0.00);
     }
 
-    public double getPipelineLatency() {
-        return tl.getDouble(0);
+    /**
+     * @return the target height in pixels (0 pixels to 960 pixels)
+     */
+    public double getTargetHeightInPixels() {
+        return getValue("tvert").getDouble(0.00);
     }
 
-    public double getShortestFittedBoundingBoxSide() {
-        return tshort.getDouble(0);
+    /**
+     * sets pipeline number (0-9 value)
+     *
+     * @param number pipeline number (0-9)
+     */
+    public void setPipeline(int number) {
+        getValue("pipeline").setNumber(number);
     }
 
-    public double getLongestFittedBoundingBoxSide() {
-        return tlong.getDouble(0);
+    public void periodic() {
+        rootNamespace.update();
     }
 
-    public double getRoughBoundingBoxHorizontalSide() {
-        return thor.getDouble(0);
+    /**
+     * retrieve an entry from the Limelight NetworkTable.
+     *
+     * @param key key for entry
+     * @return the value of the given entry
+     */
+    private static NetworkTableEntry getValue(String key) {
+        if (table == null) {
+            table = NetworkTableInstance.getDefault();
+        }
+        return table.getTable("limelight").getEntry(key);
     }
-
-    public double getRoughBoundingBoxVerticalSide() {
-        return tvert.getDouble(0);
-    }
-
 }

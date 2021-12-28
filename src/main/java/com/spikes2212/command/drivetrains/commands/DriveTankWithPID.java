@@ -11,9 +11,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * A command that moves a drivetrain using two PID loops, one for each side.
+ * A command that moves a {@link TankDrivetrain} using two PID loops, one for each side.
+ *
+ * @author Yuval Levy
  */
 public class DriveTankWithPID extends CommandBase {
+
     /**
      * The drivetrain this command operates on.
      */
@@ -69,9 +72,24 @@ public class DriveTankWithPID extends CommandBase {
      */
     private double rightLastTimeNotOnTarget;
 
+    /**
+     * The FeedForwards Settings of the FeedForward loop operating on the left side of the drivetrain.
+     */
     private FeedForwardSettings leftFeedForwardSettings;
+
+    /**
+     * The FeedForwards Settings of the FeedForward loop operating on the right side of the drivetrain.
+     */
     private FeedForwardSettings rightFeedForwardSettings;
+
+    /**
+     * The FeedForwards Controller of the FeedForward loop operating on the left side of the drivetrain.
+     */
     private FeedForwardController leftFeedForwardController;
+
+    /**
+     * The FeedForwards Controller of the FeedForward loop operating on the right side of the drivetrain.
+     */
     private FeedForwardController rightFeedForwardController;
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
@@ -139,11 +157,6 @@ public class DriveTankWithPID extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
-        drivetrain.stop();
-    }
-
-    @Override
     public boolean isFinished() {
         if (!leftPIDController.atSetpoint()) {
             leftLastTimeNotOnTarget = Timer.getFPGATimestamp();
@@ -155,5 +168,10 @@ public class DriveTankWithPID extends CommandBase {
 
         return Timer.getFPGATimestamp() - leftLastTimeNotOnTarget >= leftPIDSettings.getWaitTime()
                 && Timer.getFPGATimestamp() - rightLastTimeNotOnTarget >= rightPIDSettings.getWaitTime();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        drivetrain.stop();
     }
 }
