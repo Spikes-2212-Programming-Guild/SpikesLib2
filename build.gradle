@@ -10,7 +10,7 @@ targetCompatibility = 11
 
 
 group = 'com.github.Spikes-2212-Programming-Guild'
-//wpilibVersion = '2020.1.1.-beta-3'
+//wpilibVersion = '2020.1.1'
 
 repositories {
     maven {
@@ -24,10 +24,10 @@ repositories {
 dependencies {
     implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.19.4'
     implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.19.4'
-    implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2022.1.1-beta-4'
-    implementation group: 'edu.wpi.first.wpilibNewCommands', name: 'wpilibNewCommands-java', version: '2022.1.1-beta-4'
-    implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2022.1.1-beta-4'
-    implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2022.1.1-beta-4'
-    implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2022.1.1-beta-4'
-    implementation group: 'edu.wpi.first.wpimath', name: 'wpimath-java', version: '2022.1.1-beta-4'
+    implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2022.1.1'
+    implementation group: 'edu.wpi.first.wpilibNewCommands', name: 'wpilibNewCommands-java', version: '2022.1.1'
+    implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2022.1.1'
+    implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2022.1.1'
+    implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2022.1.1'
+    implementation group: 'edu.wpi.first.wpimath', name: 'wpimath-java', version: '2022.1.1'
 }
