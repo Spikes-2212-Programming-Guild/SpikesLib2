@@ -43,4 +43,4 @@ SpikesLib is developed in a feature branches workflow. <br>
 All feature branches are merged into _```dev```_ branch after testing, which in turn is merged into 
 _```master```_ after it passing complete testing <br>
 
-Branches should be named according to the following convention - _```name-package-feature```_
+Branches should be named according to the following convention - _```name_package_feature```_
