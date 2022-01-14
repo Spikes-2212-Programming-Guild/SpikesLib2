@@ -15,9 +15,9 @@ public enum DPAD {
     LEFT(270),
     UPPER_LEFT(315);
 
-    public int value;
+    public int VALUE;
 
     DPAD(int value) {
-        this.value = value;
+        this.VALUE = value;
     }
 }
