@@ -2,9 +2,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ master , 2022-update ]
+    branches: [ master ]
   pull_request:
-    branches: [ master , 2022-update ]
+    branches: [ master ]
 
 jobs:
   build:
