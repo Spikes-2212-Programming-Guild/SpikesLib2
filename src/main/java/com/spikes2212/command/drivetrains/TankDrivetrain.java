@@ -1,7 +1,7 @@
 package com.spikes2212.command.drivetrains;
 
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -16,13 +16,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class TankDrivetrain extends SubsystemBase {
 
-    protected SpeedController leftController;
-    protected SpeedController rightController;
+    protected MotorController leftController;
+    protected MotorController rightController;
     private DifferentialDrive drive;
 
-    public TankDrivetrain(SpeedController left, SpeedController right) {
+    public TankDrivetrain(MotorController left, MotorController right) {
         this.leftController = left;
         this.rightController = right;
+        rightController.setInverted(true);
         drive = new DifferentialDrive(leftController, rightController);
     }
 

@@ -1,11 +1,11 @@
 package com.spikes2212.command.drivetrains;
 
 import com.spikes2212.path.OdometryHandler;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 public abstract class OdometryDrivetrain extends TankDrivetrain {
 
-    public OdometryDrivetrain(SpeedController left, SpeedController right) {
+    public OdometryDrivetrain(MotorController left, MotorController right) {
         super(left, right);
     }
 
