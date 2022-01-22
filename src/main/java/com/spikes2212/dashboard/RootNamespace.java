@@ -1,9 +1,6 @@
 package com.spikes2212.dashboard;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTableValue;
+import edu.wpi.first.networktables.*;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
@@ -74,6 +71,7 @@ public class RootNamespace implements Namespace {
             SendableBuilderImpl builder = new SendableBuilderImpl();
             builder.setTable(dataTable);
             SendableRegistry.publish(value, builder);
+            builder.startListeners();
             dataTable.getEntry(".name").setString(key);
         }
     }
