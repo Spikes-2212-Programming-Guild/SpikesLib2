@@ -10,17 +10,17 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * a class that handles the communication between an Xbox controller and the code
  * @author Tal Sitton
  */
-public class XboXUID extends Joystick {
+public class XboxControllerWrapper extends Joystick {
 
     private XboxController xbox;
 
     /**
-     * Constructs a new {@link XboXUID} using the port of the USB on the driver
+     * Constructs a new {@link XboxControllerWrapper} using the port of the USB on the driver
      * station.
      *
      * @param port The port on the Driver Station that the joystick is plugged into.
      */
-    public XboXUID(int port) {
+    public XboxControllerWrapper(int port) {
         super(port);
         xbox = new XboxController(port);
     }
