@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * @author Yotam Yizhar
  */
 public class Limelight {
+
     private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
     private static NetworkTableInstance table;
 
