@@ -39,6 +39,13 @@ public class Limelight {
     }
 
     /**
+     * @return the current limelight's pipeline
+     */
+    public int getPipeline() {
+        return (int) getValue("getpipe").getNumber(0);
+    }
+
+    /**
      * @return the horizontal offset from crosshair to target (-27 degrees to 27 degrees)
      */
     public double getHorizontalOffsetFromTarget() {
