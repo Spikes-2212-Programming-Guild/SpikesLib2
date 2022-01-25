@@ -30,7 +30,7 @@ public class RootNamespace implements Namespace {
         booleanFields = new HashMap<>();
     }
     /**
-     * receive a name and a double value, if the value is not under the name in the namespace, the value is added and return
+     * A command that receives a name and a double value, if the value is not under the name in the namespace, the value is added and return
      the value.
      */
     @Override
@@ -44,7 +44,7 @@ public class RootNamespace implements Namespace {
     }
 
     /**
-     * receive a name and a int value, if the value is not under the name in the namespace, the value is added and return
+     * A command that receives a name and a int value, if the value is not under the name in the namespace, the value is added and return
      the value.
      */
     @Override
@@ -58,8 +58,8 @@ public class RootNamespace implements Namespace {
     }
 
     /**
-     * receive a name and a string value, if the value is not under the name in the namespace, the value is added and return
-     the value.
+     * A command that receives a name and a string value, if the value is not under the name in the namespace, the value is added
+     * and return the value.
      */
     @Override
     public Supplier<String> addConstantString(String name, String value) {
@@ -72,14 +72,14 @@ public class RootNamespace implements Namespace {
     }
 
     /**
-     * a new subNamespace is added.
+     * A new subNamespace is added.
      */
     @Override
     public Namespace addChild(String name) {
         return new ChildNamespace(name, this);
     }
     /**
-     * put a value that was given into the key that was given, if the key is empty or is not equal to the value,
+     * A command that puts a value that was given into the key that was given, if the key is empty or is not equal to the value,
      the value is inserted into the key that was given.
      * */
     @Override
@@ -94,7 +94,7 @@ public class RootNamespace implements Namespace {
     }
 
     /**
-     * return the value that was given in sendable type.
+     * A command that returns the value that was given in sendable type.
      */
     @Override
     public Sendable getSendable(String key) {
@@ -104,7 +104,7 @@ public class RootNamespace implements Namespace {
     }
 
     /**
-     * remove the last value that was inserted and put the new value that was inserted into the key.
+     * A command that removes the last value that was inserted and put the new value that was inserted into the key.
      */
     @Override
     public void putString(String key, Supplier<String> value) {
@@ -114,7 +114,7 @@ public class RootNamespace implements Namespace {
         stringFields.put(key, value);
     }
     /**
-     *return the value that was in the key that was given.
+     *A command that returns the value that was in the key that was given.
      */
     @Override
     public String getString(String key) {
@@ -124,7 +124,7 @@ public class RootNamespace implements Namespace {
     }
 
     /**
-     * remove the last value that was inserted and put the new value that was inserted into the key.
+     * A command that removes the last value that was inserted and put the new value that was inserted into the key.
      */
     @Override
     public void putNumber(String key, Supplier<? extends Number> value) {
@@ -135,7 +135,7 @@ public class RootNamespace implements Namespace {
     }
 
     /**
-     *return the value that was in the key that was given.
+     * A command that returns the value that was in the key that was given.
      */
     @Override
     public double getNumber(String key) {
@@ -145,7 +145,7 @@ public class RootNamespace implements Namespace {
     }
 
     /**
-     * remove the last boolean value that was inserted and put the new boolean value that was inserted into the key.
+     * A command that removes the last boolean value that was inserted and put the new boolean value that was inserted into the key.
      */
     @Override
     public void putBoolean(String key, Supplier<Boolean> value) {
@@ -156,7 +156,7 @@ public class RootNamespace implements Namespace {
     }
 
     /**
-     *return the boolean value that was in the key that was given.
+     * A command that returns the boolean value that was in the key that was given.
      */
     @Override
     public boolean getBoolean(String key) {

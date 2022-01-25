@@ -40,7 +40,7 @@ public class ChildNamespace extends RootNamespace {
         return parent.addConstantString(this.name + separator + name, value);
     }
     /**
-     * put the data that was given under the name that was given.
+     *A command that puts the data that was given under the name that was given.
      */
     @Override
     public void putData(String key, Sendable value) {
@@ -48,7 +48,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     /**
-     *return the sendable value that was under the name that was given.
+     *A command that returns the sendable value that was under the name that was given.
      */
     @Override
     public Sendable getSendable(String key) {
@@ -56,7 +56,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     /**
-     * put the string that was given under the name that was given.
+     *A command that puts the string that was given under the name that was given.
      */
     @Override
     public void putString(String key, Supplier<String> value) {
@@ -69,7 +69,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     /**
-     * put the number value that was given under the name that was given.
+     *A command that puts the number value that was given under the name that was given.
      */
     @Override
     public void putNumber(String key, Supplier<? extends Number> value) {
@@ -77,7 +77,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     /**
-     *return the number value that was under the name that was given.
+     * A command that returns the number value that was under the name that was given.
      */
     @Override
     public double getNumber(String key) {
@@ -85,7 +85,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     /**
-     * put the boolean value that was given under the name that was given.
+     * A command that puts the boolean value that was given under the name that was given.
      */
     @Override
     public void putBoolean(String key, Supplier<Boolean> value) {
@@ -93,7 +93,7 @@ public class ChildNamespace extends RootNamespace {
     }
 
     /**
-     *return the boolean value that was under the name that was given.
+     *A command that returns the boolean value that was under the name that was given.
      */
     @Override
     public boolean getBoolean(String key) {
