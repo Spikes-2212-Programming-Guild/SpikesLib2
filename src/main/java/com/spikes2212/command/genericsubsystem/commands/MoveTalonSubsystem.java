@@ -6,9 +6,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
 
-/**@author drivetrains
 /**
- * Move a {@link TalonSubsystem} using its Talon's control loops.
+ * A command that moves a {@link TalonSubsystem} using its Talon's control loops.
+ *
+ * @author Yuval Levy
  */
 public class MoveTalonSubsystem extends CommandBase {
     /**

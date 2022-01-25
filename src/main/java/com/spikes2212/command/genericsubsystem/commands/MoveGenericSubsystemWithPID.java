@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * This command moves a {@link GenericSubsystem} according to a {@link Supplier}
+ * A command that moves a {@link GenericSubsystem} according to a {@link Supplier}
  * or a constant speed until it can't move anymore.
  *
  * @author Yuval Levy

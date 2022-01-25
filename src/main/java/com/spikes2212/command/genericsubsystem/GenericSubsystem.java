@@ -20,13 +20,18 @@ public abstract class GenericSubsystem extends SubsystemBase {
     /**
      * Constructs a new instance of GenericSubsystem with the given minSpeed supplier and maxSpeed supplier.
      *
-     * @param minSpeed the minimum speed
-     * @param maxSpeed the maximum speed
+     * @param minSpeed the minimum speed.
+     * @param maxSpeed the maximum speed.
      */
     public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed){
         this.maxSpeed = maxSpeed;
         this.minSpeed = minSpeed;
     }
+
+    /**
+     * Constructs a new instance of GenericSubsystem with the given minSpeed and maxSpeed.
+     */
+    public GenericSubsystem(double minSpeed, double maxSpeed) {this(() -> minSpeed, () -> maxSpeed);}
 
     /**
      * Constructs a new instance of GenericSubsystem.
@@ -35,17 +40,9 @@ public abstract class GenericSubsystem extends SubsystemBase {
         this(-1, 1);
     }
 
-    /**
-     * Constructs a new instance of GenericSubsystem with the given minSpeed and maxSpeed.
-     */
-    public GenericSubsystem(double minSpeed, double maxSpeed) {
-        this(() -> minSpeed, () -> maxSpeed);
-    }
-
-
 
     /**
-     * Moves this {@link GenericSubsystem} with the given speed, if the speed is not within the limits
+     * Moves this {@link GenericSubsystem} with the given speed, if the speed is within the limits
      * specified when this{@link GenericSubsystem} was constructed, the speed become the minimum or maximum
      * speed.
      * @param speed the speed to move the subsystem with.
@@ -62,14 +59,14 @@ public abstract class GenericSubsystem extends SubsystemBase {
     /**
      * This method applies a given speed to the subsystem.
      *
-     * @param speed the speed
+     * @param speed the speed.
      */
     public abstract void apply(double speed);
 
     /**
      * This method returns whether the subsystem can move safely.
      *
-     * @return whether the subsystem can move safely
+     * @return whether the subsystem can move safely.
      */
     public abstract boolean canMove(double speed);
 

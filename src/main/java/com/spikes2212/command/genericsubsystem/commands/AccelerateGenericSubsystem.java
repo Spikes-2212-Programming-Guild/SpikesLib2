@@ -20,6 +20,10 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
     private double startTime;
 
     /**
+     *
+     * startTime is a variable that contains the moment of initializing the subsystem.
+     * currentSpeed is a variable that contains the speed of the motors.
+     * acceleration is a variable that contains the speed rate change.
      * This constructs a new {@link AccelerateGenericSubsystem} command using the
      * {@link GenericSubsystem} this command operates on and a supplier supplying the
      * wanted speed the {@link GenericSubsystem} should move with after the given
