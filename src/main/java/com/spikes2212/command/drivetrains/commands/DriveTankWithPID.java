@@ -111,9 +111,11 @@ public class DriveTankWithPID extends CommandBase {
         this.leftFeedForwardSettings = leftFeedForwardSettings;
         this.rightFeedForwardSettings = rightFeedForwardSettings;
         this.leftFeedForwardController = new FeedForwardController(leftFeedForwardSettings.getkS(),
-                leftFeedForwardSettings.getkV(), leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG());
+                leftFeedForwardSettings.getkV(), leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG(),
+                FeedForwardController.DEFAULT_PERIOD);
         this.rightFeedForwardController = new FeedForwardController(rightFeedForwardSettings.getkS(),
-                rightFeedForwardSettings.getkV(), rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG());
+                rightFeedForwardSettings.getkV(), rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG(),
+                FeedForwardController.DEFAULT_PERIOD);
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,

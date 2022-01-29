@@ -5,6 +5,9 @@ package com.spikes2212.control;
  * @author Tuval Rivkinind Barlev
  */
 public class FeedForwardController {
+
+    public static final double DEFAULT_PERIOD = 0.02;
+
     /**
      * The static constant
      */
