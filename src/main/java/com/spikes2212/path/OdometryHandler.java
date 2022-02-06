@@ -53,7 +53,6 @@ public class OdometryHandler {
         lastLeftPosition = leftPosition;
         lastRightPosition = rightPosition;
 
-
         Pose2d newPose = pose.exp(
                 new Twist2d(averageDeltaDistance, 0.0, angle.getRadians()));
 
