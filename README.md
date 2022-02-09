@@ -35,5 +35,3 @@ Branches should be named according to the following convention - _```name_packag
 
 We accept help from everyone! <br>
 If you want to contribute, simply create a branch and open up a pull request, according to the instructions above.
-
-
