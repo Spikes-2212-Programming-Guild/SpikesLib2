@@ -19,27 +19,18 @@ The old version is still available at the [old repository](https://github.com/Sp
 - util - additional utilities
 
 ## Installation
-After creating a Robot Project and importing the CTRE libraries, change the build.gradle as written:<br><br>
+After creating a Robot Project, import SpikesLib as an online vendor libray,
+using this link: <br> <br>
+https://spikes2212.com/SpikesLib.json
 
-1. Add: <br>
-   ```
-   repositories {
-       maven { 
-           url "https://jitpack.io"
-       }
-    }
-   ```
-   <br>
-2. Add: <br>
-   ```
-   dependencies {
-       implementation 'com.github.Spikes-2212-Programming-Guild:SpikesLib2:master'
-   } 
-   ```
-Then, reload gradle and perform a build.
 
 ## Development
 SpikesLib is developed in a feature branches workflow. <br>
 All feature branches are merged into _```dev```_ branch after testing, which in turn is merged into 
 _```master```_ after it passing complete testing <br>
 Branches should be named according to the following convention - _```name_package_feature```_
+
+## Help us out!
+
+We accept help from everyone! <br>
+If you want to contribute, simply create a branch and open up a pull request, according to the instructions above.
