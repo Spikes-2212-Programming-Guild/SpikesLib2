@@ -21,8 +21,7 @@ The old version is still available at the [old repository](https://github.com/Sp
 ## Installation
 After creating a Robot Project, import SpikesLib as an online vendor libray,
 using this link: <br> <br>
-https://raw.githubusercontent.com/Spikes-2212-Programming-Guild/SpikesLib2/master/SpikesLib2.json
-
+https://spikes2212.com/SpikesLib.json
 
 
 ## Development
