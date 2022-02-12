@@ -12,8 +12,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  */
 public class Limelight {
 
-    private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
-    private static NetworkTableInstance table;
+    protected static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
+    protected static NetworkTableInstance table;
 
     public Limelight() {
         rootNamespace.putBoolean("Is on target", this::isOnTarget);
