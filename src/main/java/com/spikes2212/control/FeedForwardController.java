@@ -8,22 +8,22 @@ public class FeedForwardController {
     public static final double DEFAULT_PERIOD = 0.02;
 
     /**
-     * The static constant.
+     * The static constant
      */
     private double kS;
 
     /**
-     * The velocity constant.
+     * The velocity constant
      */
     private double kV;
 
     /**
-     * The acceleration constant.
+     * The acceleration constant
      */
     private double kA;
 
     /**
-     * The gravity constant.
+     * The gravity constant
      */
     private double kG;
 
