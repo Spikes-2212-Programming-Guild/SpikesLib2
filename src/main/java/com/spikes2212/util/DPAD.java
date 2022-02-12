@@ -6,6 +6,7 @@ package com.spikes2212.util;
  * @author Ofri Rosenbaum
  */
 public enum DPAD {
+
     UP(0),
     UPPER_RIGHT(45),
     RIGHT(90),
@@ -15,7 +16,7 @@ public enum DPAD {
     LEFT(270),
     UPPER_LEFT(315);
 
-    public int VALUE;
+    public final int VALUE;
 
     DPAD(int value) {
         this.VALUE = value;

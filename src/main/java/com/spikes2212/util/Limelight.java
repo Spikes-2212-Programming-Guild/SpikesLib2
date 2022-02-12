@@ -32,6 +32,10 @@ public class Limelight {
         return 37.905 * Math.pow(x, -0.977) * 0.05 / getTargetWidthInPixels();
     }
 
+    public void periodic() {
+        rootNamespace.update();
+    }
+
     /**
      * @return whether a target is detected by the limelight
      */
@@ -96,7 +100,7 @@ public class Limelight {
     }
 
     /**
-     * sets pipeline number (0-9 value)
+     * Sets pipeline number (0-9 value).
      *
      * @param number pipeline number (0-9)
      */
@@ -104,12 +108,8 @@ public class Limelight {
         getValue("pipeline").setNumber(number);
     }
 
-    public void periodic() {
-        rootNamespace.update();
-    }
-
     /**
-     * retrieve an entry from the Limelight NetworkTable.
+     * Retrieves an entry from the Limelight NetworkTable.
      *
      * @param key key for entry
      * @return the value of the given entry

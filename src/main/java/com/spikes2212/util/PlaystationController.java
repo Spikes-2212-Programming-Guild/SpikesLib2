@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
- * A class that handles the communication between an PS4 controller and the code
+ * A class that handles the communication between an PS4 controller and the code.
  *
  * @author Ofri Rosenbaum
  */
