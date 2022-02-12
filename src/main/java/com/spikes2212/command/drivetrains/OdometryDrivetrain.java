@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 public abstract class OdometryDrivetrain extends TankDrivetrain {
 
-    public OdometryDrivetrain(String namespaceName, MotorController left, MotorController right) {
+    public OdometryDrivetrain(MotorController left, MotorController right, String namespaceName) {
         super(left, right, namespaceName);
     }
 
