@@ -52,13 +52,13 @@ public class Paths {
     }
 
     private static void fill(List<Waypoint> path, double spacing) {
-        for(int i = 0; i < path.size() - 1; i++) {
+        for (int i = 0; i < path.size() - 1; i++) {
             Waypoint startPoint = path.get(i);
             double length = path.get(i).distance(path.get(i + 1));
-            int pathThatFit = (int)(length / spacing);
+            int pathThatFit = (int) (length / spacing);
             Waypoint vector = new Waypoint((path.get(i + 1).getX() - path.get(i).getX()) * (spacing / length),
                     (path.get(i + 1).getY() - path.get(i).getY()) * (spacing / length));
-            for(int j = 0; j < pathThatFit; j++, i++) {
+            for (int j = 0; j < pathThatFit; j++, i++) {
                 path.add(i + 1, new Waypoint(
                         startPoint.getX() + vector.getX() * (j + 1),
                         startPoint.getY() + vector.getY() * (j + 1)
@@ -70,15 +70,15 @@ public class Paths {
     private static void smooth(List<Waypoint> path, double smoothWeight, double tolerance) {
         double dataWeight = 1 - smoothWeight;
         double[][] newPath = new double[path.size()][2];
-        for(int i = 0; i < path.size(); i++) {
+        for (int i = 0; i < path.size(); i++) {
             newPath[i] = path.get(i).toArray();
         }
         double[][] ogPath = Arrays.copyOf(newPath, newPath.length);
         double change = tolerance;
-        while(change >= tolerance) {
+        while (change >= tolerance) {
             change = 0;
-            for(int i = 1; i < newPath.length - 1; i++) {
-                for(int j = 0; j < newPath[i].length; j++) {
+            for (int i = 1; i < newPath.length - 1; i++) {
+                for (int j = 0; j < newPath[i].length; j++) {
                     double aux = newPath[i][j];
                     newPath[i][j] += dataWeight * (ogPath[i][j] - newPath[i][j])
                             + smoothWeight * (newPath[i - 1][j] + newPath[i + 1][j] - 2 * newPath[i][j]);
@@ -87,7 +87,7 @@ public class Paths {
             }
         }
 
-        for(int i = 0; i < newPath.length; i++) {
+        for (int i = 0; i < newPath.length; i++) {
             path.set(i, new Waypoint(newPath[i][0], newPath[i][1]));
         }
     }
@@ -95,22 +95,22 @@ public class Paths {
     private static void calculateDistances(List<Waypoint> path) {
         double previousDistance = 0;
         path.get(0).setD(0);
-        for(int i = 1; i < path.size(); i++) {
+        for (int i = 1; i < path.size(); i++) {
             previousDistance += path.get(i).distance(path.get(i - 1));
             path.get(i).setD(previousDistance);
         }
     }
 
     private static void calculateCurvatures(List<Waypoint> path) {
-        for(int i = 1; i < path.size() - 1; i++) {
+        for (int i = 1; i < path.size() - 1; i++) {
             double x1 = path.get(i).getX();
             double y1 = path.get(i).getY();
             double x2 = path.get(i - 1).getX();
             double y2 = path.get(i - 1).getY();
             double x3 = path.get(i + 1).getX();
             double y3 = path.get(i + 1).getY();
-            if(x1 == x2) x2 += 0.000001;
-            if(y1 == y2 && y1 == y3) y2 += 0.000001;
+            if (x1 == x2) x2 += 0.000001;
+            if (y1 == y2 && y1 == y3) y2 += 0.000001;
             double k1 = 0.5 * (x1 * x1 + y1 * y1 - x2 * x2 - y2 * y2) / (x1 - x2);
             double k2 = (y1 - y2) / (x1 - x2);
             double b = 0.5 * (x2 * x2 - 2 * x2 * k1 + y2 * y2 - x3 * x3 + 2 * x3 * k1 - y3 * y3) / (x3 * k2 - y3 + y2 - x2 * k2);
@@ -121,14 +121,14 @@ public class Paths {
     }
 
     private static void calculateMaxVelocities(List<Waypoint> path, double maxVelocity, double turningConstant) {
-        for(Waypoint p : path) {
+        for (Waypoint p : path) {
             p.setV(Math.min(maxVelocity, turningConstant / p.getCurvature()));
         }
     }
 
     private static void smoothVelocities(List<Waypoint> path, double maxAcceleration) {
         path.get(path.size() - 1).setV(0);
-        for(int i = path.size() - 2; i >= 0; i--) {
+        for (int i = path.size() - 2; i >= 0; i--) {
             double distance = path.get(i).distance(path.get(i + 1));
             path.get(i).setV(Math.min(path.get(i).getV(),
                     Math.sqrt(Math.pow(path.get(i + 1).getV(), 2) + 2 * maxAcceleration * distance)));
@@ -143,20 +143,20 @@ public class Paths {
      * @param file the CSV file
      */
     public static void exportToCSV(List<Waypoint> path, Path file) {
-        try(BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.US_ASCII)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.US_ASCII)) {
             StringBuilder s = new StringBuilder("x,y,velocity,distance,curvature\n");
-            for(Waypoint w : path) {
+            for (Waypoint w : path) {
                 s.append(w.getX()).append(",").append(w.getY()).append(",").append(w.getV()).append(",")
                         .append(w.getD()).append(",").append(w.getCurvature()).append("\n");
             }
             writer.write(s.toString(), 0, s.length());
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
 
     /**
-     * loads a path from the given csv file
+     * Loads a path from the given csv file
      *
      * @param path the csv file to import from
      * @return the path
@@ -166,7 +166,7 @@ public class Paths {
         try {
             List<String> lines = Files.readAllLines(path);
             lines.remove(0);
-            for(String line : lines) {
+            for (String line : lines) {
                 String[] values = line.split(",");
                 Waypoint point = new Waypoint(Double.parseDouble(values[0]),
                         Double.parseDouble(values[1]));

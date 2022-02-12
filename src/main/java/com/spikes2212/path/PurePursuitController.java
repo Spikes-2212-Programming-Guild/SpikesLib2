@@ -6,9 +6,10 @@ import java.util.List;
  * This class represents a PurePursuitController.
  * You should the getSpeeds method periodically.
  *
- * @author T
+ * @author Tuval Rivking Barlev
  */
 public class PurePursuitController {
+
     private OdometryHandler odometryHandler;
     private List<Waypoint> path;
     private int lastClosestIndex = 0, lastLookaheadIndex = 0;

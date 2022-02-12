@@ -3,7 +3,7 @@ package com.spikes2212.path;
 /**
  * This class represents a point in 2d space, with additional fields used for path generation and following.
  *
- * @author T
+ * @author Tuval Rivkind Barlev
  */
 public class Waypoint {
 
@@ -37,6 +37,14 @@ public class Waypoint {
         this.y = y;
     }
 
+    /**
+     * @param point the point to calculate the distance from
+     * @return the distance between the points
+     */
+    public double distance(Waypoint point) {
+        return Math.sqrt((x - point.getX()) * (getX() - point.getX()) + (getY() - point.getY()) * (getY() - point.getY()));
+    }
+
     public double getX() {
         return x;
     }
@@ -57,15 +65,16 @@ public class Waypoint {
         this.d = distance;
     }
 
-    public double getD(){
+    public double getD() {
         return d;
     }
 
     /**
-     * returns an array of the point's coordinates
      * @return an array of the point's coordinates
      */
-    public double[] toArray() { return new double[]{x, y}; }
+    public double[] toArray() {
+        return new double[]{x, y};
+    }
 
     public double getCurvature() {
         return curvature;
@@ -73,15 +82,6 @@ public class Waypoint {
 
     void setCurvature(double curvature) {
         this.curvature = curvature;
-    }
-
-    /**
-     * returns the distance from the given point to {@code this}.
-     * @param point the point to calculate the distance from
-     * @return the distance between the points
-     */
-    public double distance(Waypoint point) {
-        return Math.sqrt((x - point.getX())*(getX() - point.getX()) + (getY() - point.getY())*(getY() - point.getY()));
     }
 
     @Override
