@@ -80,8 +80,6 @@ public class PigeonWrapper {
     }
 
     /**
-     * Sets the yaw.
-     *
      * @param yaw If you don't know what yaw is, see <a href=https://letmegooglethat.com/?q=what+is+yaw>here</a>.
      */
     public void setYaw(double yaw) {
