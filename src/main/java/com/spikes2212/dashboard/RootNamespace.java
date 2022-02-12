@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class RootNamespace implements Namespace {
+
     private final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
 
     protected String name;
