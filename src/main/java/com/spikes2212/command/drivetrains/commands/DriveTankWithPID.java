@@ -25,12 +25,12 @@ public class DriveTankWithPID extends CommandBase {
     /**
      * The PID Settings for the PID loop operating on the left side of the drivetrain.
      */
-    protected PIDSettings leftPIDSettings;
+    protected final PIDSettings leftPIDSettings;
 
     /**
      * The PID Settings for the PID loop operating on the right side of the drivetrain.
      */
-    protected PIDSettings rightPIDSettings;
+    protected final PIDSettings rightPIDSettings;
 
     /**
      * The PID Controller of the PID loop operating on the left side of the drivetrain.
@@ -75,12 +75,12 @@ public class DriveTankWithPID extends CommandBase {
     /**
      * The FeedForwards Settings of the FeedForward loop operating on the left side of the drivetrain.
      */
-    protected FeedForwardSettings leftFeedForwardSettings;
+    protected final FeedForwardSettings leftFeedForwardSettings;
 
     /**
      * The FeedForwards Settings of the FeedForward loop operating on the right side of the drivetrain.
      */
-    protected FeedForwardSettings rightFeedForwardSettings;
+    protected final FeedForwardSettings rightFeedForwardSettings;
 
     /**
      * The FeedForwards Controller of the FeedForward loop operating on the left side of the drivetrain.

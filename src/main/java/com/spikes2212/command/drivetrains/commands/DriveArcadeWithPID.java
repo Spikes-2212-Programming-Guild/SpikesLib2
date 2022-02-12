@@ -23,7 +23,7 @@ public class DriveArcadeWithPID extends CommandBase {
     /**
      * The PID settings for the turning PID loop.
      */
-    protected PIDSettings pidSettings;
+    protected final PIDSettings pidSettings;
 
     /**
      * The PID controller for the turning PID loop.
@@ -33,7 +33,7 @@ public class DriveArcadeWithPID extends CommandBase {
     /**
      * The FeedForward settings for the turning FeedForwards loop.
      */
-    protected FeedForwardSettings feedForwardSettings;
+    protected final FeedForwardSettings feedForwardSettings;
 
     /**
      * The FeedForward controller for the turning FeedForwards loop.
