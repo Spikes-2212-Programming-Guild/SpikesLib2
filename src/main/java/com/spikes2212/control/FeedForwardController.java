@@ -1,7 +1,8 @@
 package com.spikes2212.control;
 
 /**
- * a class that represents a FeedForward controller
+ * A class that represents a FeedForward controller.
+ *
  * @author Tuval Rivkinind Barlev
  */
 public class FeedForwardController {
@@ -9,22 +10,22 @@ public class FeedForwardController {
     public static final double DEFAULT_PERIOD = 0.02;
 
     /**
-     * The static constant
+     * The static constant.
      */
     private double kS;
 
     /**
-     * The velocity constant
+     * The velocity constant.
      */
     private double kV;
 
     /**
-     * The acceleration constant
+     * The acceleration constant.
      */
     private double kA;
 
     /**
-     * The gravity constant
+     * The gravity constant.
      */
     private double kG;
 
