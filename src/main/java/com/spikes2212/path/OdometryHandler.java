@@ -8,9 +8,9 @@ import edu.wpi.first.math.geometry.Twist2d;
 import java.util.function.Supplier;
 
 /**
- * A class which uses encoders to find the progress of a robot between discrete times.
+ * A class which uses encoders to find the progress of a robot between discrete times.<br>
  *
- * <br><b>The calculate method should be called repeatedly, otherwise your robot's position
+ * <b>The calculate method should be called repeatedly, otherwise your robot's position
  * would not be recalculated, and therefore will be substantially inaccurate.</b>
  */
 public class OdometryHandler {
