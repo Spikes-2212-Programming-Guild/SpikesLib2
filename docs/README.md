@@ -1,5 +1,5 @@
 <div style="font-family: Calibri">
-SpikesLib is a library that extends <a href="https://github.com/wpilibsuite/allwpilib" target="_blank" rel="noopener noreferrer>WPILib</a> written by the FRC team The
+SpikesLib is a library that extends <a href="https://github.com/wpilibsuite/allwpilib" target="_blank" rel="noopener noreferrer">WPILib</a> written by the FRC team The
 Spikes#2212.
 
 
