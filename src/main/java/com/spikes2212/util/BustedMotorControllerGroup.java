@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import java.util.function.Supplier;
 
 /**
- * An extension of the {@code MotorControllerGroup} class that has the ability to add a correction to its speed.
+ * An extension of the {@code MotorControllerGroup} that has the ability to add a correction to its speed.
  * Best used to correct deviation in the drivetrain.
  *
  * @author Yotam Yizhar
