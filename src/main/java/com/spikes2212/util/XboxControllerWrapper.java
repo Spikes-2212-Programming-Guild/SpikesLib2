@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class XboxControllerWrapper extends Joystick {
 
-    private XboxController xbox;
+    protected final XboxController xbox;
 
     /**
      * Constructs a new {@link XboxControllerWrapper} using the port of the USB on the driver

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class PlaystationController extends Joystick {
 
-    private PS4Controller ps;
+    protected final PS4Controller ps;
 
     /**
      * Constructs a new {@link PS4Controller} using the port of the USB on the driver
@@ -23,6 +23,7 @@ public class PlaystationController extends Joystick {
      */
     public PlaystationController(int port) {
         super(port);
+        ps = new PS4Controller(port);
     }
 
     public JoystickButton getCrossButton() {

@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class RepeatCommand extends CommandBase {
 
-    private Command command;
+    private final Command command;
 
     /**
      * Constructs a RepeatCommand that will repeat a SequentialCommandGroup that will include the commands given.
