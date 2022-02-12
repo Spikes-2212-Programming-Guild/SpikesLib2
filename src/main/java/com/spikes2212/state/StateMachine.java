@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class StateMachine<T extends Enum<T>> {
+
     private Map<T, CommandBase> transformations;
     private T state;
 
@@ -13,15 +14,6 @@ public abstract class StateMachine<T extends Enum<T>> {
         setState(initialState);
         transformations = new HashMap<>();
         generateTransformations();
-
-    }
-
-    protected void setState(T state) {
-        this.state = state;
-    }
-
-    public T getState() {
-        return state;
     }
 
     protected abstract void generateTransformations();
@@ -32,5 +24,13 @@ public abstract class StateMachine<T extends Enum<T>> {
 
     public CommandBase getTransformationFor(T state) {
         return new ProxyScheduleCommand(transformations.get(state));
+    }
+
+    protected void setState(T state) {
+        this.state = state;
+    }
+
+    public T getState() {
+        return state;
     }
 }
