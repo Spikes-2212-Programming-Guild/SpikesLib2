@@ -18,7 +18,7 @@ public interface TalonSubsystem extends Subsystem {
      */
     void pidSet(double setpoint);
 
-    /**K
+    /**
      * Stop running control loops on the Talon.
      */
     void finish();
