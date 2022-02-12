@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public class MotoredGenericSubsystem extends GenericSubsystem {
 
-    private MotorControllerGroup motorControllerGroup;
+    protected MotorControllerGroup motorControllerGroup;
     protected RootNamespace rootNamespace;
 
     /**

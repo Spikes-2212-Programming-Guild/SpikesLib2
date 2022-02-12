@@ -14,8 +14,8 @@ import java.util.function.Supplier;
 public abstract class GenericSubsystem extends SubsystemBase {
 
     private double currentSpeed = 0;
-    private Supplier<Double> maxSpeed;
-    private Supplier<Double> minSpeed;
+    protected Supplier<Double> maxSpeed;
+    protected Supplier<Double> minSpeed;
 
     /**
      * Constructs a new instance of GenericSubsystem.
