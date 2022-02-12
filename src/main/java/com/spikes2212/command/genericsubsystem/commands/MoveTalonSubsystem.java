@@ -8,8 +8,12 @@ import java.util.function.Supplier;
 
 /**
  * Move a {@link TalonSubsystem} using its Talon's control loops.
+ *
+ * @author Eran Goldstein
+ * @see TalonSubsystem
  */
 public class MoveTalonSubsystem extends CommandBase {
+
     /**
      * The {@link TalonSubsystem} this command will run on.
      */
@@ -22,7 +26,6 @@ public class MoveTalonSubsystem extends CommandBase {
 
     private final Supplier<Double> waitTime;
     private double lastTimeNotOnTarget;
-
 
     public MoveTalonSubsystem(TalonSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> waitTime) {
         addRequirements(subsystem);
@@ -53,10 +56,9 @@ public class MoveTalonSubsystem extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(!subsystem.onTarget(setpoint.get())) {
+        if (!subsystem.onTarget(setpoint.get())) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
-
         return Timer.getFPGATimestamp() - lastTimeNotOnTarget > waitTime.get();
     }
 }

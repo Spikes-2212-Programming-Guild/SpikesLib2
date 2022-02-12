@@ -4,11 +4,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 /**
- * a wrapper class for the pigeon IMU sensor
+ * A wrapper class for the pigeon IMU sensor.
+ *
  * @author Tal Sitton
  */
 public class PigeonWrapper {
-    
+
     public double[] values = new double[3];
     protected final PigeonIMU pigeon;
 
@@ -18,6 +19,30 @@ public class PigeonWrapper {
 
     public PigeonWrapper(TalonSRX talonSRX) {
         pigeon = new PigeonIMU(talonSRX);
+    }
+
+    /**
+     * Resets the yaw.
+     */
+    public void reset() {
+        setYaw(0);
+    }
+
+    /**
+     * Calibrates the pigeon based on the yaw sent.
+     *
+     * @param yaw the yaw the pigeon shall be calibrated to
+     */
+    public void calibrate(double yaw) {
+        pigeon.enterCalibrationMode(PigeonIMU.CalibrationMode.BootTareGyroAccel);
+        setYaw(yaw);
+    }
+
+    /**
+     * Calibrates the pigeon wrapper to yaw 0.
+     */
+    public void calibrate() {
+        calibrate(0);
     }
 
     /**
@@ -45,8 +70,9 @@ public class PigeonWrapper {
     }
 
     /**
+     * <p>If you don't know what yaw is, see <a href=https://letmegooglethat.com/?q=what+is+yaw>here</a>.</p>
+     *
      * @return the yaw
-     * <p>if you don't know what yaw is, see <a href=https://letmegooglethat.com/?q=what+is+yaw>here</a></p>
      */
     public double getYaw() {
         pigeon.getYawPitchRoll(values);
@@ -54,36 +80,9 @@ public class PigeonWrapper {
     }
 
     /**
-     * sets the yaw
-     *
-     * @param yaw If you don't know what yaw is, see
-     *            <a href=https://letmegooglethat.com/?q=what+is+yaw>here</a>.
+     * @param yaw If you don't know what yaw is, see <a href=https://letmegooglethat.com/?q=what+is+yaw>here</a>.
      */
     public void setYaw(double yaw) {
         pigeon.setYaw(yaw);
-    }
-
-    /**
-     * resets the yaw
-     */
-    public void reset() {
-        setYaw(0);
-    }
-
-    /**
-     * calibrates the piegon based on the yaw sent
-     *
-     * @param yaw the yaw the piegon shall be calibrated to
-     */
-    public void calibrate(double yaw) {
-        pigeon.enterCalibrationMode(PigeonIMU.CalibrationMode.BootTareGyroAccel);
-        setYaw(yaw);
-    }
-
-    /**
-     * calibrates the piegon wrapper to yaw 0
-     */
-    public void calibrate() {
-        calibrate(0);
     }
 }

@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.Supplier;
 
 /**
- * This class represents a generic subsystem that moves within a limitation, or
- * without one.
+ * This class represents a generic subsystem that moves within a limitation, or without one.
  *
  * @author Yuval Levy
  */
@@ -93,6 +92,5 @@ public abstract class GenericSubsystem extends SubsystemBase {
      * Add any commands or data from this subsystem to the dashboard.
      */
     public void configureDashboard() {
-
     }
 }

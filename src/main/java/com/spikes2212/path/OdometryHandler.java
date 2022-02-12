@@ -8,12 +8,10 @@ import edu.wpi.first.math.geometry.Twist2d;
 import java.util.function.Supplier;
 
 /**
- *<ul><i><a><h1><li><strong><b>The calculate method should be called repeatedly, otherwise your robot's position
- * 	would not be recalculated, and therefore will be substantially inaccurate.
- * </b></strong></li></h1></a></i></ul>
+ * A class which uses encoders to find the progress of a robot between discrete times.<br>
  *
- * a class which uses encoders to find the progress of a robot between discrete
- * times
+ * <b>The calculate method should be called repeatedly, otherwise your robot's position
+ * would not be recalculated, and therefore will be substantially inaccurate.</b>
  */
 public class OdometryHandler {
 
@@ -24,11 +22,12 @@ public class OdometryHandler {
 
     /**
      * creates a new {@link OdometryHandler} object, with given parameters
+     *
      * @param leftPosition  the left position supplier
      * @param rightPosition the right position supplier
      * @param angleSupplier the angle supplier
-     * @param x the initial x coordinate
-     * @param y the initial y coordinate
+     * @param x             the initial x coordinate
+     * @param y             the initial y coordinate
      */
     public OdometryHandler(Supplier<Double> leftPosition, Supplier<Double> rightPosition, Supplier<Double> angleSupplier
             , double x, double y) {
@@ -58,8 +57,14 @@ public class OdometryHandler {
 
         pose = new Pose2d(newPose.getTranslation(), Rotation2d.fromDegrees(yaw));
     }
+
+    public void set(double x, double y) {
+        this.pose = new Pose2d(new Translation2d(x, y), new Rotation2d(yaw.get()));
+        this.lastLeftPosition = 0;
+        this.lastRightPosition = 0;
+    }
+
     /**
-     * returns the robot's current x coordinate
      * @return the robot's current x coordinate
      */
     public double getX() {
@@ -67,7 +72,6 @@ public class OdometryHandler {
     }
 
     /**
-     * returns the robot's current y coordinate
      * @return the robot's current y coordinate
      */
     public double getY() {
@@ -75,7 +79,6 @@ public class OdometryHandler {
     }
 
     /**
-     * returns the robot's current angle
      * @return the robot's current angle
      */
     public double getYaw() {
@@ -83,16 +86,9 @@ public class OdometryHandler {
     }
 
     /**
-     * returns the robot's coordinates as a {@link Waypoint} instance
      * @return robot's coordinates as a {@link Waypoint} instance
      */
     public Waypoint getWaypoint() {
         return new Waypoint(getY(), getX());
-    }
-
-    public void set(double x, double y) {
-        this.pose = new Pose2d(new Translation2d(x, y), new Rotation2d(yaw.get()));
-        this.lastLeftPosition = 0;
-        this.lastRightPosition = 0;
     }
 }

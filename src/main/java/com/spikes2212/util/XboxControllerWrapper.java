@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
- * a class that handles the communication between an Xbox controller and the code
+ * A class that handles the communication between an Xbox 360 or Xbox One controller and the code.
+ *
  * @author Tal Sitton
  */
 public class XboxControllerWrapper extends Joystick {
