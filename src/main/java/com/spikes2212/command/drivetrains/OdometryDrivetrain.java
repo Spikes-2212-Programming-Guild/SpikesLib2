@@ -23,7 +23,7 @@ public abstract class OdometryDrivetrain extends TankDrivetrain {
 
     @Override
     public void periodic() {
-        super.periodic();
         getHandler().calculate();
+        super.periodic();
     }
 }
