@@ -16,7 +16,7 @@ public class BustedMotorControllerGroup extends MotorControllerGroup {
     /**
      * The amount you want to correct the MotorControllerGroup (range 0.1-1).
      */
-    private Supplier<Double> correction;
+    protected Supplier<Double> correction;
 
     public BustedMotorControllerGroup(Supplier<Double> correction, MotorController motorController, MotorController... motorControllers) {
         super(motorController, motorControllers);
