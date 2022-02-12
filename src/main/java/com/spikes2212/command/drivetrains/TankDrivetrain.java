@@ -5,9 +5,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
- * This class represents a type of Drivetrain that its left and right sides are
- * controlled independently, allowing it to move by giving each side a speed
- * value separately.
+ * This class represents a type of Drivetrain that its left and right sides are controlled independently,
+ * allowing it to move by giving each side a speed value separately.
  *
  * <p> It can move forwards/backwards by giving both its sides an equal speed or
  * turn by giving the sides different speeds </p>
