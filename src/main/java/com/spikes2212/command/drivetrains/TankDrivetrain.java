@@ -18,7 +18,7 @@ public class TankDrivetrain extends SubsystemBase {
 
     protected MotorController leftController;
     protected MotorController rightController;
-    private DifferentialDrive drive;
+    private final DifferentialDrive drive;
 
     public TankDrivetrain(MotorController left, MotorController right) {
         this.leftController = left;

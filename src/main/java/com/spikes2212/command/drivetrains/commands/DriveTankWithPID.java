@@ -20,47 +20,47 @@ public class DriveTankWithPID extends CommandBase {
     /**
      * The drivetrain this command operates on.
      */
-    private final TankDrivetrain drivetrain;
+    protected final TankDrivetrain drivetrain;
 
     /**
      * The PID Settings for the PID loop operating on the left side of the drivetrain.
      */
-    private PIDSettings leftPIDSettings;
+    protected PIDSettings leftPIDSettings;
 
     /**
      * The PID Settings for the PID loop operating on the right side of the drivetrain.
      */
-    private PIDSettings rightPIDSettings;
+    protected PIDSettings rightPIDSettings;
 
     /**
      * The PID Controller of the PID loop operating on the left side of the drivetrain.
      */
-    private PIDController leftPIDController;
+    protected PIDController leftPIDController;
 
     /**
      * The PID Controller of the PID loop operating on the right side of the drivetrain.
      */
-    private PIDController rightPIDController;
+    protected PIDController rightPIDController;
 
     /**
      * The setpoint the left side of the drivetrain should reach.
      */
-    private Supplier<Double> leftSetpoint;
+    protected Supplier<Double> leftSetpoint;
 
     /**
      * The setpoint the right side of the drivetrain should reach.
      */
-    private Supplier<Double> rightSetpoint;
+    protected Supplier<Double> rightSetpoint;
 
     /**
      * How far the left side of the drivetrain drove.
      */
-    private Supplier<Double> leftSource;
+    protected Supplier<Double> leftSource;
 
     /**
      * How far the right side of the drivetrain drove.
      */
-    private Supplier<Double> rightSource;
+    protected Supplier<Double> rightSource;
 
     /**
      * The last time the left side of the drivetrain was not within its target zone.
@@ -75,22 +75,22 @@ public class DriveTankWithPID extends CommandBase {
     /**
      * The FeedForwards Settings of the FeedForward loop operating on the left side of the drivetrain.
      */
-    private FeedForwardSettings leftFeedForwardSettings;
+    protected FeedForwardSettings leftFeedForwardSettings;
 
     /**
      * The FeedForwards Settings of the FeedForward loop operating on the right side of the drivetrain.
      */
-    private FeedForwardSettings rightFeedForwardSettings;
+    protected FeedForwardSettings rightFeedForwardSettings;
 
     /**
      * The FeedForwards Controller of the FeedForward loop operating on the left side of the drivetrain.
      */
-    private FeedForwardController leftFeedForwardController;
+    protected FeedForwardController leftFeedForwardController;
 
     /**
      * The FeedForwards Controller of the FeedForward loop operating on the right side of the drivetrain.
      */
-    private FeedForwardController rightFeedForwardController;
+    protected FeedForwardController rightFeedForwardController;
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                             Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
