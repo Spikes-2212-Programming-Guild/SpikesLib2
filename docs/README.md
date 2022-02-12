@@ -1,5 +1,5 @@
 <div style="font-family: Calibri">
-SpikesLib is a library that extends <a href="https://github.com/wpilibsuite/allwpilib">WPILib</a> written by the FRC team The
+SpikesLib is a library that extends <a href="https://github.com/wpilibsuite/allwpilib" target="_blank" rel="noopener noreferrer>WPILib</a> written by the FRC team The
 Spikes#2212.
 
 
@@ -22,7 +22,8 @@ Spikeslib has been updated to support WPILib 2022.
 <h2 style="color: #0015AB;" >2020 Season</h2>
 
 For this season, SpikesLib has been moved to this repository due to the extensive changes in WPILib. <br>
-The old version is still available at the [old repository](https://github.com/Spikes-2212-Programming-Guild/SpikesLib).
+The old version is still available at the <a href="https://github.com/Spikes-2212-Programming-Guild/SpikesLib"
+target="_blank" rel="noopener noreferrer">old repository</a>.
 
 <h2 style="color: #0015AB;">Development</h2>
 SpikesLib is developed in a feature branches workflow. <br>
