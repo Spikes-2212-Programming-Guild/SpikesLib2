@@ -20,7 +20,6 @@ public class BustedMotorControllerGroup extends MotorControllerGroup {
 
     public BustedMotorControllerGroup(Supplier<Double> correction, MotorController motorController, MotorController... motorControllers) {
         super(motorController, motorControllers);
-
         this.correction = correction;
     }
 
