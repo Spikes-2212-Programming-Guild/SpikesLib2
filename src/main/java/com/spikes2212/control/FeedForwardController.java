@@ -36,7 +36,7 @@ public class FeedForwardController {
     /**
      * The calling period for the calculate function.
      */
-    private double period;
+    private final double period;
 
     public FeedForwardController(double kS, double kV, double kA, double kG, double period) {
         this.kS = kS;

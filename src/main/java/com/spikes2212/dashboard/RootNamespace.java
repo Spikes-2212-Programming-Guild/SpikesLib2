@@ -13,10 +13,10 @@ public class RootNamespace implements Namespace {
     private final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
 
     protected String name;
-    private Map<String, Supplier<String>> stringFields;
-    private Map<String, Supplier<? extends Number>> numberFields;
-    private Map<String, Supplier<Boolean>> booleanFields;
-    private NetworkTable table;
+    protected final Map<String, Supplier<String>> stringFields;
+    protected final Map<String, Supplier<? extends Number>> numberFields;
+    protected final Map<String, Supplier<Boolean>> booleanFields;
+    protected final NetworkTable table;
 
     public RootNamespace(String name) {
         this.name = name;
