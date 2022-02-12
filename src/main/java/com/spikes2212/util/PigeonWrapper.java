@@ -10,7 +10,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 public class PigeonWrapper {
     
     public double[] values = new double[3];
-    protected PigeonIMU pigeon;
+    protected final PigeonIMU pigeon;
 
     public PigeonWrapper(int canPort) {
         pigeon = new PigeonIMU(canPort);
