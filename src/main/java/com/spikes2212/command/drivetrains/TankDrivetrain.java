@@ -23,7 +23,7 @@ public class TankDrivetrain extends SubsystemBase {
     protected MotorController rightController;
     private final DifferentialDrive drive;
 
-    public TankDrivetrain(MotorController left, MotorController right, String namespaceName) {
+    public TankDrivetrain(String namespaceName, MotorController left, MotorController right) {
         this.leftController = left;
         this.rightController = right;
         rightController.setInverted(true);
