@@ -1,5 +1,6 @@
 package com.spikes2212.command.drivetrains;
 
+import com.spikes2212.dashboard.RootNamespace;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,15 +16,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class TankDrivetrain extends SubsystemBase {
 
+    protected RootNamespace rootNamespace;
     protected MotorController leftController;
     protected MotorController rightController;
     private final DifferentialDrive drive;
 
-    public TankDrivetrain(MotorController left, MotorController right) {
+    public TankDrivetrain(String namespaceName, MotorController left, MotorController right) {
         this.leftController = left;
         this.rightController = right;
         rightController.setInverted(true);
         drive = new DifferentialDrive(leftController, rightController);
+        this.rootNamespace = new RootNamespace(namespaceName);
     }
 
     /**
@@ -103,5 +106,14 @@ public class TankDrivetrain extends SubsystemBase {
     public void stop() {
         leftController.stopMotor();
         rightController.stopMotor();
+    }
+
+    @Override
+    public void periodic() {
+        rootNamespace.update();
+    }
+
+    public void configureDashboard() {
+
     }
 }

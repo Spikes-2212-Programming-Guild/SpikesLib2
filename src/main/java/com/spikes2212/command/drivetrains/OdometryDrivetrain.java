@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 public abstract class OdometryDrivetrain extends TankDrivetrain {
 
-    public OdometryDrivetrain(MotorController left, MotorController right) {
-        super(left, right);
+    public OdometryDrivetrain(String namespaceName, MotorController left, MotorController right) {
+        super(namespaceName, left, right);
     }
 
     public abstract OdometryHandler getHandler();
@@ -24,5 +24,6 @@ public abstract class OdometryDrivetrain extends TankDrivetrain {
     @Override
     public void periodic() {
         getHandler().calculate();
+        super.periodic();
     }
 }
