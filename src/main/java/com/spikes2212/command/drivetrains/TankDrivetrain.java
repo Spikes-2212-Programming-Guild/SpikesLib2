@@ -28,6 +28,10 @@ public class TankDrivetrain extends SubsystemBase {
         drive = new DifferentialDrive(leftController, rightController);
         this.rootNamespace = new RootNamespace(namespaceName);
     }
+    
+    public TankDrivetrain(MotorController left, MotorController right) {
+        this("Tank Drivetrain", left, right);
+    }
 
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
