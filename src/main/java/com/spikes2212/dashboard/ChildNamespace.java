@@ -4,6 +4,10 @@ import edu.wpi.first.util.sendable.Sendable;
 
 import java.util.function.Supplier;
 
+/**
+ * This class represents a "subdirectory" of another {@link ChildNamespace} or {@link RootNamespace} which can store
+ * values or other ChildNamespaces.
+ */
 public class ChildNamespace extends RootNamespace {
 
     protected Namespace parent;

@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+/**
+ * This class represents a "root directory" in the namespace where other {@link ChildNamespace}/values can be saved.
+ */
 public class RootNamespace implements Namespace {
 
     private final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();

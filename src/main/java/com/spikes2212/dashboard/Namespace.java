@@ -4,6 +4,9 @@ import edu.wpi.first.util.sendable.Sendable;
 
 import java.util.function.Supplier;
 
+/**
+ * This is the base interface which all namespaces inherit from.
+ */
 public interface Namespace {
 
     Supplier<Double> addConstantDouble(String name, double value);
