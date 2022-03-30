@@ -4,7 +4,7 @@ import com.spikes2212.command.drivetrains.OdometryDrivetrain;
 import com.spikes2212.control.*;
 import com.spikes2212.path.PurePursuitController;
 import com.spikes2212.path.Waypoint;
-import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.List;
@@ -43,8 +43,10 @@ public class FollowPath extends CommandBase {
                 lookaheadDistance, maxAcceleration, drivetrain.getWidth());
         purePursuitController.getOdometryHandler().set(0, 0);
         purePursuitController.reset();
-        leftFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(), 0.02);
-        rightFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(), 0.02);
+        leftFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(),
+                FeedForwardController.DEFAULT_PERIOD);
+        rightFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(),
+                FeedForwardController.DEFAULT_PERIOD);
         leftFeedForwardController.reset();
         rightFeedForwardController.reset();
         leftController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());

@@ -9,6 +9,7 @@ import java.util.function.Supplier;
  * A command that moves a {@link TankDrivetrain} while rotating it, using the curvature drive method written by WPILIB.
  *
  * @author Simon Kharmatsky
+ * @see TankDrivetrain
  */
 public class DriveCurvature extends CommandBase {
 

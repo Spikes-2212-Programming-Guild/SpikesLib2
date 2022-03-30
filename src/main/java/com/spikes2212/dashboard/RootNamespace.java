@@ -1,21 +1,26 @@
 package com.spikes2212.dashboard;
 
 import edu.wpi.first.networktables.*;
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+/**
+ * This class represents a "root directory" in the namespace where other {@link ChildNamespace} and values can be saved.
+ */
 public class RootNamespace implements Namespace {
+
     private final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
 
     protected String name;
-    private Map<String, Supplier<String>> stringFields;
-    private Map<String, Supplier<? extends Number>> numberFields;
-    private Map<String, Supplier<Boolean>> booleanFields;
-    private NetworkTable table;
+    protected final Map<String, Supplier<String>> stringFields;
+    protected final Map<String, Supplier<? extends Number>> numberFields;
+    protected final Map<String, Supplier<Boolean>> booleanFields;
+    protected final NetworkTable table;
 
     public RootNamespace(String name) {
         this.name = name;
@@ -29,7 +34,7 @@ public class RootNamespace implements Namespace {
     @Override
     public Supplier<Double> addConstantDouble(String name, double value) {
         NetworkTableEntry entry = table.getEntry(name);
-        if (! table.containsKey(name)) {
+        if (!table.containsKey(name)) {
             entry.setDouble(value);
             entry.setPersistent();
         }
@@ -39,7 +44,7 @@ public class RootNamespace implements Namespace {
     @Override
     public Supplier<Integer> addConstantInt(String name, int value) {
         NetworkTableEntry entry = table.getEntry(name);
-        if (! table.containsKey(name)) {
+        if (!table.containsKey(name)) {
             entry.setNumber(value);
             entry.setPersistent();
         }
@@ -49,7 +54,7 @@ public class RootNamespace implements Namespace {
     @Override
     public Supplier<String> addConstantString(String name, String value) {
         NetworkTableEntry entry = table.getEntry(name);
-        if (! table.containsKey(name)) {
+        if (!table.containsKey(name)) {
             entry.setString(value);
             entry.setPersistent();
         }
@@ -67,7 +72,10 @@ public class RootNamespace implements Namespace {
         if (sddata == null || sddata != value) {
             TABLES_TO_DATA.put(key, value);
             NetworkTable dataTable = table.getSubTable(key);
-            SendableRegistry.publish(value, dataTable);
+            SendableBuilderImpl builder = new SendableBuilderImpl();
+            builder.setTable(dataTable);
+            SendableRegistry.publish(value, builder);
+            builder.startListeners();
             dataTable.getEntry(".name").setString(key);
         }
     }

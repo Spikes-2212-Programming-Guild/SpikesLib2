@@ -11,8 +11,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * @author Yotam Yizhar
  */
 public class Limelight {
-    private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
-    private static NetworkTableInstance table;
+
+    protected static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
+    protected static NetworkTableInstance table;
 
     public Limelight() {
         rootNamespace.putBoolean("Is on target", this::isOnTarget);
@@ -31,11 +32,22 @@ public class Limelight {
         return 37.905 * Math.pow(x, -0.977) * 0.05 / getTargetWidthInPixels();
     }
 
+    public void periodic() {
+        rootNamespace.update();
+    }
+
     /**
      * @return whether a target is detected by the limelight
      */
     public boolean isOnTarget() {
         return getValue("tv").getDouble(0) == 1;
+    }
+
+    /**
+     * @return the current limelight's pipeline
+     */
+    public int getPipeline() {
+        return (int) getValue("getpipe").getNumber(0);
     }
 
     /**
@@ -88,7 +100,7 @@ public class Limelight {
     }
 
     /**
-     * sets pipeline number (0-9 value)
+     * Sets pipeline number (0-9 value).
      *
      * @param number pipeline number (0-9)
      */
@@ -96,12 +108,8 @@ public class Limelight {
         getValue("pipeline").setNumber(number);
     }
 
-    public void periodic() {
-        rootNamespace.update();
-    }
-
     /**
-     * retrieve an entry from the Limelight NetworkTable.
+     * Retrieves an entry from the Limelight NetworkTable.
      *
      * @param key key for entry
      * @return the value of the given entry

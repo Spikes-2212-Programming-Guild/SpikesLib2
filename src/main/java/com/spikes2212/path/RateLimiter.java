@@ -15,6 +15,16 @@ public class RateLimiter {
         this.period = period;
     }
 
+    private double clampRate(double rate) {
+        double maxRate = getMaxChange();
+        return Math.max(-maxRate, Math.min(maxRate, rate));
+    }
+
+    public double calculate(double targetVelocity) {
+        lastVelocity = lastVelocity + clampRate(targetVelocity - lastVelocity);
+        return lastVelocity;
+    }
+
     public double getPeriod() {
         return period;
     }
@@ -25,15 +35,5 @@ public class RateLimiter {
 
     public double getMaxChange() {
         return maxAcceleration * period;
-    }
-
-    private double clampRate(double rate) {
-        double maxRate = getMaxChange();
-        return Math.max(-maxRate, Math.min(maxRate, rate));
-    }
-
-    public double calculate(double targetVelocity) {
-        lastVelocity = lastVelocity + clampRate(targetVelocity - lastVelocity);
-        return lastVelocity;
     }
 }

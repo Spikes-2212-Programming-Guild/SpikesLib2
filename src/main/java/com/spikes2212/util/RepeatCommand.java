@@ -5,12 +5,13 @@ import edu.wpi.first.wpilibj2.command.*;
 import java.util.Set;
 
 /**
- * a command that repeats a sequence of commands indefinitely
- * @author Eran Gold
+ * A command that repeats a sequence of commands indefinitely.
+ *
+ * @author Eran Goldstein
  */
 public class RepeatCommand extends CommandBase {
 
-    private Command command;
+    private final Command command;
 
     /**
      * Constructs a RepeatCommand that will repeat a SequentialCommandGroup that will include the commands given.

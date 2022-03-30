@@ -1,46 +1,39 @@
-# SpikesLib2
-
-SpikesLib is a library that extends [WPILib](https://github.com/wpilibsuite/allwpilib) written by the FRC team The Spikes#2212.
-
-
-## 2020 Season
-
-For this season, SpikesLib was moved to this repository due to the extensive changes in WPILib. <br>
-The old version is still available at the [old repository](https://github.com/Spikes-2212-Programming-Guild/SpikesLib)
+<body style="font-family: Calibri">
+<h1 style="color: #00156E">SpikesLib</h1>
+SpikesLib is a library that extends <a href="https://github.com/wpilibsuite/allwpilib">WPILib</a> written by the FRC team The
+Spikes#2212.
 
 
-## Packages
+<h2 style="color: #00156E;">Packages</h2>
 
 - command - extensions for WPILib's Command Based framework
 - control - controller wrappers and custom controllers
+- dashboard - wrappers for SmartDashboard elements
 - path - path following code and pure pursuit algorithm
 - util - additional utilities
 
+<h2 style="color: #00156E;">Installation</h2>
+After creating a Robot Project, import SpikesLib as an online vendor libray, using this link: <br> <br>
+https://spikes2212.com/SpikesLib.json
 
-## Installation
-After creating a Robot Project and importing the CTRE libraries, change the build.gradle as written:<br><br>
+<h2 style="color: #00156E;">2022 Season</h2>
 
-1. Add: <br>
-   ```
-   repositories {
-       maven { 
-           url "https://jitpack.io"
-       }
-    }
-   ```
-   <br>
-2. Add: <br>
-   ```
-   dependencies {
-       implementation 'com.github.Spikes-2212-Programming-Guild:SpikesLib2:master'
-   } 
-   ```
-Then, reload gradle and perform a build.
+Spikeslib has been updated to support WPILib 2022.
 
-## Development
+<h2 style="color: #00156E;" >2020 Season</h2>
 
+For this season, SpikesLib has been moved to this repository due to the extensive changes in WPILib. <br>
+The old version is still available at the [old repository](https://github.com/Spikes-2212-Programming-Guild/SpikesLib).
+
+<h2 style="color: #00156E;">Development</h2>
 SpikesLib is developed in a feature branches workflow. <br>
-All feature branches are merged into _```dev```_ branch after testing, which in turn is merged into 
-_```master```_ after it passing complete testing <br>
+All feature branches are merged into <code><i>dev</i></code> branch after testing, which in turn is merged into
+<code><i>master</i></code> after it passing complete testing <br>
+Branches should be named according to the following convention - <code><i>name_package_feature</i></code>
 
-Branches should be named according to the following convention - _```name-package-feature```_
+
+<h2 style="color: #00156E;">Help us out!</h2>
+We accept help from everyone! <br>
+If you want to contribute, simply create a branch and open up a pull request, according to the instructions above.
+
+</body>

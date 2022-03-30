@@ -6,13 +6,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
 /**
- * This class makes an encoder that is connected to a {@link WPI_TalonSRX} to a
- * PIDSource.
+ * This class makes an encoder that is connected to a {@link WPI_TalonSRX} to a PIDSource.
+ *
  * @author Tuval Rivkinind Barlev
  */
 public class TalonEncoder {
 
-    private BaseTalon talon;
+    protected final BaseTalon talon;
     private double distancePerPulse;
 
     /**
@@ -23,11 +23,9 @@ public class TalonEncoder {
      * @param distancePerPulse Counts per revolution of the motor. Can be used to change the
      *                         scale of the value of the encoder.
      */
-
     public TalonEncoder(BaseTalon talon, double distancePerPulse) {
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
         talon.setSensorPhase(true);
-
         this.talon = talon;
         this.distancePerPulse = distancePerPulse;
     }
@@ -40,6 +38,13 @@ public class TalonEncoder {
      */
     public TalonEncoder(BaseTalon talon) {
         this(talon, 1);
+    }
+
+    /**
+     * Resets the talon's relative position
+     */
+    public void reset() {
+        talon.setSelectedSensorPosition(0);
     }
 
     public double getDistancePerPulse() {
@@ -57,12 +62,4 @@ public class TalonEncoder {
     public double getPosition() {
         return talon.getSelectedSensorPosition() * distancePerPulse;
     }
-
-    /**
-     * resets the talon's relative position
-     */
-    public void reset() {
-        talon.setSelectedSensorPosition(0);
-    }
-
 }
