@@ -10,7 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  *
  * @author Tuval Rivkinind Barlev
  */
-public class TalonEncoder {
+public class    TalonEncoder {
 
     protected final BaseTalon talon;
     private double distancePerPulse;

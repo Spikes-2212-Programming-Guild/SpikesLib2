@@ -17,8 +17,7 @@ public class Limelight {
 
     public Limelight() {
         rootNamespace.putBoolean("is on target", this::isOnTarget);
-        rootNamespace.putNumber
-                ("horizontal offset from target in degrees", this::getHorizontalOffsetFromTargetInDegrees);
+        rootNamespace.putNumber("horizontal offset from target in degrees", this::getHorizontalOffsetFromTargetInDegrees);
         rootNamespace.putNumber("vertical offset from target", this::getVerticalOffsetFromTargetInDegrees);
         rootNamespace.putNumber("target screen fill percent", this::getTargetAreaPercentage);
         rootNamespace.putNumber("pipeline latency", this::getTargetLatency);
