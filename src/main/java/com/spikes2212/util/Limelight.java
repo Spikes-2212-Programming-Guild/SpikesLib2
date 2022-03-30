@@ -16,11 +16,11 @@ public class Limelight {
     protected static NetworkTableInstance table;
 
     public Limelight() {
-        rootNamespace.putBoolean("Is on target", this::isOnTarget);
-        rootNamespace.putNumber("Horizontal offset from target", this::getHorizontalOffsetFromTarget);
-        rootNamespace.putNumber("Vertical offset from target", this::getVerticalOffsetFromTarget);
-        rootNamespace.putNumber("Target screen fill percent", this::getTargetAreaPercentage);
-        rootNamespace.putNumber("Pipeline latency", this::getTargetLatency);
+        rootNamespace.putBoolean("is on target", this::isOnTarget);
+        rootNamespace.putNumber("horizontal offset from target", this::getHorizontalOffsetFromTarget);
+        rootNamespace.putNumber("vertical offset from target", this::getVerticalOffsetFromTarget);
+        rootNamespace.putNumber("target screen fill percent", this::getTargetAreaPercentage);
+        rootNamespace.putNumber("pipeline latency", this::getTargetLatency);
     }
 
     public void periodic() {
