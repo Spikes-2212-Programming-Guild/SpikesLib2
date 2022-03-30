@@ -12,7 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  */
 public class Limelight {
 
-    protected static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
+    protected static RootNamespace rootNamespace = new RootNamespace("limelight values");
     protected static NetworkTableInstance table;
 
     public Limelight() {
@@ -50,6 +50,7 @@ public class Limelight {
 
     /**
      * @return the raw horizontal offset from crosshair to target in pixels
+     * TODO multiply by resolution
      */
     public double getHorizontalOffsetFromTargetInPixels() {
         return getValue("tx0").getDouble(0.00);
@@ -64,6 +65,7 @@ public class Limelight {
 
     /**
      * @return the raw vertical offset from crosshair to target in pixels
+     * TODO multiply by resolution
      */
     public double getVerticalOffsetFromTargetInPixels() {
         return getValue("ty0").getDouble(0.00);
