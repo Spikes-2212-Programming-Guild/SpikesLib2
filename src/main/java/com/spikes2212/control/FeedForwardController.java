@@ -54,7 +54,9 @@ public class FeedForwardController {
         this(kS, kV, kA, 0, period);
     }
 
-
+    public FeedForwardController(FeedForwardSettings settings, double period) {
+        this(settings.getkS(), settings.getkV(), settings.getkA(), settings.getkG(), period);
+    }
 
     public void setGains(double kV, double kA) {
         this.kV = kV;

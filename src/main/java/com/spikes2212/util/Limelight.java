@@ -12,24 +12,15 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  */
 public class Limelight {
 
-    protected static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
+    protected static RootNamespace rootNamespace = new RootNamespace("limelight values");
     protected static NetworkTableInstance table;
 
     public Limelight() {
-        rootNamespace.putBoolean("Is on target", this::isOnTarget);
-        rootNamespace.putNumber("Horizontal offset from target", this::getHorizontalOffsetFromTarget);
-        rootNamespace.putNumber("Vertical offset from target", this::getVerticalOffsetFromTarget);
-        rootNamespace.putNumber("Target screen fill percent", this::getTargetAreaPercentage);
-        rootNamespace.putNumber("Pipeline latency", this::getTargetLatency);
-        rootNamespace.putNumber("Distance from target", this::calculateDistance);
-    }
-
-    /**
-     * @return the distance between the limelight and the target using a (pre-calculated formula with a graph)
-     */
-    private double calculateDistance() {
-        double x = getTargetWidthInPixels();
-        return 37.905 * Math.pow(x, -0.977) * 0.05 / getTargetWidthInPixels();
+        rootNamespace.putBoolean("is on target", this::isOnTarget);
+        rootNamespace.putNumber("horizontal offset from target in degrees", this::getHorizontalOffsetFromTargetInDegrees);
+        rootNamespace.putNumber("vertical offset from target in degrees", this::getVerticalOffsetFromTargetInDegrees);
+        rootNamespace.putNumber("target screen fill percent", this::getTargetAreaPercentage);
+        rootNamespace.putNumber("pipeline latency", this::getTargetLatency);
     }
 
     public void periodic() {
@@ -53,15 +44,29 @@ public class Limelight {
     /**
      * @return the horizontal offset from crosshair to target (-27 degrees to 27 degrees)
      */
-    public double getHorizontalOffsetFromTarget() {
+    public double getHorizontalOffsetFromTargetInDegrees() {
         return getValue("tx").getDouble(0.00);
+    }
+
+    /**
+     * @return the raw horizontal offset from crosshair to target in pixels (-1 to 1)
+     */
+    public double getHorizontalOffsetFromTargetInPixels() {
+        return getValue("tx0").getDouble(0.00);
     }
 
     /**
      * @return the vertical offset from crosshair to target (-20.5 degrees to 20.5 degrees)
      */
-    public double getVerticalOffsetFromTarget() {
+    public double getVerticalOffsetFromTargetInDegrees() {
         return getValue("ty").getDouble(0.00);
+    }
+
+    /**
+     * @return the raw vertical offset from crosshair to target in pixels (-1 to 1)
+     */
+    public double getVerticalOffsetFromTargetInPixels() {
+        return getValue("ty0").getDouble(0.00);
     }
 
     /**
