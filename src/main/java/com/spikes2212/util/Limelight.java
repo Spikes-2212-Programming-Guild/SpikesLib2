@@ -21,15 +21,6 @@ public class Limelight {
         rootNamespace.putNumber("Vertical offset from target", this::getVerticalOffsetFromTarget);
         rootNamespace.putNumber("Target screen fill percent", this::getTargetAreaPercentage);
         rootNamespace.putNumber("Pipeline latency", this::getTargetLatency);
-        rootNamespace.putNumber("Distance from target", this::calculateDistance);
-    }
-
-    /**
-     * @return the distance between the limelight and the target using a (pre-calculated formula with a graph)
-     */
-    private double calculateDistance() {
-        double x = getTargetWidthInPixels();
-        return 37.905 * Math.pow(x, -0.977) * 0.05 / getTargetWidthInPixels();
     }
 
     public void periodic() {
