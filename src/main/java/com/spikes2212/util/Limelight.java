@@ -49,8 +49,7 @@ public class Limelight {
     }
 
     /**
-     * @return the raw horizontal offset from crosshair to target in pixels
-     * TODO multiply by resolution
+     * @return the raw horizontal offset from crosshair to target in pixels (-1 to 1)
      */
     public double getHorizontalOffsetFromTargetInPixels() {
         return getValue("tx0").getDouble(0.00);
@@ -64,8 +63,7 @@ public class Limelight {
     }
 
     /**
-     * @return the raw vertical offset from crosshair to target in pixels
-     * TODO multiply by resolution
+     * @return the raw vertical offset from crosshair to target in pixels (-1 to 1)
      */
     public double getVerticalOffsetFromTargetInPixels() {
         return getValue("ty0").getDouble(0.00);
