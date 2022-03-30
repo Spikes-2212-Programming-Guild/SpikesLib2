@@ -49,6 +49,14 @@ public class Limelight {
     }
 
     /**
+     * @deprecated Use {@link #getHorizontalOffsetFromTargetInDegrees()}.
+     */
+    @Deprecated(since = "2022", forRemoval = true)
+    public double getHorizontalOffsetFromTarget() {
+        return getHorizontalOffsetFromTargetInDegrees();
+    }
+
+    /**
      * @return the raw horizontal offset from crosshair to target in pixels (-1 to 1)
      */
     public double getHorizontalOffsetFromTargetInPixels() {
@@ -60,6 +68,14 @@ public class Limelight {
      */
     public double getVerticalOffsetFromTargetInDegrees() {
         return getValue("ty").getDouble(0.00);
+    }
+
+    /**
+     * @deprecated Use {@link #getVerticalOffsetFromTargetInDegrees()}.
+     */
+    @Deprecated(since = "2022", forRemoval = true)
+    public double getVerticalOffsetFromTarget() {
+        return getVerticalOffsetFromTargetInDegrees();
     }
 
     /**
