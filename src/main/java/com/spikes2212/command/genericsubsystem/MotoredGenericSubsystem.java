@@ -15,7 +15,6 @@ import java.util.function.Supplier;
 public class MotoredGenericSubsystem extends GenericSubsystem {
 
     protected MotorControllerGroup motorControllerGroup;
-    protected RootNamespace rootNamespace;
 
     /**
      * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name, the given
@@ -26,9 +25,9 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * @param namespaceName    the name of the subsystem's namespace
      * @param motorControllers the motor controllers in the subsystem
      */
-    public MotoredGenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed, String namespaceName,
+    public MotoredGenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed,
                                    MotorController... motorControllers) {
-        super(minSpeed, maxSpeed);
+        super(namespaceName, minSpeed, maxSpeed);
         this.rootNamespace = new RootNamespace(namespaceName);
         this.motorControllerGroup = new MotorControllerGroup(motorControllers);
     }
@@ -42,9 +41,9 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * @param namespaceName    the name of the subsystem's namespace
      * @param motorControllers the motor controllers in the subsystem
      */
-    public MotoredGenericSubsystem(double minSpeed, double maxSpeed, String namespaceName,
+    public MotoredGenericSubsystem(String namespaceName, double minSpeed, double maxSpeed,
                                    MotorController... motorControllers) {
-        this(() -> minSpeed, () -> maxSpeed, namespaceName, motorControllers);
+        this(namespaceName, () -> minSpeed, () -> maxSpeed, motorControllers);
 
     }
 
@@ -56,7 +55,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(String namespaceName, MotorController... motorControllers) {
-        this(() -> -1.0, () -> 1.0, namespaceName, motorControllers);
+        this(namespaceName, () -> -1.0, () -> 1.0, motorControllers);
     }
 
     @Override
@@ -74,8 +73,9 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
         motorControllerGroup.stopMotor();
     }
 
+    /**
+     * Add any commands or data from this subsystem to the dashboard.
+     */
     @Override
-    public void periodic() {
-        rootNamespace.update();
-    }
+    public void configureDashboard() {}
 }

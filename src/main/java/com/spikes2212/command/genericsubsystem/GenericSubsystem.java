@@ -1,7 +1,7 @@
 package com.spikes2212.command.genericsubsystem;
 
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.spikes2212.command.DashboardSubsystem;
 
 import java.util.function.Supplier;
 
@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  *
  * @author Yuval Levy
  */
-public abstract class GenericSubsystem extends SubsystemBase {
+public abstract class GenericSubsystem extends DashboardSubsystem {
 
     private double currentSpeed = 0;
     protected Supplier<Double> maxSpeed;
@@ -19,8 +19,8 @@ public abstract class GenericSubsystem extends SubsystemBase {
     /**
      * Constructs a new instance of GenericSubsystem.
      */
-    public GenericSubsystem() {
-        this(-1, 1);
+    public GenericSubsystem(String namespaceName) {
+        this(namespaceName, -1, 1);
     }
 
     /**
@@ -29,8 +29,8 @@ public abstract class GenericSubsystem extends SubsystemBase {
      * @param minSpeed the minimum speed
      * @param maxSpeed the maximum speed
      */
-    public GenericSubsystem(double minSpeed, double maxSpeed) {
-        this(() -> minSpeed, () -> maxSpeed);
+    public GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed) {
+        this(namespaceName, () -> minSpeed, () -> maxSpeed);
     }
 
     /**
@@ -39,7 +39,8 @@ public abstract class GenericSubsystem extends SubsystemBase {
      * @param minSpeed the minimum speed
      * @param maxSpeed the maximum speed
      */
-    public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
+    public GenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
+        super(namespaceName);
         this.maxSpeed = maxSpeed;
         this.minSpeed = minSpeed;
     }
@@ -86,11 +87,5 @@ public abstract class GenericSubsystem extends SubsystemBase {
      */
     public double getSpeed() {
         return currentSpeed;
-    }
-
-    /**
-     * Add any commands or data from this subsystem to the dashboard.
-     */
-    public void configureDashboard() {
     }
 }

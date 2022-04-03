@@ -1,9 +1,8 @@
 package com.spikes2212.command.drivetrains;
 
-import com.spikes2212.dashboard.RootNamespace;
+import com.spikes2212.command.DashboardSubsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * This class represents a type of Drivetrain that its left and right sides are controlled independently,
@@ -14,19 +13,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  *
  * @author Yuval Levy
  */
-public class TankDrivetrain extends SubsystemBase {
+public class TankDrivetrain extends DashboardSubsystem {
 
-    protected RootNamespace rootNamespace;
     protected MotorController leftController;
     protected MotorController rightController;
     private final DifferentialDrive drive;
 
     public TankDrivetrain(String namespaceName, MotorController left, MotorController right) {
+        super(namespaceName);
         this.leftController = left;
         this.rightController = right;
         rightController.setInverted(true);
         drive = new DifferentialDrive(leftController, rightController);
-        this.rootNamespace = new RootNamespace(namespaceName);
     }
     
     public TankDrivetrain(MotorController left, MotorController right) {
@@ -112,12 +110,9 @@ public class TankDrivetrain extends SubsystemBase {
         rightController.stopMotor();
     }
 
+    /**
+     * Add any commands or data from this subsystem to the dashboard.
+     */
     @Override
-    public void periodic() {
-        rootNamespace.update();
-    }
-
-    public void configureDashboard() {
-
-    }
+    public void configureDashboard() {}
 }
