@@ -31,7 +31,6 @@ public class PigeonWrapper implements Gyro {
         this.axis = rotationAxis;
     }
 
-
     public PigeonWrapper(int canPort) {
         this(canPort, RotationAxis.Z);
     }
@@ -39,6 +38,24 @@ public class PigeonWrapper implements Gyro {
     public PigeonWrapper(TalonSRX talonSRX) {
         this(talonSRX, RotationAxis.Z);
     }
+
+    /**
+     * Calibrates the pigeon based on the yaw sent.
+     *
+     * @param yaw the yaw the pigeon shall be calibrated to
+     */
+    public void calibrate(double yaw) {
+        pigeon.enterCalibrationMode(PigeonIMU.CalibrationMode.BootTareGyroAccel);
+        setYaw(yaw);
+    }
+
+    /**
+     * Calibrates the pigeon wrapper to yaw 0.
+     */
+    public void calibrate() {
+        calibrate(0);
+    }
+
 
     /**
      * Resets the yaw.
@@ -67,23 +84,6 @@ public class PigeonWrapper implements Gyro {
         if (axis == RotationAxis.Y)
             return values[1];
         return values[2];
-    }
-
-    /**
-     * Calibrates the pigeon based on the yaw sent.
-     *
-     * @param yaw the yaw the pigeon shall be calibrated to
-     */
-    public void calibrate(double yaw) {
-        pigeon.enterCalibrationMode(PigeonIMU.CalibrationMode.BootTareGyroAccel);
-        setYaw(yaw);
-    }
-
-    /**
-     * Calibrates the pigeon wrapper to yaw 0.
-     */
-    public void calibrate() {
-        calibrate(0);
     }
 
     /**
