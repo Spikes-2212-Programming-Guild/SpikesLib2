@@ -15,7 +15,7 @@ public class PigeonWrapper implements Gyro {
         X, Y, Z;
     }
 
-    public double[] values = new double[3];
+    protected final double[] values = new double[3];
     protected final PigeonIMU pigeon;
 
     private final RotationAxis axis;
@@ -55,12 +55,9 @@ public class PigeonWrapper implements Gyro {
         calibrate(0);
     }
 
-    /**
-     * Resets the yaw.
-     */
     @Override
     public void reset() {
-        setYaw(0);
+        calibrate();
     }
 
     /**
