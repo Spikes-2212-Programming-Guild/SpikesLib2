@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import java.util.HashSet;
 
 /**
- * A class that implements the {@link #SendableChooser} class in order to make an autonomous command chooser.
+ * A class that implements the {@link SendableChooser} class in order to make an autonomous command chooser.
  *
  * @author Ofri Rosenbaum
  * @see SendableChooser
