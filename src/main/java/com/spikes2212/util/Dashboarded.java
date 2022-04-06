@@ -14,5 +14,8 @@ public interface Dashboarded {
         getRootNamespace().update();
     }
 
+    /**
+     * Adds data to the dashboard.
+     */
     void configureDashboard();
 }

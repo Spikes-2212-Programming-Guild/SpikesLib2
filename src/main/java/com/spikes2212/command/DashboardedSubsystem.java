@@ -18,15 +18,16 @@ public abstract class DashboardedSubsystem extends SubsystemBase implements Dash
     }
 
     /**
-     * Add any commands or data from this subsystem to the dashboard.
+     * @return the subsystem's {@link #rootNamespace}
      */
-    public abstract void configureDashboard();
-
     @Override
     public RootNamespace getRootNamespace() {
         return rootNamespace;
     }
 
+    /**
+     * Updates the {@link Namespace}. Should be called in the {@code robotPeriodic()} method in {@code Robot}.
+     */
     @Override
     public void periodic() {
         Dashboarded.super.periodic();
