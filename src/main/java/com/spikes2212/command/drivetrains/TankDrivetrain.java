@@ -1,6 +1,6 @@
 package com.spikes2212.command.drivetrains;
 
-import com.spikes2212.command.DashboardSubsystem;
+import com.spikes2212.command.DashboardedSubsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
  *
  * @author Yuval Levy
  */
-public class TankDrivetrain extends DashboardSubsystem {
+public class TankDrivetrain extends DashboardedSubsystem {
 
     protected MotorController leftController;
     protected MotorController rightController;

@@ -1,7 +1,7 @@
 package com.spikes2212.command.genericsubsystem;
 
 
-import com.spikes2212.command.DashboardSubsystem;
+import com.spikes2212.command.DashboardedSubsystem;
 
 import java.util.function.Supplier;
 
@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  *
  * @author Yuval Levy
  */
-public abstract class GenericSubsystem extends DashboardSubsystem {
+public abstract class GenericSubsystem extends DashboardedSubsystem {
 
     private double currentSpeed = 0;
     protected Supplier<Double> maxSpeed;
