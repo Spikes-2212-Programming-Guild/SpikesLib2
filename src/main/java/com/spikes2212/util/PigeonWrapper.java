@@ -16,7 +16,7 @@ public class PigeonWrapper implements Gyro {
     protected final PigeonIMU pigeon;
 
     private double lastTime = 0;
-    private double lastAngle;
+    private double lastAngle = 0;
 
     public PigeonWrapper(int canPort) {
         pigeon = new PigeonIMU(canPort);
