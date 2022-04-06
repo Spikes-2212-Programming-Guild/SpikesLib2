@@ -56,7 +56,6 @@ public class PigeonWrapper implements Gyro {
         calibrate(0);
     }
 
-
     /**
      * Resets the yaw.
      */
