@@ -12,18 +12,34 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
  */
 public class PigeonWrapper implements Gyro {
 
+    private enum RotationAxis {
+        X, Y, Z;
+    }
+
     public double[] values = new double[3];
     protected final PigeonIMU pigeon;
 
     private double lastTime = 0;
     private double lastAngle = 0;
+    private final RotationAxis axis;
+
+    public PigeonWrapper (int canPort, RotationAxis rotationAxis) {
+        this.pigeon = new PigeonIMU(canPort);
+        this.axis = rotationAxis;
+    }
+
+    public PigeonWrapper(TalonSRX talonSRX, RotationAxis rotationAxis) {
+        this.pigeon = new PigeonIMU(talonSRX);
+        this.axis = rotationAxis;
+    }
+
 
     public PigeonWrapper(int canPort) {
-        pigeon = new PigeonIMU(canPort);
+        this(canPort, RotationAxis.Z);
     }
 
     public PigeonWrapper(TalonSRX talonSRX) {
-        pigeon = new PigeonIMU(talonSRX);
+        this(talonSRX, RotationAxis.Z);
     }
 
     /**
@@ -35,6 +51,10 @@ public class PigeonWrapper implements Gyro {
 
     @Override
     public double getAngle() {
+        if (axis == RotationAxis.X)
+            return getPitch();
+        if (axis == RotationAxis.Y)
+            return getRoll();
         return getYaw();
     }
 
@@ -44,7 +64,7 @@ public class PigeonWrapper implements Gyro {
     @Override
     public double getRate() {
         double currentTime = Timer.getFPGATimestamp() / 1000;
-        double currentAngle = getYaw();
+        double currentAngle = getAngle();
         double rate = (currentAngle - lastAngle) / (currentTime - lastTime);
         lastAngle = currentAngle;
         lastTime = currentTime;
@@ -100,6 +120,16 @@ public class PigeonWrapper implements Gyro {
     public double getYaw() {
         pigeon.getYawPitchRoll(values);
         return values[0];
+    }
+
+    public double getPitch() {
+        pigeon.getYawPitchRoll(values);
+        return values[1];
+    }
+
+    public double getRoll() {
+        pigeon.getYawPitchRoll(values);
+        return values[2];
     }
 
     /**
