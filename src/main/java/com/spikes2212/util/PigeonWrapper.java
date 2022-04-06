@@ -19,8 +19,6 @@ public class PigeonWrapper implements Gyro {
     public double[] values = new double[3];
     protected final PigeonIMU pigeon;
 
-    private double lastTime = 0;
-    private double lastAngle = 0;
     private final RotationAxis axis;
 
     public PigeonWrapper (int canPort, RotationAxis rotationAxis) {
@@ -59,16 +57,16 @@ public class PigeonWrapper implements Gyro {
     }
 
     /**
-     * @return the yaw change rate in degrees per second
+     * @return the angle change rate in degrees per second
      */
     @Override
     public double getRate() {
-        double currentTime = Timer.getFPGATimestamp() / 1000;
-        double currentAngle = getAngle();
-        double rate = (currentAngle - lastAngle) / (currentTime - lastTime);
-        lastAngle = currentAngle;
-        lastTime = currentTime;
-        return rate;
+        pigeon.getRawGyro(values);
+        if (axis == RotationAxis.X)
+            return values[0];
+        if (axis == RotationAxis.Y)
+            return values[1];
+        return values[2];
     }
 
     /**
