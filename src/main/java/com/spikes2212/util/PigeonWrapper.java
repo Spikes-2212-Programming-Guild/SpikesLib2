@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
  */
 public class PigeonWrapper implements Gyro {
 
-    private enum RotationAxis {
+    public enum RotationAxis {
         X, Y, Z;
     }
 
