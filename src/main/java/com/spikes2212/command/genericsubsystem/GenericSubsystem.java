@@ -16,6 +16,10 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     protected Supplier<Double> maxSpeed;
     protected Supplier<Double> minSpeed;
 
+    public GenericSubsystem() {
+        this("generic subsystem");
+    }
+
     /**
      * Constructs a new instance of GenericSubsystem.
      */
