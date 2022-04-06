@@ -58,10 +58,14 @@ public class PigeonWrapper implements Gyro {
     /**
      * Resets the yaw.
      */
+    @Override
     public void reset() {
         setYaw(0);
     }
 
+    /**
+     * @return the heading of the robot in degrees
+     */
     @Override
     public double getAngle() {
         if (axis == RotationAxis.X)
