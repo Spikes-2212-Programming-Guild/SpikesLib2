@@ -20,7 +20,7 @@ public class PigeonWrapper implements Gyro {
 
     private final RotationAxis axis;
 
-    public PigeonWrapper (int canPort, RotationAxis rotationAxis) {
+    public PigeonWrapper(int canPort, RotationAxis rotationAxis) {
         this.pigeon = new PigeonIMU(canPort);
         this.axis = rotationAxis;
     }
@@ -61,6 +61,14 @@ public class PigeonWrapper implements Gyro {
     @Override
     public void reset() {
         setYaw(0);
+    }
+
+    /**
+     * Don't.
+     */
+    @Override
+    public void close() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Why did you feel the need to close the pigeon");
     }
 
     /**
@@ -122,6 +130,13 @@ public class PigeonWrapper implements Gyro {
         return values[0];
     }
 
+    /**
+     * @param yaw if you don't know what yaw is, see <a href=https://letmegooglethat.com/?q=what+is+yaw>here</a>
+     */
+    public void setYaw(double yaw) {
+        pigeon.setYaw(yaw);
+    }
+
     public double getPitch() {
         pigeon.getYawPitchRoll(values);
         return values[1];
@@ -130,20 +145,5 @@ public class PigeonWrapper implements Gyro {
     public double getRoll() {
         pigeon.getYawPitchRoll(values);
         return values[2];
-    }
-
-    /**
-     * @param yaw If you don't know what yaw is, see <a href=https://letmegooglethat.com/?q=what+is+yaw>here</a>.
-     */
-    public void setYaw(double yaw) {
-        pigeon.setYaw(yaw);
-    }
-
-    /**
-     * Don't.
-     */
-    @Override
-    public void close() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Why did you feel the need to close the pigeon");
     }
 }
