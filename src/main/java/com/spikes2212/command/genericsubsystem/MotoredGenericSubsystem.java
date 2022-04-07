@@ -17,8 +17,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     protected MotorControllerGroup motorControllerGroup;
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name, the given
-     * maxSpeed supplier, the given minSpeed supplier and the given {@code MotorController}s.
+     * Constructs a new instance of MotoredGenericSubsystem with the given {@link RootNamespace}'s name, the given
+     * maxSpeed supplier, the given minSpeed supplier and the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param minSpeed         the minimum speed
@@ -43,8 +43,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name, the given
-     * maxSpeed, the given minSpeed and the given {@code MotorController}s.
+     * Constructs a new instance of MotoredGenericSubsystem with the given {@link RootNamespace}'s name, the given
+     * maxSpeed, the given minSpeed and the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param minSpeed         the minimum speed
@@ -67,8 +67,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@code RootNamespace}'s name and
-     * the given {@code MotorController}s.
+     * Constructs a new instance of MotoredGenericSubsystem with the given {@link RootNamespace}'s name and
+     * the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param motorControllers the motor controllers in the subsystem
@@ -96,5 +96,6 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * Add any commands or data from this subsystem to the dashboard.
      */
     @Override
-    public void configureDashboard() {}
+    public void configureDashboard() {
+    }
 }

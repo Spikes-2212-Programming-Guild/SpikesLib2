@@ -16,12 +16,22 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     protected Supplier<Double> maxSpeed;
     protected Supplier<Double> minSpeed;
 
+    /**
+     * Constructs a new instance of GenericSubsystem. <br>
+     *
+     * This constructor is deprecated. <br>
+     * Please use {@code GenericSubsystem(String namespaceName)}.
+     */
+
+    @Deprecated(since = "2022")
     public GenericSubsystem() {
         this("generic subsystem");
     }
 
     /**
      * Constructs a new instance of GenericSubsystem.
+     *
+     * @param namespaceName the name of the subsystem's namespace
      */
     public GenericSubsystem(String namespaceName) {
         this(namespaceName, -1, 1);
@@ -30,6 +40,7 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     /**
      * Constructs a new instance of GenericSubsystem with the given minSpeed and maxSpeed.
      *
+     * @param namespaceName the name of the subsystem's namespace
      * @param minSpeed the minimum speed
      * @param maxSpeed the maximum speed
      */

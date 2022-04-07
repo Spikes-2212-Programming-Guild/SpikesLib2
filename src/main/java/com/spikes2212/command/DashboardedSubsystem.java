@@ -2,11 +2,13 @@ package com.spikes2212.command;
 
 import com.spikes2212.dashboard.Namespace;
 import com.spikes2212.dashboard.RootNamespace;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
- * A {@link Subsystem} that includes a {@link Namespace}.
+ * A {@link Subsystem} that includes a {@link Namespace}, which lets you see and configure data using the
+ * {@link SmartDashboard}.
  */
 public abstract class DashboardedSubsystem extends SubsystemBase {
 
