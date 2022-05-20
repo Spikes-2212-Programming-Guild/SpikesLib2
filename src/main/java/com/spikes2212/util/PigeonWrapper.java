@@ -74,10 +74,10 @@ public class PigeonWrapper implements Gyro {
     @Override
     public double getAngle() {
         if (axis == RotationAxis.X)
-            return getPitch();
+            return getX();
         if (axis == RotationAxis.Y)
-            return getRoll();
-        return getYaw();
+            return getY();
+        return getZ();
     }
 
     /**
