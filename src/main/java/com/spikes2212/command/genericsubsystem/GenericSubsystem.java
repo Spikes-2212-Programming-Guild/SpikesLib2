@@ -2,6 +2,7 @@ package com.spikes2212.command.genericsubsystem;
 
 
 import com.spikes2212.command.DashboardedSubsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import java.util.function.Supplier;
 
@@ -17,6 +18,15 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     protected Supplier<Double> minSpeed;
 
     /**
+     * Constructs a new instance of GenericSubsystem.
+     *
+     * @param namespaceName the name of the subsystem's namespace
+     */
+    public GenericSubsystem(String namespaceName) {
+        this(namespaceName, -1, 1);
+    }
+
+    /**
      * Constructs a new instance of GenericSubsystem. <br>
      *
      * This constructor is deprecated. <br>
@@ -26,15 +36,6 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     @Deprecated(since = "2022")
     public GenericSubsystem() {
         this("generic subsystem");
-    }
-
-    /**
-     * Constructs a new instance of GenericSubsystem.
-     *
-     * @param namespaceName the name of the subsystem's namespace
-     */
-    public GenericSubsystem(String namespaceName) {
-        this(namespaceName, -1, 1);
     }
 
     /**
