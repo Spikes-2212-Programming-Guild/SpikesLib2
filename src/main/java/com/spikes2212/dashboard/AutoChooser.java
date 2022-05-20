@@ -21,7 +21,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * of the same class, numbers will also be added to differentiate between the names.</p>
      *
      * @param defaultOption the default command this {@link SendableChooser} will use as the default option
-     * @param options the commands that will be added to the chooser other than the default command.
+     * @param options the commands that will be added to this {@link SendableChooser} other than the default command
      */
     public AutoChooser(Command defaultOption, Command... options) {
         HashSet<String> names = new HashSet<>();
