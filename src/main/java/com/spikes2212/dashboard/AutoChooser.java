@@ -42,4 +42,8 @@ public class AutoChooser extends SendableChooser<Command> {
             }
         }
     }
+
+    public void schedule() {
+        getSelected().schedule();
+    }
 }
