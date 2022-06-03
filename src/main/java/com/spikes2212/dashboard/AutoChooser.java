@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import java.util.HashSet;
 
 /**
- * A class that implements the {@link SendableChooser} class in order to make an autonomous command chooser.
+ * A class that implements {@link SendableChooser} in order to make an autonomous command chooser.
  *
  * @author Ofri Rosenbaum
  * @see SendableChooser
@@ -22,7 +22,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * Creates an autonomous chooser from the given commands, where the first command will be the default and the rest
      * of the commands will be the rest of the options.
      *
-     * <p>All options will have names matching their command's {@link Command#getName}. In case of multiple instances
+     * <p>All options will have names matching their command's {@link Class#getSimpleName()}. In case of multiple instances
      * of the same class, numbers will also be added to differentiate between the names.</p>
      *
      * @param defaultOption the default command this {@link SendableChooser} will use as the default option
@@ -37,6 +37,16 @@ public class AutoChooser extends SendableChooser<Command> {
         }
     }
 
+    /**
+     * Creates an autonomous chooser where the first {@link Command} and {@link String} will be used as the default
+     * option, and the rest of the options will be parsed as following: every even index (0,2,4,...) will be a command
+     * and every odd index (1,3,5,...) will be used as the name for the previous command.
+     *
+     * @param defaultOption the default command this {@link SendableChooser} will use as the default option
+     * @param defaultOptionName the name for the default command
+     * @param options the rest of the options, where every even index is a command to be added and every odd index is
+     *               the name for the previous command
+     */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
         setDefaultOption(defaultOptionName, defaultOption);
         for (int i = 0; i < options.length - options.length % 2; i++) {
@@ -68,6 +78,9 @@ public class AutoChooser extends SendableChooser<Command> {
         super.addOption(name, command);
     }
 
+    /**
+     * Schedules the selected command and closes this {@link SendableChooser}.
+     */
     public void schedule() {
         getSelected().schedule();
         close();
