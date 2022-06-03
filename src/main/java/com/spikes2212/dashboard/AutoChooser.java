@@ -14,6 +14,11 @@ import java.util.HashSet;
 public class AutoChooser extends SendableChooser<Command> {
 
     /**
+     * A {@link HashSet} that contains the names of all the options in this {@link SendableChooser}.
+     */
+    private HashSet<String> names = new HashSet<>();
+
+    /**
      * Creates an autonomous chooser from the given commands, where the first command will be the default and the rest
      * of the commands will be the rest of the options.
      *
@@ -24,22 +29,11 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param options the commands that will be added to this {@link SendableChooser} other than the default command
      */
     public AutoChooser(Command defaultOption, Command... options) {
-        HashSet<String> names = new HashSet<>();
         String defaultName = defaultOption.getClass().getSimpleName();
-        names.add(defaultName);
+        addName(defaultName);
         setDefaultOption(defaultName, defaultOption);
         for (Command option : options) {
-            String name = option.getName();
-            if (names.add(name)) {
-                addOption(name, option);
-            } else {
-                int i = 2;
-                name += " " + i;
-                while (!names.add(name)) {
-                    name = name.replace(String.valueOf(i), String.valueOf(i++));
-                }
-                addOption(name, option);
-            }
+            addOption(option.getClass().getSimpleName(), option);
         }
     }
 
@@ -62,8 +56,24 @@ public class AutoChooser extends SendableChooser<Command> {
         }
     }
 
+    @Override
+    public void addOption(String name, Command command) {
+        if (!addName(name)) {
+            int i = 2;
+            name += " " + i;
+            while (!addName(name)) {
+                name = name.replace(String.valueOf(i), String.valueOf(i++));
+            }
+        }
+        super.addOption(name, command);
+    }
+
     public void schedule() {
         getSelected().schedule();
         close();
+    }
+
+    private boolean addName(String name) {
+        return names.add(name);
     }
 }
