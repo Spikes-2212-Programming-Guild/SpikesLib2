@@ -19,11 +19,11 @@ public class AutoChooser extends SendableChooser<Command> {
     private HashSet<String> names = new HashSet<>();
 
     /**
-     * Creates an autonomous chooser from the given commands, where the first command will be the default and the rest
-     * of the commands will be the rest of the options.
+     * Creates an autonomous chooser from the given commands, where the first command will be the default option and the
+     * rest of the commands will be the rest of the options.
      *
-     * <p>All options will have names matching their command's {@link Class#getSimpleName()}. In case of multiple instances
-     * of the same class, numbers will also be added to differentiate between the names.</p>
+     * <p>All options will have names matching their command's {@link Class#getSimpleName()}. In case of multiple
+     * instances of the same class, numbers will also be added to differentiate between the names.</p>
      *
      * @param defaultOption the default command this {@link SendableChooser} will use as the default option
      * @param options the commands that will be added to this {@link SendableChooser} other than the default command
@@ -66,6 +66,10 @@ public class AutoChooser extends SendableChooser<Command> {
         }
     }
 
+    /**
+     * Adds the given command with the given name as an option to this autonomous chooser.
+     * <br> In case this name already exists, a number will be added to differentiate between both options.
+     */
     @Override
     public void addOption(String name, Command command) {
         if (!addName(name)) {
