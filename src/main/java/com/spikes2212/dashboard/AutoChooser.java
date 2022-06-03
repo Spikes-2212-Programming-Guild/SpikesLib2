@@ -43,6 +43,25 @@ public class AutoChooser extends SendableChooser<Command> {
         }
     }
 
+    public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
+        setDefaultOption(defaultOptionName, defaultOption);
+        for (int i = 0; i < options.length - options.length % 2; i++) {
+            Command command;
+            String name;
+            if (options[i] instanceof Command) {
+                command = (Command) options[i];
+            } else {
+                throw new IllegalArgumentException("The " + (i * 2 + 1) + " argument is not a command.");
+            }
+            if (options[i + 1] instanceof String) {
+                name = (String) options[i + 1];
+            } else {
+                throw new IllegalArgumentException("The " + (i * 2 + 2) + " argument is not a string.");
+            }
+            addOption(name, command);
+        }
+    }
+
     public void schedule() {
         getSelected().schedule();
         close();
