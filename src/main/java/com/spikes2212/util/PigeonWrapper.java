@@ -20,14 +20,14 @@ public class PigeonWrapper implements Gyro {
 
     private final RotationAxis axis;
 
-    public PigeonWrapper(int canPort, RotationAxis rotationAxis) {
+    public PigeonWrapper(int canPort, RotationAxis defaultRotationAxis) {
         this.pigeon = new PigeonIMU(canPort);
-        this.axis = rotationAxis;
+        this.axis = defaultRotationAxis;
     }
 
-    public PigeonWrapper(TalonSRX talonSRX, RotationAxis rotationAxis) {
+    public PigeonWrapper(TalonSRX talonSRX, RotationAxis defaultRotationAxis) {
         this.pigeon = new PigeonIMU(talonSRX);
-        this.axis = rotationAxis;
+        this.axis = defaultRotationAxis;
     }
 
     public PigeonWrapper(int canPort) {
