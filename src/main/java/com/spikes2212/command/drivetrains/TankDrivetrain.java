@@ -28,7 +28,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
     
     public TankDrivetrain(MotorController left, MotorController right) {
-        this("Tank Drivetrain", left, right);
+        this(getClassName("tank drivetrain"), left, right);
     }
 
     /**

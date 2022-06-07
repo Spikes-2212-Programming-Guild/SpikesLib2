@@ -35,7 +35,7 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
 
     @Deprecated(since = "2022", forRemoval = true)
     public GenericSubsystem() {
-        this("generic subsystem");
+        this(getClassName("generic subsystem"));
     }
 
     /**
