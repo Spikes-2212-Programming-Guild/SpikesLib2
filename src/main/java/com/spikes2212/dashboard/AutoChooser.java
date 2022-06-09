@@ -49,9 +49,9 @@ public class AutoChooser extends SendableChooser<Command> {
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
         setDefaultOption(defaultOptionName, defaultOption);
+        Command command;
+        String name;
         for (int i = 0; i < options.length - options.length % 2; i++) {
-            Command command;
-            String name;
             if (options[i] instanceof Command) {
                 command = (Command) options[i];
             } else {
