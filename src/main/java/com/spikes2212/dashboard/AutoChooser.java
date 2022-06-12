@@ -55,12 +55,12 @@ public class AutoChooser extends SendableChooser<Command> {
             if (options[i] instanceof Command) {
                 command = (Command) options[i];
             } else {
-                throw new IllegalArgumentException("The " + (i * 2 + 3) + " argument is not a Command.");
+                throw new IllegalArgumentException("The " + (i + 3) + " argument is not a Command.");
             }
             if (options[i + 1] instanceof String) {
                 name = (String) options[i + 1];
             } else {
-                throw new IllegalArgumentException("The " + (i * 2 + 4) + " argument is not a String.");
+                throw new IllegalArgumentException("The " + (i + 4) + " argument is not a String.");
             }
             addOption(name, command);
         }
