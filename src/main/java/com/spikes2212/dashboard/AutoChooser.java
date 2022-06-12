@@ -67,8 +67,8 @@ public class AutoChooser extends SendableChooser<Command> {
     }
 
     /**
-     * Adds the given command with the given name as an option to this autonomous chooser.
-     * <br> In case this name already exists, a number will be added to differentiate between the options.
+     * Adds the given command with the given name as an option to this autonomous chooser. <br>
+     * In case this name already exists, a number will be added to differentiate between the options.
      */
     @Override
     public void addOption(String name, Command command) {
