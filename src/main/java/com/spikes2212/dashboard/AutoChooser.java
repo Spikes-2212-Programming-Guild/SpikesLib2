@@ -45,22 +45,22 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param defaultOption the default command this {@link SendableChooser} will use as the default option
      * @param defaultOptionName the name for the default command
      * @param options the rest of the options, where every even index is a command to be added and every odd index is
-     *               the name for the previous command
+     *               the name for the previously mentioned command
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
         setDefaultOption(defaultOptionName, defaultOption);
         Command command;
         String name;
-        for (int i = 0; i < options.length - options.length % 2; i++) {
+        for (int i = 0; i < options.length - options.length % 2; i+=2) {
             if (options[i] instanceof Command) {
                 command = (Command) options[i];
             } else {
-                throw new IllegalArgumentException("The " + (i * 2 + 1) + " argument is not a command.");
+                throw new IllegalArgumentException("The " + (i * 2 + 3) + " argument is not a Command.");
             }
             if (options[i + 1] instanceof String) {
                 name = (String) options[i + 1];
             } else {
-                throw new IllegalArgumentException("The " + (i * 2 + 2) + " argument is not a string.");
+                throw new IllegalArgumentException("The " + (i * 2 + 4) + " argument is not a String.");
             }
             addOption(name, command);
         }
