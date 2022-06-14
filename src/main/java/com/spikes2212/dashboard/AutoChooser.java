@@ -19,14 +19,14 @@ public class AutoChooser extends SendableChooser<Command> {
     public static final String DEFAULT_NAMESPACE_NAME = "autonomous chooser";
 
     /**
-     * A {@link HashSet} that contains the names of all the options in this {@link SendableChooser}.
-     */
-    private HashSet<String> names = new HashSet<>();
-
-    /**
      * The {@link RootNamespace} that this {@link SendableChooser} will be on.
      */
-    private RootNamespace rootNamespace;
+    protected RootNamespace rootNamespace;
+
+    /**
+     * A {@link HashSet} that contains the names of all the options in this {@link SendableChooser}.
+     */
+    private final HashSet<String> names = new HashSet<>();
 
     /**
      * Creates an autonomous chooser from the given commands, where the first command will be the default option and the
@@ -80,7 +80,7 @@ public class AutoChooser extends SendableChooser<Command> {
         setDefaultOption(defaultOptionName, defaultOption);
         Command command;
         String name;
-        for (int i = 0; i < options.length - options.length % 2; i+=2) {
+        for (int i = 0; i < options.length - options.length % 2; i += 2) {
             if (options[i] instanceof Command) {
                 command = (Command) options[i];
             } else {
