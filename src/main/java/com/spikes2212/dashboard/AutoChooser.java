@@ -14,6 +14,11 @@ import java.util.HashSet;
 public class AutoChooser extends SendableChooser<Command> {
 
     /**
+     * The default name that will be given to the {@link RootNamespace} in case no name was given in the constructor.
+     */
+    public static final String DEFAULT_NAMESPACE_NAME = "autonomous chooser";
+
+    /**
      * A {@link HashSet} that contains the names of all the options in this {@link SendableChooser}.
      */
     private HashSet<String> names = new HashSet<>();
@@ -56,7 +61,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param options the commands that will be added to this {@link SendableChooser} other than the default command
      */
     public AutoChooser(Command defaultOption, Command... options) {
-        this("autonomous chooser", defaultOption, options);
+        this(DEFAULT_NAMESPACE_NAME, defaultOption, options);
     }
 
     /**
@@ -102,7 +107,7 @@ public class AutoChooser extends SendableChooser<Command> {
      *               the name for the previous command
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
-        this("autonomous chooser", defaultOption, defaultOptionName, options);
+        this(DEFAULT_NAMESPACE_NAME, defaultOption, defaultOptionName, options);
     }
 
     /**
