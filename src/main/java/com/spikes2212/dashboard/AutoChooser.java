@@ -76,24 +76,7 @@ public class AutoChooser extends SendableChooser<Command> {
      *               the name for the previously mentioned command
      */
     public AutoChooser(String rootNamespaceName, Command defaultOption, String defaultOptionName, Object... options) {
-        rootNamespace = new RootNamespace(rootNamespaceName);
-        setDefaultOption(defaultOptionName, defaultOption);
-        Command command;
-        String name;
-        for (int i = 0; i < options.length - options.length % 2; i += 2) {
-            if (options[i] instanceof Command) {
-                command = (Command) options[i];
-            } else {
-                throw new IllegalArgumentException("The " + (i + 4) + " argument is not a Command.");
-            }
-            if (options[i + 1] instanceof String) {
-                name = (String) options[i + 1];
-            } else {
-                throw new IllegalArgumentException("The " + (i + 5) + " argument is not a String.");
-            }
-            addOption(name, command);
-        }
-        putOnShuffleboard();
+        this(rootNamespaceName, defaultOption, defaultOptionName, 4, options);
     }
 
     /**
@@ -107,7 +90,32 @@ public class AutoChooser extends SendableChooser<Command> {
      *               the name for the previous command
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
-        this(DEFAULT_NAMESPACE_NAME, defaultOption, defaultOptionName, options);
+        this(DEFAULT_NAMESPACE_NAME, defaultOption, defaultOptionName, 3, options);
+    }
+
+    private AutoChooser(String rootNamespaceName, Command defaultOption, String defaultOptionName,
+                        int incrementationValue, Object... options) {
+        rootNamespace = new RootNamespace(rootNamespaceName);
+        setDefaultOption(defaultOptionName, defaultOption);
+        Command command;
+        String name;
+        int num;
+        for (int i = 0; i < options.length - options.length % 2; i += 2) {
+            if (options[i] instanceof Command) {
+                command = (Command) options[i];
+            } else {
+                num = i + incrementationValue;
+                throw new IllegalArgumentException("The " + num + getCorrectSuffix(num) + " argument is not a Command.");
+            }
+            if (options[i + 1] instanceof String) {
+                name = (String) options[i + 1];
+            } else {
+                num = i + incrementationValue + 1;
+                throw new IllegalArgumentException("The " + num + getCorrectSuffix(num) + " argument is not a String.");
+            }
+            addOption(name, command);
+        }
+        putOnShuffleboard();
     }
 
     /**
@@ -134,10 +142,10 @@ public class AutoChooser extends SendableChooser<Command> {
         close();
     }
 
-    private String getCorrectSuffix(int num){
-        if(num == 1) return "st";
-        if(num == 2) return "nd";
-        if(num == 3) return "rd";
+    private String getCorrectSuffix(int num) {
+        if (num == 1) return "st";
+        if (num == 2) return "nd";
+        if (num == 3) return "rd";
         return "th";
     }
 
