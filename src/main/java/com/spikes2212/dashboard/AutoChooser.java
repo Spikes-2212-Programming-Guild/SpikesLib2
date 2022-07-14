@@ -134,6 +134,13 @@ public class AutoChooser extends SendableChooser<Command> {
         close();
     }
 
+    private String getCorrectSuffix(int num){
+        if(num == 1) return "st";
+        if(num == 2) return "nd";
+        if(num == 3) return "rd";
+        return "th";
+    }
+
     private boolean addName(String name) {
         return names.add(name);
     }
