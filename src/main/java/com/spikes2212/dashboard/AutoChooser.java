@@ -128,7 +128,8 @@ public class AutoChooser extends SendableChooser<Command> {
             int i = 2;
             name += " " + i;
             while (!addName(name)) {
-                name = name.substring(0, name.length() - String.valueOf(i).length());
+                i++;
+                name = name.substring(0, name.length() - String.valueOf(i).length()) + i;
             }
         }
         super.addOption(name, command);
