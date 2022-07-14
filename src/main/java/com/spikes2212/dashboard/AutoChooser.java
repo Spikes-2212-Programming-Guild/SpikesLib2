@@ -41,11 +41,11 @@ public class AutoChooser extends SendableChooser<Command> {
      */
     public AutoChooser(String rootNamespaceName, Command defaultOption, Command... options) {
         rootNamespace = new RootNamespace(rootNamespaceName);
-        String defaultName = defaultOption.getClass().getSimpleName();
+        String defaultName = defaultOption.getName();
         addName(defaultName);
         setDefaultOption(defaultName, defaultOption);
         for (Command option : options) {
-            addOption(option.getClass().getSimpleName(), option);
+            addOption(option.getName(), option);
         }
         putOnShuffleboard();
     }
