@@ -76,7 +76,7 @@ public class AutoChooser extends SendableChooser<Command> {
      *               the name for the previously mentioned command
      */
     public AutoChooser(String rootNamespaceName, Command defaultOption, String defaultOptionName, Object... options) {
-        this(rootNamespaceName, defaultOption, defaultOptionName, 3, options);
+        this(rootNamespaceName, defaultOption, defaultOptionName, 4, options);
     }
 
     /**
@@ -90,7 +90,7 @@ public class AutoChooser extends SendableChooser<Command> {
      *               the name for the previous command
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
-        this(DEFAULT_NAMESPACE_NAME, defaultOption, defaultOptionName, 2, options);
+        this(DEFAULT_NAMESPACE_NAME, defaultOption, defaultOptionName, 3, options);
     }
 
     private AutoChooser(String rootNamespaceName, Command defaultOption, String defaultOptionName,
