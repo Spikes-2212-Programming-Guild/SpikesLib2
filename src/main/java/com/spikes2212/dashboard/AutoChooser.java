@@ -144,10 +144,22 @@ public class AutoChooser extends SendableChooser<Command> {
     }
 
     private String getCorrectSuffix(int num) {
-        if (num == 1) return "st";
-        if (num == 2) return "nd";
-        if (num == 3) return "rd";
-        return "th";
+        switch (num % 10) {
+            case 1: {
+                if (num == 11) return "th";
+                return "st";
+            }
+            case 2: {
+                if (num == 12) return "th";
+                return "nd";
+            }
+            case 3: {
+                if (num == 13) return "th";
+                return "rd";
+            }
+            default:
+                return "th";
+        }
     }
 
     private boolean addName(String name) {
