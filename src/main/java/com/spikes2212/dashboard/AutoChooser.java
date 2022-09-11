@@ -32,7 +32,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * Creates an autonomous chooser from the given commands, where the first command will be the default option and the
      * rest of the commands will be the rest of the options.
      *
-     * <p>All options will have names matching their command's {@link Class#getSimpleName()}. In case of multiple
+     * <p>All options will have names matching their command's {@link Command#getName()}. In case of multiple
      * instances of the same class, numbers will also be added to differentiate between the names.</p>
      *
      * @param rootNamespaceName the name that will be given to the {@link RootNamespace}
@@ -129,7 +129,7 @@ public class AutoChooser extends SendableChooser<Command> {
             name += " " + i;
             while (!addName(name)) {
                 i++;
-                name = name.substring(0, name.length() - String.valueOf(i).length()) + i;
+                name = name.substring(0, name.length() - String.valueOf(i-1).length()) + i;
             }
         }
         super.addOption(name, command);
