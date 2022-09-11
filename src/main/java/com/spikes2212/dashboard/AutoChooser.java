@@ -74,6 +74,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param defaultOptionName the name for the default command
      * @param options the rest of the options, where every even index is a command to be added and every odd index is
      *               the name for the previously mentioned command
+     * @throws IllegalArgumentException when an even index is a {@link String} or an odd index is a {@link Command}.
      */
     public AutoChooser(String rootNamespaceName, Command defaultOption, String defaultOptionName, Object... options) {
         this(rootNamespaceName, defaultOption, defaultOptionName, 4, options);
@@ -88,6 +89,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param defaultOptionName the name for the default command
      * @param options the rest of the options, where every even index is a command to be added and every odd index is
      *               the name for the previous command
+     * @throws IllegalArgumentException when an even index is a {@link String} or an odd index is a {@link Command}.
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
         this(DEFAULT_NAMESPACE_NAME, defaultOption, defaultOptionName, 3, options);
@@ -129,7 +131,7 @@ public class AutoChooser extends SendableChooser<Command> {
             name += " " + i;
             while (!addName(name)) {
                 i++;
-                name = name.substring(0, name.length() - String.valueOf(i-1).length()) + i;
+                name = name.substring(0, name.length() - String.valueOf(i - 1).length()) + i;
             }
         }
         super.addOption(name, command);
