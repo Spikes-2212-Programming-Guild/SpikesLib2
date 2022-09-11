@@ -29,7 +29,7 @@ public class AutoChooser extends SendableChooser<Command> {
     private final HashSet<String> names = new HashSet<>();
 
     /**
-     * Creates an autonomous chooser from the given commands, where the first command will be the default option and the
+     * Creates an {@link SendableChooser} from the given commands, where the first command will be the default option and the
      * rest of the commands will be the rest of the options.
      *
      * <p>All options will have names matching their command's {@link Command#getName()}. In case of multiple
@@ -51,10 +51,10 @@ public class AutoChooser extends SendableChooser<Command> {
     }
 
     /**
-     * Creates an autonomous chooser from the given commands, where the first command will be the default option and the
+     * Creates an {@link SendableChooser} from the given commands, where the first command will be the default option and the
      * rest of the commands will be the rest of the options.
      *
-     * <p>All options will have names matching their command's {@link Class#getSimpleName()}. In case of multiple
+     * <p>All options will have names matching their command's {@link Command#getName()}. In case of multiple
      * instances of the same class, numbers will also be added to differentiate between the names.</p>
      *
      * @param defaultOption the default command this {@link SendableChooser} will use as the default option
@@ -65,7 +65,7 @@ public class AutoChooser extends SendableChooser<Command> {
     }
 
     /**
-     * Creates an autonomous chooser where the first {@link Command} and {@link String} will be used as the default
+     * Creates an {@link SendableChooser} where the first {@link Command} and {@link String} will be used as the default
      * option, and the rest of the options will be parsed as following: every even index (0,2,4,...) will be a command
      * and every odd index (1,3,5,...) will be used as the name for the previous command.
      *
@@ -81,7 +81,7 @@ public class AutoChooser extends SendableChooser<Command> {
     }
 
     /**
-     * Creates an autonomous chooser where the first {@link Command} and {@link String} will be used as the default
+     * Creates an {@link SendableChooser} where the first {@link Command} and {@link String} will be used as the default
      * option, and the rest of the options will be parsed as following: every even index (0,2,4,...) will be a command
      * and every odd index (1,3,5,...) will be used as the name for the previous command.
      *
@@ -121,7 +121,7 @@ public class AutoChooser extends SendableChooser<Command> {
     }
 
     /**
-     * Adds the given command with the given name as an option to this autonomous chooser. <br>
+     * Adds the given command with the given name as an option to this {@link SendableChooser}. <br>
      * In case this name already exists, a number will be added to differentiate between the options.
      */
     @Override
