@@ -143,6 +143,10 @@ public class AutoChooser extends SendableChooser<Command> {
         close();
     }
 
+    /**
+     * @param num a positive number
+     * @return the correct suffix for this number
+     */
     private String getCorrectSuffix(int num) {
         switch (num % 10) {
             case 1: {
