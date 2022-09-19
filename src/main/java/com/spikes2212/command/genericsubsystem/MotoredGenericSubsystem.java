@@ -17,7 +17,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     protected MotorControllerGroup motorControllerGroup;
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@link RootNamespace}'s name, the given
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link RootNamespace}'s name, the given
      * maxSpeed supplier, the given minSpeed supplier and the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
@@ -33,8 +33,15 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * @deprecated use {@code MotoredGenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double>
-     *     maxSpeed, MotorController... motorControllers)}
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given
+     * maxSpeed supplier, the given minSpeed supplier and the given {@link MotorController}s.
+     *
+     * This constructor is deprecated.
+     * Please use {@link #MotoredGenericSubsystem(String, Supplier, Supplier, MotorController...)} instead.
+     *
+     * @param minSpeed         the minimum speed
+     * @param maxSpeed         the maximum speed
+     * @param motorControllers the motor controllers in the subsystem
      */
     @Deprecated(since = "2022", forRemoval = true)
     public MotoredGenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed, String namespaceName,
@@ -43,7 +50,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@link RootNamespace}'s name, the given
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link RootNamespace}'s name, the given
      * maxSpeed, the given minSpeed and the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
@@ -57,8 +64,15 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * @deprecated use {@code MotoredGenericSubsystem(String namespaceName, double minSpeed, double maxSpeed,
-     *                                    MotorController... motorControllers)}
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given
+     * maxSpeed supplier, the given minSpeed supplier and the given {@link MotorController}s.
+     *
+     * This constructor is deprecated.
+     * Please use {@link #MotoredGenericSubsystem(String, double, double, MotorController...)} instead.
+     *
+     * @param minSpeed         the minimum speed
+     * @param maxSpeed         the maximum speed
+     * @param motorControllers the motor controllers in the subsystem
      */
     @Deprecated(since = "2022", forRemoval = true)
     public MotoredGenericSubsystem(double minSpeed, double maxSpeed, String namespaceName,
@@ -67,7 +81,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@link RootNamespace}'s name and
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link RootNamespace}'s name and
      * the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace

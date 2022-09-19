@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
  * turn by giving the sides different speeds </p>
  *
  * @author Yuval Levy
+ * @see DashboardedSubsystem
  */
 public class TankDrivetrain extends DashboardedSubsystem {
 
