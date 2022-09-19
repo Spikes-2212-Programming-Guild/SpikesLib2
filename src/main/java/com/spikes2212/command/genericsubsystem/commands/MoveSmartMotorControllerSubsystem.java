@@ -1,33 +1,33 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
-import com.spikes2212.command.genericsubsystem.TalonSubsystem;
+import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
 
 /**
- * Move a {@link TalonSubsystem} using its Talon's control loops.
+ * Move a {@link SmartMotorControllerSubsystem} using its motor controller's control loops.
  *
  * @author Eran Goldstein
- * @see TalonSubsystem
+ * @see SmartMotorControllerSubsystem
  */
-public class MoveTalonSubsystem extends CommandBase {
+public class MoveSmartMotorControllerSubsystem extends CommandBase {
 
     /**
-     * The {@link TalonSubsystem} this command will run on.
+     * The {@link SmartMotorControllerSubsystem} this command will run on.
      */
-    private final TalonSubsystem subsystem;
+    private final SmartMotorControllerSubsystem subsystem;
 
     /**
-     * The setpoint this command should bring the {@link TalonSubsystem} to.
+     * The setpoint this command should bring the {@link SmartMotorControllerSubsystem} to.
      */
     private final Supplier<Double> setpoint;
 
     private final Supplier<Double> waitTime;
     private double lastTimeNotOnTarget;
 
-    public MoveTalonSubsystem(TalonSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> waitTime) {
+    public MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> waitTime) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.setpoint = setpoint;
@@ -35,7 +35,7 @@ public class MoveTalonSubsystem extends CommandBase {
         this.lastTimeNotOnTarget = 0;
     }
 
-    public MoveTalonSubsystem(TalonSubsystem subsystem, double setpoint, Supplier<Double> waitTime) {
+    public MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, double setpoint, Supplier<Double> waitTime) {
         this(subsystem, () -> setpoint, waitTime);
     }
 
