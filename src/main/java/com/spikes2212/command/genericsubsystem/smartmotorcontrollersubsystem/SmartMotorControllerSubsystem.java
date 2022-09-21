@@ -15,24 +15,32 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     /**
      * Configure the motor controller and its control loops.
      */
-    void configureLoop(int slot);
+    default void configureLoop(int slot) {
+    }
 
     /**
      * Update any control loops running on the motor controller.
      */
-    void pidSet(int slot, double setpoint);
+    default void pidSet(int slot, ControlMode controlMode, double setpoint) {
+    }
+
+    default void pidSet(int slot, double setpoint) {
+    }
 
     /**
      * Stop running control loops on the motor controller.
      */
-    void finish();
+    default void finish() {
+    }
 
     /**
      * Check whether the loop is currently on the target setpoint.
      *
      * @return `true` when on target setpoint, `false` otherwise
      */
-    boolean onTarget(int slot, double setpoint);
+    default boolean onTarget(double setpoint) {
+        return false;
+    }
 
     default void checkPIDAndFeedForward(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
         if (pidSettings.isNull())

@@ -73,14 +73,4 @@ public class TalonMasterGenericSubsystem <T extends BaseTalon & MotorController>
         master.config_kF(slot, feedForwardSettings.getkV());
         master.set(controlMode, setpoint);
     }
-
-    @Override
-    public void finish() {
-
-    }
-
-    @Override
-    public boolean onTarget(int slot, double setpoint) {
-        return false;
-    }
 }
