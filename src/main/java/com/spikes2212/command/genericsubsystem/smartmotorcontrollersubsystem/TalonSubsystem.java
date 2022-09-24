@@ -1,4 +1,4 @@
-package com.spikes2212.command.genericsubsystem.commands;
+package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
 import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerSubsystem;
 

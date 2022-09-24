@@ -1,30 +1,73 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.revrobotics.CANSparkMax;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
+import com.spikes2212.control.TrapezoidProfileSettings;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
- * A subsystem that runs control loops on a Talon motor controller.
+ * A subsystem that runs control loops on an applicable motor controller.
  *
- * @author Eran Goldstein
+ * @author Yoel Perman Brilliant
  */
 public interface SmartMotorControllerSubsystem extends Subsystem {
 
+    default void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+    }
+
+    default void configureTrapezoid(TrapezoidProfileSettings settings) {
+    }
+
     /**
-     * Configure the motor controller and its control loops.
+     * Configure the motor controller configurations and its control loops.
+     *
+     * @param pidSettings PID loop configuration settings
+     * @param feedForwardSettings feed forward configuration settings
      */
-    default void configureLoop(int slot) {
+    default void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+        configPIDF(pidSettings, feedForwardSettings);
+    }
+
+    default void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
+                               TrapezoidProfileSettings trapezoidProfileSettings) {
+    }
+
+    default void pidSet(CANSparkMax.ControlType controlType, double setpoint, PIDSettings pidSettings,
+                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
     }
 
     /**
      * Update any control loops running on the motor controller.
+     *
+     * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
+     *                    when running the loop on a CTRE motor controller.
+     * @param pidSettings PID loop configuration settings
+     * @param feedForwardSettings feed forward configuration settings
      */
-    default void pidSet(int slot, ControlMode controlMode, double setpoint) {
+    default void pidSet(CANSparkMax.ControlType controlType, double setpoint,
+                PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+        pidSet(controlType, setpoint, pidSettings, feedForwardSettings,
+                TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
     }
 
-    default void pidSet(int slot, double setpoint) {
+    default void pidSet(ControlMode controlMode, double setpoint, PIDSettings pidSettings,
+                FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
+    }
+
+    /**
+     * Update any control loops running on the motor controller.
+     *
+     * @param controlMode the loop's control mode (e.g. voltage, velocity, position...). Only applicable
+     *                    when running the loop on a CTRE motor controller.
+     * @param pidSettings PID loop configuration settings
+     * @param feedForwardSettings feed forward configuration settings
+     */
+    default void pidSet(ControlMode controlMode, double setpoint, PIDSettings pidSettings,
+                        FeedForwardSettings feedForwardSettings) {
+        pidSet(controlMode, setpoint, pidSettings, feedForwardSettings,
+                TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
     }
 
     /**
