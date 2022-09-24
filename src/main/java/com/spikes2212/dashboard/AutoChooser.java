@@ -14,14 +14,14 @@ import java.util.HashSet;
 public class AutoChooser extends SendableChooser<Command> {
 
     /**
-     * The default name that will be given to the {@link RootNamespace} in case no name was given in the constructor.
+     * The default name that will be given to the {@link Namespace} in case no name was given in the constructor.
      */
     public static final String DEFAULT_NAMESPACE_NAME = "autonomous chooser";
 
     /**
-     * The {@link RootNamespace} that this {@link SendableChooser} will be on.
+     * The {@link Namespace} that this {@link SendableChooser} will be on.
      */
-    protected RootNamespace rootNamespace;
+    protected final Namespace namespace;
 
     /**
      * A {@link HashSet} that contains the names of all the options in this {@link SendableChooser}.
@@ -35,12 +35,12 @@ public class AutoChooser extends SendableChooser<Command> {
      * <p>All options will have names matching their command's {@link Command#getName()}. In case of multiple
      * instances of the same class, numbers will also be added to differentiate between the names.</p>
      *
-     * @param rootNamespaceName the name that will be given to the {@link RootNamespace}
+     * @param namespaceName the name that will be given to the {@link Namespace}
      * @param defaultOption the default command this {@link AutoChooser} will use as the default option
      * @param options the commands that will be added to this {@link AutoChooser} other than the default command
      */
-    public AutoChooser(String rootNamespaceName, Command defaultOption, Command... options) {
-        rootNamespace = new RootNamespace(rootNamespaceName);
+    public AutoChooser(String namespaceName, Command defaultOption, Command... options) {
+        namespace = new RootNamespace(namespaceName);
         String defaultName = defaultOption.getName();
         addName(defaultName);
         setDefaultOption(defaultName, defaultOption);
@@ -69,15 +69,15 @@ public class AutoChooser extends SendableChooser<Command> {
      * option, and the rest of the options will be parsed as following: every even index (0,2,4,...) will be a command
      * and every odd index (1,3,5,...) will be used as the name for the previous command.
      *
-     * @param rootNamespaceName the name that will be given to the {@link RootNamespace}
+     * @param namespaceName the name that will be given to the {@link Namespace}
      * @param defaultOption the default command this {@link AutoChooser} will use as the default option
      * @param defaultOptionName the name for the default command
      * @param options the rest of the options, where every even index is a command to be added and every odd index is
      *               the name for the previously mentioned command
      * @throws IllegalArgumentException when an even index is a {@link String} or an odd index is a {@link Command}.
      */
-    public AutoChooser(String rootNamespaceName, Command defaultOption, String defaultOptionName, Object... options) {
-        this(rootNamespaceName, defaultOption, defaultOptionName, 4, options);
+    public AutoChooser(String namespaceName, Command defaultOption, String defaultOptionName, Object... options) {
+        this(namespaceName, defaultOption, defaultOptionName, 4, options);
     }
 
     /**
@@ -95,9 +95,9 @@ public class AutoChooser extends SendableChooser<Command> {
         this(DEFAULT_NAMESPACE_NAME, defaultOption, defaultOptionName, 3, options);
     }
 
-    private AutoChooser(String rootNamespaceName, Command defaultOption, String defaultOptionName,
+    private AutoChooser(String namespaceName, Command defaultOption, String defaultOptionName,
                         int incrementationValue, Object... options) {
-        rootNamespace = new RootNamespace(rootNamespaceName);
+        namespace = new RootNamespace(namespaceName);
         setDefaultOption(defaultOptionName, defaultOption);
         Command command;
         String name;
@@ -166,6 +166,6 @@ public class AutoChooser extends SendableChooser<Command> {
     }
 
     private void putOnShuffleboard() {
-        rootNamespace.putData("auto chooser", this);
+        namespace.putData("auto chooser", this);
     }
 }
