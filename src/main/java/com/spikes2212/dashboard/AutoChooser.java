@@ -35,12 +35,12 @@ public class AutoChooser extends SendableChooser<Command> {
      * <p>All options will have names matching their command's {@link Command#getName()}. In case of multiple
      * instances of the same class, numbers will also be added to differentiate between the names.</p>
      *
-     * @param namespaceName the name that will be given to the {@link Namespace}
+     * @param namespace the namespace that this {@link AutoChooser} will be on
      * @param defaultOption the default command this {@link AutoChooser} will use as the default option
      * @param options the commands that will be added to this {@link AutoChooser} other than the default command
      */
-    public AutoChooser(String namespaceName, Command defaultOption, Command... options) {
-        namespace = new RootNamespace(namespaceName);
+    public AutoChooser(Namespace namespace, Command defaultOption, Command... options) {
+        this.namespace = namespace;
         String defaultName = defaultOption.getName();
         addName(defaultName);
         setDefaultOption(defaultName, defaultOption);
@@ -61,7 +61,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param options the commands that will be added to this {@link AutoChooser} other than the default command
      */
     public AutoChooser(Command defaultOption, Command... options) {
-        this(DEFAULT_NAMESPACE_NAME, defaultOption, options);
+        this(new RootNamespace(DEFAULT_NAMESPACE_NAME), defaultOption, options);
     }
 
     /**
@@ -69,7 +69,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * option, and the rest of the options will be parsed as following: every even index (0,2,4,...) will be a command
      * and every odd index (1,3,5,...) will be used as the name for the previous command.
      *
-     * @param namespaceName the name that will be given to the {@link Namespace}
+     * @param namespace the namespace that this {@link AutoChooser} will be on
      * @param defaultOption the default command this {@link AutoChooser} will use as the default option
      * @param defaultOptionName the name for the default command
      * @param options the rest of the options, where every even index is a command to be added and every odd index is
@@ -77,8 +77,8 @@ public class AutoChooser extends SendableChooser<Command> {
      * @throws IllegalArgumentException when an even index is a {@link String}, an odd index is a {@link Command} or
      * when the options length isn't even.
      */
-    public AutoChooser(String namespaceName, Command defaultOption, String defaultOptionName, Object... options) {
-        this(namespaceName, defaultOption, defaultOptionName, 4, options);
+    public AutoChooser(Namespace namespace, Command defaultOption, String defaultOptionName, Object... options) {
+        this(namespace, defaultOption, defaultOptionName, 4, options);
     }
 
     /**
@@ -94,13 +94,13 @@ public class AutoChooser extends SendableChooser<Command> {
      * when the options length isn't even.
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
-        this(DEFAULT_NAMESPACE_NAME, defaultOption, defaultOptionName, 3, options);
+        this(new RootNamespace(DEFAULT_NAMESPACE_NAME), defaultOption, defaultOptionName, 3, options);
     }
 
-    private AutoChooser(String namespaceName, Command defaultOption, String defaultOptionName,
+    private AutoChooser(Namespace namespace, Command defaultOption, String defaultOptionName,
                         int incrementationValue, Object... options) {
         if (options.length % 2 != 0) throw new IllegalArgumentException("The options' length isn't even.");
-        namespace = new RootNamespace(namespaceName);
+        this.namespace = namespace;
         setDefaultOption(defaultOptionName, defaultOption);
         Command command;
         String name;
