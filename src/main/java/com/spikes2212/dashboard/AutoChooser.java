@@ -19,17 +19,17 @@ public class AutoChooser extends SendableChooser<Command> {
     public static final String DEFAULT_NAMESPACE_NAME = "autonomous chooser";
 
     /**
-     * The {@link Namespace} that this {@link SendableChooser} will be on.
+     * The {@link Namespace} that this {@link AutoChooser} will be on.
      */
     protected final Namespace namespace;
 
     /**
-     * A {@link HashSet} that contains the names of all the options in this {@link SendableChooser}.
+     * A {@link HashSet} that contains the names of all the options in this {@link AutoChooser}.
      */
     private final HashSet<String> names = new HashSet<>();
 
     /**
-     * Creates a {@link AutoChooser} from the given commands, where the first command will be the default option and the
+     * Creates an {@link AutoChooser} from the given commands, where the first command will be the default option and the
      * rest of the commands will be the rest of the options.
      *
      * <p>All options will have names matching their command's {@link Command#getName()}. In case of multiple
