@@ -74,7 +74,8 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param defaultOptionName the name for the default command
      * @param options the rest of the options, where every even index is a command to be added and every odd index is
      *               the name for the previously mentioned command
-     * @throws IllegalArgumentException when an even index is a {@link String} or an odd index is a {@link Command}.
+     * @throws IllegalArgumentException when an even index is a {@link String}, an odd index is a {@link Command} or
+     * when the options length isn't even.
      */
     public AutoChooser(String namespaceName, Command defaultOption, String defaultOptionName, Object... options) {
         this(namespaceName, defaultOption, defaultOptionName, 4, options);
@@ -89,7 +90,8 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param defaultOptionName the name for the default command
      * @param options the rest of the options, where every even index is a command to be added and every odd index is
      *               the name for the previous command
-     * @throws IllegalArgumentException when an even index is a {@link String} or an odd index is a {@link Command}.
+     * @throws IllegalArgumentException when an even index is a {@link String}, an odd index is a {@link Command} or
+     * when the options length isn't even.
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
         this(DEFAULT_NAMESPACE_NAME, defaultOption, defaultOptionName, 3, options);
@@ -97,12 +99,13 @@ public class AutoChooser extends SendableChooser<Command> {
 
     private AutoChooser(String namespaceName, Command defaultOption, String defaultOptionName,
                         int incrementationValue, Object... options) {
+        if (options.length % 2 != 0) throw new IllegalArgumentException("The options' length isn't even.");
         namespace = new RootNamespace(namespaceName);
         setDefaultOption(defaultOptionName, defaultOption);
         Command command;
         String name;
         int num;
-        for (int i = 0; i < options.length - options.length % 2; i += 2) {
+        for (int i = 0; i < options.length; i += 2) {
             if (options[i] instanceof Command) {
                 command = (Command) options[i];
             } else {
