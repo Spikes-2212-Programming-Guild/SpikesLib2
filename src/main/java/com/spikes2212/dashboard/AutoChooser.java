@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * A class that extends {@link SendableChooser} in order to make an autonomous command chooser.
@@ -130,11 +131,12 @@ public class AutoChooser extends SendableChooser<Command> {
     @Override
     public void addOption(String name, Command command) {
         if (!addName(name)) {
+            String originalName = name;
             int i = 2;
             name += " " + i;
-            while (!addName(name)) {
+            while (!addName(originalName)) {
                 i++;
-                name = name.substring(0, name.length() - String.valueOf(i - 1).length()) + i;
+                name = originalName + " " + i;
             }
         }
         super.addOption(name, command);
@@ -153,14 +155,14 @@ public class AutoChooser extends SendableChooser<Command> {
      * @return the correct suffix for this number
      */
     private String getCorrectSuffix(int num) {
-        String[] suffixes = new String[]{"th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"};
+        List<String> suffixes = List.of("th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th");
         switch (num % 100) {
             case 11:
             case 12:
             case 13:
                 return "th";
             default:
-                return suffixes[num % 10];
+                return suffixes.get(num % 10);
         }
     }
 
