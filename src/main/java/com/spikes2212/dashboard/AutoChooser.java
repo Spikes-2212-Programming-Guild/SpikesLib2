@@ -52,6 +52,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param defaultOption the default command this {@link AutoChooser} will use as the default option
      * @param options the commands that will be added to this {@link AutoChooser} other than the default command
      */
+
     public AutoChooser(Namespace namespace, Command defaultOption, Command... options) {
         this.namespace = namespace;
         String defaultName = defaultOption.getName();
@@ -146,7 +147,7 @@ public class AutoChooser extends SendableChooser<Command> {
             String originalName = name;
             int i = 2;
             name += " " + i;
-            while (!addName(originalName)) {
+            while (!addName(name)) {
                 i++;
                 name = originalName + " " + i;
             }
