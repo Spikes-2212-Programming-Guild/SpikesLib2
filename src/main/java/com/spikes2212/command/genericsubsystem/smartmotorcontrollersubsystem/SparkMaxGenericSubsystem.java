@@ -2,20 +2,47 @@ package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
-import com.spikes2212.command.genericsubsystem.GenericSubsystem;
+import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import java.util.List;
 
-public class SparkMaxGenericSubsystem extends GenericSubsystem implements SmartMotorControllerSubsystem {
+/**
+ * A subsystem which consists of a Spark Max motor controller run PID loops and additional
+ * Spark Max controllers that follow it.
+ *
+ * @author Yoel Perman Brilliant
+ * @see DashboardedSubsystem
+ * @see SmartMotorControllerSubsystem
+ * @see CANSparkMax
+ */
+public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerSubsystem {
 
+    /**
+     * the slot on the {@link CANSparkMax} on which the trapezoid profiling configurations are saved.
+     */
+    private static final int TRAPEZOID_SLOT_ID = 0;
+
+    /**
+     * the {@link CANSparkMax} which runs the loops
+     */
     protected final CANSparkMax master;
+
+    /**
+     * additional {@link CANSparkMax}s that follow the master
+     */
     protected final List<CANSparkMax> slaves;
 
-    private final int TRAPEZOID_SLOT_ID = 0;
-
+    /**
+     * constructs a new instance of {@link CTRESmartMotorControllerGenericSubsystem}
+     *
+     * @param namespaceName the name of the subsystem's namespace
+     * @param master the motor controller which runs the loops
+     * @param slaves additional motor controllers that follow the master
+     */
     public SparkMaxGenericSubsystem(String namespaceName, CANSparkMax master, CANSparkMax slaves) {
         super(namespaceName);
         this.master = master;
@@ -23,26 +50,19 @@ public class SparkMaxGenericSubsystem extends GenericSubsystem implements SmartM
         this.slaves.forEach(s -> s.follow(master));
     }
 
+    /**
+     * adds any data or commands to the {@link Shuffleboard}
+     */
     @Override
     public void configureDashboard() {
 
     }
 
-    @Override
-    protected void apply(double speed) {
-        master.set(speed);
-    }
-
-    @Override
-    public boolean canMove(double speed) {
-        return true;
-    }
-
-    @Override
-    public void stop() {
-        master.stopMotor();
-    }
-
+    /**
+     * configures the loop's PID and feed forward constants
+     * @param pidSettings the PID constants
+     * @param feedForwardSettings the feed forward gains
+     */
     @Override
     public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
         master.getPIDController().setFF(feedForwardSettings.getkV());
@@ -51,6 +71,10 @@ public class SparkMaxGenericSubsystem extends GenericSubsystem implements SmartM
         master.getPIDController().setD(pidSettings.getkD());
     }
 
+    /**
+     * configures the loop's trapezoid profiling
+     * @param settings the trapezoid profile configurations
+     */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
         master.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
@@ -59,6 +83,12 @@ public class SparkMaxGenericSubsystem extends GenericSubsystem implements SmartM
                 SparkMaxPIDController.AccelStrategy.fromInt(settings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
+    /**
+     * configures the loop's settings
+     * @param pidSettings the PID constants
+     * @param feedForwardSettings the feed forward gains
+     * @param trapezoidProfileSettings the trapezoid profile settings
+     */
     @Override
     public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
                               TrapezoidProfileSettings trapezoidProfileSettings) {
@@ -67,12 +97,25 @@ public class SparkMaxGenericSubsystem extends GenericSubsystem implements SmartM
         configureTrapezoid(trapezoidProfileSettings);
     }
 
+    /**
+     * configures the loop's settings
+     * @param pidSettings the PID constants
+     * @param feedForwardSettings the feed forward gains
+     */
     @Override
     public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
         master.restoreFactoryDefaults();
         configureLoop(pidSettings, feedForwardSettings, TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
     }
 
+    /**
+     * Update any control loops running on the motor controller.
+     *
+     * @param controlType the loop's control type (e.g. voltage, velocity, position...).
+     * @param pidSettings the PID constants
+     * @param feedForwardSettings the feed forward gains
+     * @param trapezoidProfileSettings the trapezoid profile settings
+     */
     @Override
     public void pidSet(CANSparkMax.ControlType controlType, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
@@ -81,11 +124,8 @@ public class SparkMaxGenericSubsystem extends GenericSubsystem implements SmartM
         master.getPIDController().setReference(setpoint, controlType);
     }
 
-
-
-
     @Override
     public void finish() {
-        stop();
+        master.stopMotor();
     }
 }

@@ -9,8 +9,6 @@ import java.util.function.Supplier;
  */
 public class FeedForwardSettings {
 
-    public static final FeedForwardSettings NULL = new FeedForwardSettings(0, 0);
-
     /**
      * Empty FeedForwardSettings, which effectively make the FeedForwardController do nothing.
      */
@@ -35,8 +33,6 @@ public class FeedForwardSettings {
      * The gravity constant
      */
     private Supplier<Double> kG;
-
-    private boolean isNull = false;
 
     public FeedForwardSettings(Supplier<Double> kS, Supplier<Double> kV, Supplier<Double> kA, Supplier<Double> kG) {
         this.kS = kS;
@@ -72,7 +68,6 @@ public class FeedForwardSettings {
 
     public void setkS(Supplier<Double> kS) {
         this.kS = kS;
-        isNull = false;
     }
 
     public double getkV() {
@@ -81,7 +76,6 @@ public class FeedForwardSettings {
 
     public void setkV(Supplier<Double> kV) {
         this.kV = kV;
-        isNull = false;
     }
 
     public double getkA() {
@@ -90,7 +84,6 @@ public class FeedForwardSettings {
 
     public void setkA(Supplier<Double> kA) {
         this.kA = kA;
-        isNull = false;
     }
 
     public double getkG() {
@@ -99,14 +92,5 @@ public class FeedForwardSettings {
 
     public void setkG(Supplier<Double> kG) {
         this.kG = kG;
-        isNull = false;
-    }
-
-    public boolean isNull() {
-        return isNull;
-    }
-
-    public void setIsNull(boolean isNull) {
-        this.isNull = isNull;
     }
 }

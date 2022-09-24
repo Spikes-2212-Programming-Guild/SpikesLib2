@@ -31,7 +31,7 @@ public abstract class DashboardedSubsystem extends SubsystemBase {
         rootNamespace.update();
     }
 
-    public abstract void configureDashboard() throws SmartMotorControllerSubsystem.UnassignedFeedForwardSettingsException, SmartMotorControllerSubsystem.UnassignedPIDSettingsException;
+    public abstract void configureDashboard();
 
     /**
      * Should be used inside a constructor to get the name of the class of the object that is being created.

@@ -2,8 +2,16 @@ package com.spikes2212.control;
 
 import java.util.function.Supplier;
 
+/**
+ * a data class for trapezoid profile configurations
+ *
+ * @author Yoel Perman Brilliant
+ */
 public class TrapezoidProfileSettings {
 
+    /**
+     * Empty {@link TrapezoidProfileSettings}, which effectively make the trapezoid profile do nothing.
+     */
     public static final TrapezoidProfileSettings EMPTY_TRAPEZOID_PROFILE_SETTINGS =
             new TrapezoidProfileSettings(0, 0, 0);
 
@@ -11,6 +19,9 @@ public class TrapezoidProfileSettings {
 
     private Supplier<Double> maxVelocity;
 
+    /**
+     * The S curve of the acceleration phase. The scale changes depending on the motor controller.
+     */
     private Supplier<Integer> curve;
 
     public TrapezoidProfileSettings(Supplier<Double> accelerationRate, Supplier<Double> maxVelocity,

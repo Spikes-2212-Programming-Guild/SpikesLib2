@@ -34,8 +34,6 @@ public class PIDSettings {
      */
     private Supplier<Double> waitTime;
 
-    private boolean isNull;
-
     public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance,
                        Supplier<Double> waitTime) {
         this.kP = kP;
@@ -63,7 +61,6 @@ public class PIDSettings {
 
     public void setkP(Supplier<Double> kP) {
         this.kP = kP;
-        this.isNull = false;
     }
 
     public double getkI() {
@@ -72,7 +69,6 @@ public class PIDSettings {
 
     public void setkI(Supplier<Double> kI) {
         this.kI = kI;
-        this.isNull = false;
     }
 
     public double getkD() {
@@ -81,7 +77,6 @@ public class PIDSettings {
 
     public void setkD(Supplier<Double> kD) {
         this.kD = kD;
-        this.isNull = false;
     }
 
     public double getTolerance() {
@@ -90,7 +85,6 @@ public class PIDSettings {
 
     public void setTolerance(Supplier<Double> tolerance) {
         this.tolerance = tolerance;
-        this.isNull = false;
     }
 
     public double getWaitTime() {
@@ -99,13 +93,5 @@ public class PIDSettings {
 
     public void setWaitTime(Supplier<Double> waitTime) {
         this.waitTime = waitTime;
-    }
-
-    public boolean isNull() {
-        return isNull;
-    }
-
-    public void setIsNull(boolean isNull) {
-        this.isNull = isNull;
     }
 }
