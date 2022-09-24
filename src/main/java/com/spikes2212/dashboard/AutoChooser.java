@@ -20,6 +20,18 @@ public class AutoChooser extends SendableChooser<Command> {
     public static final String DEFAULT_NAMESPACE_NAME = "autonomous chooser";
 
     /**
+     * The incrementation value that will be passed when
+     * using {@link AutoChooser#AutoChooser(Command, String, Object...)}.
+     */
+    private static final int INCREMENTATION_VALUE_ONE = 3;
+
+    /**
+     * The incrementation value that will be passed when
+     * using {@link AutoChooser#AutoChooser(Namespace, Command, String, Object...)}.
+     */
+    private static final int INCREMENTATION_VALUE_TWO = 4;
+
+    /**
      * The {@link Namespace} that this {@link AutoChooser} will be on.
      */
     protected final Namespace namespace;
@@ -79,7 +91,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * when the options length isn't even.
      */
     public AutoChooser(Namespace namespace, Command defaultOption, String defaultOptionName, Object... options) {
-        this(namespace, defaultOption, defaultOptionName, 4, options);
+        this(namespace, defaultOption, defaultOptionName, INCREMENTATION_VALUE_TWO, options);
     }
 
     /**
@@ -95,7 +107,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * when the options length isn't even.
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
-        this(new RootNamespace(DEFAULT_NAMESPACE_NAME), defaultOption, defaultOptionName, 3, options);
+        this(new RootNamespace(DEFAULT_NAMESPACE_NAME), defaultOption, defaultOptionName, INCREMENTATION_VALUE_ONE, options);
     }
 
     private AutoChooser(Namespace namespace, Command defaultOption, String defaultOptionName,
