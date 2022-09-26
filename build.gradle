@@ -20,6 +20,9 @@ repositories {
     maven {
         url 'https://frcmaven.wpi.edu/artifactory/release'
     }
+    maven {
+        url 'https://maven.revrobotics.com/'
+    }
 }
 
 dependencies {
@@ -30,5 +33,5 @@ dependencies {
     implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2020.1.2'
     implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2020.1.2'
     implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2020.1.2'
-
+    implementation group: 'com.revrobotics.frc', name: 'REVLib-java', version: '2022.1.1'
 }
