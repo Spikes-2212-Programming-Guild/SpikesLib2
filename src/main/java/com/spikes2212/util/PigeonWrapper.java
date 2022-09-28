@@ -5,7 +5,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
- * A wrapper class for the pigeon IMU sensor.
+ * A wrapper class for the Pigeon IMU sensor.
  *
  * @author Tal Sitton
  */
