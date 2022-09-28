@@ -11,24 +11,20 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * @author Yotam Yizhar
  */
 public class Limelight {
-    private static RootNamespace rootNamespace = new RootNamespace("Limelight Values");
-    private static NetworkTableInstance table;
+
+    protected static RootNamespace rootNamespace = new RootNamespace("limelight values");
+    protected static NetworkTableInstance table;
 
     public Limelight() {
-        rootNamespace.putBoolean("Is on target", this::isOnTarget);
-        rootNamespace.putNumber("Horizontal offset from target", this::getHorizontalOffsetFromTarget);
-        rootNamespace.putNumber("Vertical offset from target", this::getVerticalOffsetFromTarget);
-        rootNamespace.putNumber("Target screen fill percent", this::getTargetAreaPercentage);
-        rootNamespace.putNumber("Pipeline latency", this::getTargetLatency);
-        rootNamespace.putNumber("Distance from target", this::calculateDistance);
+        rootNamespace.putBoolean("is on target", this::isOnTarget);
+        rootNamespace.putNumber("horizontal offset from target in degrees", this::getHorizontalOffsetFromTargetInDegrees);
+        rootNamespace.putNumber("vertical offset from target in degrees", this::getVerticalOffsetFromTargetInDegrees);
+        rootNamespace.putNumber("target screen fill percent", this::getTargetAreaPercentage);
+        rootNamespace.putNumber("pipeline latency", this::getTargetLatency);
     }
 
-    /**
-     * @return the distance between the limelight and the target using a (pre-calculated formula with a graph)
-     */
-    private double calculateDistance() {
-        double x = getTargetWidthInPixels();
-        return 37.905 * Math.pow(x, -0.977) * 0.05 / getTargetWidthInPixels();
+    public void periodic() {
+        rootNamespace.update();
     }
 
     /**
@@ -39,17 +35,54 @@ public class Limelight {
     }
 
     /**
+     * @return the current limelight's pipeline
+     */
+    public int getPipeline() {
+        return (int) getValue("getpipe").getNumber(0);
+    }
+
+    /**
      * @return the horizontal offset from crosshair to target (-27 degrees to 27 degrees)
      */
-    public double getHorizontalOffsetFromTarget() {
+    public double getHorizontalOffsetFromTargetInDegrees() {
         return getValue("tx").getDouble(0.00);
+    }
+
+    /**
+     * @deprecated Use {@link #getHorizontalOffsetFromTargetInDegrees()}.
+     */
+    @Deprecated(since = "2022", forRemoval = true)
+    public double getHorizontalOffsetFromTarget() {
+        return getHorizontalOffsetFromTargetInDegrees();
+    }
+
+    /**
+     * @return the raw horizontal offset from crosshair to target in pixels (-1 to 1)
+     */
+    public double getHorizontalOffsetFromTargetInPixels() {
+        return getValue("tx0").getDouble(0.00);
     }
 
     /**
      * @return the vertical offset from crosshair to target (-20.5 degrees to 20.5 degrees)
      */
-    public double getVerticalOffsetFromTarget() {
+    public double getVerticalOffsetFromTargetInDegrees() {
         return getValue("ty").getDouble(0.00);
+    }
+
+    /**
+     * @deprecated Use {@link #getVerticalOffsetFromTargetInDegrees()}.
+     */
+    @Deprecated(since = "2022", forRemoval = true)
+    public double getVerticalOffsetFromTarget() {
+        return getVerticalOffsetFromTargetInDegrees();
+    }
+
+    /**
+     * @return the raw vertical offset from crosshair to target in pixels (-1 to 1)
+     */
+    public double getVerticalOffsetFromTargetInPixels() {
+        return getValue("ty0").getDouble(0.00);
     }
 
     /**
@@ -88,7 +121,7 @@ public class Limelight {
     }
 
     /**
-     * sets pipeline number (0-9 value)
+     * Sets pipeline number (0-9 value).
      *
      * @param number pipeline number (0-9)
      */
@@ -96,12 +129,8 @@ public class Limelight {
         getValue("pipeline").setNumber(number);
     }
 
-    public void periodic() {
-        rootNamespace.update();
-    }
-
     /**
-     * retrieve an entry from the Limelight NetworkTable.
+     * Retrieves an entry from the Limelight NetworkTable.
      *
      * @param key key for entry
      * @return the value of the given entry

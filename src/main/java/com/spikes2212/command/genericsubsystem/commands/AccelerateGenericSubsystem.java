@@ -7,10 +7,11 @@ import com.spikes2212.command.genericsubsystem.GenericSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * This command accelerate the speed of a {@link GenericSubsystem} linearly so it will
- * reach a wanted speed after a given time.
+ * This command accelerate the speed of a {@link GenericSubsystem} linearly,
+ * so it will reach a wanted speed after a given time.
  *
  * @author Yuval Levy
+ * @see MoveGenericSubsystem
  */
 public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
 
@@ -82,5 +83,4 @@ public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
     public boolean isFinished() {
         return super.isFinished() || currentSpeed == speedSupplier.get();
     }
-
 }

@@ -3,8 +3,8 @@ package com.spikes2212.command.drivetrains.commands;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.*;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.math.controller.PIDController;
 
 import java.util.function.Supplier;
 
@@ -12,38 +12,39 @@ import java.util.function.Supplier;
  * A command that moves a {@link TankDrivetrain} with a set speed forward and with a PID loop to a certain angle.
  *
  * @author Yuval Levy
+ * @see TankDrivetrain
  */
 public class DriveArcadeWithPID extends CommandBase {
 
     /**
      * The drivetrain this command operates on.
      */
-    private final TankDrivetrain drivetrain;
+    protected final TankDrivetrain drivetrain;
 
     /**
      * The PID settings for the turning PID loop.
      */
-    private PIDSettings pidSettings;
+    protected final PIDSettings pidSettings;
 
     /**
      * The PID controller for the turning PID loop.
      */
-    private PIDController pidController;
+    protected PIDController pidController;
 
     /**
      * The FeedForward settings for the turning FeedForwards loop.
      */
-    private FeedForwardSettings feedForwardSettings;
+    protected final FeedForwardSettings feedForwardSettings;
 
     /**
      * The FeedForward controller for the turning FeedForwards loop.
      */
-    private FeedForwardController feedForwardController;
+    protected FeedForwardController feedForwardController;
 
     /**
      * The angle of the drivetrain.
      */
-    private Supplier<Double> source;
+    protected Supplier<Double> source;
 
     /**
      * The last time the drivetrain's angle wasn't within the target range.
@@ -53,12 +54,12 @@ public class DriveArcadeWithPID extends CommandBase {
     /**
      * The angle the drivetrain should reach.
      */
-    private Supplier<Double> setpoint;
+    protected Supplier<Double> setpoint;
 
     /**
      * The speed at which to move the drivetrain forward.
      */
-    private Supplier<Double> moveValue;
+    protected Supplier<Double> moveValue;
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
                               Supplier<Double> moveValue, PIDSettings pidSettings,
@@ -73,7 +74,7 @@ public class DriveArcadeWithPID extends CommandBase {
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
         this.pidController.setSetpoint(setpoint.get());
         this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
-                feedForwardSettings.getkA(), feedForwardSettings.getkG());
+                feedForwardSettings.getkA(), feedForwardSettings.getkG(), FeedForwardController.DEFAULT_PERIOD);
     }
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, double moveValue,

@@ -4,9 +4,11 @@ import java.util.function.Supplier;
 
 /**
  * The constants used in a PID calculation, as well as tolerance and loop wait time.
+ *
  * @author Eran Goldshtein
  */
 public class PIDSettings {
+
     /**
      * the proportional component of the PID settings
      */

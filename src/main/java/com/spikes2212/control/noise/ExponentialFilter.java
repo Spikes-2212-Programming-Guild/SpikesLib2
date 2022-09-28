@@ -1,7 +1,8 @@
 package com.spikes2212.control.noise;
 
 /**
- * a class that handles noise-filtering by controlling the speed of motors
+ * A class that handles noise-filtering by controlling the speed of motors using an exponential filter.
+ *
  * @author Simon Kharmatsky
  */
 public class ExponentialFilter implements NoiseFilter {

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ButtonLayout<T extends Enum<T>> {
+
     private Map<T, Command> buttons = new HashMap<>();
 
     public void addButton(T button, Command command) {

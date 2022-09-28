@@ -1,13 +1,16 @@
 package com.spikes2212.dashboard;
 
-import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.util.sendable.Sendable;
 
 import java.util.function.Supplier;
 
+/**
+ * This class represents a "subdirectory" of another {@link Namespace} which can store values or other ChildNamespaces.
+ */
 public class ChildNamespace extends RootNamespace {
 
-    private Namespace parent;
-    private String separator;
+    protected Namespace parent;
+    protected String separator;
 
     public ChildNamespace(String name, Namespace parent) {
         super(name);
@@ -75,5 +78,4 @@ public class ChildNamespace extends RootNamespace {
     public boolean getBoolean(String key) {
         return parent.getBoolean(name + separator + key);
     }
-
 }

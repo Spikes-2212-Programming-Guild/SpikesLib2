@@ -1,10 +1,12 @@
 package com.spikes2212.control;
 
 /**
- * a class that represents a FeedForward controller
  * @author Tuval Rivkinind Barlev
  */
 public class FeedForwardController {
+
+    public static final double DEFAULT_PERIOD = 0.02;
+
     /**
      * The static constant
      */
@@ -33,7 +35,7 @@ public class FeedForwardController {
     /**
      * The calling period for the calculate function.
      */
-    private double period;
+    private final double period;
 
     public FeedForwardController(double kS, double kV, double kA, double kG, double period) {
         this.kS = kS;
@@ -52,7 +54,9 @@ public class FeedForwardController {
         this(kS, kV, kA, 0, period);
     }
 
-
+    public FeedForwardController(FeedForwardSettings settings, double period) {
+        this(settings.getkS(), settings.getkV(), settings.getkA(), settings.getkG(), period);
+    }
 
     public void setGains(double kV, double kA) {
         this.kV = kV;

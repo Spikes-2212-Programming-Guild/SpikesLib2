@@ -5,7 +5,7 @@ import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
@@ -14,53 +14,54 @@ import java.util.function.Supplier;
  * A command that moves a {@link TankDrivetrain} using two PID loops, one for each side.
  *
  * @author Yuval Levy
+ * @see TankDrivetrain
  */
 public class DriveTankWithPID extends CommandBase {
 
     /**
      * The drivetrain this command operates on.
      */
-    private final TankDrivetrain drivetrain;
+    protected final TankDrivetrain drivetrain;
 
     /**
      * The PID Settings for the PID loop operating on the left side of the drivetrain.
      */
-    private PIDSettings leftPIDSettings;
+    protected final PIDSettings leftPIDSettings;
 
     /**
      * The PID Settings for the PID loop operating on the right side of the drivetrain.
      */
-    private PIDSettings rightPIDSettings;
+    protected final PIDSettings rightPIDSettings;
 
     /**
      * The PID Controller of the PID loop operating on the left side of the drivetrain.
      */
-    private PIDController leftPIDController;
+    protected PIDController leftPIDController;
 
     /**
      * The PID Controller of the PID loop operating on the right side of the drivetrain.
      */
-    private PIDController rightPIDController;
+    protected PIDController rightPIDController;
 
     /**
      * The setpoint the left side of the drivetrain should reach.
      */
-    private Supplier<Double> leftSetpoint;
+    protected Supplier<Double> leftSetpoint;
 
     /**
      * The setpoint the right side of the drivetrain should reach.
      */
-    private Supplier<Double> rightSetpoint;
+    protected Supplier<Double> rightSetpoint;
 
     /**
      * How far the left side of the drivetrain drove.
      */
-    private Supplier<Double> leftSource;
+    protected Supplier<Double> leftSource;
 
     /**
      * How far the right side of the drivetrain drove.
      */
-    private Supplier<Double> rightSource;
+    protected Supplier<Double> rightSource;
 
     /**
      * The last time the left side of the drivetrain was not within its target zone.
@@ -75,22 +76,22 @@ public class DriveTankWithPID extends CommandBase {
     /**
      * The FeedForwards Settings of the FeedForward loop operating on the left side of the drivetrain.
      */
-    private FeedForwardSettings leftFeedForwardSettings;
+    protected final FeedForwardSettings leftFeedForwardSettings;
 
     /**
      * The FeedForwards Settings of the FeedForward loop operating on the right side of the drivetrain.
      */
-    private FeedForwardSettings rightFeedForwardSettings;
+    protected final FeedForwardSettings rightFeedForwardSettings;
 
     /**
      * The FeedForwards Controller of the FeedForward loop operating on the left side of the drivetrain.
      */
-    private FeedForwardController leftFeedForwardController;
+    protected FeedForwardController leftFeedForwardController;
 
     /**
      * The FeedForwards Controller of the FeedForward loop operating on the right side of the drivetrain.
      */
-    private FeedForwardController rightFeedForwardController;
+    protected FeedForwardController rightFeedForwardController;
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                             Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
@@ -111,9 +112,11 @@ public class DriveTankWithPID extends CommandBase {
         this.leftFeedForwardSettings = leftFeedForwardSettings;
         this.rightFeedForwardSettings = rightFeedForwardSettings;
         this.leftFeedForwardController = new FeedForwardController(leftFeedForwardSettings.getkS(),
-                leftFeedForwardSettings.getkV(), leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG());
+                leftFeedForwardSettings.getkV(), leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG(),
+                FeedForwardController.DEFAULT_PERIOD);
         this.rightFeedForwardController = new FeedForwardController(rightFeedForwardSettings.getkS(),
-                rightFeedForwardSettings.getkV(), rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG());
+                rightFeedForwardSettings.getkV(), rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG(),
+                FeedForwardController.DEFAULT_PERIOD);
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,

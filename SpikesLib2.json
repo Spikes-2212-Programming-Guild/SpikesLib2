@@ -1,0 +1,20 @@
+{
+    "fileName": "SpikesLib2.json",
+    "name": "SpikesLib2",
+    "version": "v2.1.0",
+    "uuid" : "018a8f54-8662-11ec-a8a3-0242ac120002",
+    "jsonUrl": "https://raw.githubusercontent.com/Spikes-2212-Programming-Guild/SpikesLib2/master/SpikesLib2.json",
+    "mavenUrls": [
+        "https://jitpack.io"
+    ],
+    "jniDependencies": [],
+    "cppDependencies": [
+    ],
+    "javaDependencies": [
+        {
+            "groupId": "com.github.Spikes-2212-Programming-Guild",
+    	    "artifactId": "SpikesLib2",
+    	    "version": "v2.1.0"
+        }
+    ]
+}
