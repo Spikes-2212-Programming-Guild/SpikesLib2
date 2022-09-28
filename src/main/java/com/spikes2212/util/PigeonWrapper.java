@@ -41,9 +41,9 @@ public class PigeonWrapper implements Gyro {
     }
 
     /**
-     * Calibrates the pigeon based on the yaw sent.
+     * Calibrates the Pigeon based on the yaw sent.
      *
-     * @param yaw the yaw the pigeon shall be calibrated to
+     * @param yaw the yaw the Pigeon shall be calibrated to
      */
     public void calibrate(double yaw) {
         pigeon.enterCalibrationMode(PigeonIMU.CalibrationMode.BootTareGyroAccel);
@@ -51,7 +51,7 @@ public class PigeonWrapper implements Gyro {
     }
 
     /**
-     * Calibrates the pigeon wrapper to yaw 0.
+     * Calibrates the Pigeon wrapper to yaw 0.
      */
     public void calibrate() {
         calibrate(0);
