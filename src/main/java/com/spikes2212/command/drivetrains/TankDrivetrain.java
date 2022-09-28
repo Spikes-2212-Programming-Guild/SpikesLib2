@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 /**
- * This class represents a type of Drivetrain that its left and right sides are controlled independently,
+ * This class represents a type of drivetrain that its left and right sides are controlled independently,
  * allowing it to move by giving each side a speed value separately.
  *
  * <p> It can move forwards/backwards by giving both its sides an equal speed or
- * turn by giving the sides different speeds </p>
+ * turn by giving the sides different speeds. </p>
  *
  * @author Yuval Levy
  * @see DashboardedSubsystem
@@ -18,6 +18,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     protected MotorController leftController;
     protected MotorController rightController;
+
     private final DifferentialDrive drive;
 
     public TankDrivetrain(String namespaceName, MotorController left, MotorController right) {
