@@ -15,9 +15,11 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "generic subsystem";
 
-    private double currentSpeed = 0;
     protected Supplier<Double> maxSpeed;
     protected Supplier<Double> minSpeed;
+
+    private double currentSpeed = 0;
+
 
     /**
      * Constructs a new instance of {@link GenericSubsystem}.
