@@ -2,7 +2,6 @@ package com.spikes2212.command.genericsubsystem;
 
 
 import com.spikes2212.command.DashboardedSubsystem;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import java.util.function.Supplier;
 
@@ -14,7 +13,7 @@ import java.util.function.Supplier;
  */
 public abstract class GenericSubsystem extends DashboardedSubsystem {
 
-    private static final String DEFAULT_DASHBOARD_NAME = "generic subsystem";
+    private static final String DEFAULT_NAMESPACE_NAME = "generic subsystem";
 
     private double currentSpeed = 0;
     protected Supplier<Double> maxSpeed;
@@ -38,7 +37,7 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
 
     @Deprecated(since = "2022", forRemoval = true)
     public GenericSubsystem() {
-        this(getClassName(DEFAULT_DASHBOARD_NAME));
+        this(getClassName(DEFAULT_NAMESPACE_NAME));
     }
 
     /**
@@ -64,7 +63,7 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
      */
     @Deprecated(since = "2022", forRemoval = true)
     public GenericSubsystem(double minSpeed, double maxSpeed) {
-        this(DEFAULT_DASHBOARD_NAME, minSpeed, maxSpeed);
+        this(DEFAULT_NAMESPACE_NAME, minSpeed, maxSpeed);
     }
 
     /**
@@ -90,7 +89,7 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
      */
     @Deprecated(since = "2022", forRemoval = true)
     public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
-        this(DEFAULT_DASHBOARD_NAME, minSpeed, maxSpeed);
+        this(DEFAULT_NAMESPACE_NAME, minSpeed, maxSpeed);
     }
 
     /**
