@@ -15,6 +15,8 @@ public class PigeonWrapper implements Gyro {
         X, Y, Z;
     }
 
+    public static final RotationAxis DEFAULT_ROTATION_AXIS = RotationAxis.Z;
+
     protected final double[] values = new double[3];
     protected final PigeonIMU pigeon;
 
@@ -31,11 +33,11 @@ public class PigeonWrapper implements Gyro {
     }
 
     public PigeonWrapper(int canPort) {
-        this(canPort, RotationAxis.Z);
+        this(canPort, DEFAULT_ROTATION_AXIS);
     }
 
     public PigeonWrapper(TalonSRX talonSRX) {
-        this(talonSRX, RotationAxis.Z);
+        this(talonSRX, DEFAULT_ROTATION_AXIS);
     }
 
     /**
