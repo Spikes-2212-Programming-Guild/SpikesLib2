@@ -1,6 +1,6 @@
 package com.spikes2212.command.genericsubsystem;
 
-import com.spikes2212.dashboard.RootNamespace;
+import com.spikes2212.dashboard.Namespace;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
@@ -17,7 +17,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     protected MotorControllerGroup motorControllerGroup;
 
     /**
-     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link RootNamespace}'s name, the given
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
      * minSpeed supplier, the given maxSpeed supplier and the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
@@ -49,7 +49,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link RootNamespace}'s name, the given
+     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
      * minSpeed, maxSpeed and the given {@link MotorController}s.</p>
      *
      * @param namespaceName    the name of the subsystem's namespace
@@ -80,7 +80,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link RootNamespace}'s name and
+     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name and
      * the given {@link MotorController}s.</p>
      *
      * @param namespaceName    the name of the subsystem's namespace
