@@ -19,7 +19,7 @@ repositories {
         url 'https://frcmaven.wpi.edu/artifactory/release'
     }
     maven {
-        url 'https://maven.revrobotics.com/'
+        url 'https://maven.revrobotics.com'
     }
 }
 
