@@ -13,14 +13,19 @@ import java.util.List;
 /**
  * A {@link Subsystem} that includes a {@link Namespace}, which lets you see and configure data using the
  * {@link SmartDashboard}.
+ *
  */
 public abstract class DashboardedSubsystem extends SubsystemBase {
 
     protected final RootNamespace rootNamespace;
 
-    public DashboardedSubsystem(String namespaceName) {
-        this.rootNamespace = new RootNamespace(namespaceName);
+    public DashboardedSubsystem(RootNamespace rootNamespace) {
+        this.rootNamespace = rootNamespace;
         configureDashboard();
+    }
+
+    public DashboardedSubsystem(String namespaceName) {
+        this(new RootNamespace(namespaceName));
     }
 
     /**
