@@ -80,7 +80,7 @@ public class AutoChooser extends SendableChooser<Command> {
 
     /**
      * Creates an {@link AutoChooser} where the first {@link Command} and {@link String} will be used as the default
-     * option, and the rest of the options will be parsed as following: every even index (0,2,4,...) will be a command
+     * option, and the rest of the options will be parsed as followed: every even index (0,2,4,...) will be a command
      * and every odd index (1,3,5,...) will be used as the name for the previous command.
      *
      * @param namespace the namespace that this {@link AutoChooser} will be on
@@ -97,7 +97,7 @@ public class AutoChooser extends SendableChooser<Command> {
 
     /**
      * Creates an {@link AutoChooser} where the first {@link Command} and {@link String} will be used as the default
-     * option, and the rest of the options will be parsed as following: every even index (0,2,4,...) will be a command
+     * option, and the rest of the options will be parsed as followed: every even index (0,2,4,...) will be a command
      * and every odd index (1,3,5,...) will be used as the name for the previous command.
      *
      * @param defaultOption the default command this {@link AutoChooser} will use as the default option
