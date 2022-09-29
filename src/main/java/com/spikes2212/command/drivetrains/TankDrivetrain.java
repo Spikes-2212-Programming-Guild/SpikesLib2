@@ -113,7 +113,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Add any commands or data from this subsystem to the dashboard.
+     * Adds any commands or data from this subsystem to the dashboard.
      */
     @Override
     public void configureDashboard() {
