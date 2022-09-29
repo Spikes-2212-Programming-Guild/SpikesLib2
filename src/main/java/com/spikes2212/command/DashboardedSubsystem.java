@@ -20,6 +20,7 @@ public abstract class DashboardedSubsystem extends SubsystemBase {
 
     public DashboardedSubsystem(String namespaceName) {
         this.rootNamespace = new RootNamespace(namespaceName);
+        configureDashboard();
     }
 
     /**
