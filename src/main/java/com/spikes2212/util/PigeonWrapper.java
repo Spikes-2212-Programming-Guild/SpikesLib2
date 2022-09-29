@@ -125,8 +125,7 @@ public class PigeonWrapper implements Gyro {
      * @return the yaw
      */
     public double getYaw() {
-        pigeon.getYawPitchRoll(values);
-        return values[0];
+        return pigeon.getYaw();
     }
 
     /**
@@ -137,12 +136,10 @@ public class PigeonWrapper implements Gyro {
     }
 
     public double getPitch() {
-        pigeon.getYawPitchRoll(values);
-        return values[1];
+        return pigeon.getPitch();
     }
 
     public double getRoll() {
-        pigeon.getYawPitchRoll(values);
-        return values[2];
+        return pigeon.getRoll();
     }
 }
