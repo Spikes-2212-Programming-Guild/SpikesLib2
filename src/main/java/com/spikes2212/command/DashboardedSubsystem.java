@@ -14,6 +14,7 @@ import java.util.List;
  * A {@link Subsystem} that includes a {@link Namespace}, which lets you see and configure data using the
  * {@link SmartDashboard}.
  *
+ * @author Yoel Perman Brilliant
  */
 public abstract class DashboardedSubsystem extends SubsystemBase {
 
