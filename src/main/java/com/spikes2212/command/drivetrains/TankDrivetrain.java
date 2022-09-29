@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
  */
 public class TankDrivetrain extends DashboardedSubsystem {
 
+    private static final String DEFAULT_NAMESPACE_NAME = "tank drivetrain";
+
     protected MotorController leftController;
     protected MotorController rightController;
 
@@ -30,7 +32,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
     
     public TankDrivetrain(MotorController left, MotorController right) {
-        this(getClassName("tank drivetrain"), left, right);
+        this(getClassName(DEFAULT_NAMESPACE_NAME), left, right);
     }
 
     /**
