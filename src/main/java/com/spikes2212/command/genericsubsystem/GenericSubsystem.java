@@ -21,7 +21,8 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     private double currentSpeed = 0;
 
     /**
-     * Constructs a new instance of {@link GenericSubsystem} with the given minSpeed supplier and maxSpeed supplier.
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed supplier
+     * and maximum speed supplier.
      *
      * @param minSpeed the minimum speed
      * @param maxSpeed the maximum speed
@@ -54,7 +55,7 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     }
 
     /**
-     * Constructs a new instance of {@link GenericSubsystem} with the given minSpeed and maxSpeed.
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed and maximum speed.
      *
      * @param namespaceName the name of the subsystem's namespace
      * @param minSpeed the minimum speed
@@ -65,7 +66,7 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     }
 
     /**
-     * Constructs a new instance of {@link GenericSubsystem} with the given minSpeed and maxSpeed. <br> <br>
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed and maximum speed. <br> <br>
      *
      * <p> This constructor is deprecated. <br>
      * Please use {@link #GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed)}
@@ -80,7 +81,8 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     }
 
     /**
-     * Constructs a new instance of {@link GenericSubsystem} with the given minSpeed supplier and maxSpeed supplier. <br>
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed supplier
+     * and maximum speed supplier. <br>
      *
      * <p> This constructor is deprecated. <br>
      * Please use {@link #GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed)}
