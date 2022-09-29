@@ -18,10 +18,10 @@ import java.util.List;
  */
 public abstract class DashboardedSubsystem extends SubsystemBase {
 
-    protected final RootNamespace rootNamespace;
+    protected final Namespace namespace;
 
-    public DashboardedSubsystem(RootNamespace rootNamespace) {
-        this.rootNamespace = rootNamespace;
+    public DashboardedSubsystem(Namespace namespace) {
+        this.namespace = namespace;
         configureDashboard();
     }
 
@@ -34,7 +34,7 @@ public abstract class DashboardedSubsystem extends SubsystemBase {
      */
     @Override
     public void periodic() {
-        rootNamespace.update();
+        namespace.update();
     }
 
     public abstract void configureDashboard();
