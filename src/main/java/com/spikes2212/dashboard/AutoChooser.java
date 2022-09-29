@@ -165,7 +165,7 @@ public class AutoChooser extends SendableChooser<Command> {
 
     /**
      * @param num a positive number
-     * @return the correct suffix for this number
+     * @return the correct suffix for the given number
      */
     private String getCorrectSuffix(int num) {
         List<String> suffixes = List.of("th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th");
