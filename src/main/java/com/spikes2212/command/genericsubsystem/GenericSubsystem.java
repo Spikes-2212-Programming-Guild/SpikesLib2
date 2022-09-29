@@ -2,7 +2,6 @@ package com.spikes2212.command.genericsubsystem;
 
 
 import com.spikes2212.command.DashboardedSubsystem;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import java.util.function.Supplier;
 
@@ -10,62 +9,20 @@ import java.util.function.Supplier;
  * This class represents a generic subsystem that moves within a limitation, or without one.
  *
  * @author Yuval Levy
+ * @see DashboardedSubsystem
  */
 public abstract class GenericSubsystem extends DashboardedSubsystem {
 
-    private double currentSpeed = 0;
+    private static final String DEFAULT_NAMESPACE_NAME = "generic subsystem";
+
     protected Supplier<Double> maxSpeed;
     protected Supplier<Double> minSpeed;
 
-    /**
-     * Constructs a new instance of GenericSubsystem.
-     *
-     * @param namespaceName the name of the subsystem's namespace
-     */
-    public GenericSubsystem(String namespaceName) {
-        this(namespaceName, -1, 1);
-    }
+    private double currentSpeed = 0;
 
     /**
-     * Constructs a new instance of GenericSubsystem. <br>
-     *
-     * This constructor is deprecated. <br>
-     * Please use {@link #GenericSubsystem(String namespaceName)}.
-     */
-
-    @Deprecated(since = "2022", forRemoval = true)
-    public GenericSubsystem() {
-        this(getClassName("generic subsystem"));
-    }
-
-    /**
-     * Constructs a new instance of GenericSubsystem with the given minSpeed and maxSpeed.
-     *
-     * @param namespaceName the name of the subsystem's namespace
-     * @param minSpeed the minimum speed
-     * @param maxSpeed the maximum speed
-     */
-    public GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed) {
-        this(namespaceName, () -> minSpeed, () -> maxSpeed);
-    }
-
-    /**
-     * Constructs a new instance of GenericSubsystem with the given minSpeed and maxSpeed. <br><br>
-     *
-     * This constructor is deprecated. <br>
-     * Please use {@link #GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed)} instead. <br><br>
-     *
-     * @param minSpeed the minimum speed
-     * @param maxSpeed the maximum speed
-     *
-     */
-    @Deprecated(since = "2022", forRemoval = true)
-    public GenericSubsystem(double minSpeed, double maxSpeed) {
-        this("generic subsystem", minSpeed, maxSpeed);
-    }
-
-    /**
-     * Constructs a new instance of GenericSubsystem with the given minSpeed supplier and maxSpeed supplier.
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed supplier
+     * and maximum speed supplier.
      *
      * @param minSpeed the minimum speed
      * @param maxSpeed the maximum speed
@@ -77,17 +34,66 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     }
 
     /**
-     * Constructs a new instance of GenericSubsystem with the given minSpeed supplier and maxSpeed supplier. <br>
+     * Constructs a new instance of {@link GenericSubsystem}.
      *
-     * This constructor is deprecated. <br>
-     * Please use {@link #GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed)} instead. <br><br>
+     * @param namespaceName the name of the subsystem's namespace
+     */
+    public GenericSubsystem(String namespaceName) {
+        this(namespaceName, -1, 1);
+    }
+
+    /**
+     * Constructs a new instance of {@link GenericSubsystem}. <br>
+     *
+     * <p> This constructor is deprecated. <br>
+     * Please use {@link #GenericSubsystem(String namespaceName)}. </p>
+     */
+
+    @Deprecated(since = "2022", forRemoval = true)
+    public GenericSubsystem() {
+        this(getClassName(DEFAULT_NAMESPACE_NAME));
+    }
+
+    /**
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed and maximum speed.
+     *
+     * @param namespaceName the name of the subsystem's namespace
+     * @param minSpeed the minimum speed
+     * @param maxSpeed the maximum speed
+     */
+    public GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed) {
+        this(namespaceName, () -> minSpeed, () -> maxSpeed);
+    }
+
+    /**
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed and maximum speed. <br> <br>
+     *
+     * <p> This constructor is deprecated. <br>
+     * Please use {@link #GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed)}
+     * instead. <br> <br> </p>
+     *
+     * @param minSpeed the minimum speed
+     * @param maxSpeed the maximum speed
+     */
+    @Deprecated(since = "2022", forRemoval = true)
+    public GenericSubsystem(double minSpeed, double maxSpeed) {
+        this(DEFAULT_NAMESPACE_NAME, minSpeed, maxSpeed);
+    }
+
+    /**
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed supplier
+     * and maximum speed supplier. <br>
+     *
+     * <p> This constructor is deprecated. <br>
+     * Please use {@link #GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed)}
+     * instead. <br> <br> </p>
      *
      * @param minSpeed the minimum speed
      * @param maxSpeed the maximum speed
      */
     @Deprecated(since = "2022", forRemoval = true)
     public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
-        this("generic subsystem", minSpeed, maxSpeed);
+        this(DEFAULT_NAMESPACE_NAME, minSpeed, maxSpeed);
     }
 
     /**

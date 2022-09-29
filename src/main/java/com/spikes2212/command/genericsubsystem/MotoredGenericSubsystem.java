@@ -1,6 +1,6 @@
 package com.spikes2212.command.genericsubsystem;
 
-import com.spikes2212.dashboard.RootNamespace;
+import com.spikes2212.dashboard.Namespace;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
@@ -17,8 +17,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     protected MotorControllerGroup motorControllerGroup;
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@link RootNamespace}'s name, the given
-     * maxSpeed supplier, the given minSpeed supplier and the given {@link MotorController}s.
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
+     * minSpeed supplier, the given maxSpeed supplier and the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param minSpeed         the minimum speed
@@ -28,13 +28,19 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     public MotoredGenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed,
                                    MotorController... motorControllers) {
         super(namespaceName, minSpeed, maxSpeed);
-        this.rootNamespace = new RootNamespace(namespaceName);
         this.motorControllerGroup = new MotorControllerGroup(motorControllers);
     }
 
     /**
-     * @deprecated use {@code MotoredGenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double>
-     *     maxSpeed, MotorController... motorControllers)}
+     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given
+     * minSpeed supplier, the given maxSpeed supplier and the given {@link MotorController}s.</p>
+     *
+     * <p>This constructor is deprecated.
+     * Please use {@link #MotoredGenericSubsystem(String, Supplier, Supplier, MotorController...)}</p>
+     *
+     * @param minSpeed         the minimum speed
+     * @param maxSpeed         the maximum speed
+     * @param motorControllers the motor controllers in the subsystem
      */
     @Deprecated(since = "2022", forRemoval = true)
     public MotoredGenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed, String namespaceName,
@@ -43,8 +49,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@link RootNamespace}'s name, the given
-     * maxSpeed, the given minSpeed and the given {@link MotorController}s.
+     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
+     * minSpeed, maxSpeed and the given {@link MotorController}s.</p>
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param minSpeed         the minimum speed
@@ -57,8 +63,15 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * @deprecated use {@code MotoredGenericSubsystem(String namespaceName, double minSpeed, double maxSpeed,
-     *                                    MotorController... motorControllers)}
+     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given
+     * minSpeed, the give maxSpeed and the given {@link MotorController}s.</p>
+     *
+     * <p>This constructor is deprecated.
+     * Please use {@link #MotoredGenericSubsystem(String, double, double, MotorController...)} instead.</p>
+     *
+     * @param minSpeed         the minimum speed
+     * @param maxSpeed         the maximum speed
+     * @param motorControllers the motor controllers in the subsystem
      */
     @Deprecated(since = "2022", forRemoval = true)
     public MotoredGenericSubsystem(double minSpeed, double maxSpeed, String namespaceName,
@@ -67,8 +80,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Constructs a new instance of MotoredGenericSubsystem with the given {@link RootNamespace}'s name and
-     * the given {@link MotorController}s.
+     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name and
+     * the given {@link MotorController}s.</p>
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param motorControllers the motor controllers in the subsystem
@@ -93,7 +106,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Add any commands or data from this subsystem to the dashboard.
+     * Adds any commands or data from this subsystem to the dashboard.
      */
     @Override
     public void configureDashboard() {
