@@ -28,7 +28,6 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     public MotoredGenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed,
                                    MotorController... motorControllers) {
         super(namespaceName, minSpeed, maxSpeed);
-        this.rootNamespace = new RootNamespace(namespaceName);
         this.motorControllerGroup = new MotorControllerGroup(motorControllers);
     }
 

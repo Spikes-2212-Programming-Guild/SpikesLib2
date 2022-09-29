@@ -16,7 +16,7 @@ import java.util.List;
  */
 public abstract class DashboardedSubsystem extends SubsystemBase {
 
-    protected RootNamespace rootNamespace;
+    protected final RootNamespace rootNamespace;
 
     public DashboardedSubsystem(String namespaceName) {
         this.rootNamespace = new RootNamespace(namespaceName);
