@@ -36,7 +36,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
 
     /**
      * The loop's control type (e.g. voltage, velocity, position...). Only applicable when
-     * using a CTRE motor controller.
+     * using a {@link CANSparkMax} motor controller.
      */
     protected final CANSparkMax.ControlType controlType;
 
@@ -57,12 +57,12 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
 
     /**
      * Constructs a new (generic) instance of {@link MoveSmartMotorControllerSubsystem}.
-     * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on.
+     * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
      * @param pidSettings the loop's pid constants
      * @param feedForwardSettings the loops feed forward gains
-     * @param controlMode the loop's control mode (e.g. voltage, velocity, position...),
+     * @param controlMode the loop's control mode (e.g. voltage, velocity, position...).
      *                    Only applicable when using CTRE motor controllers
-     * @param controlType the loop's control mode (e.g. voltage, velocity, position...),
+     * @param controlType the loop's control mode (e.g. voltage, velocity, position...).
      *                    Only applicable when using {@link CANSparkMax} motor controllers
      * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */
@@ -81,11 +81,12 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     }
 
     /**
-     * Constructs a new (generic) instance of {@link MoveSmartMotorControllerSubsystem}.
-     * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on.
+     * Constructs a new instance of {@link MoveSmartMotorControllerSubsystem} for a subsystem which consists of
+     * CTRE motor controllers.
+     * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
      * @param pidSettings the loop's pid constants
      * @param feedForwardSettings the loops feed forward gains
-     * @param controlMode the loop's control mode (e.g. voltage, velocity, position...),
+     * @param controlMode the loop's control mode (e.g. voltage, velocity, position...).
      *                    Only applicable when using CTRE motor controllers
      * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */
@@ -97,11 +98,12 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     }
 
     /**
-     * Constructs a new (generic) instance of {@link MoveSmartMotorControllerSubsystem}.
-     * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on.
+     * Constructs a new instance of {@link MoveSmartMotorControllerSubsystem} for a subsystem which consists of
+     * {@link CANSparkMax} motor controllers.
+     * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
      * @param pidSettings the loop's pid constants
      * @param feedForwardSettings the loops feed forward gains
-     * @param controlType the loop's control mode (e.g. voltage, velocity, position...),
+     * @param controlType the loop's control mode (e.g. voltage, velocity, position...).
      *                    Only applicable when using {@link CANSparkMax} motor controllers
      * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */
