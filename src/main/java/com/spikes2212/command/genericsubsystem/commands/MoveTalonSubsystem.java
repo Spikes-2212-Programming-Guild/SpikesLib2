@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 /**
  * Moves a {@link TalonSubsystem} using its Talon's control loops. <br>
  *
- * This class is deprecated. Please use {@link MoveSmartMotorControllerSubsystem}.
+ * This class is deprecated. Please use {@link MoveSmartMotorControllerSubsystem} instead.
  *
  * @author Eran Goldstein
  * @see TalonSubsystem
