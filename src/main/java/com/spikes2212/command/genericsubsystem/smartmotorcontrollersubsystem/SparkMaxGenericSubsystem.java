@@ -22,7 +22,7 @@ import java.util.List;
 public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerSubsystem {
 
     /**
-     * the slot on the {@link CANSparkMax} on which the trapezoid profiling configurations are saved.
+     * The slot on the {@link CANSparkMax} on which the trapezoid profiling configurations are saved.
      */
     private static final int TRAPEZOID_SLOT_ID = 0;
 
@@ -43,7 +43,7 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
      * @param master the motor controller which runs the loops
      * @param slaves additional motor controllers that follow the master
      */
-    public SparkMaxGenericSubsystem(String namespaceName, CANSparkMax master, CANSparkMax slaves) {
+    public SparkMaxGenericSubsystem(String namespaceName, CANSparkMax master, CANSparkMax... slaves) {
         super(namespaceName);
         this.master = master;
         this.slaves = List.of(slaves);
