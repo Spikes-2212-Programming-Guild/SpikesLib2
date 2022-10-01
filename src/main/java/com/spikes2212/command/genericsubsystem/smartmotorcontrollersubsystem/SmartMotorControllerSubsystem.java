@@ -16,26 +16,18 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
 
     /**
      * Configures the loop's PID constants and feed forward gains.
-     *
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
      */
     default void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
     }
 
     /**
      * Configures the loop's trapezoid profiling.
-     *
-     * @param settings the trapezoid profile configurations
      */
     default void configureTrapezoid(TrapezoidProfileSettings settings) {
     }
 
     /**
      * Configures the loop's settings.
-     *
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
      */
     default void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
         configureLoop(pidSettings, feedForwardSettings, TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
@@ -43,10 +35,6 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
 
     /**
      * Configures the loop's settings.
-     *
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
-     * @param trapezoidProfileSettings the trapezoid profile settings
      */
     default void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
                                TrapezoidProfileSettings trapezoidProfileSettings) {
@@ -120,7 +108,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     /**
      * Checks whether the loop is currently on the target setpoint.
      *
-     * @return `true` when on target setpoint, `false` otherwise
+     * @return {@code true} when on target setpoint, {@code false} otherwise
      */
     default boolean onTarget(double setpoint) {
         return false;

@@ -67,9 +67,6 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
 
     /**
      * Configures the loop's PID and feed forward constants.
-     *
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
      */
     @Override
     public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
@@ -81,8 +78,6 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
 
     /**
      * Configures the loop's trapezoid profiling.
-     *
-     * @param settings the trapezoid profile configurations
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
@@ -93,10 +88,6 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
 
     /**
      * Configures the loop's settings.
-     *
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
-     * @param trapezoidProfileSettings the trapezoid profile settings
      */
     @Override
     public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,

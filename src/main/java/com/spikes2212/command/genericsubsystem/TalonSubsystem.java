@@ -30,7 +30,7 @@ public interface TalonSubsystem extends Subsystem {
     /**
      * Checks whether the loop is currently on the target setpoint.
      *
-     * @return `true` when on target setpoint, `false` otherwise
+     * @return {@code true} when on target setpoint, {@code false} otherwise
      */
     boolean onTarget(double setpoint);
 }

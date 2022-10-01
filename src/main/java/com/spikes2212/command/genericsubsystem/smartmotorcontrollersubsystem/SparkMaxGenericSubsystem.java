@@ -11,13 +11,12 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import java.util.List;
 
 /**
- * A subsystem which consists of a Spark Max motor controller that runs PID loops and additional
- * Spark Max controllers that follow it.
+ * A subsystem which consists of a {@link CANSparkMax} motor controller that runs PID loops and additional
+ * {@link CANSparkMax} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
  * @see SmartMotorControllerSubsystem
- * @see CANSparkMax
  */
 public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerSubsystem {
 
@@ -40,8 +39,8 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
      * Constructs a new instance of {@link CTRESmartMotorControllerGenericSubsystem}.
      *
      * @param namespaceName the name of the subsystem's namespace
-     * @param master the motor controller which runs the loops
-     * @param slaves additional motor controllers that follow the master
+     * @param master        the motor controller which runs the loops
+     * @param slaves        additional motor controllers that follow the master
      */
     public SparkMaxGenericSubsystem(String namespaceName, CANSparkMax master, CANSparkMax... slaves) {
         super(namespaceName);
@@ -60,9 +59,6 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
 
     /**
      * Configures the loop's PID and feed forward constants.
-     *
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
      */
     @Override
     public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
@@ -74,8 +70,6 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
 
     /**
      * Configures the loop's trapezoid profiling.
-     *
-     * @param settings the trapezoid profile configurations
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
@@ -87,10 +81,6 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
 
     /**
      * Configures the loop's settings.
-     *
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
-     * @param trapezoidProfileSettings the trapezoid profile settings
      */
     @Override
     public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
@@ -103,10 +93,10 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     /**
      * Updates any control loops running on the motor controller.
      *
-     * @param controlType the loop's control type (e.g. voltage, velocity, position...)
-     * @param setpoint the loop's target setpoint
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
+     * @param controlType              the loop's control type (e.g. voltage, velocity, position...)
+     * @param setpoint                 the loop's target setpoint
+     * @param pidSettings              the PID constants
+     * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
     @Override
