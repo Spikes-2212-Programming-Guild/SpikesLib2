@@ -14,22 +14,22 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 public interface TalonSubsystem extends Subsystem {
 
     /**
-     * Configure the Talon motor controller and its control loops.
+     * Configures the Talon motor controller and its control loops.
      */
     void configureLoop();
 
     /**
-     * Update any control loops running on the Talon.
+     * Updates any control loops running on the Talon.
      */
     void pidSet(double setpoint);
 
     /**
-     * Stop running control loops on the Talon.
+     * Stops running control loops on the Talon.
      */
     void finish();
 
     /**
-     * Check whether the loop is currently on the target setpoint.
+     * Checks whether the loop is currently on the target setpoint.
      *
      * @return `true` when on target setpoint, `false` otherwise
      */

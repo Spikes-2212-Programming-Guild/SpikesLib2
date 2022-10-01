@@ -8,7 +8,7 @@ import com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollersubs
 import java.util.function.Supplier;
 
 /**
- * Move a {@link TalonSubsystem} using its Talon's control loops. <br>
+ * Moves a {@link TalonSubsystem} using its Talon's control loops. <br>
  *
  * This class is deprecated. Please use {@link MoveSmartMotorControllerSubsystem}.
  *
