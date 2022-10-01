@@ -35,7 +35,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
      * @param feedForwardSettings the feed forward gains
      */
     default void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-        configPIDF(pidSettings, feedForwardSettings);
+        configureLoop(pidSettings, feedForwardSettings, TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
     }
 
     /**
