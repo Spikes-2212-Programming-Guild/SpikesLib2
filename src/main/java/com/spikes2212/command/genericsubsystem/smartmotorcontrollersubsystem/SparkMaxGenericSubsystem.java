@@ -98,7 +98,7 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     }
 
     /**
-     * Update any control loops running on the motor controller.
+     * Updates any control loops running on the motor controller.
      *
      * @param controlType the loop's control type (e.g. voltage, velocity, position...).
      * @param pidSettings the PID constants
