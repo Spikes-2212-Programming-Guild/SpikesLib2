@@ -23,17 +23,18 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
 
     /**
      * Constructs a new instance of {@link MoveSmartMotorControllerSubsystem}.
-     * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on.
+     *
+     * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
      * @param pidSettings the loop's pid constants
-     * @param feedForwardSettings the loops feed forward gains
+     * @param feedForwardSettings the loop's feed forward gains
      * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */
     public MoveSmartMotorControllerSubsystemTrapezically(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                                          FeedForwardSettings feedForwardSettings,
-                                                         Supplier<Double> setpoint, Supplier<Double> waitTime,
+                                                         Supplier<Double> setpoint,
                                                          TrapezoidProfileSettings trapezoidProfileSettings) {
         super(subsystem, pidSettings, feedForwardSettings, ControlMode.MotionMagic,
-                CANSparkMax.ControlType.kSmartMotion,setpoint, waitTime);
+                CANSparkMax.ControlType.kSmartMotion, setpoint);
         this.trapezoidProfileSettings = trapezoidProfileSettings;
     }
 

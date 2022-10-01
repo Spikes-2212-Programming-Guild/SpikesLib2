@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  *
  * @author Eran Goldstein
  */
-
 @Deprecated(since = "2022", forRemoval = true)
 public interface TalonSubsystem extends Subsystem {
 

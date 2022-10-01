@@ -41,25 +41,26 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     protected final CANSparkMax.ControlType controlType;
 
     /**
-     * the loop's pid constants
+     * The loop's pid constants.
      */
     protected final PIDSettings pidSettings;
 
     /**
-     * the loops feed forward gains
+     * The loop's feed forward gains.
      */
     protected final FeedForwardSettings feedForwardSettings;
 
     /**
-     * the most recent timestamp on which the loop has not reached its target setpoint.
+     * The most recent timestamp on which the loop has not reached its target setpoint.
      */
     private double lastTimeNotOnTarget;
 
     /**
      * Constructs a new (generic) instance of {@link MoveSmartMotorControllerSubsystem}.
+     *
      * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
      * @param pidSettings the loop's pid constants
-     * @param feedForwardSettings the loops feed forward gains
+     * @param feedForwardSettings the loop's feed forward gains
      * @param controlMode the loop's control mode (e.g. voltage, velocity, position...).
      *                    Only applicable when using CTRE motor controllers
      * @param controlType the loop's control mode (e.g. voltage, velocity, position...).
@@ -69,7 +70,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     protected MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                              FeedForwardSettings feedForwardSettings,
                                              ControlMode controlMode, CANSparkMax.ControlType controlType,
-                                             Supplier<Double> setpoint, Supplier<Double> waitTime) {
+                                             Supplier<Double> setpoint) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.controlMode = controlMode;
@@ -83,18 +84,18 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     /**
      * Constructs a new instance of {@link MoveSmartMotorControllerSubsystem} for a subsystem which consists of
      * CTRE motor controllers.
+     *
      * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
      * @param pidSettings the loop's pid constants
-     * @param feedForwardSettings the loops feed forward gains
+     * @param feedForwardSettings the loop's feed forward gains
      * @param controlMode the loop's control mode (e.g. voltage, velocity, position...).
      *                    Only applicable when using CTRE motor controllers
      * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */
     public MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                              FeedForwardSettings feedForwardSettings,
-                                             ControlMode controlMode, Supplier<Double> setpoint,
-                                             Supplier<Double> waitTime) {
-        this(subsystem, pidSettings, feedForwardSettings, controlMode, null, setpoint, waitTime);
+                                             ControlMode controlMode, Supplier<Double> setpoint) {
+        this(subsystem, pidSettings, feedForwardSettings, controlMode, null, setpoint);
     }
 
     /**
@@ -102,20 +103,19 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
      * {@link CANSparkMax} motor controllers.
      * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
      * @param pidSettings the loop's pid constants
-     * @param feedForwardSettings the loops feed forward gains
+     * @param feedForwardSettings the loop's feed forward gains
      * @param controlType the loop's control mode (e.g. voltage, velocity, position...).
      *                    Only applicable when using {@link CANSparkMax} motor controllers
      * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */
     MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                              FeedForwardSettings feedForwardSettings,
-                                             CANSparkMax.ControlType controlType, Supplier<Double> setpoint,
-                                             Supplier<Double> waitTime) {
-        this(subsystem, pidSettings, feedForwardSettings, null, controlType, setpoint, waitTime);
+                                             CANSparkMax.ControlType controlType, Supplier<Double> setpoint) {
+        this(subsystem, pidSettings, feedForwardSettings, null, controlType, setpoint);
     }
 
     /**
-     * configures the subsystem's control loops
+     * Configures the subsystem's control loops.
      */
     @Override
     public void initialize() {
@@ -124,7 +124,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
 
     /**
      * Updates any control loops running on the subsystem.
-     * This method both uses the pidSet method twice: once assuming the subsystem consists of CTRE motor controllers,
+     * This method uses the pidSet method twice: once assuming the subsystem consists of CTRE motor controllers,
      * and once assuming it consists of {@link CANSparkMax}s. In any given {@link SmartMotorControllerSubsystem}
      * exactly one {@code pidSet} method should be implemented.
      */
@@ -140,9 +140,8 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     }
 
     /**
-     * Checks if the subsystem has hit its target setpoint, or has not hit its target setpoint for longer
-     * than its allowed wait time.
-     * @return {@code true} if the command has finished running, {@code false} otherwise.
+     * Checks if the subsystem has been at its target setpoint for longer than its allowed wait time.
+     * @return {@code true} if the command should finish running, {@code false} otherwise
      */
     @Override
     public boolean isFinished() {
