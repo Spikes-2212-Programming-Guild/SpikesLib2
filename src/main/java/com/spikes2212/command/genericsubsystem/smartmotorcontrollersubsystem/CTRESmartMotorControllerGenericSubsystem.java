@@ -103,16 +103,6 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * configures the loop's settings
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
-     */
-    @Override
-    public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-       configureLoop(pidSettings, feedForwardSettings, TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
-    }
-
-    /**
      * Updates any control loops running on the motor controller.
      *
      * @param controlMode the loop's control mode (e.g. voltage, velocity, position...)
