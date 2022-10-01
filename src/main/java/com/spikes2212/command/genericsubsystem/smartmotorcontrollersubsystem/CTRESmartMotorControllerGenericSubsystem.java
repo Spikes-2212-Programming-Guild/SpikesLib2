@@ -113,9 +113,9 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * Update any control loops running on the motor controller.
+     * Updates any control loops running on the motor controller.
      *
-     * @param controlMode the loop's control mode (e.g. voltage, velocity, position...).
+     * @param controlMode the loop's control mode (e.g. voltage, velocity, position...)
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings

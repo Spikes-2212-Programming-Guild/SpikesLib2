@@ -51,7 +51,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Update any control loops running on the motor controller.
+     * Updates any control loops running on the motor controller
      *
      * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
      *                    when running the loop on a Spark Max motor controller.
@@ -64,7 +64,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Update any control loops running on the motor controller.
+     * Updates any control loops running on the motor controller
      *
      * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
      *                    when running the loop on a Spark Max motor controller.
@@ -78,7 +78,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Update any control loops running on the motor controller.
+     * Updates any control loops running on the motor controller
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...). Only applicable
      *                    when running the loop on a CTRE motor controller.
@@ -91,7 +91,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Update any control loops running on the motor controller.
+     * Updates any control loops running on the motor controller
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...). Only applicable
      *                    when running the loop on a CTRE motor controller.
@@ -105,13 +105,13 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Stop running control loops on the motor controller.
+     * Stops running control loops on the motor controller.
      */
     default void finish() {
     }
 
     /**
-     * Check whether the loop is currently on the target setpoint.
+     * Checks whether the loop is currently on the target setpoint.
      *
      * @return `true` when on target setpoint, `false` otherwise
      */
