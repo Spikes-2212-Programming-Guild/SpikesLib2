@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * A command that moves a {@link SmartMotorControllerSubsystem} using its motor controller's control loops.
+ * A command that moves a {@link SmartMotorControllerSubsystem} using its master motor controller's control loops.
  *
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerSubsystem
