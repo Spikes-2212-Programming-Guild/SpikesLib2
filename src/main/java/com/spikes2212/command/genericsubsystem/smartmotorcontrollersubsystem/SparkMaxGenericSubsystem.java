@@ -98,17 +98,6 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     }
 
     /**
-     * configures the loop's settings
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
-     */
-    @Override
-    public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-        master.restoreFactoryDefaults();
-        configureLoop(pidSettings, feedForwardSettings, TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
-    }
-
-    /**
      * Update any control loops running on the motor controller.
      *
      * @param controlType the loop's control type (e.g. voltage, velocity, position...).
