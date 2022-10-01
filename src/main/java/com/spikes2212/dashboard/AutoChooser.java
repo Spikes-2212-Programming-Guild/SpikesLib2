@@ -89,7 +89,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param options the rest of the options, where every even index is a command to be added and every odd index is
      *               the name for the previously mentioned command
      * @throws IllegalArgumentException when an even index is a {@link String}, an odd index is a {@link Command} or
-     * when the options length isn't even.
+     * when the options' length isn't even.
      */
     public AutoChooser(Namespace namespace, Command defaultOption, String defaultOptionName, Object... options) {
         this(namespace, defaultOption, defaultOptionName, INCREMENTATION_VALUE_TWO, options);
@@ -105,7 +105,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param options the rest of the options, where every even index is a command to be added and every odd index is
      *               the name for the previous command
      * @throws IllegalArgumentException when an even index is a {@link String}, an odd index is a {@link Command} or
-     * when the options length isn't even.
+     * when the options' length isn't even.
      */
     public AutoChooser(Command defaultOption, String defaultOptionName, Object... options) {
         this(new RootNamespace(DEFAULT_NAMESPACE_NAME), defaultOption, defaultOptionName, INCREMENTATION_VALUE_ONE, options);
