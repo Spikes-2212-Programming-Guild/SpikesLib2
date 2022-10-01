@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * A subsystem which consists of a CTRE motor controller that can run PID loops and additional
  * CTRE motors that follow it.
+ *
  * @param <T> the type of the motor controller on which the loop is run
  *
  * @author Yoel Perman Brilliant
@@ -27,22 +28,22 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
         extends DashboardedSubsystem implements SmartMotorControllerSubsystem {
 
     /**
-     * the slot on the motor controller on which the loop is run
+     * The slot on the motor controller on which the loop is run.
      */
     private static final int SLOT = 0;
 
     /**
-     * the motor controller which runs the loops
+     * The motor controller which runs the loops.
      */
     protected final T master;
 
     /**
-     * additional motor controllers that follow the master
+     * Additional motor controllers that follow the master.
      */
     protected final List<? extends IFollower> slaves;
 
     /**
-     * constructs a new instance of {@link CTRESmartMotorControllerGenericSubsystem}
+     * Constructs a new instance of {@link CTRESmartMotorControllerGenericSubsystem}.
      *
      * @param namespaceName the name of the subsystem's namespace
      * @param master the motor controller which runs the loops
@@ -57,7 +58,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * adds any data or commands to the {@link Shuffleboard}
+     * Adds any data or commands to the {@link Shuffleboard}.
      */
     @Override
     public void configureDashboard() {
@@ -65,7 +66,8 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * configures the loop's PID and feed forward constants
+     * Configures the loop's PID and feed forward constants.
+     *
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      */
@@ -78,7 +80,8 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * configures the loop's trapezoid profiling
+     * Configures the loop's trapezoid profiling.
+     *
      * @param settings the trapezoid profile configurations
      */
     @Override
@@ -89,7 +92,8 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * configures the loop's settings
+     * Configures the loop's settings.
+     *
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
@@ -106,6 +110,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
      * Updates any control loops running on the motor controller.
      *
      * @param controlMode the loop's control mode (e.g. voltage, velocity, position...)
+     * @param setpoint the loop's target setpoint
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
@@ -119,7 +124,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * Stop running control loops on the motor controller.
+     * Stops any control loops running on the motor controller.
      */
     @Override
     public void finish() {

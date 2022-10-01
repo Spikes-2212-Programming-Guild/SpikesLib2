@@ -3,7 +3,7 @@ package com.spikes2212.control;
 import java.util.function.Supplier;
 
 /**
- * a data class for trapezoid profile configurations
+ * A data class for trapezoid profile configurations.
  *
  * @author Yoel Perman Brilliant
  */

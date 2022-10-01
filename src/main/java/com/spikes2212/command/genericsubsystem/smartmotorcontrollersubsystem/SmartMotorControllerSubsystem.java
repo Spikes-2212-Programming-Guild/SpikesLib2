@@ -16,6 +16,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
 
     /**
      * Configures the loop's PID constants and feed forward gains.
+     *
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      */
@@ -24,13 +25,15 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
 
     /**
      * Configures the loop's trapezoid profiling.
+     *
      * @param settings the trapezoid profile configurations
      */
     default void configureTrapezoid(TrapezoidProfileSettings settings) {
     }
 
     /**
-     * configures the loop's settings
+     * Configures the loop's settings.
+     *
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      */
@@ -39,7 +42,8 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * configures the loop's settings
+     * Configures the loop's settings.
+     *
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
@@ -51,7 +55,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Updates any control loops running on the motor controller
+     * Updates any control loops running on the motor controller.
      *
      * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
      *                    when running the loop on a Spark Max motor controller.
@@ -68,6 +72,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
      *
      * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
      *                    when running the loop on a Spark Max motor controller.
+     * @param setpoint the loop's target setpoint
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      */
@@ -78,10 +83,11 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Updates any control loops running on the motor controller
+     * Updates any control loops running on the motor controller.
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                    when running the loop on a CTRE motor controller.
+     *                    when running the loop on a CTRE motor controller
+     * @param setpoint the loop's target setpoint
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
@@ -91,10 +97,11 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Updates any control loops running on the motor controller
+     * Updates any control loops running on the motor controller.
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                    when running the loop on a CTRE motor controller.
+     *                    when running the loop on a CTRE motor controller
+     * @param setpoint the loop's target setpoint
      * @param pidSettings the PID constants
      * @param feedForwardSettings the feed forward gains
      */
@@ -105,7 +112,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Stops running control loops on the motor controller.
+     * Stops any control loops running on the motor controller.
      */
     default void finish() {
     }
