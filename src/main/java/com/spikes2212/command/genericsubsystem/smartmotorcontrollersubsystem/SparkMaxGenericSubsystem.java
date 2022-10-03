@@ -6,12 +6,14 @@ import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import java.util.List;
 
 /**
- * A subsystem which consists of a {@link CANSparkMax} motor controller that runs PID loops and additional
+ * A {@link Subsystem} which consists of a master {@link CANSparkMax} motor controller that runs PID loops and additional
  * {@link CANSparkMax} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
@@ -50,7 +52,7 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     }
 
     /**
-     * Adds any data or commands to the {@link Shuffleboard}.
+     * Adds any data or commands to {@link NetworkTable}s, which can be accessed using the {@link Shuffleboard}.
      */
     @Override
     public void configureDashboard() {
@@ -58,7 +60,7 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     }
 
     /**
-     * Configures the loop's PID and feed forward constants.
+     * Configures the loop's PID constants and feed forward gains.
      */
     @Override
     public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {

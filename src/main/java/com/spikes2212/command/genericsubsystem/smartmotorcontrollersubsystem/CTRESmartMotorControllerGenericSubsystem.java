@@ -7,6 +7,7 @@ import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -59,15 +60,14 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * Adds any data or commands to the {@link Shuffleboard}.
+     * Adds any data or commands to {@link NetworkTable}s, which can be accessed using the {@link Shuffleboard}.
      */
     @Override
     public void configureDashboard() {
-
     }
 
     /**
-     * Configures the loop's PID and feed forward constants.
+     * Configures the loop's PID constants and feed forward gains.
      */
     @Override
     public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {

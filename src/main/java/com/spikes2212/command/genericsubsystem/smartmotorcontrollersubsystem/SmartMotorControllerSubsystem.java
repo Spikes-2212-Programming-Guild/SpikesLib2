@@ -8,7 +8,7 @@ import com.spikes2212.control.TrapezoidProfileSettings;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
- * A subsystem that runs control loops on an applicable motor controller.
+ * A {@link Subsystem} that runs control loops on an applicable motor controller.
  *
  * @author Yoel Perman Brilliant
  */
@@ -113,5 +113,4 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     default boolean onTarget(double setpoint) {
         return false;
     }
-
 }
