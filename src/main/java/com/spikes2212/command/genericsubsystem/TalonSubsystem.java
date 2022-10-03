@@ -4,7 +4,7 @@ import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.Sma
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
- * A subsystem that runs control loops on a Talon motor controller. <br>
+ * A {@link Subsystem} that runs control loops on a Talon motor controller. <br>
  * This interface is deprecated. Please use {@link SmartMotorControllerSubsystem} instead.
  *
  * @author Eran Goldstein

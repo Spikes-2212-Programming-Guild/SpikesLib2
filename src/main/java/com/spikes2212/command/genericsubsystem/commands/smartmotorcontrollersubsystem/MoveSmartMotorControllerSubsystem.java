@@ -108,7 +108,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
      *                    Only applicable when using {@link CANSparkMax} motor controllers
      * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */
-    MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
+    public MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                              FeedForwardSettings feedForwardSettings,
                                              CANSparkMax.ControlType controlType, Supplier<Double> setpoint) {
         this(subsystem, pidSettings, feedForwardSettings, null, controlType, setpoint);
