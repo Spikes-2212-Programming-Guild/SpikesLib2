@@ -9,12 +9,13 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import java.util.List;
 
 /**
- * A subsystem which consists of a CTRE motor controller that can run PID loops and additional
- * CTRE motors that follow it.
+ * A {@link Subsystem} which consists of a master CTRE motor controller that can run PID loops and additional
+ * CTRE motor controllers that follow it.
  *
  * @param <T> the type of the motor controller on which the loop is run
  *
