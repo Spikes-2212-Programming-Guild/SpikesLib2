@@ -1,5 +1,6 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.spikes2212.command.DashboardedSubsystem;
@@ -36,6 +37,17 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
      * Additional {@link CANSparkMax}s that follow the master.
      */
     protected final List<CANSparkMax> slaves;
+
+    /**
+     * The subsystem's {@link CANSparkMax.ControlType} (e.g. voltage, velocity, position...).
+     */
+    private CANSparkMax.ControlType controlType;
+
+    /**
+     * The subsystem tolerance, i.e. the maximum difference that can be between its current state and the setpoint
+     * to be considered "on target".
+     */
+    private double tolerance;
 
     /**
      * Constructs a new instance of {@link CTRESmartMotorControllerGenericSubsystem}.
@@ -112,5 +124,40 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     @Override
     public void finish() {
         master.stopMotor();
+    }
+
+    /**
+     * Checks whether the loop is currently on the target setpoint.
+     *
+     * @param controlMode the loop's control type (e.g. voltage, velocity, position...). Only applicable
+     *                    when running the loop on a CTRE motor controller, and is therefore unused.
+     * @param controlType the loop's control type (e.g. voltage, velocity, position...)
+     * @param tolerance   the maximum difference that can be between its current state and the setpoint
+     *                    to be considered "on target"
+     * @param setpoint    the wanted setpoint
+     * @return {@code true} when on target setpoint, {@code false} otherwise
+     */
+    @Override
+    public boolean onTarget(ControlMode controlMode, CANSparkMax.ControlType controlType,
+                            double tolerance, double setpoint) {
+        double value;
+        switch (controlType) {
+            case kDutyCycle:
+                value = master.getAppliedOutput();
+                break;
+            case kSmartVelocity:
+            case kVelocity:
+                value = master.getEncoder().getVelocity();
+                break;
+            case kCurrent:
+                value = master.getOutputCurrent();
+                break;
+            case kVoltage:
+                value = master.getBusVoltage();
+                break;
+            default:
+                value = master.getEncoder().getPosition();
+        }
+        return Math.abs(value - setpoint) <= tolerance;
     }
 }

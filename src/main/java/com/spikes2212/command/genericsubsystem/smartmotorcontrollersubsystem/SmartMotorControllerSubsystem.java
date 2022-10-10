@@ -45,10 +45,10 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     /**
      * Updates any control loops running on the motor controller.
      *
-     * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                    when running the loop on a Spark Max motor controller.
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
+     * @param controlType              the loop's control type (e.g. voltage, velocity, position...). Only applicable
+     *                                 when running the loop on a Spark Max motor controller.
+     * @param pidSettings              the PID constants
+     * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
     default void pidSet(CANSparkMax.ControlType controlType, double setpoint, PIDSettings pidSettings,
@@ -58,14 +58,14 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     /**
      * Updates any control loops running on the motor controller
      *
-     * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                    when running the loop on a Spark Max motor controller.
-     * @param setpoint the loop's target setpoint
-     * @param pidSettings the PID constants
+     * @param controlType         the loop's control type (e.g. voltage, velocity, position...). Only applicable
+     *                            when running the loop on a Spark Max motor controller.
+     * @param setpoint            the loop's target setpoint
+     * @param pidSettings         the PID constants
      * @param feedForwardSettings the feed forward gains
      */
     default void pidSet(CANSparkMax.ControlType controlType, double setpoint,
-                PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+                        PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
         pidSet(controlType, setpoint, pidSettings, feedForwardSettings,
                 TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
     }
@@ -73,24 +73,24 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     /**
      * Updates any control loops running on the motor controller.
      *
-     * @param controlMode the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                    when running the loop on a CTRE motor controller
-     * @param setpoint the loop's target setpoint
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
+     * @param controlMode              the loop's control type (e.g. voltage, velocity, position...). Only applicable
+     *                                 when running the loop on a CTRE motor controller
+     * @param setpoint                 the loop's target setpoint
+     * @param pidSettings              the PID constants
+     * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
     default void pidSet(ControlMode controlMode, double setpoint, PIDSettings pidSettings,
-                FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
+                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
     }
 
     /**
      * Updates any control loops running on the motor controller.
      *
-     * @param controlMode the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                    when running the loop on a CTRE motor controller
-     * @param setpoint the loop's target setpoint
-     * @param pidSettings the PID constants
+     * @param controlMode         the loop's control type (e.g. voltage, velocity, position...). Only applicable
+     *                            when running the loop on a CTRE motor controller
+     * @param setpoint            the loop's target setpoint
+     * @param pidSettings         the PID constants
      * @param feedForwardSettings the feed forward gains
      */
     default void pidSet(ControlMode controlMode, double setpoint, PIDSettings pidSettings,
@@ -108,9 +108,14 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     /**
      * Checks whether the loop is currently on the target setpoint.
      *
+     * @param controlMode the loop's control type (e.g. voltage, velocity, position...). Only applicable
+     *                    when running the loop on a CTRE motor controller
+     * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
+     *                    when running the loop on a Spark Max motor controller
+     * @param tolerance   the maximum difference that can be between its current state and the setpoint
+     *                    to be considered "on target"
+     * @param setpoint    the wanted setpoint
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */
-    default boolean onTarget(double setpoint) {
-        return false;
-    }
+    boolean onTarget(ControlMode controlMode, CANSparkMax.ControlType controlType, double tolerance, double setpoint);
 }

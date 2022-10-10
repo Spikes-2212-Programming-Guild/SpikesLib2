@@ -3,6 +3,7 @@ package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import com.revrobotics.CANSparkMax;
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -19,7 +20,6 @@ import java.util.List;
  * CTRE motor controllers that follow it.
  *
  * @param <T> the type of the motor controller on which the loop is run
- *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
  * @see SmartMotorControllerSubsystem
@@ -48,8 +48,8 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
      * Constructs a new instance of {@link CTRESmartMotorControllerGenericSubsystem}.
      *
      * @param namespaceName the name of the subsystem's namespace
-     * @param master the motor controller which runs the loops
-     * @param slaves additional motor controllers that follow the master
+     * @param master        the motor controller which runs the loops
+     * @param slaves        additional motor controllers that follow the master
      */
     public CTRESmartMotorControllerGenericSubsystem(String namespaceName, T master,
                                                     IFollower... slaves) {
@@ -101,10 +101,10 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     /**
      * Updates any control loops running on the motor controller.
      *
-     * @param controlMode the loop's control mode (e.g. voltage, velocity, position...)
-     * @param setpoint the loop's target setpoint
-     * @param pidSettings the PID constants
-     * @param feedForwardSettings the feed forward gains
+     * @param controlMode              the loop's control mode (e.g. voltage, velocity, position...)
+     * @param setpoint                 the loop's target setpoint
+     * @param pidSettings              the PID constants
+     * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
     @Override
@@ -121,5 +121,34 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     @Override
     public void finish() {
         master.stopMotor();
+    }
+
+    /**
+     * Checks whether the loop is currently on the target setpoint. <br>
+     * This method, as is, <b>does not</b> cover every case and should be overridden if necessary.
+     *
+     * @param controlMode the loop's control type (e.g. voltage, velocity, position...)
+     * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
+     *                    when running the loop on a Spark Max motor controller, and is therefore unused
+     * @param tolerance   the maximum difference that can be between its current state and the setpoint
+     *                    to be considered "on target"
+     * @param setpoint    the wanted setpoint
+     * @return {@code true} when on target setpoint, {@code false} otherwise
+     */
+    @Override
+    public boolean onTarget(ControlMode controlMode, CANSparkMax.ControlType controlType, double tolerance,
+                            double setpoint) {
+        double value;
+        switch (controlMode) {
+            case Velocity:
+                value = master.getSelectedSensorVelocity();
+                break;
+            case PercentOutput:
+                value = master.getMotorOutputPercent();
+                break;
+            default:
+                value = master.getSelectedSensorPosition();
+        }
+        return Math.abs(value - setpoint) <= tolerance;
     }
 }
