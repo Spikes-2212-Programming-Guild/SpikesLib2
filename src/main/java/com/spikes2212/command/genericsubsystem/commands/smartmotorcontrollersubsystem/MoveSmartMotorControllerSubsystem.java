@@ -24,9 +24,14 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     protected final SmartMotorControllerSubsystem subsystem;
 
     /**
-     * The setpoint this command should bring the {@link SmartMotorControllerSubsystem} to.
+     * The loop's PID constants.
      */
-    protected final Supplier<Double> setpoint;
+    protected final PIDSettings pidSettings;
+
+    /**
+     * The loop's feed forward gains.
+     */
+    protected final FeedForwardSettings feedForwardSettings;
 
     /**
      * The loop's control mode (e.g. voltage, velocity, position...). Only applicable when
@@ -41,14 +46,9 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     protected final CANSparkMax.ControlType controlType;
 
     /**
-     * The loop's PID constants.
+     * The setpoint this command should bring the {@link SmartMotorControllerSubsystem} to.
      */
-    protected final PIDSettings pidSettings;
-
-    /**
-     * The loop's feed forward gains.
-     */
-    protected final FeedForwardSettings feedForwardSettings;
+    protected final Supplier<Double> setpoint;
 
     /**
      * The most recent timestamp on which the loop has not reached its target setpoint.
