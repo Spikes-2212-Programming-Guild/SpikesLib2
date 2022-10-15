@@ -21,7 +21,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
     }
 
     /**
-     * Configures the loop's trapezoid profiling.
+     * Configures the loop's trapezoid profile settings.
      */
     default void configureTrapezoid(TrapezoidProfileSettings settings) {
     }
@@ -46,7 +46,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
      * Updates any control loops running on the motor controller.
      *
      * @param controlType              the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                                 when running the loop on a Spark Max motor controller.
+     *                                 when running the loop on a {@link CANSparkMax} motor controller.
      * @param pidSettings              the PID constants
      * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
@@ -59,7 +59,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
      * Updates any control loops running on the motor controller
      *
      * @param controlType         the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                            when running the loop on a Spark Max motor controller.
+     *                            when running the loop on a {@link CANSparkMax} motor controller.
      * @param setpoint            the loop's target setpoint
      * @param pidSettings         the PID constants
      * @param feedForwardSettings the feed forward gains
@@ -112,8 +112,7 @@ public interface SmartMotorControllerSubsystem extends Subsystem {
      *                    when running the loop on a CTRE motor controller
      * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
      *                    when running the loop on a Spark Max motor controller
-     * @param tolerance   the maximum difference that can be between its current state and the setpoint
-     *                    to be considered "on target"
+     * @param tolerance   the maximum difference from the target to still be considered on target
      * @param setpoint    the wanted setpoint
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */

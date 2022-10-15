@@ -60,7 +60,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * Adds any data or commands to {@link NetworkTable}s, which can be accessed using the {@link Shuffleboard}.
+     * Adds any data or commands to the {@link NetworkTable}s, which can be accessed using the {@link Shuffleboard}.
      */
     @Override
     public void configureDashboard() {
@@ -78,7 +78,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     }
 
     /**
-     * Configures the loop's trapezoid profiling.
+     * Configures the loop's trapezoid profile settings.
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
@@ -130,8 +130,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...)
      * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
      *                    when running the loop on a Spark Max motor controller, and is therefore unused
-     * @param tolerance   the maximum difference that can be between its current state and the setpoint
-     *                    to be considered "on target"
+     * @param tolerance   the maximum difference from the target to still be considered on target
      * @param setpoint    the wanted setpoint
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */

@@ -11,7 +11,8 @@ import java.util.function.Supplier;
 
 
 /**
- * A command that moves a {@link SmartMotorControllerSubsystem} by running a trapezoid profile on its control loops.
+ * A command that moves a {@link SmartMotorControllerSubsystem} by running a trapezoid profile on its
+ * master's control loops.
  *
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerSubsystem
@@ -25,7 +26,7 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
      * Constructs a new instance of {@link MoveSmartMotorControllerSubsystem}.
      *
      * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
-     * @param pidSettings the loop's pid constants
+     * @param pidSettings the loop's PID constants
      * @param feedForwardSettings the loop's feed forward gains
      * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */

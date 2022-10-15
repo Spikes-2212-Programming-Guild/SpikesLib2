@@ -41,7 +41,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     protected final CANSparkMax.ControlType controlType;
 
     /**
-     * The loop's pid constants.
+     * The loop's PID constants.
      */
     protected final PIDSettings pidSettings;
 
@@ -59,7 +59,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
      * Constructs a new (generic) instance of {@link MoveSmartMotorControllerSubsystem}.
      *
      * @param subsystem           the {@link SmartMotorControllerSubsystem} this command will run on
-     * @param pidSettings         the loop's pid constants
+     * @param pidSettings         the loop's PID constants
      * @param feedForwardSettings the loop's feed forward gains
      * @param controlMode         the loop's control mode (e.g. voltage, velocity, position...).
      *                            Only applicable when using CTRE motor controllers
@@ -86,11 +86,11 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
      * CTRE motor controllers.
      *
      * @param subsystem           the {@link SmartMotorControllerSubsystem} this command will run on
-     * @param pidSettings         the loop's pid constants
+     * @param pidSettings         the loop's PID constants
      * @param feedForwardSettings the loop's feed forward gains
      * @param controlMode         the loop's control mode (e.g. voltage, velocity, position...).
      *                            Only applicable when using CTRE motor controllers
-     * @param setpoint            the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
+     * @param setpoint            the setpoint this command should bring the subsystem to
      */
     public MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                              FeedForwardSettings feedForwardSettings,
@@ -103,11 +103,11 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
      * {@link CANSparkMax} motor controllers.
      *
      * @param subsystem           the {@link SmartMotorControllerSubsystem} this command will run on
-     * @param pidSettings         the loop's pid constants
+     * @param pidSettings         the loop's PID constants
      * @param feedForwardSettings the loop's feed forward gains
      * @param controlType         the loop's control mode (e.g. voltage, velocity, position...).
      *                            Only applicable when using {@link CANSparkMax} motor controllers
-     * @param setpoint            the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
+     * @param setpoint            the setpoint this command should bring the subsystem to
      */
     public MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                              FeedForwardSettings feedForwardSettings,
