@@ -150,6 +150,6 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
         if (!subsystem.onTarget(controlMode, controlType, pidSettings.getTolerance(), setpoint.get())) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
-        return Timer.getFPGATimestamp() - lastTimeNotOnTarget > pidSettings.getWaitTime();
+        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= pidSettings.getWaitTime();
     }
 }
