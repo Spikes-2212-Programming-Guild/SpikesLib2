@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  *
  * @author Ofri Rosenbaum
  */
-public class PlaystationController extends Joystick {
+public class PlaystationControllerWrapper extends Joystick {
 
     protected final PS4Controller ps;
 
@@ -21,7 +21,7 @@ public class PlaystationController extends Joystick {
      *
      * @param port The port on the Driver Station that the controller is plugged into.
      */
-    public PlaystationController(int port) {
+    public PlaystationControllerWrapper(int port) {
         super(port);
         ps = new PS4Controller(port);
     }
