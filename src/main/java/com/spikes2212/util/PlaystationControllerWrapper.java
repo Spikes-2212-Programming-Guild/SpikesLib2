@@ -19,7 +19,7 @@ public class PlaystationControllerWrapper extends Joystick {
     /**
      * Constructs a new {@link PS4Controller} using the port of the USB on the {@link DriverStation}.
      *
-     * @param port The port on the {@link DriverStation} that the controller is plugged into.
+     * @param port the port on the {@link DriverStation} that the controller is plugged into.
      */
     public PlaystationControllerWrapper(int port) {
         super(port);
