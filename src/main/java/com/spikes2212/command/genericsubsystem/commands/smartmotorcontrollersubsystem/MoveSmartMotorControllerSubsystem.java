@@ -80,9 +80,6 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
 
     /**
      * Updates any control loops running on the subsystem.
-     * This method uses the {@code pidSet} method twice: once assuming the subsystem consists of CTRE motor controllers,
-     * and once assuming it consists of {@link CANSparkMax}s. In any given {@link SmartMotorControllerSubsystem},
-     * exactly one {@code pidSet} method should be implemented.
      */
     @Override
     public void execute() {

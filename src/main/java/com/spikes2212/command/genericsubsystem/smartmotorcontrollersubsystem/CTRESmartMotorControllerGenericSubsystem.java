@@ -1,10 +1,8 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
-import com.revrobotics.CANSparkMax;
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -34,7 +32,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     /**
      * The slot on the motor controller on which the loop is run.
      */
-    private static final int SLOT = 0;
+    private static final int LOOP_SLOT = 0;
 
     /**
      * The motor controller which runs the loops.
@@ -73,10 +71,10 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
      */
     @Override
     public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-        master.config_kP(SLOT, pidSettings.getkP());
-        master.config_kI(SLOT, pidSettings.getkI());
-        master.config_kD(SLOT, pidSettings.getkD());
-        master.config_kF(SLOT, feedForwardSettings.getkV());
+        master.config_kP(LOOP_SLOT, pidSettings.getkP());
+        master.config_kI(LOOP_SLOT, pidSettings.getkI());
+        master.config_kD(LOOP_SLOT, pidSettings.getkD());
+        master.config_kF(LOOP_SLOT, feedForwardSettings.getkV());
     }
 
     /**

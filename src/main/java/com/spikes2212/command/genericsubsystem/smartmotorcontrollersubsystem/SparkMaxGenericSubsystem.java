@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import java.util.List;
 
 /**
- * A {@link Subsystem} which consists of a master {@link CANSparkMax} motor controller that runs PID loops and additional
- * {@link CANSparkMax} motor controllers that follow it.
+ * A {@link Subsystem} which consists of a master {@link CANSparkMax} motor controller that runs control
+ * loops and additional {@link CANSparkMax} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
@@ -40,7 +40,7 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     protected final List<CANSparkMax> slaves;
 
     /**
-     * Constructs a new instance of {@link CTRESmartMotorControllerGenericSubsystem}.
+     * Constructs a new instance of {@link SparkMaxGenericSubsystem}.
      *
      * @param namespaceName the name of the subsystem's namespace
      * @param master        the motor controller which runs the loops

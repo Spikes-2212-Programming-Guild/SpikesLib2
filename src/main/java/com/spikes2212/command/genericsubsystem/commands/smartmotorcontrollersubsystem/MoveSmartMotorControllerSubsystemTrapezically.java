@@ -24,12 +24,13 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
     protected final TrapezoidProfileSettings trapezoidProfileSettings;
 
     /**
-     * Constructs a new instance of {@link MoveSmartMotorControllerSubsystem}.
+     * Constructs a new instance of {@link MoveSmartMotorControllerSubsystemTrapezically}.
      *
      * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
      * @param pidSettings the loop's PID constants
      * @param feedForwardSettings the loop's feed forward gains
      * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
+     * @param trapezoidProfileSettings the trapezoid profile settings
      */
     public MoveSmartMotorControllerSubsystemTrapezically(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                                          FeedForwardSettings feedForwardSettings,
