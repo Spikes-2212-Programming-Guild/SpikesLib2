@@ -35,7 +35,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     protected final FeedForwardSettings feedForwardSettings;
 
     /**
-     * The loop's control mode (e.g. voltage, velocity, position...)
+     * The loop's control mode (e.g. voltage, velocity, position...).
      */
     protected final UnifiedControlMode controlMode;
 
