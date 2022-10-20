@@ -6,6 +6,7 @@ import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.Sma
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import com.spikes2212.util.UnifiedControlMode;
 
 import java.util.function.Supplier;
 
@@ -34,8 +35,7 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
                                                          FeedForwardSettings feedForwardSettings,
                                                          Supplier<Double> setpoint,
                                                          TrapezoidProfileSettings trapezoidProfileSettings) {
-        super(subsystem, pidSettings, feedForwardSettings, ControlMode.MotionMagic,
-                CANSparkMax.ControlType.kSmartMotion, setpoint);
+        super(subsystem, pidSettings, feedForwardSettings, UnifiedControlMode.TRAPEZOID_PROFILE, setpoint);
         this.trapezoidProfileSettings = trapezoidProfileSettings;
     }
 
@@ -47,6 +47,5 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
     @Override
     public void execute() {
         subsystem.pidSet(controlMode, setpoint.get(), pidSettings, feedForwardSettings, trapezoidProfileSettings);
-        subsystem.pidSet(controlType, setpoint.get(), pidSettings, feedForwardSettings, trapezoidProfileSettings);
     }
 }

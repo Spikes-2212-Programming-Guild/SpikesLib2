@@ -7,6 +7,7 @@ import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -37,17 +38,6 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
      * Additional {@link CANSparkMax}s that follow the master.
      */
     protected final List<CANSparkMax> slaves;
-
-    /**
-     * The subsystem's {@link CANSparkMax.ControlType} (e.g. voltage, velocity, position...).
-     */
-    private CANSparkMax.ControlType controlType;
-
-    /**
-     * The subsystem tolerance, i.e. the maximum difference that can be between its current state and the setpoint
-     * to be considered "on target".
-     */
-    private double tolerance;
 
     /**
      * Constructs a new instance of {@link CTRESmartMotorControllerGenericSubsystem}.
@@ -106,18 +96,18 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     /**
      * Updates any control loops running on the motor controller.
      *
-     * @param controlType              the loop's control type (e.g. voltage, velocity, position...)
+     * @param controlMode              the loop's control type (e.g. voltage, velocity, position...)
      * @param setpoint                 the loop's target setpoint
      * @param pidSettings              the PID constants
      * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
     @Override
-    public void pidSet(CANSparkMax.ControlType controlType, double setpoint, PIDSettings pidSettings,
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        master.getPIDController().setReference(setpoint, controlType);
+        master.getPIDController().setReference(setpoint, controlMode.getSparkMaxControlType());
     }
 
     /**
@@ -131,29 +121,25 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     /**
      * Checks whether the loop is currently on the target setpoint.
      *
-     * @param controlMode the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                    when running the loop on a CTRE motor controller, and is therefore unused.
-     * @param controlType the loop's control type (e.g. voltage, velocity, position...)
+     * @param controlMode the loop's control type (e.g. voltage, velocity, position...)
      * @param tolerance   the maximum difference from the target to still be considered on target
      * @param setpoint    the wanted setpoint
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */
     @Override
-    public boolean onTarget(ControlMode controlMode, CANSparkMax.ControlType controlType,
-                            double tolerance, double setpoint) {
+    public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value;
-        switch (controlType) {
-            case kDutyCycle:
+        switch (controlMode) {
+            case PERCENT_OUTPUT:
                 value = master.getAppliedOutput();
                 break;
-            case kSmartVelocity:
-            case kVelocity:
+            case VELOCITY:
                 value = master.getEncoder().getVelocity();
                 break;
-            case kCurrent:
+            case CURRENT:
                 value = master.getOutputCurrent();
                 break;
-            case kVoltage:
+            case VOLTAGE:
                 value = master.getBusVoltage();
                 break;
             default:

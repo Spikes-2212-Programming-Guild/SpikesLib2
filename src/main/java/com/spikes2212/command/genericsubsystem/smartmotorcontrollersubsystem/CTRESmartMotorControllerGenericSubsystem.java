@@ -3,11 +3,13 @@ package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.revrobotics.CANSparkMax;
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -16,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import java.util.List;
 
 /**
- * A {@link Subsystem} which consists of a master CTRE motor controller that can run PID loops and additional
+ * A {@link Subsystem} which consists of a master CTRE motor controller that can run control loops and additional
  * CTRE motor controllers that follow it.
  *
  * @param <T> the type of the motor controller on which the loop is run
@@ -108,11 +110,11 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
     @Override
-    public void pidSet(ControlMode controlMode, double setpoint, PIDSettings pidSettings,
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        master.set(controlMode, setpoint);
+        master.set(controlMode.getCTREControlMode(), setpoint);
     }
 
     /**
@@ -128,23 +130,26 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
      * This method, as is, <b>does not</b> cover every case and should be overridden if necessary.
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...)
-     * @param controlType the loop's control type (e.g. voltage, velocity, position...). Only applicable
-     *                    when running the loop on a Spark Max motor controller, and is therefore unused
      * @param tolerance   the maximum difference from the target to still be considered on target
      * @param setpoint    the wanted setpoint
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */
     @Override
-    public boolean onTarget(ControlMode controlMode, CANSparkMax.ControlType controlType, double tolerance,
+    public boolean onTarget(UnifiedControlMode controlMode, double tolerance,
                             double setpoint) {
         double value;
         switch (controlMode) {
-            case Velocity:
+            case VELOCITY:
                 value = master.getSelectedSensorVelocity();
                 break;
-            case PercentOutput:
+            case PERCENT_OUTPUT:
                 value = master.getMotorOutputPercent();
                 break;
+            case CURRENT:
+                if (master instanceof BaseTalon) {
+                    value = ((BaseTalon) master).getStatorCurrent();
+                    break;
+                }
             default:
                 value = master.getSelectedSensorPosition();
         }
