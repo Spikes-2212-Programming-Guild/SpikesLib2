@@ -159,6 +159,7 @@ public class RootNamespace implements Namespace {
         }
     }
 
+    @Override
     public void update() {
         updateBoolean();
         updateNumber();

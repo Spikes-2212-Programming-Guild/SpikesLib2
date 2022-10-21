@@ -1,17 +1,22 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.TalonSubsystem;
+import com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollersubsystem.MoveSmartMotorControllerSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
 
 /**
- * Move a {@link TalonSubsystem} using its Talon's control loops.
+ * Moves a {@link TalonSubsystem} using its Talon's control loops. <br>
+ *
+ * This class is deprecated. Please use {@link MoveSmartMotorControllerSubsystem} instead.
  *
  * @author Eran Goldstein
  * @see TalonSubsystem
  */
+
+@Deprecated(since = "2022", forRemoval = true)
 public class MoveTalonSubsystem extends CommandBase {
 
     /**
