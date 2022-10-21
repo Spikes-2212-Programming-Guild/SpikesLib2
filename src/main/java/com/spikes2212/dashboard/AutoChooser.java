@@ -45,7 +45,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * Creates an {@link AutoChooser} from the given commands, where the first command will be the default option and
      * the rest of the commands will be the rest of the options.
      *
-     * <p>All options will have names matching their command's {@link Command#getName()}alue. In case of multiple
+     * <p>All options will have names matching their command's {@link Command#getName()} value. In case of multiple
      * instances of the same class, numbers will also be added to differentiate between the names.</p>
      *
      * @param namespace     the namespace that this {@link AutoChooser} will be on
