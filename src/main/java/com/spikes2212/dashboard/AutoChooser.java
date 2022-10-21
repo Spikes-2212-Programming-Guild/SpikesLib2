@@ -90,7 +90,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param incrementationValue the value that should be added to the options' counter to get the correct
      *                            argument index
      * @param options             the rest of the options, where every even index is a command to be added and every odd
-     *                           index is the name for the previously mentioned command
+     *                            index is the name for the previously mentioned command
      * @throws IllegalArgumentException when the options' length isn't even, an even index is a {@link String}
      *                                  or an odd index is a {@link Command}
      */
@@ -130,7 +130,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * @param defaultOption     the command this {@link AutoChooser} will use as the default option
      * @param defaultOptionName the name for the default command
      * @param options           the rest of the options, where every even index is a command to be added and every odd
-     *                         index is the name for the previously mentioned command
+     *                          index is the name for the previously mentioned command
      * @throws IllegalArgumentException when the options' length isn't even, an even index is a {@link String}
      *                                  or an odd index is a {@link Command}
      */
