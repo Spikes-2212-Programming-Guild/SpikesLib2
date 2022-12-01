@@ -3,6 +3,7 @@ package com.spikes2212.command.genericsubsystem;
 import com.spikes2212.dashboard.Namespace;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.networktables.NetworkTable;
 
 import java.util.function.Supplier;
 
@@ -21,8 +22,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * minSpeed supplier, the given maxSpeed supplier and the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
-     * @param minSpeed         the minimum speed
-     * @param maxSpeed         the maximum speed
+     * @param minSpeed         the minimum speed supplier
+     * @param maxSpeed         the maximum speed supplier
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed,
@@ -38,8 +39,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * <p>This constructor is deprecated.
      * Please use {@link #MotoredGenericSubsystem(String, Supplier, Supplier, MotorController...)}</p>
      *
-     * @param minSpeed         the minimum speed
-     * @param maxSpeed         the maximum speed
+     * @param minSpeed         the minimum speed supplier
+     * @param maxSpeed         the maximum speed supplier
      * @param motorControllers the motor controllers in the subsystem
      */
     @Deprecated(since = "2022", forRemoval = true)
@@ -53,8 +54,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * minSpeed, maxSpeed and the given {@link MotorController}s.</p>
      *
      * @param namespaceName    the name of the subsystem's namespace
-     * @param minSpeed         the minimum speed
-     * @param maxSpeed         the maximum speed
+     * @param minSpeed         the minimum speed supplier
+     * @param maxSpeed         the maximum speed supplier
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(String namespaceName, double minSpeed, double maxSpeed,
@@ -69,8 +70,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * <p>This constructor is deprecated.
      * Please use {@link #MotoredGenericSubsystem(String, double, double, MotorController...)} instead.</p>
      *
-     * @param minSpeed         the minimum speed
-     * @param maxSpeed         the maximum speed
+     * @param minSpeed         the minimum speed supplier
+     * @param maxSpeed         the maximum speed supplier
      * @param motorControllers the motor controllers in the subsystem
      */
     @Deprecated(since = "2022", forRemoval = true)
@@ -106,7 +107,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Adds any commands or data from this subsystem to the dashboard.
+     * Adds any commands or data from this subsystem to the {@link NetworkTable}s.
      */
     @Override
     public void configureDashboard() {
