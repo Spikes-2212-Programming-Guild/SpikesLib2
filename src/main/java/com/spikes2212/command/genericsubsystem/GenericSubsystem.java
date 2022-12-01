@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 /**
  * This class represents a generic subsystem that moves within a limitation, or without one.
  *
+ *
  * @author Yuval Levy
  * @see DashboardedSubsystem
  */
@@ -34,7 +35,7 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     }
 
     /**
-     * Constructs a new instance of {@link GenericSubsystem}.
+     * Constructs a new instance of {@link GenericSubsystem} with the given namespace name.
      *
      * @param namespaceName the name of the subsystem's namespace
      */
@@ -55,7 +56,8 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     }
 
     /**
-     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed and maximum speed.
+     * Constructs a new instance of {@link GenericSubsystem} with the given
+     * namespace name, minimum speed and maximum speed.
      *
      * @param namespaceName the name of the subsystem's namespace
      * @param minSpeed the minimum speed
