@@ -3,7 +3,6 @@ package com.spikes2212.command.genericsubsystem;
 import com.spikes2212.dashboard.Namespace;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.networktables.NetworkTable;
 
 import java.util.function.Supplier;
 
@@ -18,12 +17,12 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     protected MotorControllerGroup motorControllerGroup;
 
     /**
-     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name,
-     * the minimum speed supplier, the maximum speed supplier and {@link MotorController}s.
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
+     * minSpeed supplier, the given maxSpeed supplier and the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
-     * @param minSpeed         the minimum speed supplier
-     * @param maxSpeed         the maximum speed supplier
+     * @param minSpeed         the minimum speed
+     * @param maxSpeed         the maximum speed
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed,
@@ -33,25 +32,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given
-     * minSpeed supplier, the given maxSpeed supplier and the given {@link MotorController}s.</p>
-     *
-     * <p>This constructor is deprecated.
-     * Please use {@link #MotoredGenericSubsystem(String, Supplier, Supplier, MotorController...)}</p>
-     *
-     * @param minSpeed         the minimum speed supplier
-     * @param maxSpeed         the maximum speed supplier
-     * @param motorControllers the motor controllers in the subsystem
-     */
-    @Deprecated(since = "2022", forRemoval = true)
-    public MotoredGenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed, String namespaceName,
-                                   MotorController... motorControllers) {
-        this(namespaceName, minSpeed, maxSpeed, motorControllers);
-    }
-
-    /**
-     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name,
-     * the minimum speed, the maximum speed and {@link MotorController}s.</p>
+     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
+     * minSpeed, maxSpeed and the given {@link MotorController}s.</p>
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param minSpeed         the minimum speed
@@ -59,23 +41,6 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(String namespaceName, double minSpeed, double maxSpeed,
-                                   MotorController... motorControllers) {
-        this(namespaceName, () -> minSpeed, () -> maxSpeed, motorControllers);
-    }
-
-    /**
-     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given
-     * minSpeed, the give maxSpeed and the given {@link MotorController}s.</p>
-     *
-     * <p>This constructor is deprecated.
-     * Please use {@link #MotoredGenericSubsystem(String, double, double, MotorController...)} instead.</p>
-     *
-     * @param minSpeed         the minimum speed
-     * @param maxSpeed         the maximum speed
-     * @param motorControllers the motor controllers in the subsystem
-     */
-    @Deprecated(since = "2022", forRemoval = true)
-    public MotoredGenericSubsystem(double minSpeed, double maxSpeed, String namespaceName,
                                    MotorController... motorControllers) {
         this(namespaceName, () -> minSpeed, () -> maxSpeed, motorControllers);
     }
@@ -107,7 +72,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * Adds any commands or data from this subsystem to the {@link NetworkTable}s.
+     * Adds any commands or data from this subsystem to the dashboard.
      */
     @Override
     public void configureDashboard() {

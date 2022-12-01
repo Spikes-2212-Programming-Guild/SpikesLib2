@@ -1,5 +1,6 @@
 package com.spikes2212.util;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -16,10 +17,9 @@ public class XboxControllerWrapper extends Joystick {
     protected final XboxController xbox;
 
     /**
-     * Constructs a new {@link XboxControllerWrapper} using the port of the USB on the driver
-     * station.
+     * Constructs a new {@link XboxControllerWrapper} using the port of the USB on the {@link DriverStation}.
      *
-     * @param port The port on the Driver Station that the joystick is plugged into.
+     * @param port the port on the {@link DriverStation} that the controller is plugged in
      */
     public XboxControllerWrapper(int port) {
         super(port);
