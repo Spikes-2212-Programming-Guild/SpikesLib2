@@ -1,6 +1,7 @@
 package com.spikes2212.command.drivetrains;
 
 import com.spikes2212.command.DashboardedSubsystem;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
@@ -115,7 +116,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Adds any commands or data from this subsystem to the dashboard.
+     * Adds any commands or data from this subsystem to the {@link NetworkTable}s.
      */
     @Override
     public void configureDashboard() {
