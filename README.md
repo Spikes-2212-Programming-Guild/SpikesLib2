@@ -4,7 +4,7 @@ SpikesLib is a library that extends <a href="https://github.com/wpilibsuite/allw
 Spikes#2212.
 
 <h2 style="color: #00156E;">Examples</h2>
-Examples can be found <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2-Examples">here</a>.
+Examples of how to use the library can be found <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2-Examples">here</a>.
 
 <h2 style="color: #00156E;">Packages</h2>
 
