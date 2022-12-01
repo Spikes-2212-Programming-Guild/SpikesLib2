@@ -51,7 +51,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
 
     /**
      * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name,
-     * the given minSpeed, maxSpeed and the given {@link MotorController}s.</p>
+     * minSpeed, maxSpeed and the given {@link MotorController}s.</p>
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param minSpeed         the minimum speed

@@ -21,9 +21,10 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     private double currentSpeed = 0;
 
     /**
-     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed supplier,
-     * maximum speed supplier and with the given namespace name.
+     * Constructs a new instance of {@link GenericSubsystem} with the given namespace name, minimum speed supplier
+     * and maximum speed supplier.
      *
+     * @param namespaceName the name of the subsystem's namespace
      * @param minSpeed the minimum speed supplier
      * @param maxSpeed the maximum speed supplier
      */
