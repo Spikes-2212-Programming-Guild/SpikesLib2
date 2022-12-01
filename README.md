@@ -20,7 +20,7 @@ https://spikes2212.com/SpikesLib.json
 
 <h2 style="color: #00156E;">2022 Season</h2>
 
-Spikeslib has been updated to support WPILib 2022.
+Spikeslib has been updated to support WPILib 2022
 
 <h2 style="color: #00156E;" >2020 Season</h2>
 
