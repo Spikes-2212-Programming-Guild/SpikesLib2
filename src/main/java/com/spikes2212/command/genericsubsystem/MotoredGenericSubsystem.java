@@ -18,8 +18,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     protected MotorControllerGroup motorControllerGroup;
 
     /**
-     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
-     * minSpeed supplier, the given maxSpeed supplier and the given {@link MotorController}s.
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name,
+     * the minimum speed supplier, the maximum speed supplier and {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param minSpeed         the minimum speed supplier
@@ -51,7 +51,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
 
     /**
      * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name,
-     * minSpeed, maxSpeed and the given {@link MotorController}s.</p>
+     * the minimum speed, the maximum speed and {@link MotorController}s.</p>
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param minSpeed         the minimum speed
