@@ -8,7 +8,6 @@ import java.util.function.Supplier;
 /**
  * This class represents a generic subsystem that moves within a limitation, or without one.
  *
- *
  * @author Yuval Levy
  * @see DashboardedSubsystem
  */
@@ -22,11 +21,11 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
     private double currentSpeed = 0;
 
     /**
-     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed supplier
-     * and maximum speed supplier.
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed supplier,
+     * maximum speed supplier and with the given namespace name.
      *
-     * @param minSpeed the minimum speed
-     * @param maxSpeed the maximum speed
+     * @param minSpeed the minimum speed supplier
+     * @param maxSpeed the maximum speed supplier
      */
     public GenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
         super(namespaceName);
@@ -90,8 +89,8 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
      * Please use {@link #GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed)}
      * instead. <br> <br> </p>
      *
-     * @param minSpeed the minimum speed
-     * @param maxSpeed the maximum speed
+     * @param minSpeed the minimum speed supplier
+     * @param maxSpeed the maximum speed supplier
      */
     @Deprecated(since = "2022", forRemoval = true)
     public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
