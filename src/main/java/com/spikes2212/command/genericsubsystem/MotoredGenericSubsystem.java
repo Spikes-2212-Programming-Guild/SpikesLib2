@@ -32,23 +32,6 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given
-     * minSpeed supplier, the given maxSpeed supplier and the given {@link MotorController}s.</p>
-     *
-     * <p>This constructor is deprecated.
-     * Please use {@link #MotoredGenericSubsystem(String, Supplier, Supplier, MotorController...)}</p>
-     *
-     * @param minSpeed         the minimum speed
-     * @param maxSpeed         the maximum speed
-     * @param motorControllers the motor controllers in the subsystem
-     */
-    @Deprecated(since = "2022", forRemoval = true)
-    public MotoredGenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed, String namespaceName,
-                                   MotorController... motorControllers) {
-        this(namespaceName, minSpeed, maxSpeed, motorControllers);
-    }
-
-    /**
      * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
      * minSpeed, maxSpeed and the given {@link MotorController}s.</p>
      *
@@ -58,23 +41,6 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(String namespaceName, double minSpeed, double maxSpeed,
-                                   MotorController... motorControllers) {
-        this(namespaceName, () -> minSpeed, () -> maxSpeed, motorControllers);
-    }
-
-    /**
-     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given
-     * minSpeed, the give maxSpeed and the given {@link MotorController}s.</p>
-     *
-     * <p>This constructor is deprecated.
-     * Please use {@link #MotoredGenericSubsystem(String, double, double, MotorController...)} instead.</p>
-     *
-     * @param minSpeed         the minimum speed
-     * @param maxSpeed         the maximum speed
-     * @param motorControllers the motor controllers in the subsystem
-     */
-    @Deprecated(since = "2022", forRemoval = true)
-    public MotoredGenericSubsystem(double minSpeed, double maxSpeed, String namespaceName,
                                    MotorController... motorControllers) {
         this(namespaceName, () -> minSpeed, () -> maxSpeed, motorControllers);
     }

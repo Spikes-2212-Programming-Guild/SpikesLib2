@@ -3,6 +3,8 @@
 SpikesLib is a library that extends <a href="https://github.com/wpilibsuite/allwpilib">WPILib</a> written by the FRC team The
 Spikes#2212.
 
+<h2 style="color: #00156E;">Examples</h2>
+Examples of how to use the library can be found <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2-Examples">here</a>.
 
 <h2 style="color: #00156E;">Packages</h2>
 
@@ -15,6 +17,10 @@ Spikes#2212.
 <h2 style="color: #00156E;">Installation</h2>
 After creating a Robot Project, import SpikesLib as an online vendor libray, using this link: <br> <br>
 https://spikes2212.com/SpikesLib.json
+
+<h2 style="color: #00156E;">2023 Season</h2>
+
+Spikeslib has been updated to support WPILib 2023.
 
 <h2 style="color: #00156E;">2022 Season</h2>
 
