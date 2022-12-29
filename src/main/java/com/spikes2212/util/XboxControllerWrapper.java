@@ -3,6 +3,11 @@ package com.spikes2212.util;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -25,27 +30,27 @@ public class XboxControllerWrapper extends Joystick {
         xbox = new XboxController(port);
     }
 
-    public JoystickButton getGreenTrigger() {
+    public JoystickButton getGreenButton() {
         return new JoystickButton(this, XboxController.Button.kA.value);
     }
 
-    public JoystickButton getBlueTrigger() {
+    public JoystickButton getBlueButton() {
         return new JoystickButton(this, XboxController.Button.kX.value);
     }
 
-    public JoystickButton getRedTrigger() {
+    public JoystickButton getRedButton() {
         return new JoystickButton(this, XboxController.Button.kB.value);
     }
 
-    public JoystickButton getYellowTrigger() {
+    public JoystickButton getYellowButton() {
         return new JoystickButton(this, XboxController.Button.kY.value);
     }
 
-    public JoystickButton getTriggerStart() {
+    public JoystickButton getButtonStart() {
         return new JoystickButton(this, XboxController.Button.kStart.value);
     }
 
-    public JoystickButton getTriggerBack() {
+    public JoystickButton getButtonBack() {
         return new JoystickButton(this, XboxController.Button.kBack.value);
     }
 
@@ -57,27 +62,39 @@ public class XboxControllerWrapper extends Joystick {
         return xbox.getLeftTriggerAxis();
     }
 
-    public Trigger getRTTrigger() {
-        return new Trigger(() -> xbox.getRightTriggerAxis() == 1);
+    public Trigger getRTButton() {
+        return new Trigger() {
+
+            @Override
+            public boolean get() {
+                return xbox.getRightTriggerAxis() == 1;
+            }
+        };
     }
 
-    public Trigger getLTTrigger() {
-        return new Trigger(() -> xbox.getLeftTriggerAxis() == 1);
+    public Trigger getLTButton() {
+        return new Trigger() {
+
+            @Override
+            public boolean get() {
+                return xbox.getLeftTriggerAxis() == 1;
+            }
+        };
     }
 
-    public JoystickButton getRBTrigger() {
+    public JoystickButton getRBButton() {
         return new JoystickButton(this, XboxController.Button.kRightBumper.value);
     }
 
-    public JoystickButton getLBTrigger() {
+    public JoystickButton getLBButton() {
         return new JoystickButton(this, XboxController.Button.kLeftBumper.value);
     }
 
-    public JoystickButton getRightStickTrigger() {
+    public JoystickButton getRightStickButton() {
         return new JoystickButton(this, XboxController.Button.kRightStick.value);
     }
 
-    public JoystickButton getLeftStickTrigger() {
+    public JoystickButton getLeftStickButton() {
         return new JoystickButton(this, XboxController.Button.kLeftStick.value);
     }
 
@@ -97,37 +114,95 @@ public class XboxControllerWrapper extends Joystick {
         return xbox.getLeftY();
     }
 
-    public Trigger getUpTrigger() {
-        return new Trigger(() -> getPOV() == DPAD.UP.VALUE);
+    public Button getUpButton() {
+        return new Button() {
+            @Override
+            public boolean get() {
+                return getPOV() == DPAD.UP.VALUE;
+            }
+        };
     }
 
-    public Trigger getDownTrigger() {
-        return new Trigger(() -> getPOV() == DPAD.DOWN.VALUE);
+    public Button getDownButton() {
+        return new Button() {
+            @Override
+            public boolean get() {
+                return getPOV() == DPAD.DOWN.VALUE;
+            }
+        };
     }
 
 
-    public Trigger getLeftTrigger() {
-        return new Trigger(() -> getPOV() == DPAD.LEFT.VALUE);
+    public Button getLeftButton() {
+        return new Button() {
+            @Override
+            public boolean get() {
+                return getPOV() == DPAD.LEFT.VALUE;
+            }
+        };
     }
 
 
-    public Trigger getRightTrigger() {
-        return new Trigger(() -> getPOV() == DPAD.RIGHT.VALUE);
+    public Button getRightButton() {
+        return new Button() {
+            @Override
+            public boolean get() {
+                return getPOV() == DPAD.RIGHT.VALUE;
+            }
+        };
     }
 
-    public Trigger getUpperRightTrigger() {
-        return new Trigger(() -> getPOV() == DPAD.UPPER_RIGHT.VALUE);
+    public Button getUpperRightButton() {
+        return new Button() {
+            @Override
+            public boolean get() {
+                return getPOV() == DPAD.UPPER_RIGHT.VALUE;
+            }
+        };
     }
 
-    public Trigger getLowerRightTrigger() {
-        return new Trigger(() -> getPOV() == DPAD.LOWER_RIGHT.VALUE);
+    public Button getLowerRightButton() {
+        return new Button() {
+            @Override
+            public boolean get() {
+                return getPOV() == DPAD.LOWER_RIGHT.VALUE;
+            }
+        };
     }
 
-    public Trigger getLowerLeftTrigger() {
-        return new Trigger(() -> getPOV() == DPAD.LOWER_LEFT.VALUE);
+    public Button getLowerLeftButton() {
+        return new Button() {
+            @Override
+            public boolean get() {
+                return getPOV() == DPAD.LOWER_LEFT.VALUE;
+            }
+        };
     }
 
-    public Trigger getUpperLeftTrigger() {
-        return new Trigger(() -> getPOV() == DPAD.UPPER_LEFT.VALUE);
+    public Button getUpperLeftButton() {
+        return new Button() {
+            @Override
+            public boolean get() {
+                return getPOV() == DPAD.UPPER_LEFT.VALUE;
+            }
+        };
+    }
+
+    public void setRumble(double value) {
+        xbox.setRumble(RumbleType.kLeftRumble, value);
+        xbox.setRumble(RumbleType.kRightRumble, value);
+    }
+
+    public void timeRumble(double value, double time) {
+        Command command = new SequentialCommandGroup(
+                new InstantCommand(() -> {
+                    setRumble(value);
+                }),
+                new WaitCommand(time),
+                new InstantCommand(() -> {
+                    setRumble(0);
+                })
+        );
+        command.schedule();
     }
 }
