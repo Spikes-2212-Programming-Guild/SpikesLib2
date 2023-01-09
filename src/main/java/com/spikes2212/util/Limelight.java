@@ -23,6 +23,19 @@ public class Limelight {
         rootNamespace.putNumber("pipeline latency", this::getTargetLatency);
     }
 
+    /**
+     * Retrieves an entry from the Limelight NetworkTable.
+     *
+     * @param key key for entry
+     * @return the value of the given entry
+     */
+    private static NetworkTableEntry getValue(String key) {
+        if (table == null) {
+            table = NetworkTableInstance.getDefault();
+        }
+        return table.getTable("limelight").getEntry(key);
+    }
+
     public void periodic() {
         rootNamespace.update();
     }
@@ -42,18 +55,19 @@ public class Limelight {
     }
 
     /**
+     * Sets pipeline number (0-9 value).
+     *
+     * @param number pipeline number (0-9)
+     */
+    public void setPipeline(int number) {
+        getValue("pipeline").setNumber(number);
+    }
+
+    /**
      * @return the horizontal offset from crosshair to target (-27 degrees to 27 degrees)
      */
     public double getHorizontalOffsetFromTargetInDegrees() {
         return getValue("tx").getDouble(0.00);
-    }
-
-    /**
-     * @deprecated Use {@link #getHorizontalOffsetFromTargetInDegrees()}.
-     */
-    @Deprecated(since = "2022", forRemoval = true)
-    public double getHorizontalOffsetFromTarget() {
-        return getHorizontalOffsetFromTargetInDegrees();
     }
 
     /**
@@ -68,14 +82,6 @@ public class Limelight {
      */
     public double getVerticalOffsetFromTargetInDegrees() {
         return getValue("ty").getDouble(0.00);
-    }
-
-    /**
-     * @deprecated Use {@link #getVerticalOffsetFromTargetInDegrees()}.
-     */
-    @Deprecated(since = "2022", forRemoval = true)
-    public double getVerticalOffsetFromTarget() {
-        return getVerticalOffsetFromTargetInDegrees();
     }
 
     /**
@@ -118,27 +124,5 @@ public class Limelight {
      */
     public double getTargetHeightInPixels() {
         return getValue("tvert").getDouble(0.00);
-    }
-
-    /**
-     * Sets pipeline number (0-9 value).
-     *
-     * @param number pipeline number (0-9)
-     */
-    public void setPipeline(int number) {
-        getValue("pipeline").setNumber(number);
-    }
-
-    /**
-     * Retrieves an entry from the Limelight NetworkTable.
-     *
-     * @param key key for entry
-     * @return the value of the given entry
-     */
-    private static NetworkTableEntry getValue(String key) {
-        if (table == null) {
-            table = NetworkTableInstance.getDefault();
-        }
-        return table.getTable("limelight").getEntry(key);
     }
 }

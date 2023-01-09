@@ -1,7 +1,7 @@
 package com.spikes2212.command.genericsubsystem;
 
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.spikes2212.command.DashboardedSubsystem;
 
 import java.util.function.Supplier;
 
@@ -9,39 +9,48 @@ import java.util.function.Supplier;
  * This class represents a generic subsystem that moves within a limitation, or without one.
  *
  * @author Yuval Levy
+ * @see DashboardedSubsystem
  */
-public abstract class GenericSubsystem extends SubsystemBase {
+public abstract class GenericSubsystem extends DashboardedSubsystem {
 
-    private double currentSpeed = 0;
+    private static final String DEFAULT_NAMESPACE_NAME = "generic subsystem";
+
     protected Supplier<Double> maxSpeed;
     protected Supplier<Double> minSpeed;
 
-    /**
-     * Constructs a new instance of GenericSubsystem.
-     */
-    public GenericSubsystem() {
-        this(-1, 1);
-    }
+    private double currentSpeed = 0;
 
     /**
-     * Constructs a new instance of GenericSubsystem with the given minSpeed and maxSpeed.
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed supplier
+     * and maximum speed supplier.
      *
      * @param minSpeed the minimum speed
      * @param maxSpeed the maximum speed
      */
-    public GenericSubsystem(double minSpeed, double maxSpeed) {
-        this(() -> minSpeed, () -> maxSpeed);
-    }
-
-    /**
-     * Constructs a new instance of GenericSubsystem with the given minSpeed supplier and maxSpeed supplier.
-     *
-     * @param minSpeed the minimum speed
-     * @param maxSpeed the maximum speed
-     */
-    public GenericSubsystem(Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
+    public GenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed) {
+        super(namespaceName);
         this.maxSpeed = maxSpeed;
         this.minSpeed = minSpeed;
+    }
+
+    /**
+     * Constructs a new instance of {@link GenericSubsystem}.
+     *
+     * @param namespaceName the name of the subsystem's namespace
+     */
+    public GenericSubsystem(String namespaceName) {
+        this(namespaceName, -1, 1);
+    }
+
+    /**
+     * Constructs a new instance of {@link GenericSubsystem} with the given minimum speed and maximum speed.
+     *
+     * @param namespaceName the name of the subsystem's namespace
+     * @param minSpeed      the minimum speed
+     * @param maxSpeed      the maximum speed
+     */
+    public GenericSubsystem(String namespaceName, double minSpeed, double maxSpeed) {
+        this(namespaceName, () -> minSpeed, () -> maxSpeed);
     }
 
     /**
@@ -86,11 +95,5 @@ public abstract class GenericSubsystem extends SubsystemBase {
      */
     public double getSpeed() {
         return currentSpeed;
-    }
-
-    /**
-     * Add any commands or data from this subsystem to the dashboard.
-     */
-    public void configureDashboard() {
     }
 }

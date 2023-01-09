@@ -44,4 +44,6 @@ public interface Namespace {
     }
 
     boolean getBoolean(String key);
+
+    void update();
 }

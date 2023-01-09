@@ -1,27 +1,26 @@
 package com.spikes2212.util;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
- * A class that handles the communication between an PS4 controller and the code.
+ * A class that handles the communication between a PS4 controller and the code.
  *
  * @author Ofri Rosenbaum
  */
-public class PlaystationController extends Joystick {
+public class PlaystationControllerWrapper extends Joystick {
 
     protected final PS4Controller ps;
 
     /**
-     * Constructs a new {@link PS4Controller} using the port of the USB on the driver
-     * station.
+     * Constructs a new {@link PS4Controller} using the port of the USB on the {@link DriverStation}.
      *
-     * @param port The port on the Driver Station that the controller is plugged into.
+     * @param port the port on the {@link DriverStation} that the controller is plugged in
      */
-    public PlaystationController(int port) {
+    public PlaystationControllerWrapper(int port) {
         super(port);
         ps = new PS4Controller(port);
     }
@@ -59,23 +58,11 @@ public class PlaystationController extends Joystick {
     }
 
     public Trigger getR2Button() {
-        return new Trigger() {
-
-            @Override
-            public boolean get() {
-                return ps.getR2Button();
-            }
-        };
+        return new Trigger(ps::getR2Button);
     }
 
     public Trigger getL2Button() {
-        return new Trigger() {
-
-            @Override
-            public boolean get() {
-                return ps.getL2Button();
-            }
-        };
+        return new Trigger(ps::getL2Button);
     }
 
     public JoystickButton getR1Button() {
@@ -110,40 +97,19 @@ public class PlaystationController extends Joystick {
         return ps.getLeftY();
     }
 
-    public Button getUpButton() {
-        return new Button() {
-            @Override
-            public boolean get() {
-                return getPOV() == DPAD.UP.VALUE;
-            }
-        };
+    public Trigger getUpButton() {
+        return new Trigger(() -> getPOV() == DPAD.UP.VALUE);
     }
 
-    public Button getDownButton() {
-        return new Button() {
-            @Override
-            public boolean get() {
-                return getPOV() == DPAD.DOWN.VALUE;
-            }
-        };
+    public Trigger getDownButton() {
+        return new Trigger(() -> getPOV() == DPAD.DOWN.VALUE);
     }
 
-
-    public Button getLeftButton() {
-        return new Button() {
-            @Override
-            public boolean get() {
-                return getPOV() == DPAD.LEFT.VALUE;
-            }
-        };
+    public Trigger getLeftButton() {
+        return new Trigger(() -> getPOV() == DPAD.LEFT.VALUE);
     }
 
-    public Button getRightButton() {
-        return new Button() {
-            @Override
-            public boolean get() {
-                return getPOV() == DPAD.RIGHT.VALUE;
-            }
-        };
+    public Trigger getRightButton() {
+        return new Trigger(() -> getPOV() == DPAD.RIGHT.VALUE);
     }
 }
