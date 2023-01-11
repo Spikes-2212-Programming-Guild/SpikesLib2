@@ -56,7 +56,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
      * @param controlMode         the loop's control mode (e.g. voltage, velocity, position...)
      * @param setpoint            the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */
-    private MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
+    public MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                                 FeedForwardSettings feedForwardSettings,
                                                 UnifiedControlMode controlMode, Supplier<Double> setpoint) {
         addRequirements(subsystem);
