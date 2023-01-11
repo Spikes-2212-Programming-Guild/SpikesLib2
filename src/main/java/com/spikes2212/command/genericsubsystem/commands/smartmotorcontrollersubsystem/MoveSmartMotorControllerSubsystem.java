@@ -1,7 +1,5 @@
 package com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollersubsystem;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.revrobotics.CANSparkMax;
 import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -58,7 +56,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
      * @param controlMode         the loop's control mode (e.g. voltage, velocity, position...)
      * @param setpoint            the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
      */
-    protected MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
+    private MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
                                                 FeedForwardSettings feedForwardSettings,
                                                 UnifiedControlMode controlMode, Supplier<Double> setpoint) {
         addRequirements(subsystem);
