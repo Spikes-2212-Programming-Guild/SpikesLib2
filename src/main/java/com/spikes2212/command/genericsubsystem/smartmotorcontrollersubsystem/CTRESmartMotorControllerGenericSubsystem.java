@@ -19,15 +19,14 @@ import java.util.List;
  * A {@link Subsystem} which consists of a master CTRE motor controller that can run control loops and additional
  * CTRE motor controllers that follow it.
  *
- * @param <T> the type of the motor controller on which the loop is run
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
- * @see SmartMotorControllerSubsystem
+ * @see SmartMotorControllerGenericSubsystem
  * @see BaseMotorController
  * @see MotorController
  */
-public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorController & MotorController>
-        extends DashboardedSubsystem implements SmartMotorControllerSubsystem {
+public class CTRESmartMotorControllerGenericSubsystem
+        extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
 
     /**
      * The slot on the motor controller on which the loop is run.
@@ -37,7 +36,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
     /**
      * The motor controller which runs the loops.
      */
-    protected final T master;
+    protected final BaseMotorController master;
 
     /**
      * Additional motor controllers that follow the master.
@@ -51,7 +50,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
      * @param master        the motor controller which runs the loops
      * @param slaves        additional motor controllers that follow the master
      */
-    public CTRESmartMotorControllerGenericSubsystem(String namespaceName, T master,
+    public CTRESmartMotorControllerGenericSubsystem(String namespaceName, BaseMotorController master,
                                                     IFollower... slaves) {
         super(namespaceName);
         this.master = master;
@@ -120,7 +119,7 @@ public class CTRESmartMotorControllerGenericSubsystem<T extends BaseMotorControl
      */
     @Override
     public void finish() {
-        master.stopMotor();
+        ((MotorController)master).stopMotor();
     }
 
     /**

@@ -1,7 +1,5 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.revrobotics.CANSparkMax;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
@@ -13,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  *
  * @author Yoel Perman Brilliant
  */
-public interface SmartMotorControllerSubsystem extends Subsystem {
+public interface SmartMotorControllerGenericSubsystem extends Subsystem {
 
     /**
      * Configures the loop's PID constants and feed forward gains.

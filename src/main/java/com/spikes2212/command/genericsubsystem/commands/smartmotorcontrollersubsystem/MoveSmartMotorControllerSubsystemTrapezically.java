@@ -1,8 +1,6 @@
 package com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollersubsystem;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.revrobotics.CANSparkMax;
-import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerSubsystem;
+import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerGenericSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
@@ -12,12 +10,12 @@ import java.util.function.Supplier;
 
 
 /**
- * A command that moves a {@link SmartMotorControllerSubsystem} by running a trapezoid profile on its
+ * A command that moves a {@link SmartMotorControllerGenericSubsystem} by running a trapezoid profile on its
  * master's control loops.
  *
  * @author Yoel Perman Brilliant
- * @see SmartMotorControllerSubsystem
- * @see MoveSmartMotorControllerSubsystem
+ * @see SmartMotorControllerGenericSubsystem
+ * @see com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollersubsystem.MoveSmartMotorControllerSubsystem
  */
 public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMotorControllerSubsystem {
 
@@ -26,13 +24,13 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
     /**
      * Constructs a new instance of {@link MoveSmartMotorControllerSubsystemTrapezically}.
      *
-     * @param subsystem the {@link SmartMotorControllerSubsystem} this command will run on
+     * @param subsystem the {@link SmartMotorControllerGenericSubsystem} this command will run on
      * @param pidSettings the loop's PID constants
      * @param feedForwardSettings the loop's feed forward gains
-     * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
+     * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerGenericSubsystem} to
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
-    public MoveSmartMotorControllerSubsystemTrapezically(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
+    public MoveSmartMotorControllerSubsystemTrapezically(SmartMotorControllerGenericSubsystem subsystem, PIDSettings pidSettings,
                                                          FeedForwardSettings feedForwardSettings,
                                                          Supplier<Double> setpoint,
                                                          TrapezoidProfileSettings trapezoidProfileSettings) {
