@@ -175,7 +175,7 @@ public class RootNamespace implements Namespace {
         }
     }
 
-    private void updateSendable(){
+    private void updateSendable() {
         Collection<Runnable> tasks = new ArrayList<>();
         synchronized (m_lock) {
             tasks.addAll(m_tasks);
