@@ -180,5 +180,8 @@ public class RootNamespace implements Namespace {
         for (Runnable task : tasks) {
             task.run();
         }
+        for (Sendable data : TABLES_TO_DATA.values()) {
+            SendableRegistry.update(data);
+        }
     }
 }
