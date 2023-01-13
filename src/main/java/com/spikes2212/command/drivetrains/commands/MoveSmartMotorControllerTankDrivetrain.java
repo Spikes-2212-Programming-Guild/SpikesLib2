@@ -21,7 +21,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
     /**
      * The {@link SmartMotorControllerTankDrivetrain} this command will run on.
      */
-    protected final SmartMotorControllerTankDrivetrain subsystem;
+    protected final SmartMotorControllerTankDrivetrain drivetrain;
 
     /**
      * The left side loop's PID constants.
@@ -68,7 +68,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
     /**
      * Constructs a new (generic) instance of {@link MoveSmartMotorControllerTankDrivetrain}.
      *
-     * @param subsystem           the {@link SmartMotorControllerGenericSubsystem} this command will run on
+     * @param drivetrain           the {@link SmartMotorControllerGenericSubsystem} this command will run on
      * @param leftPIDSettings     the left side's loop's PID constants
      * @param rightPIDSettings    the right side's loop's PID constants
      * @param feedForwardSettings the loop's feed forward gains
@@ -78,13 +78,13 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
      * @param rightSetpoint       the setpoint this command should bring the
      *                            {@link SmartMotorControllerGenericSubsystem}'s right side to
      */
-    public MoveSmartMotorControllerTankDrivetrain(SmartMotorControllerTankDrivetrain subsystem,
+    public MoveSmartMotorControllerTankDrivetrain(SmartMotorControllerTankDrivetrain drivetrain,
                                                   PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                                                   FeedForwardSettings feedForwardSettings,
                                                   UnifiedControlMode controlMode, Supplier<Double> leftSetpoint,
                                                   Supplier<Double> rightSetpoint) {
-        addRequirements(subsystem);
-        this.subsystem = subsystem;
+        addRequirements(drivetrain);
+        this.drivetrain = drivetrain;
         this.controlMode = controlMode;
         this.leftPIDSettings = leftPIDSettings;
         this.rightPIDSettings = rightPIDSettings;
@@ -100,7 +100,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
      */
     @Override
     public void initialize() {
-        subsystem.configureLoop(leftPIDSettings, rightPIDSettings, feedForwardSettings);
+        drivetrain.configureLoop(leftPIDSettings, rightPIDSettings, feedForwardSettings);
     }
 
     /**
@@ -108,13 +108,13 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
      */
     @Override
     public void execute() {
-        subsystem.pidSet(controlMode, leftSetpoint.get(), rightSetpoint.get(), leftPIDSettings,
+        drivetrain.pidSet(controlMode, leftSetpoint.get(), rightSetpoint.get(), leftPIDSettings,
                 rightPIDSettings, feedForwardSettings);
     }
 
     @Override
     public void end(boolean interrupted) {
-        subsystem.finish();
+        drivetrain.finish();
     }
 
     /**
@@ -124,10 +124,12 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
      */
     @Override
     public boolean isFinished() {
-        if (!subsystem.onTarget(controlMode, leftPIDSettings.getTolerance(), rightPIDSettings.getTolerance(),
-                leftSetpoint.get(), rightSetpoint.get())) {
-            lastTimeLeftNotOnTarget = Timer.getFPGATimestamp();
-            lastTimeRightNotOnTarget = Timer.getFPGATimestamp();
+        double now = Timer.getFPGATimestamp();
+        if (!drivetrain.leftOnTarget(controlMode, leftPIDSettings.getTolerance(), leftSetpoint.get())) {
+            lastTimeLeftNotOnTarget = now;
+        }
+        if (!drivetrain.rightOnTarget(controlMode, leftPIDSettings.getTolerance(), rightSetpoint.get())) {
+            lastTimeRightNotOnTarget = now;
         }
         //is this good? it seems wrong
         return Timer.getFPGATimestamp() - lastTimeLeftNotOnTarget >= leftPIDSettings.getWaitTime() &&
