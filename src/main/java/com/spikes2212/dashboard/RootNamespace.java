@@ -1,10 +1,15 @@
 package com.spikes2212.dashboard;
 
-import edu.wpi.first.networktables.*;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -15,6 +20,9 @@ import java.util.function.Supplier;
 public class RootNamespace implements Namespace {
 
     private final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
+
+    private final Collection<Runnable> m_tasks = new ArrayList<>();
+    private final Object m_lock = new Object();
 
     protected String name;
     protected final Map<String, Supplier<String>> stringFields;
@@ -164,5 +172,13 @@ public class RootNamespace implements Namespace {
         updateBoolean();
         updateNumber();
         updateString();
+        Collection<Runnable> tasks = new ArrayList<>();
+        synchronized (m_lock) {
+            tasks.addAll(m_tasks);
+            m_tasks.clear();
+        }
+        for (Runnable task : tasks) {
+            task.run();
+        }
     }
 }
