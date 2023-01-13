@@ -146,6 +146,14 @@ public class RootNamespace implements Namespace {
         booleanFields.remove(name);
     }
 
+    @Override
+    public void update() {
+        updateBoolean();
+        updateNumber();
+        updateString();
+        updateSendable();
+    }
+
     private void updateString() {
         for (Map.Entry<String, Supplier<String>> map : stringFields.entrySet()) {
             NetworkTableEntry entry = this.table.getEntry(map.getKey());
@@ -167,11 +175,7 @@ public class RootNamespace implements Namespace {
         }
     }
 
-    @Override
-    public void update() {
-        updateBoolean();
-        updateNumber();
-        updateString();
+    private void updateSendable(){
         Collection<Runnable> tasks = new ArrayList<>();
         synchronized (m_lock) {
             tasks.addAll(m_tasks);
