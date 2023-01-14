@@ -66,7 +66,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
     /**
      * Constructs a new (generic) instance of {@link MoveSmartMotorControllerTankDrivetrain}.
      *
-     * @param drivetrain           the {@link SmartMotorControllerGenericSubsystem} this command will run on
+     * @param drivetrain          the {@link SmartMotorControllerGenericSubsystem} this command will run on
      * @param leftPIDSettings     the left side's loop's PID constants
      * @param rightPIDSettings    the right side's loop's PID constants
      * @param feedForwardSettings the loop's feed forward gains
@@ -129,8 +129,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
         if (!drivetrain.rightOnTarget(controlMode, leftPIDSettings.getTolerance(), rightSetpoint.get())) {
             lastTimeRightNotOnTarget = now;
         }
-        //is this good? it seems wrong
-        return Timer.getFPGATimestamp() - lastTimeLeftNotOnTarget >= leftPIDSettings.getWaitTime() &&
-                Timer.getFPGATimestamp() - lastTimeRightNotOnTarget >= rightPIDSettings.getWaitTime();
+        return now - lastTimeLeftNotOnTarget >= leftPIDSettings.getWaitTime() &&
+                now - lastTimeRightNotOnTarget >= rightPIDSettings.getWaitTime();
     }
 }
