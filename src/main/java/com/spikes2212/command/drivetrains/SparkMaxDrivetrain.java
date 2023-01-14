@@ -15,11 +15,11 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * A {@link TankDrivetrain}, whose sides each consists of a master {@link CANSparkMax} motor controller that runs control
- * loops and additional {@link CANSparkMax} motor controllers that follow it.
+ * A {@link TankDrivetrain}, whose sides each consists of a master {@link CANSparkMax} motor controller that runs
+ * control loops and additional {@link CANSparkMax}s that follow it.
  *
  * @author Yoel Perman Brilliant
- * @see DashboardedSubsystem
+ * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
 public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
@@ -53,10 +53,10 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
      * Constructs a new instance of {@link SparkMaxDrivetrain}.
      *
      * @param namespaceName the name of the subsystem's namespace
-     * @param leftMaster    the motor controller which runs the left side's loops
-     * @param leftSlaves    additional motor controllers that follow the left master
-     * @param rightMaster   the motor controller which runs the right side's loops
-     * @param rightSlaves   additional motor controllers that follow the right master
+     * @param leftMaster    the {@link CANSparkMax} which runs the left side's loops
+     * @param leftSlaves    additional {@link CANSparkMax}s that follow the left master
+     * @param rightMaster   the {@link CANSparkMax} which runs the right side's loops
+     * @param rightSlaves   additional {@link CANSparkMax}s that follow the right master
      */
     public SparkMaxDrivetrain(String namespaceName, CANSparkMax leftMaster, CANSparkMax rightMaster,
                               List<CANSparkMax> leftSlaves, List<CANSparkMax> rightSlaves) {
@@ -77,7 +77,7 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
     }
 
     /**
-     * Configures the loop's PID constants and feed forward gains.
+     * Configures the loops' PID constants and feed forward gains.
      */
     @Override
     public void configPIDF(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
@@ -93,7 +93,7 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
     }
 
     /**
-     * Configures the loop's trapezoid profile settings.
+     * Configures the loops' trapezoid profile settings.
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
@@ -108,7 +108,7 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
     }
 
     /**
-     * Configures the loop's settings.
+     * Configures the loops' settings.
      */
     @Override
     public void configureLoop(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
@@ -121,7 +121,7 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
     }
 
     /**
-     * Updates any control loops running on the motor controller.
+     * Updates any control loops running on the master {@link CANSparkMax}s.
      *
      * @param controlMode              the loop's control type (e.g. voltage, velocity, position...)
      * @param leftSetpoint             the left side loop's target setpoint
@@ -142,7 +142,7 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
     }
 
     /**
-     * Stops any control loops running on the motor controller.
+     * Stops any control loops running on the master {@link CANSparkMax}s.
      */
     @Override
     public void finish() {
@@ -154,7 +154,7 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
      * Checks whether the left side's loop is currently on the target setpoint.
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...)
-     * @param tolerance   the maximum difference from the target to still be considered on target
+     * @param tolerance   the maximum difference from the left target to still consider the left loop to be on target
      * @param setpoint    the wanted setpoint
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */
@@ -184,7 +184,7 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
      * Checks whether the right side's loop is currently on the target setpoint.
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...)
-     * @param tolerance   the maximum difference from the target to still be considered on target
+     * @param tolerance   the maximum difference from the right target to still consider the right loop to be on target
      * @param setpoint    the wanted setpoint
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */

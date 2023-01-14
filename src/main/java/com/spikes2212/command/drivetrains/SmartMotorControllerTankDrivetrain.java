@@ -7,7 +7,7 @@ import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
- * A {@link TankDrivetrain} that runs control loops on an applicable motor controllers
+ * A {@link TankDrivetrain} that runs control loops on an applicable motor controllers.
  *
  * @author Yoel Perman Brilliant
  */
