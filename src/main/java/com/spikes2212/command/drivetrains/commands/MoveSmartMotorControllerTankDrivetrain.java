@@ -126,7 +126,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
         if (!drivetrain.leftOnTarget(controlMode, leftPIDSettings.getTolerance(), leftSetpoint.get())) {
             lastTimeLeftNotOnTarget = now;
         }
-        if (!drivetrain.rightOnTarget(controlMode, leftPIDSettings.getTolerance(), rightSetpoint.get())) {
+        if (!drivetrain.rightOnTarget(controlMode, rightPIDSettings.getTolerance(), rightSetpoint.get())) {
             lastTimeRightNotOnTarget = now;
         }
         return now - lastTimeLeftNotOnTarget >= leftPIDSettings.getWaitTime() &&
