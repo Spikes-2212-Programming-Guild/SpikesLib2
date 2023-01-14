@@ -1,6 +1,9 @@
 package com.spikes2212.dashboard;
 
-import edu.wpi.first.networktables.*;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
@@ -138,6 +141,14 @@ public class RootNamespace implements Namespace {
         booleanFields.remove(name);
     }
 
+    @Override
+    public void update() {
+        updateBoolean();
+        updateNumber();
+        updateString();
+        updateSendable();
+    }
+
     private void updateString() {
         for (Map.Entry<String, Supplier<String>> map : stringFields.entrySet()) {
             NetworkTableEntry entry = this.table.getEntry(map.getKey());
@@ -159,10 +170,9 @@ public class RootNamespace implements Namespace {
         }
     }
 
-    @Override
-    public void update() {
-        updateBoolean();
-        updateNumber();
-        updateString();
+    private void updateSendable() {
+        for (Sendable data : TABLES_TO_DATA.values()) {
+            SendableRegistry.update(data);
+        }
     }
 }
