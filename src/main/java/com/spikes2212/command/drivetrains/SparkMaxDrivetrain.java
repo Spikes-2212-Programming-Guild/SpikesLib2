@@ -2,16 +2,13 @@ package com.spikes2212.command.drivetrains;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
-import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -142,7 +139,7 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
     }
 
     /**
-     * Stops any control loops running on the master {@link CANSparkMax}s.
+     * Stops any control loops running on each side's {@link CANSparkMax}s.
      */
     @Override
     public void finish() {

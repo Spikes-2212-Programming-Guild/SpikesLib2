@@ -3,7 +3,6 @@ package com.spikes2212.command.drivetrains;
 import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
-import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
@@ -20,13 +19,11 @@ import java.util.List;
  * CTRE motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
- * @see DashboardedSubsystem
+ * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  * @see BaseMotorController
- * @see MotorController
  */
-public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain
-        implements SmartMotorControllerTankDrivetrain {
+public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
      * The slot on the motor controller on which the loop is run.
@@ -82,7 +79,7 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain
     }
 
     /**
-     * Configures the loop's PID constants and feed forward gains.
+     * Configures the loops' PID constants and feed forward gains.
      */
     @Override
     public void configPIDF(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
@@ -98,7 +95,7 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain
     }
 
     /**
-     * Configures the loop's trapezoid profile settings.
+     * Configures the loops' trapezoid profile settings.
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
@@ -111,7 +108,7 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain
     }
 
     /**
-     * Configures the loop's settings.
+     * Configures the loops' settings.
      */
     @Override
     public void configureLoop(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
@@ -149,15 +146,15 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain
      */
     @Override
     public void finish() {
-        ((MotorController)leftMaster).stopMotor();
-        ((MotorController)rightMaster).stopMotor();
+        ((MotorController) leftMaster).stopMotor();
+        ((MotorController) rightMaster).stopMotor();
     }
 
     /**
      * Checks whether the left side's loop is currently on the target setpoint.
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...)
-     * @param tolerance   the maximum difference from the target to still be considered on target
+     * @param tolerance   the maximum difference from the left target to still consider the left loop to be on target
      * @param setpoint    the wanted setpoint
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */
@@ -189,7 +186,7 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain
      * Checks whether the right side's loop is currently on the target setpoint.
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...)
-     * @param tolerance   the maximum difference from the target to still be considered on target
+     * @param tolerance   the maximum difference from the right target to still consider the right loop to be on target
      * @param setpoint    the wanted setpoint
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */
