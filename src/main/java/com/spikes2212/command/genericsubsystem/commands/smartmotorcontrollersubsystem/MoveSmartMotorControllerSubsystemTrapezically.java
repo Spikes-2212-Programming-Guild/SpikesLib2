@@ -19,15 +19,18 @@ import java.util.function.Supplier;
  */
 public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMotorControllerSubsystem {
 
+    /**
+     * The loops' trapezoid profile configurations.
+     */
     protected final TrapezoidProfileSettings trapezoidProfileSettings;
 
     /**
      * Constructs a new instance of {@link MoveSmartMotorControllerSubsystemTrapezically}.
      *
-     * @param subsystem the {@link SmartMotorControllerGenericSubsystem} this command will run on
-     * @param pidSettings the loop's PID constants
-     * @param feedForwardSettings the loop's feed forward gains
-     * @param setpoint the setpoint this command should bring the {@link SmartMotorControllerGenericSubsystem} to
+     * @param subsystem                the {@link SmartMotorControllerGenericSubsystem} this command will run on
+     * @param pidSettings              the loop's PID constants
+     * @param feedForwardSettings      the loop's feed forward gains
+     * @param setpoint                 the setpoint this command should bring the {@link SmartMotorControllerGenericSubsystem} to
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
     public MoveSmartMotorControllerSubsystemTrapezically(SmartMotorControllerGenericSubsystem subsystem, PIDSettings pidSettings,
