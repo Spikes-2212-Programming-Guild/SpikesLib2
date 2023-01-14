@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * A command that moves a {@link SmartMotorControllerTankDrivetrain} using its master motor controller's control loops.
+ * A command that moves a {@link SmartMotorControllerTankDrivetrain} using its master motor controllers' control loops.
  *
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerTankDrivetrain
@@ -53,7 +53,6 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
      */
     protected final Supplier<Double> rightSetpoint;
 
-
     /**
      * The most recent timestamp on which the left side's loop has not reached its target setpoint.
      */
@@ -63,7 +62,6 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
      * The most recent timestamp on which the right side's loop has not reached its target setpoint.
      */
     private double lastTimeRightNotOnTarget;
-
 
     /**
      * Constructs a new (generic) instance of {@link MoveSmartMotorControllerTankDrivetrain}.
@@ -96,7 +94,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
     }
 
     /**
-     * Configures the subsystem's control loops.
+     * Configures the drivetrain's control loops.
      */
     @Override
     public void initialize() {
@@ -104,7 +102,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
     }
 
     /**
-     * Updates any control loops running on the subsystem.
+     * Updates any control loops running on the drivetrain.
      */
     @Override
     public void execute() {
@@ -118,7 +116,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
     }
 
     /**
-     * Checks if the subsystem has been at its target setpoint for longer than its allowed wait time.
+     * Checks if the drivetrain has been at its target setpoint for longer than its allowed wait time.
      *
      * @return {@code true} if the command should finish running, {@code false} otherwise
      */
