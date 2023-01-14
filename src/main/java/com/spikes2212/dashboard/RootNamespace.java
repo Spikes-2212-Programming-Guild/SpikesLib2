@@ -21,9 +21,6 @@ public class RootNamespace implements Namespace {
 
     private final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
 
-    private final Collection<Runnable> m_tasks = new ArrayList<>();
-    private final Object m_lock = new Object();
-
     protected String name;
     protected final Map<String, Supplier<String>> stringFields;
     protected final Map<String, Supplier<? extends Number>> numberFields;
@@ -176,14 +173,6 @@ public class RootNamespace implements Namespace {
     }
 
     private void updateSendable() {
-        Collection<Runnable> tasks = new ArrayList<>();
-        synchronized (m_lock) {
-            tasks.addAll(m_tasks);
-            m_tasks.clear();
-        }
-        for (Runnable task : tasks) {
-            task.run();
-        }
         for (Sendable data : TABLES_TO_DATA.values()) {
             SendableRegistry.update(data);
         }
