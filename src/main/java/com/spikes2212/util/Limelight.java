@@ -41,9 +41,17 @@ public class Limelight {
     }
 
     /**
+     * @Deprecated the new function is now called "hasTarget"
+     */
+    @Deprecated
+    public boolean isOnTarget() {
+        return this.hasTarget();
+    }
+
+    /**
      * @return whether a target is detected by the limelight
      */
-    public boolean isOnTarget() {
+    public boolean hasTarget(){
         return getValue("tv").getDouble(0) == 1;
     }
 
