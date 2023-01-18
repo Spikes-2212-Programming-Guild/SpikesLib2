@@ -1,6 +1,5 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.spikes2212.command.DashboardedSubsystem;
@@ -20,9 +19,9 @@ import java.util.List;
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
- * @see SmartMotorControllerSubsystem
+ * @see SmartMotorControllerGenericSubsystem
  */
-public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerSubsystem {
+public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
 
     /**
      * The slot on the {@link CANSparkMax} on which the trapezoid profiling configurations are saved.

@@ -1,6 +1,6 @@
-package com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollersubsystem;
+package com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem;
 
-import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerSubsystem;
+import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerGenericSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.util.UnifiedControlMode;
@@ -10,17 +10,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * A command that moves a {@link SmartMotorControllerSubsystem} using its master motor controller's control loops.
+ * A command that moves a {@link SmartMotorControllerGenericSubsystem} using its master motor controller's control loops.
  *
  * @author Yoel Perman Brilliant
- * @see SmartMotorControllerSubsystem
+ * @see SmartMotorControllerGenericSubsystem
  */
-public class MoveSmartMotorControllerSubsystem extends CommandBase {
+public class MoveSmartMotorControllerGenericSubsystem extends CommandBase {
 
     /**
-     * The {@link SmartMotorControllerSubsystem} this command will run on.
+     * The {@link SmartMotorControllerGenericSubsystem} this command will run on.
      */
-    protected final SmartMotorControllerSubsystem subsystem;
+    protected final SmartMotorControllerGenericSubsystem subsystem;
 
     /**
      * The loop's PID constants.
@@ -38,7 +38,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     protected final UnifiedControlMode controlMode;
 
     /**
-     * The setpoint this command should bring the {@link SmartMotorControllerSubsystem} to.
+     * The setpoint this command should bring the {@link SmartMotorControllerGenericSubsystem} to.
      */
     protected final Supplier<Double> setpoint;
 
@@ -48,17 +48,17 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     private double lastTimeNotOnTarget;
 
     /**
-     * Constructs a new (generic) instance of {@link MoveSmartMotorControllerSubsystem}.
+     * Constructs a new instance of {@link MoveSmartMotorControllerGenericSubsystem}.
      *
-     * @param subsystem           the {@link SmartMotorControllerSubsystem} this command will run on
+     * @param subsystem           the {@link SmartMotorControllerGenericSubsystem} this command will run on
      * @param pidSettings         the loop's PID constants
      * @param feedForwardSettings the loop's feed forward gains
      * @param controlMode         the loop's control mode (e.g. voltage, velocity, position...)
-     * @param setpoint            the setpoint this command should bring the {@link SmartMotorControllerSubsystem} to
+     * @param setpoint            the setpoint this command should bring the {@link SmartMotorControllerGenericSubsystem} to
      */
-    public MoveSmartMotorControllerSubsystem(SmartMotorControllerSubsystem subsystem, PIDSettings pidSettings,
-                                                FeedForwardSettings feedForwardSettings,
-                                                UnifiedControlMode controlMode, Supplier<Double> setpoint) {
+    public MoveSmartMotorControllerGenericSubsystem(SmartMotorControllerGenericSubsystem subsystem, PIDSettings pidSettings,
+                                                    FeedForwardSettings feedForwardSettings,
+                                                    UnifiedControlMode controlMode, Supplier<Double> setpoint) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.controlMode = controlMode;
