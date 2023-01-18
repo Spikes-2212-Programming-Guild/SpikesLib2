@@ -1,4 +1,4 @@
-package com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollersubsystem;
+package com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem;
 
 import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerGenericSubsystem;
 import com.spikes2212.control.FeedForwardSettings;

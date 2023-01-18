@@ -1,4 +1,4 @@
-package com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollersubsystem;
+package com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem;
 
 import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerGenericSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  *
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerGenericSubsystem
- * @see com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollersubsystem.MoveSmartMotorControllerSubsystem
+ * @see com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem.MoveSmartMotorControllerSubsystem
  */
 public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMotorControllerSubsystem {
 
