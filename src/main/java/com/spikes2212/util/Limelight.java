@@ -41,7 +41,7 @@ public class Limelight {
     }
 
     /**
-     * @Deprecated the new function is now called "hasTarget"
+     * @deprecated use {@link #hasTarget()}
      */
     @Deprecated
     public boolean isOnTarget() {
