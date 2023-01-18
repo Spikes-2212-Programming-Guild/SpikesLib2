@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerGenericSubsystem
  */
-public class MoveSmartMotorControllerSubsystem extends CommandBase {
+public class MoveSmartMotorControllerGenericSubsystem extends CommandBase {
 
     /**
      * The {@link SmartMotorControllerGenericSubsystem} this command will run on.
@@ -48,7 +48,7 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
     private double lastTimeNotOnTarget;
 
     /**
-     * Constructs a new instance of {@link MoveSmartMotorControllerSubsystem}.
+     * Constructs a new instance of {@link MoveSmartMotorControllerGenericSubsystem}.
      *
      * @param subsystem           the {@link SmartMotorControllerGenericSubsystem} this command will run on
      * @param pidSettings         the loop's PID constants
@@ -56,9 +56,9 @@ public class MoveSmartMotorControllerSubsystem extends CommandBase {
      * @param controlMode         the loop's control mode (e.g. voltage, velocity, position...)
      * @param setpoint            the setpoint this command should bring the {@link SmartMotorControllerGenericSubsystem} to
      */
-    public MoveSmartMotorControllerSubsystem(SmartMotorControllerGenericSubsystem subsystem, PIDSettings pidSettings,
-                                             FeedForwardSettings feedForwardSettings,
-                                             UnifiedControlMode controlMode, Supplier<Double> setpoint) {
+    public MoveSmartMotorControllerGenericSubsystem(SmartMotorControllerGenericSubsystem subsystem, PIDSettings pidSettings,
+                                                    FeedForwardSettings feedForwardSettings,
+                                                    UnifiedControlMode controlMode, Supplier<Double> setpoint) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.controlMode = controlMode;

@@ -15,9 +15,9 @@ import java.util.function.Supplier;
  *
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerGenericSubsystem
- * @see com.spikes2212.command.genericsubsystem.commands.smartmotorcontrollergenericsubsystem.MoveSmartMotorControllerSubsystem
+ * @see MoveSmartMotorControllerGenericSubsystem
  */
-public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMotorControllerSubsystem {
+public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMotorControllerGenericSubsystem {
 
     /**
      * The loops' trapezoid profile configurations.

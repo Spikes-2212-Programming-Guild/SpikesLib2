@@ -47,9 +47,9 @@ public interface SmartMotorControllerTankDrivetrain extends Subsystem {
     }
 
     /**
-     * Updates any control loops running on the motor controller.
+     * Updates any control loops running on the drivetrain's motor controllers.
      *
-     * @param controlMode              the loop's control type (e.g. voltage, velocity, position...)
+     * @param controlMode              the loops' control type (e.g. voltage, velocity, position...)
      * @param leftSetpoint             the left side loop's target setpoint
      * @param rightSetpoint            the right side loop's target setpoint
      * @param leftPIDSettings          the left side's PID constants
@@ -62,9 +62,9 @@ public interface SmartMotorControllerTankDrivetrain extends Subsystem {
                 TrapezoidProfileSettings trapezoidProfileSettings);
 
     /**
-     * Updates any control loops running on the motor controller.
+     * Updates any control loops running on the drivetrain's motor controllers.
      *
-     * @param controlMode         the loop's control type (e.g. voltage, velocity, position...)
+     * @param controlMode         the loops' control type (e.g. voltage, velocity, position...)
      * @param leftSetpoint        the left side loop's target setpoint
      * @param rightSetpoint       the right side loop's target setpoint
      * @param leftPIDSettings     the left side's PID constants
@@ -79,15 +79,15 @@ public interface SmartMotorControllerTankDrivetrain extends Subsystem {
     }
 
     /**
-     * Stops any control loops running on the motor controller.
+     * Stops any control loops running on the drivetrain's motor controllers.
      */
     default void finish() {
     }
 
     /**
-     * Checks whether the loop is currently on the target setpoint.
+     * Checks whether the loops are currently on the target setpoints.
      *
-     * @param controlMode    the loop's control type (e.g. voltage, velocity, position...)
+     * @param controlMode    the loops' control type (e.g. voltage, velocity, position...)
      * @param leftTolerance  the maximum difference from the left target to still consider the left loop to be on target
      * @param rightTolerance the maximum difference from the right target to still consider the right loop to be
      *                       on target

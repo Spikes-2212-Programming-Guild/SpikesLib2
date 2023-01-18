@@ -9,8 +9,8 @@ import com.spikes2212.util.UnifiedControlMode;
 import java.util.function.Supplier;
 
 /**
- * A command that moves a {@link SmartMotorControllerTankDrivetrain} by running a trapezoid profile on its
- * masters' control loops.
+ * A command that moves a {@link SmartMotorControllerTankDrivetrain} by running a trapezoid profile control loop on its
+ * master motor controllers.
  *
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerTankDrivetrain

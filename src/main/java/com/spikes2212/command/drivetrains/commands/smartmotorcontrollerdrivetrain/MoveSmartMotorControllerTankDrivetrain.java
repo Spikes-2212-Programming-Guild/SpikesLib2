@@ -64,17 +64,17 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
     private double lastTimeRightNotOnTarget;
 
     /**
-     * Constructs a new (generic) instance of {@link MoveSmartMotorControllerTankDrivetrain}.
+     * Constructs a new instance of {@link MoveSmartMotorControllerTankDrivetrain}.
      *
-     * @param drivetrain          the {@link SmartMotorControllerGenericSubsystem} this command will run on
+     * @param drivetrain          the {@link SmartMotorControllerTankDrivetrain} this command will run on
      * @param leftPIDSettings     the left side's loop's PID constants
      * @param rightPIDSettings    the right side's loop's PID constants
-     * @param feedForwardSettings the loop's feed forward gains
-     * @param controlMode         the loop's control mode (e.g. voltage, velocity, position...)
+     * @param feedForwardSettings the loops' feed forward gains
+     * @param controlMode         the loops' control mode (e.g. voltage, velocity, position...)
      * @param leftSetpoint        the setpoint this command should bring the
-     *                            {@link SmartMotorControllerGenericSubsystem}'s left side to
+     *                            {@link SmartMotorControllerTankDrivetrain}'s left side to
      * @param rightSetpoint       the setpoint this command should bring the
-     *                            {@link SmartMotorControllerGenericSubsystem}'s right side to
+     *                            {@link SmartMotorControllerTankDrivetrain}'s right side to
      */
     public MoveSmartMotorControllerTankDrivetrain(SmartMotorControllerTankDrivetrain drivetrain,
                                                   PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
@@ -102,7 +102,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
     }
 
     /**
-     * Updates any control loops running on the drivetrain.
+     * Updates any control loops running on the drivetrain's motor controllers.
      */
     @Override
     public void execute() {

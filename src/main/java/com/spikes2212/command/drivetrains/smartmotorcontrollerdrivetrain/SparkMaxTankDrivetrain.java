@@ -20,7 +20,7 @@ import java.util.List;
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
-public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
+public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
      * The slot on the {@link CANSparkMax} on which the trapezoid profiling configurations are saved.
@@ -48,16 +48,16 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
     protected final List<CANSparkMax> rightSlaves;
 
     /**
-     * Constructs a new instance of {@link SparkMaxDrivetrain}.
+     * Constructs a new instance of {@link SparkMaxTankDrivetrain}.
      *
-     * @param namespaceName the name of the subsystem's namespace
+     * @param namespaceName the name of the drivetrain's namespace
      * @param leftMaster    the {@link CANSparkMax} which runs the left side's loops
      * @param leftSlaves    additional {@link CANSparkMax}s that follow the left master
      * @param rightMaster   the {@link CANSparkMax} which runs the right side's loops
      * @param rightSlaves   additional {@link CANSparkMax}s that follow the right master
      */
-    public SparkMaxDrivetrain(String namespaceName, CANSparkMax leftMaster, CANSparkMax rightMaster,
-                              List<CANSparkMax> leftSlaves, List<CANSparkMax> rightSlaves) {
+    public SparkMaxTankDrivetrain(String namespaceName, CANSparkMax leftMaster,  List<CANSparkMax> leftSlaves,
+                                  CANSparkMax rightMaster, List<CANSparkMax> rightSlaves) {
         super(namespaceName, leftMaster, rightMaster);
         this.leftMaster = leftMaster;
         this.rightMaster = rightMaster;
@@ -65,6 +65,20 @@ public class SparkMaxDrivetrain extends TankDrivetrain implements SmartMotorCont
         this.rightSlaves = rightSlaves;
         this.leftSlaves.forEach(s -> s.follow(leftMaster));
         this.rightSlaves.forEach(s -> s.follow(rightMaster));
+    }
+
+    /**
+     * Constructs a new instance of {@link SparkMaxTankDrivetrain}.
+     *
+     * @param namespaceName the name of the drivetrain's namespace
+     * @param leftMaster    the {@link CANSparkMax} which runs the left side's loops
+     * @param leftSlave     an additional {@link CANSparkMax} that follows the left master
+     * @param rightMaster   the {@link CANSparkMax} which runs the right side's loops
+     * @param rightSlave    an additional {@link CANSparkMax}s that follows the right master
+     */
+    public SparkMaxTankDrivetrain(String namespaceName, CANSparkMax leftMaster, CANSparkMax leftSlave,
+                                  CANSparkMax rightMaster, CANSparkMax rightSlave) {
+        this(namespaceName, leftMaster, List.of(leftSlave), rightMaster, List.of(rightSlave));
     }
 
     /**

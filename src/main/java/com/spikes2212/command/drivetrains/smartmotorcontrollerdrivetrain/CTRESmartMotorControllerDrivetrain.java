@@ -16,13 +16,12 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import java.util.List;
 
 /**
- * A {@link Subsystem} which consists of a master CTRE motor controller that can run control loops and additional
+ * A {@link TankDrivetrain} which consists of a master CTRE motor controller that can run control loops and additional
  * CTRE motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
- * @see BaseMotorController
  */
 public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
@@ -32,12 +31,12 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
     private static final int LOOP_SLOT = 0;
 
     /**
-     * The motor controller which runs the left side's loops.
+     * The motor controller that runs the left side's loops.
      */
     protected final BaseMotorController leftMaster;
 
     /**
-     * The motor controller which runs the right side's loops.
+     * The motor controller that runs the right side's loops.
      */
     protected final BaseMotorController rightMaster;
 
@@ -54,22 +53,38 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
     /**
      * Constructs a new instance of {@link CTRESmartMotorControllerDrivetrain}.
      *
-     * @param namespaceName the name of the subsystem's namespace
-     * @param leftMaster    the motor controller which runs the left side's loops
-     * @param rightMaster   the motor controller which runs the right side's loops
+     * @param namespaceName the name of the drivetrain's namespace
+     * @param leftMaster    the motor controller that runs the left side's loops
      * @param leftSlaves    additional motor controllers that follow the left master
+     * @param rightMaster   the motor controller that runs the right side's loops
      * @param rightSlaves   additional motor controllers that follow the right master
      */
     public CTRESmartMotorControllerDrivetrain(String namespaceName, BaseMotorController leftMaster,
-                                              BaseMotorController rightMaster, List<IFollower> leftSlaves,
-                                              List<IFollower> rightSlaves) {
+                                              List<? extends IFollower> leftSlaves, BaseMotorController rightMaster,
+                                              List<? extends IFollower> rightSlaves) {
         super(namespaceName, (MotorController) leftMaster, (MotorController) rightMaster);
         this.leftMaster = leftMaster;
         this.leftSlaves = leftSlaves;
         this.leftSlaves.forEach(s -> s.follow(leftMaster));
         this.rightMaster = rightMaster;
-        this.rightSlaves = leftSlaves;
+        this.rightSlaves = rightSlaves;
         this.rightSlaves.forEach(s -> s.follow(rightMaster));
+    }
+
+    /**
+     * Constructs a new instance of {@link CTRESmartMotorControllerDrivetrain}, where each side has two
+     * motor controllers.
+     *
+     * @param namespaceName the name of the drivetrain's namespace
+     * @param leftMaster    the motor controller that runs the left side's loops
+     * @param leftSlave     an additional motor controller that follows the left master
+     * @param rightMaster   the motor controller that runs the right side's loops
+     * @param rightSlave    an additional motor controller that follows the right master
+     */
+    public CTRESmartMotorControllerDrivetrain(String namespaceName, BaseMotorController leftMaster,
+                                              IFollower leftSlave, BaseMotorController rightMaster,
+                                              IFollower rightSlave) {
+        this(namespaceName, leftMaster, List.of(leftSlave), rightMaster, List.of(rightSlave));
     }
 
     /**
@@ -124,7 +139,7 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
     /**
      * Updates any control loops running on each side's motor controllers.
      *
-     * @param controlMode              the loop's control mode (e.g. voltage, velocity, position...)
+     * @param controlMode              the loops' control mode (e.g. voltage, velocity, position...)
      * @param leftSetpoint             the left side's loop's target setpoint
      * @param rightSetpoint            the right side's loop's target setpoint
      * @param leftPIDSettings          the left side's PID constants

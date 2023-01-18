@@ -22,8 +22,6 @@ import java.util.List;
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
- * @see BaseMotorController
- * @see MotorController
  */
 public class CTRESmartMotorControllerGenericSubsystem
         extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
