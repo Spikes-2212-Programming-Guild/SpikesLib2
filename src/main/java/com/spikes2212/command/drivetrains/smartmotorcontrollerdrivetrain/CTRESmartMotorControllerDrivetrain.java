@@ -217,7 +217,7 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
                 value = rightMaster.getSelectedSensorVelocity();
                 break;
             case CURRENT:
-                if (leftMaster instanceof BaseTalon) {
+                if (rightMaster instanceof BaseTalon) {
                     value = ((BaseTalon) rightMaster).getStatorCurrent();
                     break;
                 }

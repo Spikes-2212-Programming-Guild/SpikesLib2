@@ -34,7 +34,7 @@ public class MoveSmartMotorControllerTankDrivetrainTrapezically extends MoveSmar
      *                                 {@link SmartMotorControllerTankDrivetrain}'s left side to
      * @param rightSetpoint            the setpoint this command should bring the
      *                                 {@link SmartMotorControllerTankDrivetrain}'s right side to
-     * @param trapezoidProfileSettings the trapezoid profile setting
+     * @param trapezoidProfileSettings the trapezoid profile settings
      */
     public MoveSmartMotorControllerTankDrivetrainTrapezically(SmartMotorControllerTankDrivetrain drivetrain,
                                                               PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,

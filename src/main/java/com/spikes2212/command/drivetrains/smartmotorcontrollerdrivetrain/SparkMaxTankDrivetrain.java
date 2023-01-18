@@ -28,12 +28,12 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The left {@link CANSparkMax} which run the loops.
+     * The left {@link CANSparkMax} which runs the loops.
      */
     protected final CANSparkMax leftMaster;
 
     /**
-     * The right {@link CANSparkMax} which run the loops.
+     * The right {@link CANSparkMax} which runs the loops.
      */
     protected final CANSparkMax rightMaster;
 
@@ -74,7 +74,7 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
      * @param leftMaster    the {@link CANSparkMax} which runs the left side's loops
      * @param leftSlave     an additional {@link CANSparkMax} that follows the left master
      * @param rightMaster   the {@link CANSparkMax} which runs the right side's loops
-     * @param rightSlave    an additional {@link CANSparkMax}s that follows the right master
+     * @param rightSlave    an additional {@link CANSparkMax} that follows the right master
      */
     public SparkMaxTankDrivetrain(String namespaceName, CANSparkMax leftMaster, CANSparkMax leftSlave,
                                   CANSparkMax rightMaster, CANSparkMax rightSlave) {
