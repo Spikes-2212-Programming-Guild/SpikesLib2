@@ -16,7 +16,7 @@ public class Limelight {
     protected static NetworkTableInstance table;
 
     public Limelight() {
-        rootNamespace.putBoolean("is on target", this::isOnTarget);
+        rootNamespace.putBoolean("has target", this::hasTarget);
         rootNamespace.putNumber("horizontal offset from target in degrees", this::getHorizontalOffsetFromTargetInDegrees);
         rootNamespace.putNumber("vertical offset from target in degrees", this::getVerticalOffsetFromTargetInDegrees);
         rootNamespace.putNumber("target screen fill percent", this::getTargetAreaPercentage);
@@ -43,7 +43,7 @@ public class Limelight {
     /**
      * @deprecated use {@link #hasTarget()}
      */
-    @Deprecated
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean isOnTarget() {
         return this.hasTarget();
     }
