@@ -1,6 +1,9 @@
 package com.spikes2212.util;
 
 import com.spikes2212.dashboard.RootNamespace;
+import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.networktables.DoubleArraySubscriber;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
@@ -11,6 +14,16 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * @author Yotam Yizhar
  */
 public class Limelight {
+
+    private NetworkTable networkTable;
+    private String tableName;
+
+    private DoubleArraySubscriber cameraTranslationSubscriber;
+    private DoubleArraySubscriber poseSubscriber;
+
+    private Translation3d translation3d;
+    private Rotation3d rotation3d;
+    private Pose3d pose3d;
 
     protected static RootNamespace rootNamespace = new RootNamespace("limelight values");
     protected static NetworkTableInstance table;
@@ -60,6 +73,22 @@ public class Limelight {
      */
     public int getPipeline() {
         return (int) getValue("getpipe").getNumber(0);
+    }
+
+    public Pose3d getRobotPose() {
+        double[] result = getValue("botpose").getDoubleArray(new double[]{});
+        translation3d = new Translation3d(result[0], result[1], result[2]);
+        rotation3d = new Rotation3d(result[3], result[4], result[5]);
+        pose3d = new Pose3d(translation3d, rotation3d);
+        return pose3d;
+    }
+
+    public Transform3d getCameraTransformation() {
+        double[] result = getValue("camtran").getDoubleArray(new double[] {});
+        translation3d = new Translation3d(result[0], result[1], result[2]);
+        rotation3d = new Rotation3d(getHorizontalOffsetFromTargetInDegrees(),
+                getVerticalOffsetFromTargetInDegrees(), 0);
+        return new Transform3d(translation3d, rotation3d);
     }
 
     /**
