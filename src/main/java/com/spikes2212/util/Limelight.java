@@ -8,7 +8,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
- * This class is a limelight wrapper.<br>
+ * This class is a Limelight wrapper.<br>
  * <b>This class assumes you are using the 960x720 processing resolution on the limelight.</b>
  *
  * @author Yotam Yizhar
@@ -19,7 +19,7 @@ public class Limelight {
 
         VISION_PROCESSOR(0), DRIVER_CAMERA(1);
 
-        public int mode;
+        private final int mode;
 
         CamMode(int mode) {
             this.mode = mode;
@@ -34,7 +34,7 @@ public class Limelight {
 
         DEFAULT(0), FORCE_OFF(1), FORCE_BLINK(2), FORCE_ON(3);
 
-        public int mode;
+        private final int mode;
 
         LedMode(int mode) {
             this.mode = mode;
@@ -44,10 +44,6 @@ public class Limelight {
             return this.mode;
         }
     }
-
-    private Translation3d translation3d;
-    private Rotation3d rotation3d;
-    private Pose3d pose3d;
 
     protected static NetworkTableInstance table;
 
@@ -103,26 +99,31 @@ public class Limelight {
     }
 
     /**
-     * @return the robot's current pose
+     * @return the robot's {@link Pose3d} in field-space (works for april tags), or null if there is no target.
+     * (0,0,0) is in the middle of the field.
      */
     public Pose3d getRobotPose() {
         double[] result = getValue("botpose").getDoubleArray(new double[]{});
-        translation3d = new Translation3d(result[0], result[1], result[2]);
-        rotation3d = new Rotation3d(result[3], result[4], result[5]);
-        pose3d = new Pose3d(translation3d, rotation3d);
-        return pose3d;
+        if (result.length != 0) {
+            Translation3d translation3d = new Translation3d(result[0], result[1], result[2]);
+            Rotation3d rotation3d = new Rotation3d(result[3], result[4], result[5]);
+            return new Pose3d(translation3d, rotation3d);
+        }
+        return null;
     }
 
     /**
-     * Transforms camera into 3D
-     *
-     * @return the 3D value
+     * @return the {@link Transform3d} of the camera in the target-space (works for april tags),
+     * or null if there is no target.
      */
     public Transform3d getCameraTransformation() {
         double[] result = getValue("camtran").getDoubleArray(new double[]{});
-        translation3d = new Translation3d(result[0], result[1], result[2]);
-        rotation3d = new Rotation3d(result[5], result[4], result[3]);
-        return new Transform3d(translation3d, rotation3d);
+        if (result.length != 0) {
+            Translation3d translation3d = new Translation3d(result[0], result[1], result[2]);
+            Rotation3d rotation3d = new Rotation3d(result[5], result[4], result[3]);
+            return new Transform3d(translation3d, rotation3d);
+        }
+        return null;
     }
 
     /**
@@ -191,7 +192,7 @@ public class Limelight {
     /**
      * Sets the camera's mode to either vision processor or driver camera.
      *
-     * @param mode for camera mode
+     * @param mode camera mode
      */
     public void setCamMode(CamMode mode) {
         int modeNum = mode.getCamMode();
