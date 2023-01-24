@@ -15,6 +15,36 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  */
 public class Limelight {
 
+    public enum CamMode {
+
+        VISION_PROCESSOR(0), DRIVER_CAMERA(1);
+
+        public int mode;
+
+        CamMode(int mode) {
+            this.mode = mode;
+        }
+
+        public int getCamMode() {
+            return mode;
+        }
+    }
+
+    public enum LedMode {
+
+        DEFAULT(0), FORCE_OFF(1), FORCE_BLINK(2), FORCE_ON(3);
+
+        public int mode;
+
+        LedMode(int mode) {
+            this.mode = mode;
+        }
+
+        public int getLedMode() {
+            return this.mode;
+        }
+    }
+
     private Translation3d translation3d;
     private Rotation3d rotation3d;
     private Pose3d pose3d;
@@ -52,7 +82,7 @@ public class Limelight {
     /**
      * @return whether a target is detected by the limelight
      */
-    public boolean hasTarget(){
+    public boolean hasTarget() {
         return getValue("tv").getDouble(0) == 1;
     }
 
@@ -61,6 +91,15 @@ public class Limelight {
      */
     public int getPipeline() {
         return (int) getValue("getpipe").getNumber(0);
+    }
+
+    /**
+     * Sets pipeline number (0-9 value).
+     *
+     * @param number pipeline number (0-9)
+     */
+    public void setPipeline(int number) {
+        getValue("pipeline").setNumber(number);
     }
 
     /**
@@ -80,19 +119,10 @@ public class Limelight {
      * @return the 3D value
      */
     public Transform3d getCameraTransformation() {
-        double[] result = getValue("camtran").getDoubleArray(new double[] {});
+        double[] result = getValue("camtran").getDoubleArray(new double[]{});
         translation3d = new Translation3d(result[0], result[1], result[2]);
         rotation3d = new Rotation3d(result[5], result[4], result[3]);
         return new Transform3d(translation3d, rotation3d);
-    }
-
-    /**
-     * Sets pipeline number (0-9 value).
-     *
-     * @param number pipeline number (0-9)
-     */
-    public void setPipeline(int number) {
-        getValue("pipeline").setNumber(number);
     }
 
     /**
@@ -156,5 +186,25 @@ public class Limelight {
      */
     public double getTargetHeightInPixels() {
         return getValue("tvert").getDouble(0.00);
+    }
+
+    /**
+     * Sets the camera's mode to either vision processor or driver camera.
+     *
+     * @param mode for camera mode
+     */
+    public void setCamMode(CamMode mode) {
+        int modeNum = mode.getCamMode();
+        getValue("camMode").setNumber(modeNum);
+    }
+
+    /**
+     * Sets the LED's mode.
+     *
+     * @param mode for led mode
+     */
+    public void setLedMode(LedMode mode) {
+        int modeNum = mode.getLedMode();
+        getValue("ledMode").setNumber(modeNum);
     }
 }
