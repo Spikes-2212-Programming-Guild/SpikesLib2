@@ -1,9 +1,9 @@
 package com.spikes2212.util;
 
-import com.spikes2212.dashboard.RootNamespace;
-import edu.wpi.first.math.geometry.*;
-import edu.wpi.first.networktables.DoubleArraySubscriber;
-import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
@@ -15,25 +15,13 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  */
 public class Limelight {
 
-    private NetworkTable networkTable;
-    private String tableName;
-
-    private DoubleArraySubscriber cameraTranslationSubscriber;
-    private DoubleArraySubscriber poseSubscriber;
-
     private Translation3d translation3d;
     private Rotation3d rotation3d;
     private Pose3d pose3d;
 
-    protected static RootNamespace rootNamespace = new RootNamespace("limelight values");
     protected static NetworkTableInstance table;
 
     public Limelight() {
-        rootNamespace.putBoolean("has target", this::hasTarget);
-        rootNamespace.putNumber("horizontal offset from target in degrees", this::getHorizontalOffsetFromTargetInDegrees);
-        rootNamespace.putNumber("vertical offset from target in degrees", this::getVerticalOffsetFromTargetInDegrees);
-        rootNamespace.putNumber("target screen fill percent", this::getTargetAreaPercentage);
-        rootNamespace.putNumber("pipeline latency", this::getTargetLatency);
     }
 
     /**
@@ -49,8 +37,8 @@ public class Limelight {
         return table.getTable("limelight").getEntry(key);
     }
 
+    @Deprecated(since = "2023", forRemoval = true)
     public void periodic() {
-        rootNamespace.update();
     }
 
     /**
@@ -75,6 +63,9 @@ public class Limelight {
         return (int) getValue("getpipe").getNumber(0);
     }
 
+    /**
+     * @return the robot's current pose
+     */
     public Pose3d getRobotPose() {
         double[] result = getValue("botpose").getDoubleArray(new double[]{});
         translation3d = new Translation3d(result[0], result[1], result[2]);
@@ -83,11 +74,15 @@ public class Limelight {
         return pose3d;
     }
 
+    /**
+     * Transforms camera into 3D
+     *
+     * @return the 3D value
+     */
     public Transform3d getCameraTransformation() {
         double[] result = getValue("camtran").getDoubleArray(new double[] {});
         translation3d = new Translation3d(result[0], result[1], result[2]);
-        rotation3d = new Rotation3d(getHorizontalOffsetFromTargetInDegrees(),
-                getVerticalOffsetFromTargetInDegrees(), 0);
+        rotation3d = new Rotation3d(result[5], result[4], result[3]);
         return new Transform3d(translation3d, rotation3d);
     }
 
