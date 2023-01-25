@@ -111,6 +111,13 @@ public class Limelight {
     }
 
     /**
+     * @return the ID of the primary april tag.
+     */
+    public long getID() {
+        return getValue("tid").getInteger(0);
+    }
+
+    /**
      * @return the horizontal offset from crosshair to target (-27 degrees to 27 degrees)
      */
     public double getHorizontalOffsetFromTargetInDegrees() {
