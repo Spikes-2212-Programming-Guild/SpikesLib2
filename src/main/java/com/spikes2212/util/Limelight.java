@@ -2,14 +2,12 @@ package com.spikes2212.util;
 
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
- * This class is a Limelight wrapper.<br>
- * <b>This class assumes you are using the 960x720 processing resolution on the limelight.</b>
+ * This class is a Limelight wrapper.
  *
  * @author Yotam Yizhar
  */
@@ -162,14 +160,14 @@ public class Limelight {
     }
 
     /**
-     * @return the target width in pixels (0 pixels to 720 pixels)
+     * @return the target width in pixels, depending on the camera resolution
      */
     public double getTargetWidthInPixels() {
         return getValue("thor").getDouble(0.00);
     }
 
     /**
-     * @return the target height in pixels (0 pixels to 960 pixels)
+     * @return the target height in pixels, depending on the camera resolution
      */
     public double getTargetHeightInPixels() {
         return getValue("tvert").getDouble(0.00);
