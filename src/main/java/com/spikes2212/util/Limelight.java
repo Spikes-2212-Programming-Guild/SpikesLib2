@@ -103,25 +103,11 @@ public class Limelight {
      * (0,0,0) is in the middle of the field.
      */
     public Pose3d getRobotPose() {
-        double[] result = getValue("botpose").getDoubleArray(new double[]{});
+        double[] result = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[]{});
         if (result.length != 0) {
             Translation3d translation3d = new Translation3d(result[0], result[1], result[2]);
             Rotation3d rotation3d = new Rotation3d(result[3], result[4], result[5]);
             return new Pose3d(translation3d, rotation3d);
-        }
-        return null;
-    }
-
-    /**
-     * @return the {@link Transform3d} of the camera in the target-space (works for april tags),
-     * or null if there is no target.
-     */
-    public Transform3d getCameraTransformation() {
-        double[] result = getValue("camtran").getDoubleArray(new double[]{});
-        if (result.length != 0) {
-            Translation3d translation3d = new Translation3d(result[0], result[1], result[2]);
-            Rotation3d rotation3d = new Rotation3d(result[5], result[4], result[3]);
-            return new Transform3d(translation3d, rotation3d);
         }
         return null;
     }
@@ -192,7 +178,7 @@ public class Limelight {
     /**
      * Sets the camera's mode to either vision processor or driver camera.
      *
-     * @param mode camera mode
+     * @param mode the {@link CamMode}
      */
     public void setCamMode(CamMode mode) {
         int modeNum = mode.getCamMode();
@@ -202,7 +188,7 @@ public class Limelight {
     /**
      * Sets the LED's mode.
      *
-     * @param mode for led mode
+     * @param mode the {@link LedMode}
      */
     public void setLedMode(LedMode mode) {
         int modeNum = mode.getLedMode();
