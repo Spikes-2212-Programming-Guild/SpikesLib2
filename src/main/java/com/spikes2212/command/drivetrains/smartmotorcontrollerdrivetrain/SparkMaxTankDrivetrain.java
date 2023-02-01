@@ -28,7 +28,7 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The slot on the {@link CANSparkMax}s on which the pid loops are run.
+     * The slot on the {@link CANSparkMax}s on which the PID loops are run.
      */
     private static final int PID_SLOT = 0;
 
