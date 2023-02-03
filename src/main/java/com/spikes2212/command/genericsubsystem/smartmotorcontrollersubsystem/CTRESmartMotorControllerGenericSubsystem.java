@@ -1,5 +1,6 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
@@ -109,7 +110,8 @@ public class CTRESmartMotorControllerGenericSubsystem
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        master.set(controlMode.getCTREControlMode(), setpoint);
+        master.set(controlMode.getCTREControlMode(), setpoint, DemandType.ArbitraryFeedForward,
+                feedForwardSettings.getkS() * Math.signum(setpoint) + feedForwardSettings.getkG());
     }
 
     /**
