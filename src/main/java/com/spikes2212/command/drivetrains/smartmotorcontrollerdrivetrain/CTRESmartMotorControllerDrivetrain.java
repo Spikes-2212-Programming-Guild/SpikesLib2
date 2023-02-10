@@ -1,5 +1,6 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
@@ -11,7 +12,6 @@ import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import java.util.List;
 
@@ -153,8 +153,10 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        leftMaster.set(controlMode.getCTREControlMode(), leftSetpoint);
-        rightMaster.set(controlMode.getCTREControlMode(), rightSetpoint);
+        leftMaster.set(controlMode.getCTREControlMode(), leftSetpoint, DemandType.ArbitraryFeedForward,
+                feedForwardSettings.getkS() * Math.signum(leftSetpoint));
+        rightMaster.set(controlMode.getCTREControlMode(), rightSetpoint, DemandType.ArbitraryFeedForward,
+                feedForwardSettings.getkS() * Math.signum(rightSetpoint));
     }
 
     /**
