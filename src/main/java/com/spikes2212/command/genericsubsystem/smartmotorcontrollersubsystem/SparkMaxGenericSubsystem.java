@@ -111,8 +111,7 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        master.getPIDController().setReference(setpoint, controlMode.getSparkMaxControlType(),
-                PID_SLOT, feedForwardSettings.getkS() * Math.signum(setpoint) + feedForwardSettings.getkG());
+        master.getPIDController().setReference(setpoint, controlMode.getSparkMaxControlType());
     }
 
     /**

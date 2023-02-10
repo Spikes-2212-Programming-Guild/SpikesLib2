@@ -153,10 +153,8 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        leftMaster.set(controlMode.getCTREControlMode(), leftSetpoint, DemandType.ArbitraryFeedForward,
-                feedForwardSettings.getkS() * Math.signum(leftSetpoint));
-        rightMaster.set(controlMode.getCTREControlMode(), rightSetpoint, DemandType.ArbitraryFeedForward,
-                feedForwardSettings.getkS() * Math.signum(rightSetpoint));
+        leftMaster.set(controlMode.getCTREControlMode(), leftSetpoint);
+        rightMaster.set(controlMode.getCTREControlMode(), rightSetpoint);
     }
 
     /**
