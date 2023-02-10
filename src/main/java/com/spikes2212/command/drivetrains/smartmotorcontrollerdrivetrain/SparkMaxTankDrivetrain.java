@@ -23,9 +23,14 @@ import java.util.List;
 public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
-     * The slot on the {@link CANSparkMax} on which the trapezoid profiling configurations are saved.
+     * The slot on the {@link CANSparkMax}s on which the trapezoid profiling configurations are saved.
      */
     private static final int TRAPEZOID_SLOT_ID = 0;
+
+    /**
+     * The slot on the {@link CANSparkMax}s on which the PID loops are run.
+     */
+    private static final int PID_SLOT = 0;
 
     /**
      * The left {@link CANSparkMax} which runs the loops.
@@ -149,8 +154,10 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType());
-        rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType());
+        leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(),
+                PID_SLOT, feedForwardSettings.getkS() * Math.signum(leftSetpoint));
+        rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType(),
+                PID_SLOT, feedForwardSettings.getkS() * Math.signum(rightSetpoint));
     }
 
     /**

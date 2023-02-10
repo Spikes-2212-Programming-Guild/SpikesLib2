@@ -29,6 +29,11 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
+     * The slot on the {@link CANSparkMax} on which the PID loops are run.
+     */
+    private static final int PID_SLOT = 0;
+
+    /**
      * The {@link CANSparkMax} which runs the loops.
      */
     protected final CANSparkMax master;
@@ -106,7 +111,8 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        master.getPIDController().setReference(setpoint, controlMode.getSparkMaxControlType());
+        master.getPIDController().setReference(setpoint, controlMode.getSparkMaxControlType(),
+                PID_SLOT, feedForwardSettings.getkS() * Math.signum(setpoint) + feedForwardSettings.getkG());
     }
 
     /**
