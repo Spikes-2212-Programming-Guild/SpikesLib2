@@ -61,7 +61,7 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
      * @param rightMaster   the {@link CANSparkMax} which runs the right side's loops
      * @param rightSlaves   additional {@link CANSparkMax}s that follow the right master
      */
-    public SparkMaxTankDrivetrain(String namespaceName, CANSparkMax leftMaster,  List<CANSparkMax> leftSlaves,
+    public SparkMaxTankDrivetrain(String namespaceName, CANSparkMax leftMaster, List<CANSparkMax> leftSlaves,
                                   CANSparkMax rightMaster, List<CANSparkMax> rightSlaves) {
         super(namespaceName, leftMaster, rightMaster);
         this.leftMaster = leftMaster;
@@ -154,10 +154,8 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(),
-                PID_SLOT, feedForwardSettings.getkS() * Math.signum(leftSetpoint));
-        rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType(),
-                PID_SLOT, feedForwardSettings.getkS() * Math.signum(rightSetpoint));
+        leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType());
+        rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType());
     }
 
     /**
