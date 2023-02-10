@@ -110,8 +110,7 @@ public class CTRESmartMotorControllerGenericSubsystem
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        master.set(controlMode.getCTREControlMode(), setpoint, DemandType.ArbitraryFeedForward,
-                feedForwardSettings.getkS() * Math.signum(setpoint) + feedForwardSettings.getkG());
+        master.set(controlMode.getCTREControlMode(), setpoint);
     }
 
     /**
