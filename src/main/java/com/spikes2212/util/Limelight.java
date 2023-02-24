@@ -45,7 +45,16 @@ public class Limelight {
 
     protected static NetworkTableInstance table;
 
+    private static final String DEFAULT_NAME = "limelight";
+
+    private final String name;
+
+    public Limelight(String limelightName) {
+        this.name = limelightName;
+    }
+
     public Limelight() {
+        this(DEFAULT_NAME);
     }
 
     /**
@@ -54,11 +63,11 @@ public class Limelight {
      * @param key key for entry
      * @return the value of the given entry
      */
-    private static NetworkTableEntry getValue(String key) {
+    private NetworkTableEntry getValue(String key) {
         if (table == null) {
             table = NetworkTableInstance.getDefault();
         }
-        return table.getTable("limelight").getEntry(key);
+        return table.getTable(name).getEntry(key);
     }
 
     @Deprecated(since = "2023", forRemoval = true)
