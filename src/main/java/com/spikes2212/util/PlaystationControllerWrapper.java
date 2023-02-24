@@ -81,6 +81,14 @@ public class PlaystationControllerWrapper extends Joystick {
         return new JoystickButton(this, PS4Controller.Button.kL3.value);
     }
 
+    public JoystickButton getPlaystationButton() {
+        return new JoystickButton(this, PS4Controller.Button.kPS.value);
+    }
+
+    public JoystickButton getTouchpadButton() {
+        return new JoystickButton(this, PS4Controller.Button.kTouchpad.value);
+    }
+
     public double getRightX() {
         return ps.getRightX();
     }
