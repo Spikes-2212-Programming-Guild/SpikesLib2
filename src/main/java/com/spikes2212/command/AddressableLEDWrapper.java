@@ -1,7 +1,5 @@
 package com.spikes2212.command;
 
-import com.spikes2212.dashboard.Namespace;
-import com.spikes2212.dashboard.RootNamespace;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -9,41 +7,30 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import java.awt.*;
 
 /**
- * Class that gives more control over LEDs.
+ * Class that represents a LED strip.
  *
  * @author Camellia Lami
  * @see DashboardedSubsystem
  */
-public class LEDs extends DashboardedSubsystem {
+public class AddressableLEDWrapper {
 
-    /**
-     * Creates a {@link AddressableLED} and a {@link AddressableLEDBuffer}.
-     */
     private final AddressableLED led;
     private final AddressableLEDBuffer ledBuffer;
 
-    public LEDs(Namespace namespace, AddressableLED led, AddressableLEDBuffer ledBuffer) {
-        super(namespace);
-        this.led = led;
-        this.ledBuffer = ledBuffer;
-    }
-
-    public LEDs(String namespaceName, AddressableLED led, AddressableLEDBuffer ledBuffer) {
-        this(new RootNamespace(namespaceName), led, ledBuffer);
+    public AddressableLEDWrapper(int LEDPort, int numberOfLEDs) {
+        led = new AddressableLED(LEDPort);
+        ledBuffer = new AddressableLEDBuffer(numberOfLEDs);
     }
 
     /**
-     * Sets the LED strip to a specific color
+     * Sets the LED strip to a specific color.
      *
      * @param red   The desired red value.
      * @param green The desired green value.
      * @param blue  The desired blue value.
      */
     public void setStripColor(int red, int green, int blue) {
-        for (int i = 0; i < ledBuffer.getLength(); i++) {
-            ledBuffer.setRGB(i, red, green, blue);
-        }
-        led.setData(ledBuffer);
+        setColorInRange(red, green, blue, 0, ledBuffer.getLength());
     }
 
     /**
@@ -61,7 +48,7 @@ public class LEDs extends DashboardedSubsystem {
     }
 
     /**
-     * Sets a certain range of LEDs to a specific color
+     * Sets a certain range of LEDs to a specific color.
      *
      * @param red   The desired red value.
      * @param green The desired green value.
@@ -70,7 +57,7 @@ public class LEDs extends DashboardedSubsystem {
      * @param end   The final LED in the range.
      */
     public void setColorInRange(int red, int green, int blue, int start, int end) {
-        for (int i = start - 1; i < end; i++) {
+        for (int i = start; i < end; i++) {
             ledBuffer.setRGB(i, red, green, blue);
         }
         led.setData(ledBuffer);
@@ -83,12 +70,5 @@ public class LEDs extends DashboardedSubsystem {
      */
     public void setColorInRange(Color color, int start, int end) {
         setColorInRange(color.getRed(), color.getGreen(), color.getBlue(), start, end);
-    }
-
-    /**
-     * Adds any commands or data from this subsystem to the {@link NetworkTable}s.
-     */
-    @Override
-    public void configureDashboard() {
     }
 }
