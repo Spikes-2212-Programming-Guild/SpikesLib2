@@ -5,45 +5,47 @@ import com.spikes2212.dashboard.RootNamespace;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
- * A class that represents a double solenoid.
+ * A double solenoid {@link Subsystem}
  *
  * @author Camellia Lami
  * @see DashboardedSubsystem
  */
 public class DoubleSolenoidSubsystem extends DashboardedSubsystem {
 
-    /**
-     * Creates a {@link DoubleSolenoid}.
-     */
     private final DoubleSolenoid doubleSolenoid;
+    private final boolean isInverted;
 
-    public DoubleSolenoidSubsystem(Namespace namespace, DoubleSolenoid doubleSolenoid) {
+    public DoubleSolenoidSubsystem(Namespace namespace, DoubleSolenoid doubleSolenoid, boolean isInverted) {
         super(namespace);
         this.doubleSolenoid = doubleSolenoid;
+        this.isInverted = isInverted;
     }
 
-    public DoubleSolenoidSubsystem(String namespaceName, DoubleSolenoid doubleSolenoid) {
-        this(new RootNamespace(namespaceName), doubleSolenoid);
+    public DoubleSolenoidSubsystem(String namespaceName, DoubleSolenoid doubleSolenoid, boolean isInverted) {
+        this(new RootNamespace(namespaceName), doubleSolenoid, isInverted);
     }
 
     /**
      * Opens the double solenoid.
      *
-     * @return An {@link InstantCommand} that opens the solenoid.
+     * @return an {@link InstantCommand} that opens the solenoid
      */
     public InstantCommand openSolenoid() {
-        return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse));
+        if (isInverted) return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward));
+        else return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse));
     }
 
     /**
      * Closes the double solenoid.
      *
-     * @return An {@link InstantCommand} that closes the solenoid.
+     * @return an {@link InstantCommand} that closes the solenoid
      */
     public InstantCommand closeSolenoid() {
-        return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward));
+        if (isInverted) return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse));
+        else return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward));
     }
 
     /**
