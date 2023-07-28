@@ -1,6 +1,5 @@
 package com.spikes2212.command;
 
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
@@ -17,8 +16,8 @@ public class AddressableLEDWrapper {
     private final AddressableLED led;
     private final AddressableLEDBuffer ledBuffer;
 
-    public AddressableLEDWrapper(int LEDPort, int numberOfLEDs) {
-        led = new AddressableLED(LEDPort);
+    public AddressableLEDWrapper(int ledPort, int numberOfLEDs) {
+        led = new AddressableLED(ledPort);
         ledBuffer = new AddressableLEDBuffer(numberOfLEDs);
     }
 
