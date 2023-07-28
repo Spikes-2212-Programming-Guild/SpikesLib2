@@ -78,4 +78,18 @@ public class AddressableLEDWrapper {
     public void setColorInRange(Color color, int start, int end) {
         setColorInRange(color.getRed(), color.getGreen(), color.getBlue(), start, end);
     }
+
+    /**
+     * Activates the LED strip.
+     */
+    public void startLed() {
+        led.start();
+    }
+
+    /**
+     * Deactivates the LED strip.
+     */
+    public void stopLed() {
+        led.stop();
+    }
 }
