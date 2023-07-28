@@ -65,7 +65,6 @@ public class AddressableLEDWrapper {
         for (int i = start; i < end; i++) {
             ledBuffer.setRGB(i, red, green, blue);
         }
-        led.setData(ledBuffer);
     }
 
     /**
@@ -77,6 +76,10 @@ public class AddressableLEDWrapper {
      */
     public void setColorInRange(Color color, int start, int end) {
         setColorInRange(color.getRed(), color.getGreen(), color.getBlue(), start, end);
+    }
+
+    public void setData() {
+        led.setData(ledBuffer);
     }
 
     /**
