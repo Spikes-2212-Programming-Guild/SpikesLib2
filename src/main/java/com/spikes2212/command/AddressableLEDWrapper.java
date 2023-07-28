@@ -37,7 +37,9 @@ public class AddressableLEDWrapper {
     }
 
     /**
-     * @param color The desired {@link Color}.
+     * Sets the LED strip to a specific color.
+     *
+     * @param color the desired {@link Color}
      */
     public void setStripColor(Color color) {
         setStripColor(color.getRed(), color.getGreen(), color.getBlue());
@@ -53,11 +55,11 @@ public class AddressableLEDWrapper {
     /**
      * Sets a certain range of LEDs to a specific color.
      *
-     * @param red   The desired red value.
-     * @param green The desired green value.
-     * @param blue  The desired blue value.
-     * @param start The first LED in the range.
-     * @param end   The final LED in the range.
+     * @param red   the red value
+     * @param green the green value
+     * @param blue  the blue value
+     * @param start the first LED in the range
+     * @param end   the final LED in the range
      */
     public void setColorInRange(int red, int green, int blue, int start, int end) {
         for (int i = start; i < end; i++) {
@@ -67,9 +69,11 @@ public class AddressableLEDWrapper {
     }
 
     /**
-     * @param color The desired {@link Color}.
-     * @param start The first LED in the range.
-     * @param end   The final LED in the range.
+     * Sets a certain range of LEDs to a specific color.
+     *
+     * @param color the desired {@link Color}
+     * @param start the first LED in the range
+     * @param end   the final LED in the range
      */
     public void setColorInRange(Color color, int start, int end) {
         setColorInRange(color.getRed(), color.getGreen(), color.getBlue(), start, end);
