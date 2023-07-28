@@ -55,13 +55,13 @@ public class AddressableLEDWrapper {
     /**
      * Sets a certain range of LEDs to a specific color.
      *
+     * @param start the first LED in the range
+     * @param end   the final LED in the range
      * @param red   the red value
      * @param green the green value
      * @param blue  the blue value
-     * @param start the first LED in the range
-     * @param end   the final LED in the range
      */
-    public void setColorInRange(int red, int green, int blue, int start, int end) {
+    public void setColorInRange(int start, int end, int red, int green, int blue) {
         for (int i = start; i < end; i++) {
             ledBuffer.setRGB(i, red, green, blue);
         }
@@ -70,14 +70,39 @@ public class AddressableLEDWrapper {
     /**
      * Sets a certain range of LEDs to a specific color.
      *
-     * @param color the desired {@link Color}
      * @param start the first LED in the range
      * @param end   the final LED in the range
+     * @param color the desired {@link Color}
      */
-    public void setColorInRange(Color color, int start, int end) {
+    public void setColorInRange(int start, int end, Color color) {
         setColorInRange(color.getRed(), color.getGreen(), color.getBlue(), start, end);
     }
 
+    /**
+     * Sets a specific LED to a specific color.
+     *
+     * @param index the index of the LED
+     * @param red   the red value
+     * @param green the green value
+     * @param blue  the blue value
+     */
+    public void setColorAt(int index, int red, int green, int blue) {
+        ledBuffer.setRGB(index, red, green, blue);
+    }
+
+    /**
+     * Sets a specific LED to a specific color.
+     *
+     * @param color the desired {@link Color}
+     * @param index the index of the LED
+     */
+    public void setColorAt(int index, Color color) {
+        ledBuffer.setRGB(index, color.getRed(), color.getGreen(), color.getBlue());
+    }
+
+    /**
+     * Takes the buffer's data and applies it to the LED strip.
+     */
     public void setData() {
         led.setData(ledBuffer);
     }
