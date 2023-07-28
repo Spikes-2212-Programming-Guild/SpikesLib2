@@ -16,16 +16,19 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 public class DoubleSolenoidSubsystem extends DashboardedSubsystem {
 
     private final DoubleSolenoid doubleSolenoid;
-    private final boolean isInverted;
+    /**
+     * Checks if the solenoid is inverted.
+     */
+    private final boolean inverted;
 
-    public DoubleSolenoidSubsystem(Namespace namespace, DoubleSolenoid doubleSolenoid, boolean isInverted) {
+    public DoubleSolenoidSubsystem(Namespace namespace, DoubleSolenoid doubleSolenoid, boolean inverted) {
         super(namespace);
         this.doubleSolenoid = doubleSolenoid;
-        this.isInverted = isInverted;
+        this.inverted = inverted;
     }
 
-    public DoubleSolenoidSubsystem(String namespaceName, DoubleSolenoid doubleSolenoid, boolean isInverted) {
-        this(new RootNamespace(namespaceName), doubleSolenoid, isInverted);
+    public DoubleSolenoidSubsystem(String namespaceName, DoubleSolenoid doubleSolenoid, boolean inverted) {
+        this(new RootNamespace(namespaceName), doubleSolenoid, inverted);
     }
 
     /**
@@ -34,7 +37,7 @@ public class DoubleSolenoidSubsystem extends DashboardedSubsystem {
      * @return an {@link InstantCommand} that opens the solenoid
      */
     public InstantCommand openSolenoid() {
-        if (isInverted) return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward));
+        if (inverted) return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward));
         else return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse));
     }
 
@@ -44,7 +47,7 @@ public class DoubleSolenoidSubsystem extends DashboardedSubsystem {
      * @return an {@link InstantCommand} that closes the solenoid
      */
     public InstantCommand closeSolenoid() {
-        if (isInverted) return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse));
+        if (inverted) return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse));
         else return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward));
     }
 
