@@ -28,9 +28,9 @@ public class AddressableLEDWrapper {
     /**
      * Sets the LED strip to a specific color.
      *
-     * @param red   The desired red value.
-     * @param green The desired green value.
-     * @param blue  The desired blue value.
+     * @param red   the red value
+     * @param green the green value
+     * @param blue  the blue value
      */
     public void setStripColor(int red, int green, int blue) {
         setColorInRange(red, green, blue, 0, ledBuffer.getLength());
