@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import java.awt.*;
 
 /**
- * Class that represents a LED strip.
+ * A class that handles the communication between an LED strip and the code.
  *
  * @author Camellia Lami
  * @see DashboardedSubsystem
