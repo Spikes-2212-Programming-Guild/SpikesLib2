@@ -113,14 +113,14 @@ public class AddressableLEDWrapper {
     /**
      * Activates the LED strip.
      */
-    public void startLed() {
+    public void enableStrip() {
         led.start();
     }
 
     /**
      * Deactivates the LED strip.
      */
-    public void stopLed() {
+    public void disableStrip() {
         led.stop();
     }
 }
