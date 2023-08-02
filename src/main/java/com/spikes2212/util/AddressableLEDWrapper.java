@@ -1,5 +1,6 @@
-package com.spikes2212.command;
+package com.spikes2212.util;
 
+import com.spikes2212.command.DashboardedSubsystem;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
