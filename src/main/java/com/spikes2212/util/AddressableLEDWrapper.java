@@ -106,7 +106,7 @@ public class AddressableLEDWrapper {
     /**
      * Takes the buffer's data and applies it to the LED strip.
      */
-    public void setData() {
+    public void update() {
         led.setData(ledBuffer);
     }
 
