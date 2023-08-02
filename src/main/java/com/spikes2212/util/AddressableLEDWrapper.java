@@ -16,9 +16,11 @@ public class AddressableLEDWrapper {
 
     /**
      * {@link AddressableLED} - The LED strip itself.
-     * {@link AddressableLEDBuffer} - The LED strip's data.
      */
     private final AddressableLED led;
+    /**
+     * {@link AddressableLEDBuffer} - The LED strip's data.
+     */
     private final AddressableLEDBuffer ledBuffer;
 
     public AddressableLEDWrapper(int ledPort, int numberOfLEDs) {
