@@ -37,7 +37,7 @@ public class DoubleSolenoidSubsystem extends DashboardedSubsystem {
         if (inverted) {
             return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward));
         }
-        else return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse));
+        return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse));
     }
 
     /**
@@ -49,7 +49,7 @@ public class DoubleSolenoidSubsystem extends DashboardedSubsystem {
         if (inverted) {
             return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse));
         }
-        else return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward));
+        return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward));
     }
 
     /**
