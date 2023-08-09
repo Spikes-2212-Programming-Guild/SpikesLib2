@@ -24,8 +24,8 @@ public class AddressableLEDWrapper {
     private final AddressableLEDBuffer ledBuffer;
 
     public AddressableLEDWrapper(int ledPort, int numberOfLEDs) {
-        led = new AddressableLED(ledPort);
-        ledBuffer = new AddressableLEDBuffer(numberOfLEDs);
+        this.led = new AddressableLED(ledPort);
+        this.ledBuffer = new AddressableLEDBuffer(numberOfLEDs);
     }
 
     /**
