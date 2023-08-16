@@ -31,9 +31,9 @@ public class AddressableLEDWrapper {
     /**
      * Sets the LED strip to a specific color.
      *
-     * @param red   the red value
-     * @param green the green value
-     * @param blue  the blue value
+     * @param red   the red value from 0 to 255
+     * @param green the green value from 0 to 255
+     * @param blue  the blue value from 0 to 255
      */
     public void setStripColor(int red, int green, int blue) {
         setColorInRange(red, green, blue, 0, ledBuffer.getLength());
@@ -60,9 +60,9 @@ public class AddressableLEDWrapper {
      *
      * @param start the first LED in the range
      * @param end   the final LED in the range
-     * @param red   the red value
-     * @param green the green value
-     * @param blue  the blue value
+     * @param red   the red value from 0 to 255
+     * @param green the green value from 0 to 255
+     * @param blue  the blue value from 0 to 255
      */
     public void setColorInRange(int start, int end, int red, int green, int blue) {
         for (int i = start; i < end; i++) {
@@ -85,9 +85,9 @@ public class AddressableLEDWrapper {
      * Sets a specific LED to a specific color.
      *
      * @param index the index of the LED
-     * @param red   the red value
-     * @param green the green value
-     * @param blue  the blue value
+     * @param red   the red value from 0 to 255
+     * @param green the green value from 0 to 255
+     * @param blue  the blue value from 0 to 255
      */
     public void setColorAt(int index, int red, int green, int blue) {
         ledBuffer.setRGB(index, red, green, blue);
@@ -104,7 +104,7 @@ public class AddressableLEDWrapper {
     }
 
     /**
-     * Takes the buffer's data and applies it to the LED strip.
+     * Takes the buffer's data and applies it to the LED strip periodically.
      */
     public void update() {
         led.setData(ledBuffer);
