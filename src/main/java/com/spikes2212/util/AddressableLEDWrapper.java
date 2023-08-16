@@ -15,11 +15,11 @@ import java.awt.*;
 public class AddressableLEDWrapper {
 
     /**
-     * {@link AddressableLED} - The LED strip itself.
+     * The controlled LED strip.
      */
     private final AddressableLED led;
     /**
-     * {@link AddressableLEDBuffer} - The LED strip's data.
+     * The controlled LED strip's data.
      */
     private final AddressableLEDBuffer ledBuffer;
 
