@@ -48,8 +48,8 @@ public class DriveArcade extends CommandBase {
         this(drivetrain, () -> moveValue, () -> rotateValue, () -> false);
     }
 
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished);
+    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, Supplier<Boolean> isFinished) {
+        this(drivetrain, () -> moveValue, () -> rotateValue, isFinished);
     }
 
     @Override
