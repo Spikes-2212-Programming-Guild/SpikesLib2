@@ -3,7 +3,7 @@ package com.spikes2212.dashboard;
 public class SpikesLogger extends RootNamespace{
 
 
-    private String key;
+    private final String key;
     public SpikesLogger() {
         this("SpikesLogger", "Value");
     }
