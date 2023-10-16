@@ -156,9 +156,9 @@ public class DriveTankWithPID extends CommandBase {
         rightFeedForwardController.setGains(rightFeedForwardSettings.getkS(), rightFeedForwardSettings.getkV(),
                 rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG());
         drivetrain.tankDrive((leftPIDController.calculate(leftSource.get()) +
-                        leftFeedForwardController.calculate(leftSetpoint.get()) / 2),
+                        leftFeedForwardController.calculate(leftSetpoint.get())),
                 rightPIDController.calculate(rightSource.get()) +
-                        rightFeedForwardController.calculate(rightSetpoint.get()) / 2);
+                        rightFeedForwardController.calculate(rightSetpoint.get()));
     }
 
     @Override
