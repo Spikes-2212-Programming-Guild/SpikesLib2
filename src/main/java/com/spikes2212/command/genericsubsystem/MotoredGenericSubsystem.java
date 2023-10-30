@@ -1,6 +1,7 @@
 package com.spikes2212.command.genericsubsystem;
 
 import com.spikes2212.dashboard.Namespace;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
@@ -31,6 +32,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
         this.motorControllerGroup = new MotorControllerGroup(motorControllers);
     }
 
+
     /**
      * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
      * minSpeed, maxSpeed and the given {@link MotorController}s.</p>
@@ -59,6 +61,10 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     @Override
     protected void apply(double speed) {
         motorControllerGroup.set(speed);
+    }
+
+    public void publicSetVoltage(double outputVolts) {
+        move(outputVolts / RobotController.getBatteryVoltage());
     }
 
     @Override
