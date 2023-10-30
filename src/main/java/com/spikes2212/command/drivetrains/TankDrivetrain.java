@@ -111,6 +111,18 @@ public class TankDrivetrain extends DashboardedSubsystem {
     public void setRight(double speedRight) {
         rightController.set(-speedRight);
     }
+    public void setVoltageLeft(double voltage) {
+        leftController.setVoltage(voltage);
+    }
+
+    /**
+     * Moves the right side of this drivetrain with a given voltage.
+     *
+     * @param voltage the speed to set to the right side. Positive values move this side forward.
+     */
+    public void setVoltageRight(double voltage) {
+        rightController.setVoltage(-voltage);
+    }
 
     public void stop() {
         leftController.stopMotor();
