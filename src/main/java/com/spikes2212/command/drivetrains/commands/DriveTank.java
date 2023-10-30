@@ -17,6 +17,7 @@ public class DriveTank extends CommandBase {
     protected final Supplier<Double> leftSpeedSupplier;
     protected final Supplier<Double> rightSpeedSupplier;
     protected final Supplier<Boolean> isFinished;
+    boolean squareInput;
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
@@ -26,14 +27,21 @@ public class DriveTank extends CommandBase {
      * @param drivetrain         the drivetrain this command requires and moves.
      * @param leftSpeedSupplier  the double {@link Supplier} supplying the speed to move on the left side with.
      * @param rightSpeedSupplier the double {@link Supplier} supplying the speed to move on the right side with.
+     * @param squareInput whether to square the speeds or not.
      */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
-                     Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished) {
+                     Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished, boolean squareInput) {
         addRequirements(drivetrain);
         this.tankDrivetrain = drivetrain;
         this.leftSpeedSupplier = leftSpeedSupplier;
         this.rightSpeedSupplier = rightSpeedSupplier;
         this.isFinished = isFinished;
+        this.squareInput = squareInput;
+    }
+
+    public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
+                     Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished) {
+        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, isFinished, false);
     }
 
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
@@ -51,7 +59,7 @@ public class DriveTank extends CommandBase {
 
     @Override
     public void execute() {
-        tankDrivetrain.tankDrive(leftSpeedSupplier.get(), rightSpeedSupplier.get());
+        tankDrivetrain.tankDrive(leftSpeedSupplier.get(), rightSpeedSupplier.get(), squareInput);
     }
 
     @Override
