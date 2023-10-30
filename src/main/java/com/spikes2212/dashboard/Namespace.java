@@ -20,8 +20,12 @@ public interface Namespace {
 
     void putData(String key, Sendable value);
 
+    default void putRunnable(String key, Runnable runnable, boolean runOnDisable) {
+        this.putData(key, new InstantCommand(runnable).ignoringDisable(runOnDisable));
+    }
+
     default void putRunnable(String key, Runnable runnable) {
-        this.putData(key, new InstantCommand(runnable));
+        putRunnable(key, runnable, true);
     }
 
     Sendable getSendable(String key);
