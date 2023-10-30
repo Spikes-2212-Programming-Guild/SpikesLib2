@@ -31,9 +31,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
         rightController.setInverted(true);
         drive = new DifferentialDrive(leftController, rightController);
     }
-    
     public TankDrivetrain(MotorController left, MotorController right) {
-        this(getClassName(DEFAULT_NAMESPACE_NAME), left, right);
+            this(getClassName(DEFAULT_NAMESPACE_NAME), left, right);
     }
 
     /**
@@ -90,6 +89,9 @@ public class TankDrivetrain extends DashboardedSubsystem {
      */
     public void curvatureDrive(double speed, double curvature) {
         drive.curvatureDrive(speed, curvature, true);
+    }
+    public void curvatureDrive(double speed, double curvature, boolean squareInputs) {
+        drive.curvatureDrive(speed, curvature, squareInputs);
     }
 
     /**

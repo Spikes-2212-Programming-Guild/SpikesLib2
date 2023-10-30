@@ -136,6 +136,10 @@ public class DriveTankWithPID extends CommandBase {
                 rightSource, leftFeedForwardSettings, rightFeedForwardSettings);
     }
 
+    public void setVoltage(double voltage){
+
+    }
+
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                             double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
                             Supplier<Double> rightSource) {
