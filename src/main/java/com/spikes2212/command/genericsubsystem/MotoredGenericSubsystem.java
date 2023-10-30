@@ -63,7 +63,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
         motorControllerGroup.set(speed);
     }
 
-    public void publicSetVoltage(double outputVolts) {
+    public void SetVoltage(double outputVolts) {
         move(outputVolts / RobotController.getBatteryVoltage());
     }
 
