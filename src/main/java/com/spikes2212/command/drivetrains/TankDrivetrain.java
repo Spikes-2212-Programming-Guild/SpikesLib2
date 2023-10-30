@@ -88,10 +88,10 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param curvature the rotational movement speed. Positive values go clockwise.
      */
     public void curvatureDrive(double speed, double curvature) {
-        drive.curvatureDrive(speed, curvature, true);
+        drive.curvatureDrive(speed, curvature, false);
     }
-    public void curvatureDrive(double speed, double curvature, boolean squareInputs) {
-        drive.curvatureDrive(speed, curvature, squareInputs);
+    public void curvatureDrive(double speed, double curvature, boolean allowTurnInPlace) {
+        drive.curvatureDrive(speed, curvature, allowTurnInPlace);
     }
 
     /**
