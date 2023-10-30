@@ -1,5 +1,7 @@
 package com.spikes2212.control;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Tuval Rivkinind Barlev
  */
@@ -74,6 +76,13 @@ public class FeedForwardController {
         this.kV = kV;
         this.kA = kA;
         this.kG = kG;
+    }
+
+    public void setGains(FeedForwardSettings feedForwardSettings) {
+        this.kS = feedForwardSettings.getkS();
+        this.kV = feedForwardSettings.getkV();
+        this.kA = feedForwardSettings.getkA();
+        this.kG = feedForwardSettings.getkG();
     }
 
     public double getkS() {
