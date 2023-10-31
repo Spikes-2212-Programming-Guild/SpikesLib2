@@ -51,8 +51,8 @@ public class DriveTank extends CommandBase {
         this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, () -> false, squareInputs);
     }
 
-    public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, boolean isFinished) {
-        this(drivetrain, () -> leftSpeed, () -> rightSpeed, () -> isFinished, false);
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, Supplier<Boolean> isFinished) {
+        this(drivetrain, () -> leftSpeed, () -> rightSpeed, isFinished, false);
     }
 
     public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed) {
