@@ -122,7 +122,7 @@ public class Limelight {
      * (0,0,0) is in the middle of the field.
      */
     public Pose3d getRobotPose() {
-        double[] result = NetworkTableInstance.getDefault().getTable(name).getEntry("botpose").getDoubleArray(new double[]{});
+        double[] result = getEntry("botpose").getDoubleArray(new double[]{});
         if (result.length != 0) {
             Translation3d translation3d = new Translation3d(result[0], result[1], result[2]);
             Rotation3d rotation3d = new Rotation3d(Math.toRadians(result[3]), Math.toRadians(result[4]), Math.toRadians(result[5]));
