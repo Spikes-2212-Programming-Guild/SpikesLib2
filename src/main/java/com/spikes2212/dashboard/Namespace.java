@@ -22,7 +22,7 @@ public interface Namespace {
     void putData(String key, Sendable value);
 
     default void putCommand(String key, Command command, boolean ignoringDisable) {
-        this.putData(key, (Sendable)command.ignoringDisable(ignoringDisable));
+        this.putData(key, command.ignoringDisable(ignoringDisable));
     }
 
     default void putCommand(String key, Command command) {
