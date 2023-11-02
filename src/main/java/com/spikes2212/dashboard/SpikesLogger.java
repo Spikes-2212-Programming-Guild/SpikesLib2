@@ -39,7 +39,7 @@ public class SpikesLogger extends RootNamespace {
     /**
      * Logs the provided output to the NetworkTables and the SpikesLogger app.
      *
-     * @param output the data being logged.
+     * @param output the data being logged
      */
     public <T> void log(T output) {
         putString(key, output == null ? "null" : output.toString());
