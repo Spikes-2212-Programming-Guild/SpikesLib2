@@ -1,17 +1,19 @@
 package com.spikes2212.dashboard;
+import edu.wpi.first.networktables.NetworkTable;
 
 /**
- * a logger class meant to be used with the SpikesLogger desktop app to log values from the robot to a computer in real-time
+ * A logger class meant to be used with the SpikesLogger desktop app to log values from the robot to a computer in real-time.
+ * Uses a {@link NetworkTable} to communicate with the computer.
  */
 public class SpikesLogger extends RootNamespace {
 
     /**
-     * the output location
+     * NetworkTables key to use for the output.
      */
     private final String key;
 
     /**
-     * custom SpikesLogger with custom name and key for the output location
+     * Creates a SpikesLogger instance with custom name and custom key for the output location.
      */
     public SpikesLogger(String name, String key) {
         super(name);
@@ -19,21 +21,22 @@ public class SpikesLogger extends RootNamespace {
     }
 
     /**
-     * default SpikesLogger with custom key
+     * Creates a default SpikesLogger instance with custom key.
      */
     public SpikesLogger(String key) {
         this("SpikesLogger", key);
     }
 
     /**
-     * default SpikesLogger
+     * Creates a default SpikesLogger instance.
      */
     public SpikesLogger() {
         this("SpikesLogger", "Value");
     }
 
     /**
-     * get the output and put it in the SpikesLogger
+     * Logs the provided output to the NetworkTables and the SpikesLogger app.
+     * @param output is the data being logged.
      */
     public <T> void log(T output) {
         putString(key, output == null ? "null" : output.toString());
