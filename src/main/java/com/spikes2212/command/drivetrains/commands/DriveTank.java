@@ -25,9 +25,9 @@ public class DriveTank extends CommandBase {
      * Positive values move forwards.
      *
      * @param drivetrain         the drivetrain this command requires and moves.
-     * @param leftSpeedSupplier  the double {@link Supplier} supplying the speed to move on the left side with
+     * @param leftSpeedSupplier  the double {@link Supplier} supplying the speed to move on the left side with,
      *                           ranging from -1 to 1.
-     * @param rightSpeedSupplier the double {@link Supplier} supplying the speed to move on the right side with
+     * @param rightSpeedSupplier the double {@link Supplier} supplying the speed to move on the right side with,
      *                           ranging from -1 to 1.
      * @param squareInputs        whether to square the speeds or not.
      */
