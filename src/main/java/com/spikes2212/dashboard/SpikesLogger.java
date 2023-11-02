@@ -24,6 +24,7 @@ public class SpikesLogger extends RootNamespace {
     public SpikesLogger(String key) {
         this("SpikesLogger", key);
     }
+
     /**
      * default SpikesLogger
      */
