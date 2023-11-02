@@ -19,6 +19,12 @@ public class SpikesLogger extends RootNamespace {
     }
 
     /**
+     * default SpikesLogger with custom key
+     */
+    public SpikesLogger(String key) {
+        this("SpikesLogger", key);
+    }
+    /**
      * default SpikesLogger
      */
     public SpikesLogger() {
