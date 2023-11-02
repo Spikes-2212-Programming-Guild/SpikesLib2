@@ -13,7 +13,7 @@ public class SpikesLogger extends RootNamespace {
     private final String key;
 
     /**
-     * Creates a SpikesLogger instance with custom name and custom key for the output location.
+     * Creates a SpikesLogger instance with custom name and key for the output location.
      */
     public SpikesLogger(String name, String key) {
         super(name);
@@ -21,14 +21,14 @@ public class SpikesLogger extends RootNamespace {
     }
 
     /**
-     * Creates a default SpikesLogger instance with custom key.
+     * Creates a default SpikesLogger instance with custom key (name = "SpikesLogger").
      */
     public SpikesLogger(String key) {
         this("SpikesLogger", key);
     }
 
     /**
-     * Creates a default SpikesLogger instance.
+     * Creates a default SpikesLogger instance (name = "SpikesLogger", key = "Value").
      */
     public SpikesLogger() {
         this("SpikesLogger", "Value");
