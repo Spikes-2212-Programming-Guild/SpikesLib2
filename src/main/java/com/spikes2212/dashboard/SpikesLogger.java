@@ -1,9 +1,9 @@
 package com.spikes2212.dashboard;
 
-public class SpikesLogger extends RootNamespace{
-
+public class SpikesLogger extends RootNamespace {
 
     private final String key;
+
     public SpikesLogger() {
         this("SpikesLogger", "Value");
     }
@@ -13,7 +13,7 @@ public class SpikesLogger extends RootNamespace{
         this.key = key;
     }
 
-    public <T> void log(T output){
+    public <T> void log(T output) {
         putString(key, output.toString());
     }
 }
