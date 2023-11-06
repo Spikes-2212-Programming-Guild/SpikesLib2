@@ -8,7 +8,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableValue;
 
 /**
- * This class is a Wrapper for a Limelight camera.
+ * A Wrapper for a Limelight camera.
  *
  * @author Yotam Yizhar
  */
