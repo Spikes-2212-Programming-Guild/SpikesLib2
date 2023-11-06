@@ -1,6 +1,7 @@
 package com.spikes2212.dashboard;
 
 import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 import java.util.function.Supplier;
@@ -20,8 +21,20 @@ public interface Namespace {
 
     void putData(String key, Sendable value);
 
+    default void putCommand(String key, Command command, boolean ignoringDisable) {
+        this.putData(key, command.ignoringDisable(ignoringDisable));
+    }
+
+    default void putCommand(String key, Command command) {
+        this.putCommand(key, command, true);
+    }
+
+    default void putRunnable(String key, Runnable runnable, boolean runOnDisable) {
+        this.putData(key, new InstantCommand(runnable).ignoringDisable(runOnDisable));
+    }
+
     default void putRunnable(String key, Runnable runnable) {
-        this.putData(key, new InstantCommand(runnable));
+        putRunnable(key, runnable, true);
     }
 
     Sendable getSendable(String key);
