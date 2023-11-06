@@ -77,10 +77,8 @@ public class FeedForwardController {
     }
 
     public void setGains(FeedForwardSettings feedForwardSettings) {
-        this.kS = feedForwardSettings.getkS();
-        this.kV = feedForwardSettings.getkV();
-        this.kA = feedForwardSettings.getkA();
-        this.kG = feedForwardSettings.getkG();
+       setGains(feedForwardSettings.getkS(), feedForwardSettings.getkV(), feedForwardSettings.getkA(),
+               feedForwardSettings.getkG());
     }
 
     public double getkS() {
