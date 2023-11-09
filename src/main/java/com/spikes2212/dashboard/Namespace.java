@@ -20,7 +20,7 @@ public interface Namespace {
 
     Supplier<String> addConstantString(String name, String value);
 
-    Namespace addChild(String name);
+    ChildNamespace addChild(String name);
 
     void putData(String key, Sendable value);
 
@@ -67,7 +67,7 @@ public interface Namespace {
     boolean getBoolean(String key);
 
     default PIDSettings addPIDNamespace(String name, PIDSettings initialPIDSettings) {
-        Namespace child = this.addChild(name + " pid");
+        ChildNamespace child = this.addChild(name + " pid");
         Supplier<Double> kP = child.addConstantDouble("kP " + name, initialPIDSettings.getkP());
         Supplier<Double> kI = child.addConstantDouble("kI " + name, initialPIDSettings.getkI());
         Supplier<Double> kD = child.addConstantDouble("kD " + name, initialPIDSettings.getkD());
@@ -77,7 +77,7 @@ public interface Namespace {
     }
 
     default FeedForwardSettings addFeedForwardNamespace(String name, FeedForwardSettings initialFeedForwardSettings) {
-        Namespace child = this.addChild(name + " feed forward");
+        ChildNamespace child = this.addChild(name + " feed forward");
         Supplier<Double> kS = child.addConstantDouble("kS " + name, initialFeedForwardSettings.getkS());
         Supplier<Double> kV = child.addConstantDouble("kV " + name, initialFeedForwardSettings.getkV());
         Supplier<Double> kA = child.addConstantDouble("kA " + name, initialFeedForwardSettings.getkA());
