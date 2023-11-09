@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  * @see TankDrivetrain
  */
-public class DriveTankWithVoltage extends CommandBase {
+public class DriveTankWithVoltages extends CommandBase {
     protected final Supplier<Double> leftVoltage;
     protected final Supplier<Double> rightVoltage;
     protected final TankDrivetrain drivetrain;
@@ -27,7 +27,7 @@ public class DriveTankWithVoltage extends CommandBase {
      * @param rightVoltage the double {@link Supplier} supplying the voltage to move on the left side with.
      * @param isFinished
      */
-    public DriveTankWithVoltage(TankDrivetrain drivetrain, Supplier<Double> leftVoltage, Supplier<Double> rightVoltage, Supplier<Boolean> isFinished) {
+    public DriveTankWithVoltages(TankDrivetrain drivetrain, Supplier<Double> leftVoltage, Supplier<Double> rightVoltage, Supplier<Boolean> isFinished) {
         this.drivetrain =drivetrain;
         this.leftVoltage=leftVoltage;
         this.rightVoltage=rightVoltage;
@@ -38,7 +38,7 @@ public class DriveTankWithVoltage extends CommandBase {
         drivetrain.tankDriveVoltages(leftVoltage.get(), rightVoltage.get());
     }
     public boolean isFinished() {
-        return this.isFinished.get();
+        return isFinished.get();
     }
 
     @Override

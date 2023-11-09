@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @see TankDrivetrain
  */
 
-public class DriveArcadeWithVoltage extends CommandBase {
+public class DriveArcadeWithVoltages extends CommandBase {
 
     protected final TankDrivetrain tankDrivetrain;
     protected final Supplier<Double> moveValueSupplier;
@@ -21,7 +21,7 @@ public class DriveArcadeWithVoltage extends CommandBase {
     protected final Supplier<Boolean> isFinished;
 
     /**
-     * This constructs a new {@link DriveArcadeWithVoltage} command that moves the given
+     * This constructs a new {@link DriveArcadeWithVoltages} command that moves the given
      * {@link TankDrivetrain} according to Voltage values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
@@ -29,8 +29,8 @@ public class DriveArcadeWithVoltage extends CommandBase {
      * @param moveValueSupplier   the double {@link Supplier} supplying the linear Voltage. Positive values go forwards.
      * @param rotateValueSupplier the double {@link Supplier} supplying the rotational Voltage. Positive values go left.
      */
-    public DriveArcadeWithVoltage(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
-                                  Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
+    public DriveArcadeWithVoltages(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
+                                   Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
         addRequirements(drivetrain);
         this.tankDrivetrain = drivetrain;
         this.moveValueSupplier = moveValueSupplier;
