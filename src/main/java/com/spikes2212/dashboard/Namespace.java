@@ -1,5 +1,6 @@
 package com.spikes2212.dashboard;
 
+import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import edu.wpi.first.util.sendable.Sendable;
@@ -65,21 +66,23 @@ public interface Namespace {
 
     boolean getBoolean(String key);
 
-    default void addPIDNamespace(String name, PIDSettings pidSettings) {
+    default PIDSettings addPIDNamespace(String name, PIDSettings initialPIDSettings) {
         Namespace child = this.addChild(name + " pid");
-        Supplier<Double> kP = child.addConstantDouble("kP " + name, pidSettings.getkP());
-        Supplier<Double> kI = child.addConstantDouble("kI " + name, pidSettings.getkI());
-        Supplier<Double> kD = child.addConstantDouble("kD " + name, pidSettings.getkD());
-        Supplier<Double> tolerance = child.addConstantDouble(name + " tolerance", pidSettings.getTolerance());
-        Supplier<Double> waitTime = child.addConstantDouble(name + " wait time", pidSettings.getWaitTime());
+        Supplier<Double> kP = child.addConstantDouble("kP " + name, initialPIDSettings.getkP());
+        Supplier<Double> kI = child.addConstantDouble("kI " + name, initialPIDSettings.getkI());
+        Supplier<Double> kD = child.addConstantDouble("kD " + name, initialPIDSettings.getkD());
+        Supplier<Double> tolerance = child.addConstantDouble(name + " tolerance", initialPIDSettings.getTolerance());
+        Supplier<Double> waitTime = child.addConstantDouble(name + " wait time", initialPIDSettings.getWaitTime());
+        return initialPIDSettings;
     }
 
-    default void addFeedForwardNamespace(String name, FeedForwardSettings feedForwardSettings) {
+    default FeedForwardSettings addFeedForwardNamespace(String name, FeedForwardSettings initialFeedForwardSettings) {
         Namespace child = this.addChild(name + " feed forward");
-        Supplier<Double> kS = child.addConstantDouble("kS " + name, feedForwardSettings.getkS());
-        Supplier<Double> kV = child.addConstantDouble("kV " + name, feedForwardSettings.getkV());
-        Supplier<Double> kA = child.addConstantDouble("kA " + name, feedForwardSettings.getkA());
-        Supplier<Double> kG = child.addConstantDouble("kG " + name, feedForwardSettings.getkG());
+        Supplier<Double> kS = child.addConstantDouble("kS " + name, initialFeedForwardSettings.getkS());
+        Supplier<Double> kV = child.addConstantDouble("kV " + name, initialFeedForwardSettings.getkV());
+        Supplier<Double> kA = child.addConstantDouble("kA " + name, initialFeedForwardSettings.getkA());
+        Supplier<Double> kG = child.addConstantDouble("kG " + name, initialFeedForwardSettings.getkG());
+        return initialFeedForwardSettings;
     }
 
     void update();
