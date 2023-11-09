@@ -5,9 +5,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import jdk.javadoc.doclet.StandardDoclet;
-
-import java.awt.*;
 
 /**
  * This class represents a type of drivetrain that its left and right sides are controlled independently,
