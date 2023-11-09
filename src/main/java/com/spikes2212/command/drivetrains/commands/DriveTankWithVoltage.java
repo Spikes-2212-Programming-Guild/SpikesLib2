@@ -15,23 +15,30 @@ public class DriveTankWithVoltage extends CommandBase {
     protected final Supplier<Double> leftVoltage;
     protected final Supplier<Double> rightVoltage;
     protected final TankDrivetrain drivetrain;
+    protected final Supplier<Boolean> isFinished;
+
     /**
      * This constructs a new {@link DriveTank} command that moves the given
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for left and right sides.<br>
      * Positive values move forwards.
      *
-     * @param drivetrain         the drivetrain this command requires and moves.
-     * @param rightVoltage  the double {@link Supplier} supplying the voltage to move on the left side with.
-     * @param leftVoltage the double {@link Supplier} supplying the voltage to move on the right side with.
+     * @param drivetrain   the drivetrain this command requires and moves.
+     * @param leftVoltage  the double {@link Supplier} supplying the voltage to move on the right side with.
+     * @param rightVoltage the double {@link Supplier} supplying the voltage to move on the left side with.
+     * @param isFinished
      */
-    public DriveTankWithVoltage(TankDrivetrain drivetrain, Supplier<Double> leftVoltage, Supplier<Double> rightVoltage) {
+    public DriveTankWithVoltage(TankDrivetrain drivetrain, Supplier<Double> leftVoltage, Supplier<Double> rightVoltage, Supplier<Boolean> isFinished) {
         this.drivetrain =drivetrain;
         this.leftVoltage=leftVoltage;
         this.rightVoltage=rightVoltage;
+        this.isFinished = isFinished;
     }
     @Override
     public void execute() {
         drivetrain.tankDriveVoltages(leftVoltage.get(), rightVoltage.get());
+    }
+    public boolean isFinished() {
+        return this.isFinished.get();
     }
 
     @Override

@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @see TankDrivetrain
  */
 
-public class DriveArcade extends CommandBase {
+public class DriveArcadeWithVoltage extends CommandBase {
 
     protected final TankDrivetrain tankDrivetrain;
     protected final Supplier<Double> moveValueSupplier;
@@ -23,15 +23,15 @@ public class DriveArcade extends CommandBase {
 
     /**
      * This constructs a new {@link DriveArcadeWithVoltage} command that moves the given
-     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s
+     * {@link TankDrivetrain} according to Voltage values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
      * @param drivetrain          the tank drivetrain this command operates on.
-     * @param moveValueSupplier   the double {@link Supplier} supplying the linear velocity. Positive values go forwards.
-     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
+     * @param moveValueSupplier   the double {@link Supplier} supplying the linear Voltage. Positive values go forwards.
+     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational Voltage. Positive values go left.
      */
-    public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
-                       Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
+    public DriveArcadeWithVoltage(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
+                                  Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
         addRequirements(drivetrain);
         this.tankDrivetrain = drivetrain;
         this.moveValueSupplier = moveValueSupplier;
@@ -39,22 +39,9 @@ public class DriveArcade extends CommandBase {
         this.isFinished = isFinished;
     }
 
-    public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
-                       Supplier<Double> rotateValueSupplier) {
-        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false);
-    }
-
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> false);
-    }
-
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, Supplier<Boolean> isFinished) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, isFinished);
-    }
-
     @Override
     public void execute() {
-        tankDrivetrain.arcadeDrive(moveValueSupplier.get(), rotateValueSupplier.get());
+        tankDrivetrain.arcadeDriveVoltages(moveValueSupplier.get(), rotateValueSupplier.get());
     }
 
     @Override
