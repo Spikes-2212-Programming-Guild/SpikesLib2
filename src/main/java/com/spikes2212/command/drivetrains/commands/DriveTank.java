@@ -46,18 +46,35 @@ public class DriveTank extends CommandBase {
         this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, isFinished, false);
     }
 
-    public DriveTank(TankDrivetrain drivetrain, double leftSpeedSupplier,
-                     double rightSpeedSupplier, Supplier<Boolean> isFinished) {
-        this(drivetrain, () -> leftSpeedSupplier, () -> rightSpeedSupplier, isFinished, false);
+    public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
+                     Supplier<Double> rightSpeedSupplier, boolean squareInputs) {
+        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, () -> false, squareInputs);
     }
 
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
-                     Supplier<Double> rightSpeedSupplier, boolean isFinished) {
-        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, () -> isFinished, false);
+                     Supplier<Double> rightSpeedSupplier) {
+        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, () -> false, false);
     }
 
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeedSupplier,
+                     double rightSpeedSupplier, Supplier<Boolean> isFinished, boolean squareInputs) {
+        this(drivetrain, () -> leftSpeedSupplier, () -> rightSpeedSupplier, isFinished, squareInputs);
+    }
 
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeedSupplier,
+                     double rightSpeedSupplier, Supplier<Boolean> isFinished) {
+        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, isFinished, false);
+    }
 
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeedSupplier,
+                     double rightSpeedSupplier, boolean squareInputs) {
+        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, () -> false, squareInputs);
+    }
+
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeedSupplier,
+                     double rightSpeedSupplier) {
+        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, () -> false, false);
+    }
     @Override
     public void execute() {
         tankDrivetrain.tankDrive(leftSpeedSupplier.get(), rightSpeedSupplier.get(), squareInputs);
