@@ -19,7 +19,7 @@ public class DriveArcade extends CommandBase {
     protected final Supplier<Double> moveValueSupplier;
     protected final Supplier<Double> rotateValueSupplier;
     protected final Supplier<Boolean> isFinished;
-    protected boolean squareInputs;
+    protected final boolean squareInputs;
 
     /**
      * This constructs a new {@link DriveArcade} command that moves the given
