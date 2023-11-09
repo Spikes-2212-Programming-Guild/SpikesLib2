@@ -19,6 +19,9 @@ public class DriveArcade extends CommandBase {
     protected final Supplier<Double> moveValueSupplier;
     protected final Supplier<Double> rotateValueSupplier;
     protected final Supplier<Boolean> isFinished;
+    /**
+     * Whether to square the velocity suppliers.
+     */
     protected final boolean squareInputs;
 
     /**
