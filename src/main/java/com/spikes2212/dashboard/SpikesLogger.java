@@ -30,10 +30,10 @@ public class SpikesLogger extends RootNamespace {
     }
 
     /**
-     * Creates a default SpikesLogger instance (name = "SpikesLogger", key = "Value").
+     * Creates a default SpikesLogger instance (name = "SpikesLogger", key = "output").
      */
     public SpikesLogger() {
-        this("SpikesLogger", "Value");
+        this("SpikesLogger", "output");
     }
 
     /**
