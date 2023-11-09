@@ -48,6 +48,11 @@ public class DriveArcade extends CommandBase {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, false);
     }
 
+    public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
+                       Supplier<Double> rotateValueSupplier, Supplier<Boolean> squareInputs) {
+        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, squareInputs.get());
+    }
+
     public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue) {
         this(drivetrain, () -> moveValue, () -> rotateValue, () -> false, false);
     }
