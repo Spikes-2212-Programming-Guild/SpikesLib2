@@ -17,7 +17,7 @@ public class DriveTank extends CommandBase {
     protected final Supplier<Double> leftSpeedSupplier;
     protected final Supplier<Double> rightSpeedSupplier;
     protected final Supplier<Boolean> isFinished;
-    protected boolean squareInputs;
+    protected final boolean squareInputs;
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
