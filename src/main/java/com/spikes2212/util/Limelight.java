@@ -123,7 +123,7 @@ public class Limelight {
      */
     public Pose3d getRobotPose() {
         double[] result = getEntry("botpose").getDoubleArray(new double[]{});
-        if (result.length != 0) {
+        if (getID() >= 0) {
             Translation3d translation3d = new Translation3d(result[0], result[1], result[2]);
             Rotation3d rotation3d = new Rotation3d(Math.toRadians(result[3]), Math.toRadians(result[4]), Math.toRadians(result[5]));
             return new Pose3d(translation3d, rotation3d);
