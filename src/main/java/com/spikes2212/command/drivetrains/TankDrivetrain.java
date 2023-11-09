@@ -63,7 +63,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves both sides of this drivetrain by the given voltages for each side
+     * Moves both sides of this drivetrain by the given voltages for each side.
      *
      * @param leftVoltage the voltage to the left side. Positive values move this side
      *
