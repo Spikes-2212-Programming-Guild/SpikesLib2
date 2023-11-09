@@ -73,7 +73,7 @@ public interface Namespace {
         Supplier<Double> kD = child.addConstantDouble("kD " + name, initialPIDSettings.getkD());
         Supplier<Double> tolerance = child.addConstantDouble(name + " tolerance", initialPIDSettings.getTolerance());
         Supplier<Double> waitTime = child.addConstantDouble(name + " wait time", initialPIDSettings.getWaitTime());
-        return initialPIDSettings;
+        return new PIDSettings(kP, kI, kD, tolerance, waitTime);
     }
 
     default FeedForwardSettings addFeedForwardNamespace(String name, FeedForwardSettings initialFeedForwardSettings) {
@@ -82,7 +82,7 @@ public interface Namespace {
         Supplier<Double> kV = child.addConstantDouble("kV " + name, initialFeedForwardSettings.getkV());
         Supplier<Double> kA = child.addConstantDouble("kA " + name, initialFeedForwardSettings.getkA());
         Supplier<Double> kG = child.addConstantDouble("kG " + name, initialFeedForwardSettings.getkG());
-        return initialFeedForwardSettings;
+        return new FeedForwardSettings(kS, kV, kA, kG);
     }
 
     void update();
