@@ -1,9 +1,9 @@
 package com.spikes2212.command.drivetrains.commands;
 
-import java.util.function.Supplier;
-
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import java.util.function.Supplier;
 
 
 /**
@@ -20,6 +20,7 @@ public class DriveArcade extends CommandBase {
     protected final Supplier<Double> moveValueSupplier;
     protected final Supplier<Double> rotateValueSupplier;
     protected final Supplier<Boolean> isFinished;
+    protected boolean squareInputs;
 
     /**
      * This constructs a new {@link DriveArcade} command that moves the given
@@ -31,25 +32,26 @@ public class DriveArcade extends CommandBase {
      * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
      */
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
-                       Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
+                       Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished, boolean squareInputs) {
         addRequirements(drivetrain);
         this.tankDrivetrain = drivetrain;
         this.moveValueSupplier = moveValueSupplier;
         this.rotateValueSupplier = rotateValueSupplier;
         this.isFinished = isFinished;
+        this.squareInputs=squareInputs;
     }
 
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier) {
-        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false);
+        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false,false);
     }
 
     public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> false);
+        this(drivetrain, () -> moveValue, () -> rotateValue, () -> false,false);
     }
 
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished);
+    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished,boolean squareInputs) {
+        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished,squareInputs);
     }
 
     @Override
