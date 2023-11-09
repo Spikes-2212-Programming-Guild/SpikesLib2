@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import java.util.function.Supplier;
 
-
 /**
  * This command moves a {@link TankDrivetrain} by linear and rotational speeds, using
  * the arcade control method written by WPILIB.
@@ -38,20 +37,20 @@ public class DriveArcade extends CommandBase {
         this.moveValueSupplier = moveValueSupplier;
         this.rotateValueSupplier = rotateValueSupplier;
         this.isFinished = isFinished;
-        this.squareInputs=squareInputs;
+        this.squareInputs = squareInputs;
     }
 
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier) {
-        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false,false);
+        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, false);
     }
 
     public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> false,false);
+        this(drivetrain, () -> moveValue, () -> rotateValue, () -> false, false);
     }
 
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished,boolean squareInputs) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished,squareInputs);
+    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished, boolean squareInputs) {
+        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished, squareInputs);
     }
 
     @Override
