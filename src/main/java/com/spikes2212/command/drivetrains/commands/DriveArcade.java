@@ -44,21 +44,8 @@ public class DriveArcade extends CommandBase {
     }
 
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
-                       Supplier<Double> rotateValueSupplier) {
-        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, false);
-    }
-
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> false, false);
-    }
-
-    public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, isFinished, false);
-    }
-
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished, false);
     }
 
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
@@ -67,18 +54,28 @@ public class DriveArcade extends CommandBase {
     }
 
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
-                       Supplier<Double> rotateValueSupplier, boolean isFinished, boolean squareInputs) {
-        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> isFinished, squareInputs);
+                       Supplier<Double> rotateValueSupplier) {
+        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, false);
     }
 
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished,
-                       boolean squareInputs) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished, squareInputs);
+    public DriveArcade(TankDrivetrain drivetrain, double moveValueSupplier,
+                       double rotateValueSupplier, Supplier<Boolean> isFinished, boolean squareInputs) {
+        this(drivetrain, () -> moveValueSupplier, () -> rotateValueSupplier, isFinished, squareInputs);
     }
 
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, Supplier<Boolean> isFinished,
-                       boolean squareInputs) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, isFinished, squareInputs);
+    public DriveArcade(TankDrivetrain drivetrain, double moveValueSupplier,
+                       double rotateValueSupplier, Supplier<Boolean> isFinished) {
+        this(drivetrain, moveValueSupplier, rotateValueSupplier, isFinished, false);
+    }
+
+    public DriveArcade(TankDrivetrain drivetrain, double moveValueSupplier,
+                       double rotateValueSupplier, boolean squareInputs) {
+        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, squareInputs);
+    }
+
+    public DriveArcade(TankDrivetrain drivetrain, double moveValueSupplier,
+                       double rotateValueSupplier) {
+        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, false);
     }
 
     @Override
