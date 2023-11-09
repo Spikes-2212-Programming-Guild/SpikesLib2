@@ -52,10 +52,6 @@ public class DriveArcade extends CommandBase {
         this(drivetrain, () -> moveValue, () -> rotateValue, () -> false, false);
     }
 
-    public DriveArcade(TankDrivetrain drivetrain, double moveValue, double rotateValue, boolean isFinished, boolean squareInputs) {
-        this(drivetrain, () -> moveValue, () -> rotateValue, () -> isFinished, squareInputs);
-    }
-
     @Override
     public void execute() {
         tankDrivetrain.arcadeDrive(moveValueSupplier.get(), rotateValueSupplier.get());
