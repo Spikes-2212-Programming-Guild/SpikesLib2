@@ -64,7 +64,7 @@ public class Limelight {
      * @param key key for entry
      * @return the value of the given entry
      */
-    protected NetworkTableEntry getEntry(String key) {
+    public NetworkTableEntry getEntry(String key) {
         if (table == null) {
             table = NetworkTableInstance.getDefault();
         }
