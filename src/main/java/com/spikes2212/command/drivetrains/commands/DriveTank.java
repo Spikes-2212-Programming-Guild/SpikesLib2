@@ -29,7 +29,7 @@ public class DriveTank extends CommandBase {
      *                           ranging from -1 to 1.
      * @param rightSpeedSupplier the double {@link Supplier} supplying the speed to move the right side with,
      *                           ranging from -1 to 1.
-     * @param squareInputs        whether to square the speeds or not.
+     * @param squareInputs       whether to square the speeds or not.
      */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
                      Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished, boolean squareInputs) {
