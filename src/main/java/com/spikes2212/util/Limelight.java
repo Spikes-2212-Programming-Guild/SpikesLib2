@@ -74,8 +74,8 @@ public class Limelight {
     /**
      * Retrieves a value associated with a given key.
      *
-     * @param key key for the entry's associated key
-     * @return the value of the given entry
+     * @param key the key whose value should be retrieved
+     * @return the value of the given key
      */
 
     public NetworkTableValue getValue(String key) {
