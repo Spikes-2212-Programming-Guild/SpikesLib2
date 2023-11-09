@@ -65,7 +65,7 @@ public class RootNamespace implements Namespace {
     }
 
     @Override
-    public Namespace addChild(String name) {
+    public ChildNamespace addChild(String name) {
         return new ChildNamespace(name, this);
     }
 
