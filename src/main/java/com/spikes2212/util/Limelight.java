@@ -8,7 +8,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableValue;
 
 /**
- * This class is a Limelight wrapper.
+ * A Wrapper for a Limelight camera.
  *
  * @author Yotam Yizhar
  */
@@ -59,7 +59,7 @@ public class Limelight {
     }
 
     /**
-     * Retrieves an entry from the Limelight NetworkTable.
+     * Retrieves an entry from the Limelight's NetworkTable.
      *
      * @param key key for entry
      * @return the value of the given entry
@@ -74,10 +74,9 @@ public class Limelight {
     /**
      * Retrieves a value associated with a given key.
      *
-     * @param key the key value should be retrieved
+     * @param key the key whose value should be retrieved
      * @return the value of the given key
      */
-
     public NetworkTableValue getValue(String key) {
         return getEntry(key).getValue();
     }
