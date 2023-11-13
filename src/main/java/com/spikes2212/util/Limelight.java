@@ -64,7 +64,7 @@ public class Limelight {
      * @param key key for entry
      * @return the value of the given entry
      */
-    protected NetworkTableEntry getEntry(String key) {
+    public NetworkTableEntry getEntry(String key) {
         if (table == null) {
             table = NetworkTableInstance.getDefault();
         }
@@ -77,7 +77,6 @@ public class Limelight {
      * @param key the key whose value should be retrieved
      * @return the value of the given key
      */
-
     public NetworkTableValue getValue(String key) {
         return getEntry(key).getValue();
     }
@@ -122,10 +121,10 @@ public class Limelight {
      * (0,0,0) is in the middle of the field.
      */
     public Pose3d getRobotPose() {
-        double[] result = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[]{});
-        if (result.length != 0) {
+        double[] result = getEntry("botpose").getDoubleArray(new double[]{});
+        if (getID() >= 0) {
             Translation3d translation3d = new Translation3d(result[0], result[1], result[2]);
-            Rotation3d rotation3d = new Rotation3d(result[3], result[4], result[5]);
+            Rotation3d rotation3d = new Rotation3d(Math.toRadians(result[3]), Math.toRadians(result[4]), Math.toRadians(result[5]));
             return new Pose3d(translation3d, rotation3d);
         }
         return null;
