@@ -59,7 +59,7 @@ public class Limelight {
     }
 
     /**
-     * Retrieves an entry from the Limelight NetworkTable.
+     * Retrieves an entry from the Limelight's NetworkTable.
      *
      * @param key key for entry
      * @return the value of the given entry
