@@ -22,8 +22,7 @@ public class DriveArcadeWithVoltages extends CommandBase {
 
     /**
      * This constructs a new {@link DriveArcadeWithVoltages} command that moves the given
-     * {@link TankDrivetrain} according to Voltage values from Double {@link Supplier}s
-     * for linear and rotational movements.
+     * {@link TankDrivetrain} according to Voltage values for Linear and rotational movements.
      *
      * @param drivetrain          the tank drivetrain this command operates on.
      * @param moveValueSupplier   the double {@link Supplier} supplying the linear Voltage. Positive values go forwards.
