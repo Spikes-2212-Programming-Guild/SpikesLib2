@@ -32,6 +32,8 @@ public class DriveArcade extends CommandBase {
      * @param drivetrain          the tank drivetrain this command operates on.
      * @param moveValueSupplier   the double {@link Supplier} supplying the linear velocity. Positive values go forwards.
      * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
+     * @param isFinished finishes the command.
+     * @param squareInputs whether to square the velocity suppliers.
      */
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished, boolean squareInputs) {
@@ -43,36 +45,77 @@ public class DriveArcade extends CommandBase {
         this.squareInputs = squareInputs;
     }
 
+    /**
+     * @param drivetrain          the tank drivetrain this command operates on.
+     * @param moveValueSupplier   the double {@link Supplier} supplying the linear velocity. Positive values go forwards.
+     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
+     * @param isFinished finishes the command.
+     */
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier, Supplier<Boolean> isFinished) {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, isFinished, false);
     }
 
+    /**
+     * @param drivetrain          the tank drivetrain this command operates on.
+     * @param moveValueSupplier   the double {@link Supplier} supplying the linear velocity. Positive values go forwards.
+     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
+     * @param squareInputs whether to square the velocity suppliers.
+     */
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier, boolean squareInputs) {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, squareInputs);
     }
 
+    /**
+     * @param drivetrain          the tank drivetrain this command operates on.
+     * @param moveValueSupplier   the double {@link Supplier} supplying the linear velocity. Positive values go forwards.
+     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
+     */
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
                        Supplier<Double> rotateValueSupplier) {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, false);
     }
 
+    /**
+     * @param drivetrain          the tank drivetrain this command operates on.
+     * @param moveValueSupplier   the double {@link Supplier} supplying the linear velocity. Positive values go forwards.
+     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
+     * @param isFinished finishes the command.
+     * @param squareInputs whether to square the velocity suppliers.
+     */
     public DriveArcade(TankDrivetrain drivetrain, double moveValueSupplier,
                        double rotateValueSupplier, Supplier<Boolean> isFinished, boolean squareInputs) {
         this(drivetrain, () -> moveValueSupplier, () -> rotateValueSupplier, isFinished, squareInputs);
     }
 
+    /**
+     * @param drivetrain          the tank drivetrain this command operates on.
+     * @param moveValueSupplier   the double {@link Supplier} supplying the linear velocity. Positive values go forwards.
+     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
+     * @param isFinished finishes the command.
+     */
     public DriveArcade(TankDrivetrain drivetrain, double moveValueSupplier,
                        double rotateValueSupplier, Supplier<Boolean> isFinished) {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, isFinished, false);
     }
 
+    /**
+     * @param drivetrain          the tank drivetrain this command operates on.
+     * @param moveValueSupplier   the double {@link Supplier} supplying the linear velocity. Positive values go forwards.
+     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
+     * @param squareInputs whether to square the velocity suppliers.
+     */
     public DriveArcade(TankDrivetrain drivetrain, double moveValueSupplier,
                        double rotateValueSupplier, boolean squareInputs) {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, squareInputs);
     }
 
+    /**
+     * @param drivetrain          the tank drivetrain this command operates on.
+     * @param moveValueSupplier   the double {@link Supplier} supplying the linear velocity. Positive values go forwards.
+     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational velocity. Positive values go left.
+     */
     public DriveArcade(TankDrivetrain drivetrain, double moveValueSupplier,
                        double rotateValueSupplier) {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false, false);
