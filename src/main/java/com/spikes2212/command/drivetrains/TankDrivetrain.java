@@ -123,17 +123,6 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves the drivetrain while rotating it.
-     *
-     * @param speed     the forward movement speed.
-     * @param curvature the rotational movement speed. Positive values go clockwise.
-     */
-    public void curvatureDrive(double speed, double curvature) {
-        drive.curvatureDrive(speed, curvature, true);
-    }
-
-
-    /**
      * Moves this drivetrain while rotating it by the given voltages for each side
      *
      * @param leftVoltage the voltage to set to the left side. Positive values move this value
