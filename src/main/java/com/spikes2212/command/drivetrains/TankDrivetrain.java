@@ -76,8 +76,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the drivetrain with the given forward and angular speed.
      *
-     * @param moveValue   the forward movement speed.
-     * @param rotateValue the angular movement speed. Positive values go clockwise.
+     * @param moveValue   the forward movement speed (-1 to 1)
+     * @param rotateValue the angular movement speed (-1 to 1). Positive values go clockwise
      */
     public void arcadeDrive(double moveValue, double rotateValue) {
         drive.arcadeDrive(moveValue, rotateValue);
@@ -86,8 +86,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param moveValue    the forward movement speed.
-     * @param rotateValue  the angular movement speed. Positive values go clockwise.
+     * @param moveValue    the forward movement speed (-1 to 1)
+     * @param rotateValue  the angular movement speed (-1 to 1). Positive values go clockwise
      * @param squareInputs whether to square the given inputs before putting them in the speed controllers
      */
     public void arcadeDrive(double moveValue, double rotateValue, boolean squareInputs) {
@@ -95,11 +95,11 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves the drivetrain by the given voltages for each side
+     * Moves the drivetrain by the given voltages for each side.
      *
-     * @param leftVoltage the voltage to set to the left side. Positive values move this side
+     * @param leftVoltage the voltage to set to the left side (range from -1 to 1). Positive values move forward
      *
-     * @param rightVoltage the voltage to set to the left side. Positive values move this side
+     * @param rightVoltage the voltage to set to the right side (range from -1 to 1). Positive values move forward
      */
     public void arcadeDriveVoltages(double leftVoltage, double rightVoltage) {
         arcadeDrive(leftVoltage / RobotController.getBatteryVoltage(),
@@ -109,8 +109,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the drivetrain while rotating it.
      *
-     * @param speed     the forward movement speed.
-     * @param curvature the rotational movement speed. Positive values go clockwise.
+     * @param speed     the forward movement speed (-1 to 1)
+     * @param curvature the rotational movement speed (-1 to 1). Positive values go clockwise
      */
     public void curvatureDrive(double speed, double curvature) {
         drive.curvatureDrive(speed, curvature, true);
@@ -119,7 +119,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the left side of this drivetrain by a given speed.
      *
-     * @param speedLeft the speed to set to the left side. Positive values move this side forward.
+     * @param speedLeft the speed to set to the left side (range from -1 to 1). Positive values move this side forward
      */
     public void setLeft(double speedLeft) {
         leftController.set(speedLeft);
@@ -128,7 +128,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the right side of this drivetrain with a given speed.
      *
-     * @param speedRight the speed to set to the right side. Positive values move this side forward.
+     * @param speedRight the speed to set to the right side (range from -1 to 1). Positive values move this side forward
      */
     public void setRight(double speedRight) {
         rightController.set(-speedRight);

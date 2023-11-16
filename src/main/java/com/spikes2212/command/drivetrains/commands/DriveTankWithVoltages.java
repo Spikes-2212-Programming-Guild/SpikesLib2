@@ -22,12 +22,13 @@ public class DriveTankWithVoltages extends CommandBase {
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for left and right sides.<br>
      * Positive values move forwards.
      *
-     * @param drivetrain   the drivetrain this command requires and moves.
-     * @param leftVoltage  the double {@link Supplier} supplying the voltage to move on the right side with.
-     * @param rightVoltage the double {@link Supplier} supplying the voltage to move on the left side with.
-     * @param isFinished
+     * @param drivetrain   the drivetrain this command requires and moves
+     * @param leftVoltage  the double {@link Supplier} supplying the voltage for the left side
+     * @param rightVoltage the double {@link Supplier} supplying the voltage for the right side
+     * @param isFinished   when to finish the command
      */
-    public DriveTankWithVoltages(TankDrivetrain drivetrain, Supplier<Double> leftVoltage, Supplier<Double> rightVoltage, Supplier<Boolean> isFinished) {
+    public DriveTankWithVoltages(TankDrivetrain drivetrain, Supplier<Double> leftVoltage, Supplier<Double> rightVoltage,
+                                 Supplier<Boolean> isFinished) {
         this.drivetrain = drivetrain;
         this.leftVoltage = leftVoltage;
         this.rightVoltage = rightVoltage;
@@ -47,5 +48,4 @@ public class DriveTankWithVoltages extends CommandBase {
     public void end(boolean interrupted) {
         drivetrain.stop();
     }
-
 }
