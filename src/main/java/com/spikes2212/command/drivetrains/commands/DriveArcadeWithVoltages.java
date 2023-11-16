@@ -38,6 +38,19 @@ public class DriveArcadeWithVoltages extends CommandBase {
         this.isFinished = isFinished;
     }
 
+    public DriveArcadeWithVoltages(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
+                       Supplier<Double> rotateValueSupplier) {
+        this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false);
+    }
+
+    public DriveArcadeWithVoltages(TankDrivetrain drivetrain, double moveValue, double rotateValue) {
+        this(drivetrain, () -> moveValue, () -> rotateValue, () -> false);
+    }
+
+    public DriveArcadeWithVoltages(TankDrivetrain drivetrain, double moveValue, double rotateValue, Supplier<Boolean> isFinished) {
+        this(drivetrain, () -> moveValue, () -> rotateValue, isFinished);
+    }
+
     @Override
     public void execute() {
         tankDrivetrain.arcadeDriveVoltages(moveValueSupplier.get(), rotateValueSupplier.get());
