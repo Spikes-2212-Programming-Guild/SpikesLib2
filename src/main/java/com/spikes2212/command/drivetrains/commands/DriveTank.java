@@ -118,8 +118,7 @@ public class DriveTank extends CommandBase {
      * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forwards
      * @param isFinished   when to finish the command
      */
-    public DriveTank(TankDrivetrain drivetrain, double leftSpeed,
-                     double rightSpeed, Supplier<Boolean> isFinished) {
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, Supplier<Boolean> isFinished) {
         this(drivetrain, leftSpeed, rightSpeed, isFinished, false);
     }
 
@@ -133,8 +132,7 @@ public class DriveTank extends CommandBase {
      * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forwards
      * @param squareInputs whether to square the speed values
      */
-    public DriveTank(TankDrivetrain drivetrain, double leftSpeed,
-                     double rightSpeed, boolean squareInputs) {
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, boolean squareInputs) {
         this(drivetrain, leftSpeed, rightSpeed, () -> false, squareInputs);
     }
 
@@ -147,8 +145,7 @@ public class DriveTank extends CommandBase {
      * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forwards
      * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forwards
      */
-    public DriveTank(TankDrivetrain drivetrain, double leftSpeed,
-                     double rightSpeed) {
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed) {
         this(drivetrain, leftSpeed, rightSpeed, () -> false, false);
     }
 
@@ -159,7 +156,7 @@ public class DriveTank extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return this.isFinished.get();
+        return isFinished.get();
     }
 
     @Override
