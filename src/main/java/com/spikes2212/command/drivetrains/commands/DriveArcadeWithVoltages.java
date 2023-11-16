@@ -39,7 +39,7 @@ public class DriveArcadeWithVoltages extends CommandBase {
     }
 
     public DriveArcadeWithVoltages(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,
-                       Supplier<Double> rotateValueSupplier) {
+                                   Supplier<Double> rotateValueSupplier) {
         this(drivetrain, moveValueSupplier, rotateValueSupplier, () -> false);
     }
 
