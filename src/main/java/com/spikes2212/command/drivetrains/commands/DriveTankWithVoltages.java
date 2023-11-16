@@ -46,7 +46,6 @@ public class DriveTankWithVoltages extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         drivetrain.stop();
-
     }
 
 }
