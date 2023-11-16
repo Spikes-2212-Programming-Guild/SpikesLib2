@@ -68,22 +68,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param leftVoltage the voltage to the left side. Positive values move this side
      * @param rightVoltage the voltage to the right side. Positive values move this side
      */
-
     public void tankDriveVoltages(double leftVoltage, double rightVoltage) {
-        tankDrive(leftVoltage / RobotController.getBatteryVoltage(),
-                rightVoltage / RobotController.getBatteryVoltage());
-    }
-
-    /**
-     * Moves both sides of this drivetrain by the given squareInputs and voltages for each side
-     *
-     * @param leftVoltage the voltage to set to the left side. Positive values move this side
-     *
-     * @param rightVoltage the voltage to set to the right side. Positive values move this side
-     *
-     */
-
-    public void tankDriveVoltage(double leftVoltage, double rightVoltage) {
         tankDrive(leftVoltage / RobotController.getBatteryVoltage(),
                 rightVoltage / RobotController.getBatteryVoltage());
     }
@@ -99,19 +84,6 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves the drivetrain by the given voltages for each side
-     *
-     * @param leftVoltage the voltage to set to the left side. Positive values move this side
-     *
-     * @param rightVoltage the voltage to set to the left side. Positive values move this side
-     */
-
-    public void arcadeDriveVoltages(double leftVoltage, double rightVoltage) {
-        arcadeDrive(leftVoltage / RobotController.getBatteryVoltage(),
-                rightVoltage / RobotController.getBatteryVoltage());
-    }
-
-    /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
      * @param moveValue    the forward movement speed.
@@ -123,14 +95,26 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves this drivetrain while rotating it by the given voltages for each side
+     * Moves the drivetrain by the given voltages for each side
      *
-     * @param leftVoltage the voltage to set to the left side. Positive values move this value
+     * @param leftVoltage the voltage to set to the left side. Positive values move this side
      *
-     * @param rightVoltage the voltage to set to the right side. Positive values move this value
+     * @param rightVoltage the voltage to set to the left side. Positive values move this side
      */
+    public void arcadeDriveVoltages(double leftVoltage, double rightVoltage) {
+        arcadeDrive(leftVoltage / RobotController.getBatteryVoltage(),
+                rightVoltage / RobotController.getBatteryVoltage());
+    }
 
-
+    /**
+     * Moves the drivetrain while rotating it.
+     *
+     * @param speed     the forward movement speed.
+     * @param curvature the rotational movement speed. Positive values go clockwise.
+     */
+    public void curvatureDrive(double speed, double curvature) {
+        drive.curvatureDrive(speed, curvature, true);
+    }
 
     /**
      * Moves the left side of this drivetrain by a given speed.
