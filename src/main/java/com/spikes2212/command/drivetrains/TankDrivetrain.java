@@ -123,21 +123,6 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves both sides of this drivetrain by the given squareInputs and the given voltages for each side
-     *
-     * @param leftVoltage the voltage to set to the left side. Positive values move this side
-     *
-     * @param rightVoltage the voltage to set to the right side. Positive values move this value
-     *
-     * @param squareInputs whether to square the given inputs before putting them in the speed controllers
-     */
-
-    public void arcadeDriveVoltages(double leftVoltage, double rightVoltage, boolean squareInputs) {
-        arcadeDrive(leftVoltage / RobotController.getBatteryVoltage(),
-                rightVoltage / RobotController.getBatteryVoltage(), squareInputs);
-    }
-
-    /**
      * Moves the drivetrain while rotating it.
      *
      * @param speed     the forward movement speed.

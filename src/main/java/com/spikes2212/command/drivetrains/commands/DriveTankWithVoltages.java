@@ -28,9 +28,9 @@ public class DriveTankWithVoltages extends CommandBase {
      * @param isFinished
      */
     public DriveTankWithVoltages(TankDrivetrain drivetrain, Supplier<Double> leftVoltage, Supplier<Double> rightVoltage, Supplier<Boolean> isFinished) {
-        this.drivetrain =drivetrain;
-        this.leftVoltage=leftVoltage;
-        this.rightVoltage=rightVoltage;
+        this.drivetrain = drivetrain;
+        this.leftVoltage = leftVoltage;
+        this.rightVoltage = rightVoltage;
         this.isFinished = isFinished;
     }
 
