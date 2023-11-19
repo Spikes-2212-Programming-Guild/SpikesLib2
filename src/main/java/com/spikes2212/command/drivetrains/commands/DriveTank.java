@@ -139,7 +139,7 @@ public class DriveTank extends CommandBase {
     /**
      * This constructs a new {@link DriveTank} command that moves the given
      * {@link TankDrivetrain} according to speed values for left and right sides. <br>
-     * Positive values move the drivetrain forward. Does not Square the inputs.
+     * Positive values move the drivetrain forward. Does not square the inputs.
      *
      * @param drivetrain   the tank drivetrain this command operates on
      * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forwards
