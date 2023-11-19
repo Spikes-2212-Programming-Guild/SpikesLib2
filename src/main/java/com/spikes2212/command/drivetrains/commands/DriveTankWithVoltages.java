@@ -12,6 +12,7 @@ import java.util.function.Supplier;
  * @see TankDrivetrain
  */
 public class DriveTankWithVoltages extends CommandBase {
+
     protected final Supplier<Double> leftVoltageSupplier;
     protected final Supplier<Double> rightVoltageSupplier;
     protected final TankDrivetrain drivetrain;
