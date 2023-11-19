@@ -9,6 +9,8 @@ import java.util.function.Supplier;
  */
 public class PIDSettings {
 
+    public static final PIDSettings EMPTY_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
+
     /**
      * the proportional component of the PID settings
      */
