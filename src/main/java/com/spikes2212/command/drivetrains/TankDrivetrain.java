@@ -65,7 +65,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given voltages for each side.
      *
-     * @param leftVoltage the voltage to the left side. Positive values move this side
+     * @param leftVoltage  the voltage to the left side. Positive values move this side
      * @param rightVoltage the voltage to the right side. Positive values move this side
      */
     public void tankDriveVoltages(double leftVoltage, double rightVoltage) {
@@ -74,7 +74,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves the drivetrain with the given forward and angular speed.
+     * Moves the drivetrain by the given forward and angular speed.
      *
      * @param moveValue   the forward movement speed (-1 to 1)
      * @param rotateValue the angular movement speed (-1 to 1). Positive values go clockwise
@@ -84,7 +84,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves both sides of this drivetrain by the given speeds for each side.
+     * Moves the drivetrain by the given forward and angular speed.
      *
      * @param moveValue    the forward movement speed (-1 to 1)
      * @param rotateValue  the angular movement speed (-1 to 1). Positive values go clockwise
@@ -95,15 +95,14 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves the drivetrain by the given voltages for each side.
+     * Moves the drivetrain by the given forward and angular voltage.
      *
-     * @param leftVoltage the voltage to set to the left side (range from -1 to 1). Positive values move forward
-     *
-     * @param rightVoltage the voltage to set to the right side (range from -1 to 1). Positive values move forward
+     * @param moveVoltage  the forward movement voltage (-12 to 12)
+     * @param rotateVoltage the angular movement voltage (-12 to 120). Positive values go clockwise
      */
-    public void arcadeDriveVoltages(double leftVoltage, double rightVoltage) {
-        arcadeDrive(leftVoltage / RobotController.getBatteryVoltage(),
-                rightVoltage / RobotController.getBatteryVoltage());
+    public void arcadeDriveVoltages(double moveVoltage, double rotateVoltage) {
+        arcadeDrive(moveVoltage / RobotController.getBatteryVoltage(),
+                rotateVoltage / RobotController.getBatteryVoltage());
     }
 
     /**

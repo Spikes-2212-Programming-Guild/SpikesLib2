@@ -22,7 +22,7 @@ public class DriveArcade extends CommandBase {
     protected final Supplier<Boolean> isFinished;
 
     /**
-     * This constructs a new {@link DriveArcadeWithVoltages} command that moves the given
+     * This constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
