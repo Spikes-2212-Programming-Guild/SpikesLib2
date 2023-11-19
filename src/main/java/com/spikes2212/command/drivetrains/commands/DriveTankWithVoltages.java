@@ -19,7 +19,7 @@ public class DriveTankWithVoltages extends CommandBase {
     protected final Supplier<Boolean> isFinished;
 
     /**
-     * This constructs a new {@link DriveTank} command that moves the given {@link TankDrivetrain} according to voltage
+     * This constructs a new {@link DriveTankWithVoltages} command that moves the given {@link TankDrivetrain} according to voltage
      * values from Double {@link Supplier}s for the left and right sides. <br>
      * Positive values move the drivetrain forward.
      *
@@ -37,7 +37,7 @@ public class DriveTankWithVoltages extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveTank} command that moves the given {@link TankDrivetrain} according to voltage
+     * This constructs a new {@link DriveTankWithVoltages} command that moves the given {@link TankDrivetrain} according to voltage
      * values from Double {@link Supplier}s for left and right sides. <br>
      * Positive values move the drivetrain forward.
      *
@@ -51,7 +51,7 @@ public class DriveTankWithVoltages extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveTank} command that moves the given {@link TankDrivetrain} according to voltage
+     * This constructs a new {@link DriveTankWithVoltages} command that moves the given {@link TankDrivetrain} according to voltage
      * values for left and right sides. <br>
      * Positive values move the drivetrain forward.
      *
@@ -66,7 +66,7 @@ public class DriveTankWithVoltages extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveTank} command that moves the given {@link TankDrivetrain} according to voltage
+     * This constructs a new {@link DriveTankWithVoltages} command that moves the given {@link TankDrivetrain} according to voltage
      * values for left and right sides. <br>
      * Positive values move the drivetrain forward.
      *
