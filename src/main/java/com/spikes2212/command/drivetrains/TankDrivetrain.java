@@ -98,7 +98,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * Moves the drivetrain by the given forward and angular voltage.
      *
      * @param moveVoltage  the forward movement voltage (-12 to 12)
-     * @param rotateVoltage the angular movement voltage (-12 to 120). Positive values go clockwise
+     * @param rotateVoltage the angular movement voltage (-12 to 12). Positive values go clockwise
      */
     public void arcadeDriveVoltages(double moveVoltage, double rotateVoltage) {
         arcadeDrive(moveVoltage / RobotController.getBatteryVoltage(),
