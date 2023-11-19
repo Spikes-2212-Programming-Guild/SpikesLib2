@@ -12,32 +12,74 @@ import java.util.function.Supplier;
  * @see TankDrivetrain
  */
 public class DriveTankWithVoltages extends CommandBase {
-    protected final Supplier<Double> leftVoltage;
-    protected final Supplier<Double> rightVoltage;
+    protected final Supplier<Double> leftVoltageSupplier;
+    protected final Supplier<Double> rightVoltageSupplier;
     protected final TankDrivetrain drivetrain;
     protected final Supplier<Boolean> isFinished;
 
     /**
-     * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for left and right sides.<br>
-     * Positive values move forwards.
+     * This constructs a new {@link DriveTank} command that moves the given {@link TankDrivetrain} according to voltage
+     * values from Double {@link Supplier}s for the left and right sides. <br>
+     * Positive values move the drivetrain forward.
      *
      * @param drivetrain   the drivetrain this command requires and moves
-     * @param leftVoltage  the double {@link Supplier} supplying the voltage for the left side
-     * @param rightVoltage the double {@link Supplier} supplying the voltage for the right side
+     * @param leftVoltageSupplier  the double {@link Supplier} supplying the voltage for the left side (-12 to 12)
+     * @param rightVoltageSupplier the double {@link Supplier} supplying the voltage for the right side (-12 to 12)
      * @param isFinished   when to finish the command
      */
-    public DriveTankWithVoltages(TankDrivetrain drivetrain, Supplier<Double> leftVoltage, Supplier<Double> rightVoltage,
-                                 Supplier<Boolean> isFinished) {
+    public DriveTankWithVoltages(TankDrivetrain drivetrain, Supplier<Double> leftVoltageSupplier,
+                                 Supplier<Double> rightVoltageSupplier, Supplier<Boolean> isFinished) {
         this.drivetrain = drivetrain;
-        this.leftVoltage = leftVoltage;
-        this.rightVoltage = rightVoltage;
+        this.leftVoltageSupplier = leftVoltageSupplier;
+        this.rightVoltageSupplier = rightVoltageSupplier;
         this.isFinished = isFinished;
+    }
+
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given {@link TankDrivetrain} according to voltage
+     * values from Double {@link Supplier}s for left and right sides. <br>
+     * Positive values move the drivetrain forward.
+     *
+     * @param drivetrain   the drivetrain this command requires and moves
+     * @param leftVoltageSupplier  the double {@link Supplier} supplying the voltage for the left side (-12 to 12)
+     * @param rightVoltageSupplier the double {@link Supplier} supplying the voltage for the right side (-12 to 12)
+     */
+    public DriveTankWithVoltages(TankDrivetrain drivetrain, Supplier<Double> leftVoltageSupplier,
+                                 Supplier<Double> rightVoltageSupplier) {
+        this(drivetrain, leftVoltageSupplier, rightVoltageSupplier, () -> false);
+    }
+
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given {@link TankDrivetrain} according to voltage
+     * values for left and right sides. <br>
+     * Positive values move the drivetrain forward.
+     *
+     * @param drivetrain   the drivetrain this command requires and moves
+     * @param leftVoltage  the double {@link Supplier} supplying the voltage for the left side (-12 to 12)
+     * @param rightVoltage the double {@link Supplier} supplying the voltage for the right side (-12 to 12)
+     * @param isFinished   when to finish the command
+     */
+    public DriveTankWithVoltages(TankDrivetrain drivetrain, double leftVoltage, double rightVoltage,
+                                 Supplier<Boolean> isFinished) {
+        this(drivetrain, () -> leftVoltage, () -> rightVoltage, isFinished);
+    }
+
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given {@link TankDrivetrain} according to voltage
+     * values for left and right sides. <br>
+     * Positive values move the drivetrain forward.
+     *
+     * @param drivetrain   the drivetrain this command requires and moves
+     * @param leftVoltage  the double {@link Supplier} supplying the voltage for the left side (-12 to 12)
+     * @param rightVoltage the double {@link Supplier} supplying the voltage for the right side (-12 to 12)
+     */
+    public DriveTankWithVoltages(TankDrivetrain drivetrain, double leftVoltage, double rightVoltage) {
+        this(drivetrain, () -> leftVoltage, () -> rightVoltage, () -> false);
     }
 
     @Override
     public void execute() {
-        drivetrain.tankDriveVoltages(leftVoltage.get(), rightVoltage.get());
+        drivetrain.tankDriveVoltages(leftVoltageSupplier.get(), rightVoltageSupplier.get());
     }
 
     public boolean isFinished() {
