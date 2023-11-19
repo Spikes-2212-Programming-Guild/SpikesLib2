@@ -82,6 +82,7 @@ public class DriveTankWithVoltages extends CommandBase {
         drivetrain.tankDriveVoltages(leftVoltageSupplier.get(), rightVoltageSupplier.get());
     }
 
+    @Override
     public boolean isFinished() {
         return isFinished.get();
     }
