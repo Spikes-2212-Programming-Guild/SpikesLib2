@@ -6,8 +6,7 @@ import com.spikes2212.command.drivetrains.TankDrivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
- * This command moves a {@link TankDrivetrain} by linear and rotational speeds, using
- * the arcade control method written by WPILIB.
+ * A command that moves a {@link TankDrivetrain} using linear and rotational voltages.
  *
  * @author Yuval Levy
  * @see TankDrivetrain
