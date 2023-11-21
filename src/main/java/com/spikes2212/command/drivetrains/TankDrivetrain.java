@@ -40,10 +40,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft  the speed to set to the left side. Positive values move this side
-     *                   forward.
-     * @param speedRight the speed to set to the right side. Positive values move this side
-     *                   forward.
+     * @param speedLeft  the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param speedRight the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
     public void tankDrive(double speedLeft, double speedRight) {
         drive.tankDrive(speedLeft, speedRight);
@@ -52,10 +50,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft    the speed to set to the left side. Positive values move this side
-     *                     forward.
-     * @param speedRight   the speed to set to the right side. Positive values move this side
-     *                     forward.
+     * @param speedLeft    the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param speedRight   the speed to set to the right side (-1 to 1). Positive values move this side forward
      * @param squareInputs whether to square the given inputs before putting them in the speed controllers
      */
     public void tankDrive(double speedLeft, double speedRight, boolean squareInputs) {
@@ -65,8 +61,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given voltages for each side.
      *
-     * @param leftVoltage  the voltage to the left side. Positive values move this side
-     * @param rightVoltage the voltage to the right side. Positive values move this side
+     * @param leftVoltage  the voltage to the left side (-1 to 1). Positive values move this side forward
+     * @param rightVoltage the voltage to the right side (-1 to 1). Positive values move this side forward
      */
     public void tankDriveVoltages(double leftVoltage, double rightVoltage) {
         tankDrive(leftVoltage / RobotController.getBatteryVoltage(),
@@ -118,29 +114,42 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the left side of this drivetrain by a given speed.
      *
-     * @param speedLeft the speed to set to the left side (range from -1 to 1). Positive values move this side forward
+     * @param speedLeft the speed to set to the left side (-1 to 1). Positive values move this side forward
      */
     public void setLeft(double speedLeft) {
         leftController.set(speedLeft);
     }
 
     /**
-     * Moves the right side of this drivetrain with a given speed.
+     * Moves the right side of this drivetrain by a given speed.
      *
-     * @param speedRight the speed to set to the right side (range from -1 to 1). Positive values move this side forward
+     * @param speedRight the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
     public void setRight(double speedRight) {
         rightController.set(-speedRight);
     }
 
+    /**
+     * Moves the left side of this drivetrain by a given voltage.
+     *
+     * @param leftVoltage the speed to set to the left side (-12 to 12). Positive values move this side forward
+     */
     public void setLeftVoltage(double leftVoltage) {
         leftController.set(leftVoltage / RobotController.getBatteryVoltage());
     }
 
+    /**
+     * Moves the right side of this drivetrain by a given voltage.
+     *
+     * @param rightVoltage the speed to set to the right side (-12 to 12). Positive values move this side forward
+     */
     public void setRightVoltage(double rightVoltage) {
         rightController.set(rightVoltage / RobotController.getBatteryVoltage());
     }
 
+    /**
+     * Stops the drivetrain.
+     */
     public void stop() {
         leftController.stopMotor();
         rightController.stopMotor();
