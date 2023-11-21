@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 /**
- * This command moves a {@link TankDrivetrain} by linear and rotational speeds, using
- * the arcade control method written by WPILIB.
+ * A command that moves a {@link TankDrivetrain} using linear and rotational speeds.
  *
  * @author Yuval Levy
  * @see TankDrivetrain
@@ -26,7 +25,7 @@ public class DriveArcade extends CommandBase {
     protected final boolean squareInputs;
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
@@ -49,7 +48,7 @@ public class DriveArcade extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s
      * for linear and rotational movements. Does not square the inputs.
      *
@@ -66,7 +65,7 @@ public class DriveArcade extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
@@ -83,7 +82,7 @@ public class DriveArcade extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s
      * for linear and rotational movements. Does not square the inputs.
      *
@@ -99,7 +98,7 @@ public class DriveArcade extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values for linear and rotational movements.
      *
      * @param drivetrain   the tank drivetrain this command operates on
@@ -114,7 +113,7 @@ public class DriveArcade extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values for linear and rotational movements. Does not square the inputs.
      *
      * @param drivetrain   the tank drivetrain this command operates on
@@ -128,7 +127,7 @@ public class DriveArcade extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values for linear and rotational movements.
      *
      * @param drivetrain   the tank drivetrain this command operates on
@@ -142,7 +141,7 @@ public class DriveArcade extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values for linear and rotational movements. Does not square the inputs.
      *
      * @param drivetrain   the tank drivetrain this command operates on
@@ -156,7 +155,7 @@ public class DriveArcade extends CommandBase {
 
     @Override
     public void execute() {
-        tankDrivetrain.arcadeDrive(moveValueSupplier.get(), rotateValueSupplier.get());
+        tankDrivetrain.arcadeDrive(moveValueSupplier.get(), rotateValueSupplier.get(), squareInputs);
     }
 
     @Override

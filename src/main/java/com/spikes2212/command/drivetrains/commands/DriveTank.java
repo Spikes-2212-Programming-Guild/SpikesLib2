@@ -26,9 +26,9 @@ public class DriveTank extends CommandBase {
      *
      * @param drivetrain         the tank drivetrain this command operates on
      * @param leftSpeedSupplier  the double {@link Supplier} supplying the left side's speed (-1 to 1).
-     *                           Positive values go forwards
+     *                           Positive values go forward
      * @param rightSpeedSupplier the double {@link Supplier} supplying the right side's speed (-1 to 1).
-     *                           Positive values go forwards
+     *                           Positive values go forward
      * @param isFinished         when to finish the command
      * @param squareInputs       whether to square the speed suppliers' values
      */
@@ -49,9 +49,9 @@ public class DriveTank extends CommandBase {
      *
      * @param drivetrain         the tank drivetrain this command operates on
      * @param leftSpeedSupplier  the double {@link Supplier} supplying the left side's speed (-1 to 1).
-     *                           Positive values go forwards
+     *                           Positive values go forward
      * @param rightSpeedSupplier the double {@link Supplier} supplying the right side's speed (-1 to 1).
-     *                           Positive values go forwards
+     *                           Positive values go forward
      * @param isFinished         when to finish the command
      */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
@@ -66,9 +66,9 @@ public class DriveTank extends CommandBase {
      *
      * @param drivetrain         the tank drivetrain this command operates on
      * @param leftSpeedSupplier  the double {@link Supplier} supplying the left side's speed (-1 to 1).
-     *                           Positive values go forwards
+     *                           Positive values go forward
      * @param rightSpeedSupplier the double {@link Supplier} supplying the right side's speed (-1 to 1).
-     *                           Positive values go forwards
+     *                           Positive values go forward
      * @param squareInputs       whether to square the speed suppliers' values
      */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
@@ -83,9 +83,9 @@ public class DriveTank extends CommandBase {
      *
      * @param drivetrain         the tank drivetrain this command operates on
      * @param leftSpeedSupplier  the double {@link Supplier} supplying the left side's speed (-1 to 1).
-     *                           Positive values go forwards
+     *                           Positive values go forward
      * @param rightSpeedSupplier the double {@link Supplier} supplying the right side's speed (-1 to 1).
-     *                           Positive values go forwards
+     *                           Positive values go forward
      */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
                      Supplier<Double> rightSpeedSupplier) {
@@ -98,8 +98,8 @@ public class DriveTank extends CommandBase {
      * Positive values move the drivetrain forward.
      *
      * @param drivetrain   the tank drivetrain this command operates on
-     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forwards
-     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forwards
+     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
      * @param isFinished   when to finish the command
      * @param squareInputs whether to square the speed values
      */
@@ -114,8 +114,8 @@ public class DriveTank extends CommandBase {
      * Positive values move the drivetrain forward. Does not square the inputs.
      *
      * @param drivetrain   the tank drivetrain this command operates on
-     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forwards
-     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forwards
+     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
      * @param isFinished   when to finish the command
      */
     public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, Supplier<Boolean> isFinished) {
@@ -128,8 +128,8 @@ public class DriveTank extends CommandBase {
      * Positive values move the drivetrain forward.
      *
      * @param drivetrain   the tank drivetrain this command operates on
-     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forwards
-     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forwards
+     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
      * @param squareInputs whether to square the speed values
      */
     public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, boolean squareInputs) {
@@ -142,8 +142,8 @@ public class DriveTank extends CommandBase {
      * Positive values move the drivetrain forward. Does not square the inputs.
      *
      * @param drivetrain   the tank drivetrain this command operates on
-     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forwards
-     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forwards
+     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
      */
     public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed) {
         this(drivetrain, leftSpeed, rightSpeed, () -> false, false);
