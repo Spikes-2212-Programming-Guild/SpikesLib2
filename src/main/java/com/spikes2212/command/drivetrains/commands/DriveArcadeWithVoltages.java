@@ -20,7 +20,7 @@ public class DriveArcadeWithVoltages extends CommandBase {
     protected final Supplier<Boolean> isFinished;
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to voltage values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
@@ -41,7 +41,7 @@ public class DriveArcadeWithVoltages extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to voltage values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
@@ -57,7 +57,7 @@ public class DriveArcadeWithVoltages extends CommandBase {
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to voltage values for linear and rotational movements.
      *
      * @param drivetrain  the tank drivetrain this command operates on
@@ -65,12 +65,13 @@ public class DriveArcadeWithVoltages extends CommandBase {
      * @param rotateValue the rotational voltage (-12 to 12). Positive values go clockwise
      * @param isFinished  when to finish the command
      */
-    public DriveArcadeWithVoltages(TankDrivetrain drivetrain, double moveValue, double rotateValue, Supplier<Boolean> isFinished) {
+    public DriveArcadeWithVoltages(TankDrivetrain drivetrain, double moveValue, double rotateValue,
+                                   Supplier<Boolean> isFinished) {
         this(drivetrain, () -> moveValue, () -> rotateValue, isFinished);
     }
 
     /**
-     * This constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to voltage values for linear and rotational movements.
      *
      * @param drivetrain  the tank drivetrain this command operates on
