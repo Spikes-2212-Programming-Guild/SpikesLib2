@@ -114,19 +114,19 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the left side of this drivetrain by a given speed.
      *
-     * @param speedLeft the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param leftSpeed the speed to set to the left side (-1 to 1). Positive values move this side forward
      */
-    public void setLeft(double speedLeft) {
-        leftController.set(speedLeft);
+    public void setLeft(double leftSpeed) {
+        leftController.set(leftSpeed);
     }
 
     /**
      * Moves the right side of this drivetrain by a given speed.
      *
-     * @param speedRight the speed to set to the right side (-1 to 1). Positive values move this side forward
+     * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
-    public void setRight(double speedRight) {
-        rightController.set(-speedRight);
+    public void setRight(double rightSpeed) {
+        rightController.set(-rightSpeed);
     }
 
     /**
