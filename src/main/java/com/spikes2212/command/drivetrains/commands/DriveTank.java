@@ -44,7 +44,7 @@ public class DriveTank extends CommandBase {
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for left and right sides. <br>
+     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for the left and right sides. <br>
      * Positive values move the drivetrain forward. Does not square the inputs.
      *
      * @param drivetrain         the tank drivetrain this command operates on
@@ -61,7 +61,7 @@ public class DriveTank extends CommandBase {
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for left and right sides. <br>
+     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for the left and right sides. <br>
      * Positive values move the drivetrain forward.
      *
      * @param drivetrain         the tank drivetrain this command operates on
@@ -78,7 +78,7 @@ public class DriveTank extends CommandBase {
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for left and right sides. <br>
+     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for the left and right sides. <br>
      * Positive values move the drivetrain forward. Does not square the inputs.
      *
      * @param drivetrain         the tank drivetrain this command operates on
@@ -94,7 +94,7 @@ public class DriveTank extends CommandBase {
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} according to speed values for left and right sides. <br>
+     * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
      * Positive values move the drivetrain forward.
      *
      * @param drivetrain   the tank drivetrain this command operates on
@@ -110,7 +110,7 @@ public class DriveTank extends CommandBase {
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} according to speed values for left and right sides. <br>
+     * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
      * Positive values move the drivetrain forward. Does not square the inputs.
      *
      * @param drivetrain   the tank drivetrain this command operates on
@@ -124,7 +124,7 @@ public class DriveTank extends CommandBase {
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} according to speed values for left and right sides. <br>
+     * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
      * Positive values move the drivetrain forward.
      *
      * @param drivetrain   the tank drivetrain this command operates on
@@ -138,7 +138,7 @@ public class DriveTank extends CommandBase {
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} according to speed values for left and right sides. <br>
+     * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
      * Positive values move the drivetrain forward. Does not square the inputs.
      *
      * @param drivetrain   the tank drivetrain this command operates on
