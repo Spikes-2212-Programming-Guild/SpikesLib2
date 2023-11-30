@@ -40,22 +40,22 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft  the speed to set to the left side (-1 to 1). Positive values move this side forward
-     * @param speedRight the speed to set to the right side (-1 to 1). Positive values move this side forward
+     * @param leftSpeed  the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
-    public void tankDrive(double speedLeft, double speedRight) {
-        drive.tankDrive(speedLeft, speedRight);
+    public void tankDrive(double leftSpeed, double rightSpeed) {
+        drive.tankDrive(leftSpeed, rightSpeed);
     }
 
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft    the speed to set to the left side (-1 to 1). Positive values move this side forward
-     * @param speedRight   the speed to set to the right side (-1 to 1). Positive values move this side forward
+     * @param leftSpeed    the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param rightSpeed   the speed to set to the right side (-1 to 1). Positive values move this side forward
      * @param squareInputs whether to square the given inputs before putting them in the speed controllers
      */
-    public void tankDrive(double speedLeft, double speedRight, boolean squareInputs) {
-        drive.tankDrive(speedLeft, speedRight, squareInputs);
+    public void tankDrive(double leftSpeed, double rightSpeed, boolean squareInputs) {
+        drive.tankDrive(leftSpeed, rightSpeed, squareInputs);
     }
 
     /**
@@ -102,7 +102,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves the drivetrain while rotating it.
+     * Moves the drivetrain while rotating it at a certain speed.
      *
      * @param speed     the forward movement speed (-1 to 1)
      * @param curvature the rotational movement speed (-1 to 1). Positive values go clockwise
