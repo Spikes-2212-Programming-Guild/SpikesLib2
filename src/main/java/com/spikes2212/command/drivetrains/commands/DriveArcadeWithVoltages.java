@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * A command that moves a {@link TankDrivetrain} using linear and rotational voltages.
  *
- * @author Yuval Levy
+ * @author Yorai Coval
  * @see TankDrivetrain
  */
 

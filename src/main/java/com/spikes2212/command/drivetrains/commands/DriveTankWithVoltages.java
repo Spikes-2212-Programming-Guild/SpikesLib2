@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 /**
  * A command that moves a {@link TankDrivetrain} using voltage supplied to the left and the right sides independently.
  *
- * @author Yuval Levy
+ * @author Yorai Coval
  * @see TankDrivetrain
  */
 public class DriveTankWithVoltages extends CommandBase {
