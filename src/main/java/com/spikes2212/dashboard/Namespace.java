@@ -2,7 +2,9 @@ package com.spikes2212.dashboard;
 
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
@@ -15,41 +17,44 @@ public interface Namespace {
 
     /**
      * Adds a double value to the namespace.
+     * Can only be changed via {@link Shuffleboard}.
      *
      * @param name  the key that will be given to the value
-     * @param value the value to be added
+     * @param value the initial value to be added
      * @return a {@link Supplier} with the most recent value from the network tables.
      */
     Supplier<Double> addConstantDouble(String name, double value);
 
     /**
      * Adds an integer value to the namespace.
+     * Can only be changed via {@link Shuffleboard}.
      *
      * @param name  the key that will be given to the value
-     * @param value the value to be added
+     * @param value the initial value to be added
      * @return a {@link Supplier} with the most recent value from the network tables.
      */
     Supplier<Integer> addConstantInt(String name, int value);
 
     /**
      * Adds a string value to the namespace.
+     * Can only be changed via {@link Shuffleboard}.
      *
      * @param name  the key that will be given to the value
-     * @param value the value to be added
-     * @return a {@link Supplier} with the most recent value from the network tables.
+     * @param value the initial value to be added
+     * @return a {@link Supplier} with the value set using the {@link NetworkTable}s
      */
     Supplier<String> addConstantString(String name, String value);
 
     /**
-     * Adds a {@link ChildNamespace} to the current namespace.
+     * Adds a {@link ChildNamespace} to this namespace.
      *
-     * @param name the name given to the child
-     * @return the new ChildNamespace that is created
+     * @param name the name given to the child namespace's name
+     * @return the new {@link ChildNamespace} that is created
      */
     ChildNamespace addChild(String name);
 
     /**
-     * Adds a sendable value to the namespace.
+     * Adds a sendable data to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -78,11 +83,11 @@ public interface Namespace {
     }
 
     /**
-     * Adds a runnable value to the namespace.
+     * Adds a runnable value to the namespace that can be run as a {@link InstantCommand}.
      *
      * @param key          the key that will be given to the value
      * @param runnable     the runnable value to be added
-     * @param runOnDisable whether the command should be executable when the robot is disabled
+     * @param runOnDisable whether the instant command should be executable when the robot is disabled
      */
     default void putRunnable(String key, Runnable runnable, boolean runOnDisable) {
         this.putData(key, new InstantCommand(runnable).ignoringDisable(runOnDisable));
@@ -107,7 +112,7 @@ public interface Namespace {
     Sendable getSendable(String key);
 
     /**
-     * Adds a string to the namespace.
+     * Adds a string supplier to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -115,7 +120,7 @@ public interface Namespace {
     void putString(String key, Supplier<String> value);
 
     /**
-     * Adds a string to the namespace.
+     * Adds a string value to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -133,7 +138,7 @@ public interface Namespace {
     String getString(String key);
 
     /**
-     * Adds a number value to the namespace.
+     * Adds a number supplier to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -160,7 +165,7 @@ public interface Namespace {
 
 
     /**
-     * Adds a boolean value to the namespace.
+     * Adds a boolean supplier to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -187,11 +192,11 @@ public interface Namespace {
     boolean getBoolean(String key);
 
     /**
-     * Adds a set of {@link PIDSettings} values to the namespace.
+     * Adds a set of {@link PIDSettings} values to the namespace to a designated {@link ChildNamespace}.
      *
-     * @param name               the name to be given to the settings
-     * @param initialPIDSettings the PID settings to be added
-     * @return PID settings with the most recent value from the network tables
+     * @param name               the name to be given to the settings and the child namespace
+     * @param initialPIDSettings the initial values for the PID settings to be added
+     * @return PID settings with the values from the network tables
      */
     default PIDSettings addPIDNamespace(String name, PIDSettings initialPIDSettings) {
         ChildNamespace child = this.addChild(name + " pid");
@@ -204,7 +209,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a set of {@link FeedForwardSettings} values to the namespace.
+     * Adds a set of {@link FeedForwardSettings} values to the namespace to a designated {@link ChildNamespace}.
      *
      * @param name               the name to be given to the settings
      * @param initialFeedForwardSettings the feed forward settings to be added
