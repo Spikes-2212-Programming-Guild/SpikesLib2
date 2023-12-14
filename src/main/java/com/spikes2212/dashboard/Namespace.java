@@ -16,8 +16,8 @@ import java.util.function.Supplier;
 public interface Namespace {
 
     /**
-     * Adds a double value to the namespace.
-     * Can only be changed via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
+     * Adds a double supplier to the namespace, whose value can only be changed
+     * via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
@@ -26,8 +26,8 @@ public interface Namespace {
     Supplier<Double> addConstantDouble(String name, double value);
 
     /**
-     * Adds an integer value to the namespace.
-     * Can only be changed via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
+     * Adds an integer supplier to the namespace, whose value can only be changed
+     * via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
@@ -36,8 +36,8 @@ public interface Namespace {
     Supplier<Integer> addConstantInt(String name, int value);
 
     /**
-     * Adds a string value to the namespace.
-     * Can only be changed via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
+     * Adds a string supplier to the namespace, whose value can only be changed
+     * via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
@@ -211,7 +211,7 @@ public interface Namespace {
     /**
      * Adds a set of {@link FeedForwardSettings} values to the namespace to a designated {@link ChildNamespace}.
      *
-     * @param name               the name to be given to the settings
+     * @param name                       the name to be given to the settings and the child namespace
      * @param initialFeedForwardSettings the feed forward settings to be added
      * @return feed forward settings with the most recent value from the network tables
      */
