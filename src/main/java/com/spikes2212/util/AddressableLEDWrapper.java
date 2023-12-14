@@ -8,6 +8,7 @@ import java.awt.*;
 
 /**
  * A class that handles the communication between an LED strip and the code.
+ * This class still requires further testing and an update will be made as soon as we finish testing it.
  *
  * @author Camellia Lami
  * @see DashboardedSubsystem
