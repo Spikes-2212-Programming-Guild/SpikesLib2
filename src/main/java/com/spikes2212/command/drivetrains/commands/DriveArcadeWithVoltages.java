@@ -20,7 +20,7 @@ public class DriveArcadeWithVoltages extends CommandBase {
     protected final Supplier<Boolean> isFinished;
 
     /**
-     * Constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcadeWithVoltages} command that moves the given
      * {@link TankDrivetrain} according to voltage values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
@@ -41,7 +41,7 @@ public class DriveArcadeWithVoltages extends CommandBase {
     }
 
     /**
-     * Constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcadeWithVoltages} command that moves the given
      * {@link TankDrivetrain} according to voltage values from Double {@link Supplier}s
      * for linear and rotational movements.
      *
@@ -57,7 +57,7 @@ public class DriveArcadeWithVoltages extends CommandBase {
     }
 
     /**
-     * Constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcadeWithVoltages} command that moves the given
      * {@link TankDrivetrain} according to voltage values for linear and rotational movements.
      *
      * @param drivetrain  the tank drivetrain this command operates on
@@ -71,7 +71,7 @@ public class DriveArcadeWithVoltages extends CommandBase {
     }
 
     /**
-     * Constructs a new {@link DriveArcade} command that moves the given
+     * Constructs a new {@link DriveArcadeWithVoltages} command that moves the given
      * {@link TankDrivetrain} according to voltage values for linear and rotational movements.
      *
      * @param drivetrain  the tank drivetrain this command operates on
