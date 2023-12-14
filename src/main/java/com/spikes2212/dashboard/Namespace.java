@@ -17,27 +17,27 @@ public interface Namespace {
 
     /**
      * Adds a double value to the namespace.
-     * Can only be changed via {@link Shuffleboard}.
+     * Can only be changed via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
-     * @return a {@link Supplier} with the most recent value from the network tables.
+     * @return a {@link Supplier} with the value set using the {@link NetworkTable}s
      */
     Supplier<Double> addConstantDouble(String name, double value);
 
     /**
      * Adds an integer value to the namespace.
-     * Can only be changed via {@link Shuffleboard}.
+     * Can only be changed via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
-     * @return a {@link Supplier} with the most recent value from the network tables.
+     * @return a {@link Supplier} with the value set using the {@link NetworkTable}s
      */
     Supplier<Integer> addConstantInt(String name, int value);
 
     /**
      * Adds a string value to the namespace.
-     * Can only be changed via {@link Shuffleboard}.
+     * Can only be changed via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
@@ -54,7 +54,7 @@ public interface Namespace {
     ChildNamespace addChild(String name);
 
     /**
-     * Adds a sendable data to the namespace.
+     * Adds {@link Sendable} data to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -94,7 +94,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a runnable value that can run on disable to the namespace.
+     * Adds a runnable value that can be run as a {@link InstantCommand} and can run on disable.
      *
      * @param key      the key that will be given to the value
      * @param runnable the runnable value to be added
