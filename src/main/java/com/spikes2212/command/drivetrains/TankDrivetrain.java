@@ -40,22 +40,22 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft  the speed to set to the left side (-1 to 1). Positive values move this side forward
-     * @param speedRight the speed to set to the right side (-1 to 1). Positive values move this side forward
+     * @param leftSpeed  the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
-    public void tankDrive(double speedLeft, double speedRight) {
-        drive.tankDrive(speedLeft, speedRight);
+    public void tankDrive(double leftSpeed, double rightSpeed) {
+        drive.tankDrive(leftSpeed, rightSpeed);
     }
 
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft    the speed to set to the left side (-1 to 1). Positive values move this side forward
-     * @param speedRight   the speed to set to the right side (-1 to 1). Positive values move this side forward
+     * @param leftSpeed    the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param rightSpeed   the speed to set to the right side (-1 to 1). Positive values move this side forward
      * @param squareInputs whether to square the given inputs before putting them in the speed controllers
      */
-    public void tankDrive(double speedLeft, double speedRight, boolean squareInputs) {
-        drive.tankDrive(speedLeft, speedRight, squareInputs);
+    public void tankDrive(double leftSpeed, double rightSpeed, boolean squareInputs) {
+        drive.tankDrive(leftSpeed, rightSpeed, squareInputs);
     }
 
     /**
@@ -102,10 +102,10 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves the drivetrain while rotating it.
+     * Moves the drivetrain while rotating it at a given curvature.
      *
      * @param speed     the forward movement speed (-1 to 1)
-     * @param curvature the rotational movement speed (-1 to 1). Positive values go clockwise
+     * @param curvature the curvature of the robot's path (-1 to 1). Positive values go clockwise
      */
     public void curvatureDrive(double speed, double curvature) {
         drive.curvatureDrive(speed, curvature, true);
@@ -114,19 +114,19 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the left side of this drivetrain by a given speed.
      *
-     * @param speedLeft the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param leftSpeed the speed to set to the left side (-1 to 1). Positive values move this side forward
      */
-    public void setLeft(double speedLeft) {
-        leftController.set(speedLeft);
+    public void setLeft(double leftSpeed) {
+        leftController.set(leftSpeed);
     }
 
     /**
      * Moves the right side of this drivetrain by a given speed.
      *
-     * @param speedRight the speed to set to the right side (-1 to 1). Positive values move this side forward
+     * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
-    public void setRight(double speedRight) {
-        rightController.set(-speedRight);
+    public void setRight(double rightSpeed) {
+        rightController.set(-rightSpeed);
     }
 
     /**
