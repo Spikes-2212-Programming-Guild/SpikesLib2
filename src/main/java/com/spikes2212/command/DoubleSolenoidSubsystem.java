@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
- * A {@link Subsystem} that controls an applicable double solenoid.
+ * A {@link Subsystem} that controls a double solenoid.
  *
  * @author Camellia Lami
  * @see DashboardedSubsystem
