@@ -66,10 +66,10 @@ public interface Namespace {
      *
      * @param key             the key that will be given to the value
      * @param command         the command to be added
-     * @param ignoringDisable whether the command should be executable when the robot is disabled
+     * @param runOnDisable whether the command should be executable when the robot is disabled
      */
-    default void putCommand(String key, Command command, boolean ignoringDisable) {
-        this.putData(key, command.ignoringDisable(ignoringDisable));
+    default void putCommand(String key, Command command, boolean runOnDisable) {
+        this.putData(key, command.ignoringDisable(runOnDisable));
     }
 
     /**
