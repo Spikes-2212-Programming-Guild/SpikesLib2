@@ -1,6 +1,8 @@
 package com.spikes2212.dashboard;
 
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * A logger class meant to be used with the SpikesLogger desktop app to log values from the robot to a computer in real-time.
@@ -40,9 +42,20 @@ public class SpikesLogger extends RootNamespace {
     /**
      * Logs the provided output to the NetworkTables and the SpikesLogger app.
      *
-     * @param output the data being logged
+     * @param output the data to be logged
      */
     public <T> void log(T output) {
         putString(key, output == null ? "null" : output.toString());
+    }
+
+
+    /**
+     * Returns a command that logs the provided output to the NetworkTables and the SpikesLogger app.
+     *
+     * @param output the data to be logged
+     * @return a command that logs the output
+     */
+    public <T> Command logCommand(T output) {
+        return new InstantCommand(() -> log(output));
     }
 }

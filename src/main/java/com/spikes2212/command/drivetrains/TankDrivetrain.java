@@ -102,10 +102,10 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves the drivetrain while rotating it at a certain speed.
+     * Moves the drivetrain while rotating it at a given curvature.
      *
      * @param speed     the forward movement speed (-1 to 1)
-     * @param curvature the rotational movement speed (-1 to 1). Positive values go clockwise
+     * @param curvature the curvature of the robot's path (-1 to 1). Positive values go clockwise
      */
     public void curvatureDrive(double speed, double curvature) {
         drive.curvatureDrive(speed, curvature, false);

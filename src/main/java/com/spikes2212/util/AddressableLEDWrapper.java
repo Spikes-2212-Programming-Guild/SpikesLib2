@@ -8,6 +8,7 @@ import java.awt.Color;
 
 /**
  * A class that handles the communication between an LED strip and the code.
+ * This class still requires further testing and an update will be made as soon as testing is finished.
  *
  * @author Camellia Lami
  * @see DashboardedSubsystem
@@ -105,7 +106,8 @@ public class AddressableLEDWrapper {
     }
 
     /**
-     * Takes the buffer's data and applies it to the LED strip periodically.
+     * Takes the buffer's data and applies it to the LED strip.
+     * This method should be called periodically.
      */
     public void update() {
         led.setData(ledBuffer);
