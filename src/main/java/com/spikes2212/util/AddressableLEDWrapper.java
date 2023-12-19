@@ -97,8 +97,8 @@ public class AddressableLEDWrapper {
     /**
      * Sets a specific LED to a specific color.
      *
-     * @param color the desired {@link Color}
      * @param index the index of the LED
+     * @param color the desired {@link Color}
      */
     public void setColorAt(int index, Color color) {
         ledBuffer.setRGB(index, color.getRed(), color.getGreen(), color.getBlue());
