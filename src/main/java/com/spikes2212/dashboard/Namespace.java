@@ -206,7 +206,7 @@ public interface Namespace {
     /**
      * Adds a set of {@link FeedForwardSettings} values to the namespace.
      *
-     * @param name               the name to be given to the settings
+     * @param name                       the name to be given to the settings
      * @param initialFeedForwardSettings the feed forward settings to be added
      * @return feed forward settings with the most recent value from the network tables
      */
