@@ -18,6 +18,7 @@ public class AddressableLEDWrapper {
      * The controlled LED strip.
      */
     private final AddressableLED led;
+
     /**
      * The controlled LED strip's data.
      */
