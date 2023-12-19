@@ -64,8 +64,8 @@ public interface Namespace {
     /**
      * Adds a command to the namespace.
      *
-     * @param key             the key that will be given to the value
-     * @param command         the command to be added
+     * @param key          the key that will be given to the value
+     * @param command      the command to be added
      * @param runOnDisable whether the command should be executable when the robot is disabled
      */
     default void putCommand(String key, Command command, boolean runOnDisable) {
