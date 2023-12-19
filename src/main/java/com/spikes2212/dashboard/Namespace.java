@@ -190,7 +190,7 @@ public interface Namespace {
      * Adds a set of {@link PIDSettings} values to the namespace.
      *
      * @param name               the name to be given to the settings
-     * @param initialPIDSettings the PID settings to be added
+     * @param initialPIDSettings the initial PID settings to be added
      * @return PID settings with the most recent value from the network tables
      */
     default PIDSettings addPIDNamespace(String name, PIDSettings initialPIDSettings) {
@@ -207,7 +207,7 @@ public interface Namespace {
      * Adds a set of {@link FeedForwardSettings} values to the namespace.
      *
      * @param name                       the name to be given to the settings
-     * @param initialFeedForwardSettings the feed forward settings to be added
+     * @param initialFeedForwardSettings the initial feed forward settings to be added
      * @return feed forward settings with the most recent value from the network tables
      */
     default FeedForwardSettings addFeedForwardNamespace(String name, FeedForwardSettings initialFeedForwardSettings) {
