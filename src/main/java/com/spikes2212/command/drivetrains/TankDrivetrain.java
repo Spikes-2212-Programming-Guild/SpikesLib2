@@ -44,7 +44,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
-        drive.tankDrive(leftSpeed, rightSpeed);
+        drive.tankDrive(leftSpeed, rightSpeed, false);
     }
 
     /**
@@ -66,7 +66,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      */
     public void tankDriveVoltages(double leftVoltage, double rightVoltage) {
         tankDrive(leftVoltage / RobotController.getBatteryVoltage(),
-                rightVoltage / RobotController.getBatteryVoltage());
+                rightVoltage / RobotController.getBatteryVoltage(), false);
     }
 
     /**
@@ -76,7 +76,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param rotateValue the angular movement speed (-1 to 1). Positive values go clockwise
      */
     public void arcadeDrive(double moveValue, double rotateValue) {
-        drive.arcadeDrive(moveValue, rotateValue);
+        drive.arcadeDrive(moveValue, rotateValue, false);
     }
 
     /**
@@ -98,7 +98,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      */
     public void arcadeDriveVoltages(double moveVoltage, double rotateVoltage) {
         arcadeDrive(moveVoltage / RobotController.getBatteryVoltage(),
-                rotateVoltage / RobotController.getBatteryVoltage());
+                rotateVoltage / RobotController.getBatteryVoltage(), false);
     }
 
     /**
@@ -108,7 +108,17 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param curvature the rotational movement speed (-1 to 1). Positive values go clockwise
      */
     public void curvatureDrive(double speed, double curvature) {
-        drive.curvatureDrive(speed, curvature, true);
+        drive.curvatureDrive(speed, curvature, false);
+    }
+
+    /**
+     * Moves the drivetrain while rotating it at a certain speed.
+     *
+     * @param speed     the forward movement speed (-1 to 1)
+     * @param curvature the rotational movement speed (-1 to 1). Positive values go clockwise
+     */
+    public void curvatureDrive(double speed, double curvature, boolean squareInputs) {
+        drive.curvatureDrive(speed, curvature, squareInputs);
     }
 
     /**
