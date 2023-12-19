@@ -1,4 +1,5 @@
 package com.spikes2212.dashboard;
+
 import edu.wpi.first.networktables.NetworkTable;
 
 /**
