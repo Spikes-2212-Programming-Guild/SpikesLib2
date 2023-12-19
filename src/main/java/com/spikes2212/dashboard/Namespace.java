@@ -94,7 +94,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a runnable value that can be run as an {@link InstantCommand} and can run on disable.
+     * Adds a runnable value that can be run as an {@link InstantCommand}.
      *
      * @param key      the key that will be given to the value
      * @param runnable the runnable value to be added
@@ -212,8 +212,8 @@ public interface Namespace {
      * Adds a set of {@link FeedForwardSettings} values to the namespace to a designated {@link ChildNamespace}.
      *
      * @param name                       the name to be given to the settings and the child namespace
-     * @param initialFeedForwardSettings the feed forward settings to be added
-     * @return feed forward settings with the most recent value from the network tables
+     * @param initialFeedForwardSettings the initial feed forward settings to be added
+     * @return feed forward settings with the values from the network tables
      */
     default FeedForwardSettings addFeedForwardNamespace(String name, FeedForwardSettings initialFeedForwardSettings) {
         ChildNamespace child = this.addChild(name + " feed forward");
