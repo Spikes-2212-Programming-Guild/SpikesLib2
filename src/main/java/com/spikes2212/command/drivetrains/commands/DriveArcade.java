@@ -30,9 +30,9 @@ public class DriveArcade extends CommandBase {
      * for linear and rotational movements.
      *
      * @param drivetrain          the tank drivetrain this command operates on
-     * @param moveValueSupplier   the double {@link Supplier} supplying the linear speed (-1 to 1).
+     * @param moveValueSupplier   the Double {@link Supplier} supplying the linear speed (-1 to 1).
      *                            Positive values go forwards
-     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational speed (-1 to 1).
+     * @param rotateValueSupplier the Double {@link Supplier} supplying the rotational speed (-1 to 1).
      *                            Positive values go clockwise
      * @param isFinished          when to finish the command
      * @param squareInputs        whether to square the speed suppliers' values
@@ -53,9 +53,9 @@ public class DriveArcade extends CommandBase {
      * for linear and rotational movements. Does not square the inputs.
      *
      * @param drivetrain          the tank drivetrain this command operates on
-     * @param moveValueSupplier   the double {@link Supplier} supplying the linear speed (-1 to 1).
+     * @param moveValueSupplier   the Double {@link Supplier} supplying the linear speed (-1 to 1).
      *                            Positive values go forwards
-     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational speed (-1 to 1).
+     * @param rotateValueSupplier the Double {@link Supplier} supplying the rotational speed (-1 to 1).
      *                            Positive values go clockwise
      * @param isFinished          when to finish the command
      */
@@ -70,9 +70,9 @@ public class DriveArcade extends CommandBase {
      * for linear and rotational movements.
      *
      * @param drivetrain          the tank drivetrain this command operates on
-     * @param moveValueSupplier   the double {@link Supplier} supplying the linear speed (-1 to 1).
+     * @param moveValueSupplier   the Double {@link Supplier} supplying the linear speed (-1 to 1).
      *                            Positive values go forwards
-     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational speed (-1 to 1).
+     * @param rotateValueSupplier the Double {@link Supplier} supplying the rotational speed (-1 to 1).
      *                            Positive values go clockwise
      * @param squareInputs        whether to square the speed suppliers' values
      */
@@ -87,9 +87,9 @@ public class DriveArcade extends CommandBase {
      * for linear and rotational movements. Does not square the inputs.
      *
      * @param drivetrain          the tank drivetrain this command operates on
-     * @param moveValueSupplier   the double {@link Supplier} supplying the linear speed (-1 to 1).
+     * @param moveValueSupplier   the Double {@link Supplier} supplying the linear speed (-1 to 1).
      *                            Positive values go forwards
-     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational speed (-1 to 1).
+     * @param rotateValueSupplier the Double {@link Supplier} supplying the rotational speed (-1 to 1).
      *                            Positive values go clockwise
      */
     public DriveArcade(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,

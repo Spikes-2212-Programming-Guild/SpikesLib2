@@ -82,9 +82,9 @@ public class DriveTank extends CommandBase {
      * Positive values move the drivetrain forward. Does not square the inputs.
      *
      * @param drivetrain         the tank drivetrain this command operates on
-     * @param leftSpeedSupplier  the double {@link Supplier} supplying the left side's speed (-1 to 1).
+     * @param leftSpeedSupplier  the Double {@link Supplier} supplying the left side's speed (-1 to 1).
      *                           Positive values go forward
-     * @param rightSpeedSupplier the double {@link Supplier} supplying the right side's speed (-1 to 1).
+     * @param rightSpeedSupplier the Double {@link Supplier} supplying the right side's speed (-1 to 1).
      *                           Positive values go forward
      */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
