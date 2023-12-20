@@ -174,7 +174,7 @@ public interface Namespace {
 
 
     /**
-     * Adds a Boolean value to the namespace.
+     * Adds a boolean value to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
