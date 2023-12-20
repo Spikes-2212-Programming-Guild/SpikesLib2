@@ -83,7 +83,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a runnable value to the namespace that can be run as an {@link InstantCommand}.
+     * Adds a runnable value to the namespace that can be run on disable as an {@link InstantCommand}.
      *
      * @param key          the key that will be given to the value
      * @param runnable     the runnable value to be added
