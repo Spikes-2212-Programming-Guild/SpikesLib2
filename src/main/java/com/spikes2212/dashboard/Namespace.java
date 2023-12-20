@@ -54,7 +54,7 @@ public interface Namespace {
     ChildNamespace addChild(String name);
 
     /**
-     * Adds {@link Sendable} data to the namespace.
+     * Adds a {@link Sendable} to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -64,8 +64,8 @@ public interface Namespace {
     /**
      * Adds a command to the namespace.
      *
-     * @param key             the key that will be given to the value
-     * @param command         the command to be added
+     * @param key          the key that will be given to the value
+     * @param command      the command to be added
      * @param runOnDisable whether the command should be executable when the robot is disabled
      */
     default void putCommand(String key, Command command, boolean runOnDisable) {
@@ -83,7 +83,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a runnable value to the namespace that can be run as a {@link InstantCommand}.
+     * Adds a runnable value to the namespace that can run as an {@link InstantCommand}.
      *
      * @param key          the key that will be given to the value
      * @param runnable     the runnable value to be added
@@ -94,7 +94,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a runnable value that can be run as a {@link InstantCommand} and can run on disable.
+     * Adds a runnable value that can run on disable as an {@link InstantCommand}.
      *
      * @param key      the key that will be given to the value
      * @param runnable the runnable value to be added
@@ -212,8 +212,8 @@ public interface Namespace {
      * Adds a set of {@link FeedForwardSettings} values to the namespace to a designated {@link ChildNamespace}.
      *
      * @param name                       the name to be given to the settings and the child namespace
-     * @param initialFeedForwardSettings the feed forward settings to be added
-     * @return feed forward settings with the most recent value from the network tables
+     * @param initialFeedForwardSettings the initial feed forward settings to be added
+     * @return feed forward settings with the values from the network tables
      */
     default FeedForwardSettings addFeedForwardNamespace(String name, FeedForwardSettings initialFeedForwardSettings) {
         ChildNamespace child = this.addChild(name + " feed forward");

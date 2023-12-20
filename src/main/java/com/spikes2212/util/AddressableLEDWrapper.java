@@ -4,7 +4,7 @@ import com.spikes2212.command.DashboardedSubsystem;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * A class that handles the communication between an LED strip and the code.
@@ -19,6 +19,7 @@ public class AddressableLEDWrapper {
      * The controlled LED strip.
      */
     private final AddressableLED led;
+
     /**
      * The controlled LED strip's data.
      */
@@ -97,8 +98,8 @@ public class AddressableLEDWrapper {
     /**
      * Sets a specific LED to a specific color.
      *
-     * @param color the desired {@link Color}
      * @param index the index of the LED
+     * @param color the desired {@link Color}
      */
     public void setColorAt(int index, Color color) {
         ledBuffer.setRGB(index, color.getRed(), color.getGreen(), color.getBlue());
