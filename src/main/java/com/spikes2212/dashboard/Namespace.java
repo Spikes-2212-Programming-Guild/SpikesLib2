@@ -184,7 +184,7 @@ public interface Namespace {
     }
 
     /**
-     * Gets a Boolean value from the namespace.
+     * Gets a boolean value from the namespace.
      *
      * @param key the key of the value
      * @return the desired value
