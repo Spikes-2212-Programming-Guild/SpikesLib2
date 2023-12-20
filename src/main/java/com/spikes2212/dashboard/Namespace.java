@@ -192,7 +192,7 @@ public interface Namespace {
     boolean getBoolean(String key);
 
     /**
-     * Adds a set of {@link PIDSettings} values to the namespace to a designated {@link ChildNamespace}.
+     * Adds a set of {@link PIDSettings} values to a designated {@link ChildNamespace}.
      *
      * @param name               the name to be given to the settings and the child namespace
      * @param initialPIDSettings the initial values for the PID settings to be added
@@ -209,7 +209,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a set of {@link FeedForwardSettings} values to the namespace to a designated {@link ChildNamespace}.
+     * Adds a set of {@link FeedForwardSettings} values to a designated {@link ChildNamespace}.
      *
      * @param name                       the name to be given to the settings and the child namespace
      * @param initialFeedForwardSettings the initial feed forward settings to be added
