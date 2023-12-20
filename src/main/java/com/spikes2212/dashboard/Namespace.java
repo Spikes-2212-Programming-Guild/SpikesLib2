@@ -54,7 +54,7 @@ public interface Namespace {
     ChildNamespace addChild(String name);
 
     /**
-     * Adds a {@link Sendable} data to the namespace.
+     * Adds a {@link Sendable} to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
