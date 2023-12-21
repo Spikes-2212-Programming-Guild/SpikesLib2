@@ -1,5 +1,6 @@
 package com.spikes2212.dashboard;
 import edu.wpi.first.networktables.NetworkTable;
+import java.time.LocalTime;
 
 /**
  * A logger class meant to be used with the SpikesLogger desktop app to log values from the robot to a computer in real-time.
@@ -43,5 +44,9 @@ public class SpikesLogger extends RootNamespace {
      */
     public <T> void log(T output) {
         putString(key, output == null ? "null" : output.toString());
+    }
+
+    public <T> void logWithTimestamp(T output) {
+        log(LocalTime.now() + ": " + output);
     }
 }
