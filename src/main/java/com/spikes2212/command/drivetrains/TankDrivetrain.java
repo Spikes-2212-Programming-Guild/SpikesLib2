@@ -5,7 +5,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 /**
  * This class represents a type of drivetrain that its left and right sides are controlled independently,
@@ -36,18 +35,6 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     public TankDrivetrain(MotorController left, MotorController right) {
         this(getClassName(DEFAULT_NAMESPACE_NAME), left, right);
-    }
-
-    public TankDrivetrain(String namespaceName, MotorController leftMaster, MotorController leftSlave,
-                          MotorController rightMaster, MotorController rightSlave) {
-        this(namespaceName, new MotorControllerGroup(leftMaster, leftSlave),
-                new MotorControllerGroup(rightMaster, rightSlave));
-    }
-
-    public TankDrivetrain(MotorController leftMaster, MotorController leftSlave,
-                          MotorController rightMaster, MotorController rightSlave) {
-        this(getClassName(DEFAULT_NAMESPACE_NAME), new MotorControllerGroup(leftMaster, leftSlave),
-                new MotorControllerGroup(rightMaster, rightSlave));
     }
 
     /**
