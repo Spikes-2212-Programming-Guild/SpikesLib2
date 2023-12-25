@@ -16,8 +16,8 @@ import java.util.function.Supplier;
 public interface Namespace {
 
     /**
-     * Adds a Double {@link Supplier} to the namespace, whose value can only be changed
-     * via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
+     * Adds a Double {@link Supplier} to the namespace, whose value can only be changed by a {@link NetworkTable}s UI,
+     * such as the shuffleboard.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
@@ -26,8 +26,8 @@ public interface Namespace {
     Supplier<Double> addConstantDouble(String name, double value);
 
     /**
-     * Adds an Integer {@link Supplier} to the namespace, whose value can only be changed
-     * via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
+     * Adds an Integer {@link Supplier} to the namespace, whose value can only be changed by a {@link NetworkTable}s UI,
+     * such as the shuffleboard.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
@@ -36,8 +36,8 @@ public interface Namespace {
     Supplier<Integer> addConstantInt(String name, int value);
 
     /**
-     * Adds a String {@link Supplier} to the namespace, whose value can only be changed
-     * via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
+     * Adds a String {@link Supplier} to the namespace, whose value can only be changed by a {@link NetworkTable}s UI,
+     * such as the shuffleboard.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
