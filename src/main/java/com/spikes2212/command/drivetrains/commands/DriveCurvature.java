@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 
 /**
  * A command that moves a {@link TankDrivetrain} while controlling the curvature of its path,
- * using the curvature drive method written by WPILIB.
+ * using the curvature drive method written by WPILib.
  *
  * @author Simon Kharmatsky
  * @see TankDrivetrain
