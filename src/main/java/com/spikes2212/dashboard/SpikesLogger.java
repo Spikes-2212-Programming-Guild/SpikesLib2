@@ -26,7 +26,7 @@ public class SpikesLogger extends RootNamespace {
     }
 
     /**
-     * Creates a default SpikesLogger instance with custom key (name = "SpikesLogger").
+     * Creates a default SpikesLogger instance with a custom key (name = "SpikesLogger").
      */
     public SpikesLogger(String key) {
         this("SpikesLogger", key);
@@ -47,7 +47,6 @@ public class SpikesLogger extends RootNamespace {
     public <T> void log(T output) {
         putString(key, output == null ? "null" : output.toString());
     }
-
 
     /**
      * Returns a command that logs the provided output to the NetworkTables and the SpikesLogger app.

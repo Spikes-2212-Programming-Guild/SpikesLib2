@@ -67,7 +67,7 @@ public class AddressableLEDWrapper {
      * @param blue  the blue value from 0 to 255
      */
     public void setColorInRange(int start, int end, int red, int green, int blue) {
-        for (int i = start; i < end; i++) {
+        for (int i = start; i <= end; i++) {
             ledBuffer.setRGB(i, red, green, blue);
         }
     }
