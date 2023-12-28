@@ -12,6 +12,7 @@ import java.util.function.Supplier;
  * @author Ofri Rosenbaum
  * @see MoveGenericSubsystemWithPID
  */
+@Deprecated(since = "2024", forRemoval = true)
 public class MoveGenericSubsystemWithPIDForSpeed extends MoveGenericSubsystemWithPID {
 
     public MoveGenericSubsystemWithPIDForSpeed(GenericSubsystem subsystem, Supplier<Double> targetVelocity,

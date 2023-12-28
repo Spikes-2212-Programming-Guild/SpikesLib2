@@ -1,6 +1,8 @@
 package com.spikes2212.util;
 
-import edu.wpi.first.wpilibj2.command.*;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import java.util.Set;
 
@@ -9,7 +11,8 @@ import java.util.Set;
  *
  * @author Eran Goldstein
  */
-public class RepeatCommand extends CommandBase {
+@Deprecated(since = "2024", forRemoval = true)
+public class RepeatCommand extends Command {
 
     private final Command command;
 

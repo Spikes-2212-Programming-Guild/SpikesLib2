@@ -1,12 +1,11 @@
 package com.spikes2212.command.drivetrains.commands.smartmotorcontrollerdrivetrain;
 
 import com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain.SmartMotorControllerTankDrivetrain;
-import com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem.SmartMotorControllerGenericSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
@@ -16,7 +15,7 @@ import java.util.function.Supplier;
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerTankDrivetrain
  */
-public class MoveSmartMotorControllerTankDrivetrain extends CommandBase {
+public class MoveSmartMotorControllerTankDrivetrain extends Command {
 
     /**
      * The {@link SmartMotorControllerTankDrivetrain} this command will run on.
