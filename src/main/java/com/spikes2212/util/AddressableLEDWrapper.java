@@ -36,7 +36,7 @@ public class AddressableLEDWrapper {
      * @param blue  the blue value from 0 to 255
      */
     public void setStripColor(int red, int green, int blue) {
-        setColorInRange(0, ledBuffer.getLength(), red, green, blue);
+        setColorInRange(0, ledBuffer.getLength() - 1, red, green, blue);
     }
 
     /**
