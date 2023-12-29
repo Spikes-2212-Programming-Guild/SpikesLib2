@@ -1,17 +1,15 @@
 package com.spikes2212.util;
 
-import com.spikes2212.command.DashboardedSubsystem;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 import java.awt.Color;
 
 /**
- * A class that handles the communication between an LED strip and the code.
+ * A class that handles the communication between a LED strip and the code.
  * This class still requires further testing and an update will be made as soon as testing is finished.
  *
  * @author Camellia Lami
- * @see DashboardedSubsystem
  */
 public class AddressableLEDWrapper {
 
