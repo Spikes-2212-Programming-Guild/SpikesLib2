@@ -61,8 +61,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given voltages for each side.
      *
-     * @param leftVoltage  the voltage to the left side (-12 to 12). Positive values move this side forward
-     * @param rightVoltage the voltage to the right side (-12 to 12). Positive values move this side forward
+     * @param leftVoltage  the voltage to set to the left side (-12 to 12). Positive values move this side forward
+     * @param rightVoltage the voltage to set to the right side (-12 to 12). Positive values move this side forward
      */
     public void tankDriveVoltages(double leftVoltage, double rightVoltage) {
         tankDrive(leftVoltage / RobotController.getBatteryVoltage(),
