@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
+import java.util.function.Supplier;
+
 /**
  * A command that moves a {@link TankDrivetrain} using linear and rotational voltages.
  *
@@ -25,9 +27,9 @@ public class DriveArcadeWithVoltages extends Command {
      * for linear and rotational movements.
      *
      * @param drivetrain          the tank drivetrain this command operates on
-     * @param moveValueSupplier   the double {@link Supplier} supplying the linear voltage (-12 to 12).
+     * @param moveValueSupplier   the Double {@link Supplier} supplying the linear voltage (-12 to 12).
      *                            Positive values go forwards
-     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational voltage (-12 to 12).
+     * @param rotateValueSupplier the Double {@link Supplier} supplying the rotational voltage (-12 to 12).
      *                            Positive values go clockwise
      * @param isFinished          when to finish the command
      */
@@ -46,9 +48,9 @@ public class DriveArcadeWithVoltages extends Command {
      * for linear and rotational movements.
      *
      * @param drivetrain          the tank drivetrain this command operates on
-     * @param moveValueSupplier   the double {@link Supplier} supplying the linear voltage (-12 to 12).
+     * @param moveValueSupplier   the Double {@link Supplier} supplying the linear voltage (-12 to 12).
      *                            Positive values go forwards
-     * @param rotateValueSupplier the double {@link Supplier} supplying the rotational voltage (-12 to 12).
+     * @param rotateValueSupplier the Double {@link Supplier} supplying the rotational voltage (-12 to 12).
      *                            Positive values go clockwise
      */
     public DriveArcadeWithVoltages(TankDrivetrain drivetrain, Supplier<Double> moveValueSupplier,

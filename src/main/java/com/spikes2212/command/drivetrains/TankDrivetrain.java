@@ -44,7 +44,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
     public void tankDrive(double leftSpeed, double rightSpeed) {
-        drive.tankDrive(leftSpeed, rightSpeed);
+        drive.tankDrive(leftSpeed, rightSpeed, false);
     }
 
     /**
@@ -61,12 +61,12 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given voltages for each side.
      *
-     * @param leftVoltage  the voltage to the left side (-12 to 12). Positive values move this side forward
-     * @param rightVoltage the voltage to the right side (-12 to 12). Positive values move this side forward
+     * @param leftVoltage  the voltage to set to the left side (-12 to 12). Positive values move this side forward
+     * @param rightVoltage the voltage to set to the right side (-12 to 12). Positive values move this side forward
      */
     public void tankDriveVoltages(double leftVoltage, double rightVoltage) {
         tankDrive(leftVoltage / RobotController.getBatteryVoltage(),
-                rightVoltage / RobotController.getBatteryVoltage());
+                rightVoltage / RobotController.getBatteryVoltage(), false);
     }
 
     /**
@@ -76,7 +76,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param rotateValue the angular movement speed (-1 to 1). Positive values go clockwise
      */
     public void arcadeDrive(double moveValue, double rotateValue) {
-        drive.arcadeDrive(moveValue, rotateValue);
+        drive.arcadeDrive(moveValue, rotateValue, false);
     }
 
     /**
@@ -98,7 +98,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      */
     public void arcadeDriveVoltages(double moveVoltage, double rotateVoltage) {
         arcadeDrive(moveVoltage / RobotController.getBatteryVoltage(),
-                rotateVoltage / RobotController.getBatteryVoltage());
+                rotateVoltage / RobotController.getBatteryVoltage(), false);
     }
 
     /**
@@ -135,7 +135,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param leftVoltage the voltage to set to the left side (-12 to 12). Positive values move this side forward
      */
     public void setLeftVoltage(double leftVoltage) {
-        leftController.set(leftVoltage / RobotController.getBatteryVoltage());
+        setLeft(leftVoltage / RobotController.getBatteryVoltage());
     }
 
     /**
@@ -144,7 +144,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param rightVoltage the voltage to set to the right side (-12 to 12). Positive values move this side forward
      */
     public void setRightVoltage(double rightVoltage) {
-        rightController.set(rightVoltage / RobotController.getBatteryVoltage());
+        setRight(rightVoltage / RobotController.getBatteryVoltage());
     }
 
     /**

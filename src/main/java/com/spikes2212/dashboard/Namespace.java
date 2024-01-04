@@ -16,8 +16,8 @@ import java.util.function.Supplier;
 public interface Namespace {
 
     /**
-     * Adds a double supplier to the namespace, whose value can only be changed
-     * via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
+     * Adds a Double {@link Supplier} to the namespace, whose value can only be changed by a {@link NetworkTable}s UI,
+     * such as the shuffleboard.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
@@ -26,8 +26,8 @@ public interface Namespace {
     Supplier<Double> addConstantDouble(String name, double value);
 
     /**
-     * Adds an integer supplier to the namespace, whose value can only be changed
-     * via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
+     * Adds an Integer {@link Supplier} to the namespace, whose value can only be changed by a {@link NetworkTable}s UI,
+     * such as the shuffleboard.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
@@ -36,8 +36,8 @@ public interface Namespace {
     Supplier<Integer> addConstantInt(String name, int value);
 
     /**
-     * Adds a string supplier to the namespace, whose value can only be changed
-     * via the {@link Shuffleboard}, or any other {@link NetworkTable}s UI.
+     * Adds a String {@link Supplier} to the namespace, whose value can only be changed by a {@link NetworkTable}s UI,
+     * such as the shuffleboard.
      *
      * @param name  the key that will be given to the value
      * @param value the initial value to be added
@@ -54,7 +54,7 @@ public interface Namespace {
     ChildNamespace addChild(String name);
 
     /**
-     * Adds {@link Sendable} data to the namespace.
+     * Adds a {@link Sendable} to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -62,10 +62,10 @@ public interface Namespace {
     void putData(String key, Sendable value);
 
     /**
-     * Adds a command to the namespace.
+     * Adds a {@link Command} to the namespace.
      *
-     * @param key             the key that will be given to the value
-     * @param command         the command to be added
+     * @param key          the key that will be given to the value
+     * @param command      the command to be added
      * @param runOnDisable whether the command should be executable when the robot is disabled
      */
     default void putCommand(String key, Command command, boolean runOnDisable) {
@@ -73,7 +73,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a command that can run on disable to the namespace.
+     * Adds a {@link Command} that can run on disable to the namespace.
      *
      * @param key     the key that will be given to the value
      * @param command the command to be added
@@ -83,7 +83,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a runnable value to the namespace that can be run as a {@link InstantCommand}.
+     * Adds a {@link Runnable} to the namespace that can run as an {@link InstantCommand}.
      *
      * @param key          the key that will be given to the value
      * @param runnable     the runnable value to be added
@@ -94,7 +94,7 @@ public interface Namespace {
     }
 
     /**
-     * Adds a runnable value that can be run as a {@link InstantCommand} and can run on disable.
+     * Adds a {@link Runnable} that can run on disable as an {@link InstantCommand}.
      *
      * @param key      the key that will be given to the value
      * @param runnable the runnable value to be added
@@ -104,7 +104,7 @@ public interface Namespace {
     }
 
     /**
-     * Gets a sendable value from the namespace.
+     * Gets a {@link Sendable} from the namespace.
      *
      * @param key the key of the value
      * @return the desired value
@@ -112,7 +112,7 @@ public interface Namespace {
     Sendable getSendable(String key);
 
     /**
-     * Adds a string supplier to the namespace.
+     * Adds a String {@link Supplier} to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -120,7 +120,7 @@ public interface Namespace {
     void putString(String key, Supplier<String> value);
 
     /**
-     * Adds a string value to the namespace.
+     * Adds a String value to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -130,7 +130,7 @@ public interface Namespace {
     }
 
     /**
-     * Gets a string value from the namespace.
+     * Gets a String value from the namespace.
      *
      * @param key the key of the value
      * @return the desired value
@@ -138,7 +138,7 @@ public interface Namespace {
     String getString(String key);
 
     /**
-     * Adds a number supplier to the namespace.
+     * Adds a Number {@link Supplier} to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
@@ -146,7 +146,7 @@ public interface Namespace {
     void putNumber(String key, Supplier<? extends Number> value);
 
     /**
-     * Adds a number value to the namespace.
+     * Adds a Number value to the namespace.
      *
      * @param key    the key that will be given to the value
      * @param number the value to be added
@@ -156,22 +156,20 @@ public interface Namespace {
     }
 
     /**
-     * Gets a number value from the namespace.
+     * Gets a Number value from the namespace.
      *
      * @param key the key of the value
      * @return the desired value
      */
     double getNumber(String key);
 
-
     /**
-     * Adds a boolean supplier to the namespace.
+     * Adds a Boolean {@link Supplier} to the namespace.
      *
      * @param key   the key that will be given to the value
      * @param value the value to be added
      */
     void putBoolean(String key, Supplier<Boolean> value);
-
 
     /**
      * Adds a boolean value to the namespace.
@@ -192,11 +190,11 @@ public interface Namespace {
     boolean getBoolean(String key);
 
     /**
-     * Adds a set of {@link PIDSettings} values to the namespace to a designated {@link ChildNamespace}.
+     * Adds a set of {@link PIDSettings} values to a designated {@link ChildNamespace}.
      *
      * @param name               the name to be given to the settings and the child namespace
      * @param initialPIDSettings the initial values for the PID settings to be added
-     * @return PID settings with the values from the network tables
+     * @return pid settings with the values from the network tables
      */
     default PIDSettings addPIDNamespace(String name, PIDSettings initialPIDSettings) {
         ChildNamespace child = this.addChild(name + " pid");
@@ -209,11 +207,11 @@ public interface Namespace {
     }
 
     /**
-     * Adds a set of {@link FeedForwardSettings} values to the namespace to a designated {@link ChildNamespace}.
+     * Adds a set of {@link FeedForwardSettings} values to a designated {@link ChildNamespace}.
      *
      * @param name                       the name to be given to the settings and the child namespace
-     * @param initialFeedForwardSettings the feed forward settings to be added
-     * @return feed forward settings with the most recent value from the network tables
+     * @param initialFeedForwardSettings the initial feed forward settings to be added
+     * @return feed forward settings with the values from the network tables
      */
     default FeedForwardSettings addFeedForwardNamespace(String name, FeedForwardSettings initialFeedForwardSettings) {
         ChildNamespace child = this.addChild(name + " feed forward");
