@@ -5,9 +5,10 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableValue;
 
 /**
- * This class is a Limelight wrapper.
+ * A Wrapper for a Limelight camera.
  *
  * @author Yotam Yizhar
  */
@@ -58,16 +59,26 @@ public class Limelight {
     }
 
     /**
-     * Retrieves an entry from the Limelight NetworkTable.
+     * Retrieves an entry from the Limelight's NetworkTable.
      *
      * @param key key for entry
-     * @return the value of the given entry
+     * @return the value of the given key's entry
      */
-    private NetworkTableEntry getValue(String key) {
+    public NetworkTableEntry getEntry(String key) {
         if (table == null) {
             table = NetworkTableInstance.getDefault();
         }
         return table.getTable(name).getEntry(key);
+    }
+
+    /**
+     * Retrieves a value associated with a given key.
+     *
+     * @param key the key whose value should be retrieved
+     * @return the value of the given key
+     */
+    public NetworkTableValue getValue(String key) {
+        return getEntry(key).getValue();
     }
 
     @Deprecated(since = "2023", forRemoval = true)
@@ -86,14 +97,14 @@ public class Limelight {
      * @return whether a target is detected by the limelight
      */
     public boolean hasTarget() {
-        return getValue("tv").getDouble(0) == 1;
+        return getEntry("tv").getDouble(0) == 1;
     }
 
     /**
      * @return the current limelight's pipeline
      */
     public int getPipeline() {
-        return (int) getValue("getpipe").getNumber(0);
+        return (int) getEntry("getpipe").getNumber(0);
     }
 
     /**
@@ -102,7 +113,7 @@ public class Limelight {
      * @param number pipeline number (0-9)
      */
     public void setPipeline(int number) {
-        getValue("pipeline").setNumber(number);
+        getEntry("pipeline").setNumber(number);
     }
 
     /**
@@ -110,10 +121,10 @@ public class Limelight {
      * (0,0,0) is in the middle of the field.
      */
     public Pose3d getRobotPose() {
-        double[] result = getValue("botpose").getDoubleArray(new double[]{});
-        if (result.length != 0) {
+        double[] result = getEntry("botpose").getDoubleArray(new double[]{});
+        if (getID() >= 0) {
             Translation3d translation3d = new Translation3d(result[0], result[1], result[2]);
-            Rotation3d rotation3d = new Rotation3d(result[3], result[4], result[5]);
+            Rotation3d rotation3d = new Rotation3d(Math.toRadians(result[3]), Math.toRadians(result[4]), Math.toRadians(result[5]));
             return new Pose3d(translation3d, rotation3d);
         }
         return null;
@@ -123,70 +134,70 @@ public class Limelight {
      * @return the ID of the primary april tag.
      */
     public long getID() {
-        return getValue("tid").getInteger(0);
+        return getEntry("tid").getInteger(0);
     }
 
     /**
      * @return the horizontal offset from crosshair to target (-27 degrees to 27 degrees)
      */
     public double getHorizontalOffsetFromTargetInDegrees() {
-        return getValue("tx").getDouble(0.00);
+        return getEntry("tx").getDouble(0.00);
     }
 
     /**
      * @return the raw horizontal offset from crosshair to target in pixels (-1 to 1)
      */
     public double getHorizontalOffsetFromTargetInPixels() {
-        return getValue("tx0").getDouble(0.00);
+        return getEntry("tx0").getDouble(0.00);
     }
 
     /**
      * @return the vertical offset from crosshair to target (-20.5 degrees to 20.5 degrees)
      */
     public double getVerticalOffsetFromTargetInDegrees() {
-        return getValue("ty").getDouble(0.00);
+        return getEntry("ty").getDouble(0.00);
     }
 
     /**
      * @return the raw vertical offset from crosshair to target in pixels (-1 to 1)
      */
     public double getVerticalOffsetFromTargetInPixels() {
-        return getValue("ty0").getDouble(0.00);
+        return getEntry("ty0").getDouble(0.00);
     }
 
     /**
      * @return the area that the detected target takes up in total camera FOV (0% to 100%)
      */
     public double getTargetAreaPercentage() {
-        return getValue("ta").getDouble(0.00);
+        return getEntry("ta").getDouble(0.00);
     }
 
     /**
      * @return the target skew or rotation (-90 degrees to 0 degrees)
      */
     public double getTargetSkew() {
-        return getValue("ts").getDouble(0.00);
+        return getEntry("ts").getDouble(0.00);
     }
 
     /**
      * @return target latency (ms)
      */
     public double getTargetLatency() {
-        return getValue("tl").getDouble(0.00);
+        return getEntry("tl").getDouble(0.00);
     }
 
     /**
      * @return the target width in pixels, depending on the camera resolution
      */
     public double getTargetWidthInPixels() {
-        return getValue("thor").getDouble(0.00);
+        return getEntry("thor").getDouble(0.00);
     }
 
     /**
      * @return the target height in pixels, depending on the camera resolution
      */
     public double getTargetHeightInPixels() {
-        return getValue("tvert").getDouble(0.00);
+        return getEntry("tvert").getDouble(0.00);
     }
 
     /**
@@ -196,7 +207,7 @@ public class Limelight {
      */
     public void setCamMode(CamMode mode) {
         int modeNum = mode.getCamMode();
-        getValue("camMode").setNumber(modeNum);
+        getEntry("camMode").setNumber(modeNum);
     }
 
     /**
@@ -206,6 +217,6 @@ public class Limelight {
      */
     public void setLedMode(LedMode mode) {
         int modeNum = mode.getLedMode();
-        getValue("ledMode").setNumber(modeNum);
+        getEntry("ledMode").setNumber(modeNum);
     }
 }

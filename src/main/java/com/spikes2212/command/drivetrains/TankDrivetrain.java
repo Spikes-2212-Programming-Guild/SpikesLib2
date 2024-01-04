@@ -2,6 +2,7 @@ package com.spikes2212.command.drivetrains;
 
 import com.spikes2212.command.DashboardedSubsystem;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
@@ -31,7 +32,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
         rightController.setInverted(true);
         drive = new DifferentialDrive(leftController, rightController);
     }
-    
+
     public TankDrivetrain(MotorController left, MotorController right) {
         this(getClassName(DEFAULT_NAMESPACE_NAME), left, right);
     }
@@ -39,43 +40,50 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft  the speed to set to the left side. Positive values move this side
-     *                   forward.
-     * @param speedRight the speed to set to the right side. Positive values move this side
-     *                   forward.
+     * @param leftSpeed  the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
-    public void tankDrive(double speedLeft, double speedRight) {
-        drive.tankDrive(speedLeft, speedRight);
+    public void tankDrive(double leftSpeed, double rightSpeed) {
+        drive.tankDrive(leftSpeed, rightSpeed, false);
     }
 
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
-     * @param speedLeft    the speed to set to the left side. Positive values move this side
-     *                     forward.
-     * @param speedRight   the speed to set to the right side. Positive values move this side
-     *                     forward.
+     * @param leftSpeed    the speed to set to the left side (-1 to 1). Positive values move this side forward
+     * @param rightSpeed   the speed to set to the right side (-1 to 1). Positive values move this side forward
      * @param squareInputs whether to square the given inputs before putting them in the speed controllers
      */
-    public void tankDrive(double speedLeft, double speedRight, boolean squareInputs) {
-        drive.tankDrive(speedLeft, speedRight, squareInputs);
+    public void tankDrive(double leftSpeed, double rightSpeed, boolean squareInputs) {
+        drive.tankDrive(leftSpeed, rightSpeed, squareInputs);
     }
 
     /**
-     * Moves the drivetrain with the given forward and angular speed.
+     * Moves both sides of this drivetrain by the given voltages for each side.
      *
-     * @param moveValue   the forward movement speed.
-     * @param rotateValue the angular movement speed. Positive values go clockwise.
+     * @param leftVoltage  the voltage to set to the left side (-12 to 12). Positive values move this side forward
+     * @param rightVoltage the voltage to set to the right side (-12 to 12). Positive values move this side forward
+     */
+    public void tankDriveVoltages(double leftVoltage, double rightVoltage) {
+        tankDrive(leftVoltage / RobotController.getBatteryVoltage(),
+                rightVoltage / RobotController.getBatteryVoltage(), false);
+    }
+
+    /**
+     * Moves the drivetrain by the given forward and angular speed.
+     *
+     * @param moveValue   the forward movement speed (-1 to 1)
+     * @param rotateValue the angular movement speed (-1 to 1). Positive values go clockwise
      */
     public void arcadeDrive(double moveValue, double rotateValue) {
-        drive.arcadeDrive(moveValue, rotateValue);
+        drive.arcadeDrive(moveValue, rotateValue, false);
     }
 
     /**
-     * Moves both sides of this drivetrain by the given speeds for each side.
+     * Moves the drivetrain by the given forward and angular speed.
      *
-     * @param moveValue    the forward movement speed.
-     * @param rotateValue  the angular movement speed. Positive values go clockwise.
+     * @param moveValue    the forward movement speed (-1 to 1)
+     * @param rotateValue  the angular movement speed (-1 to 1). Positive values go clockwise
      * @param squareInputs whether to square the given inputs before putting them in the speed controllers
      */
     public void arcadeDrive(double moveValue, double rotateValue, boolean squareInputs) {
@@ -83,10 +91,21 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Moves the drivetrain while rotating it.
+     * Moves the drivetrain by the given forward and angular voltage.
      *
-     * @param speed     the forward movement speed.
-     * @param curvature the rotational movement speed. Positive values go clockwise.
+     * @param moveVoltage  the forward movement voltage (-12 to 12)
+     * @param rotateVoltage the angular movement voltage (-12 to 12). Positive values go clockwise
+     */
+    public void arcadeDriveVoltages(double moveVoltage, double rotateVoltage) {
+        arcadeDrive(moveVoltage / RobotController.getBatteryVoltage(),
+                rotateVoltage / RobotController.getBatteryVoltage(), false);
+    }
+
+    /**
+     * Moves the drivetrain while rotating it at a given curvature.
+     *
+     * @param speed     the forward movement speed (-1 to 1)
+     * @param curvature the curvature of the robot's path (-1 to 1). Positive values go clockwise
      */
     public void curvatureDrive(double speed, double curvature) {
         drive.curvatureDrive(speed, curvature, true);
@@ -95,21 +114,42 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the left side of this drivetrain by a given speed.
      *
-     * @param speedLeft the speed to set to the left side. Positive values move this side forward.
+     * @param leftSpeed the speed to set to the left side (-1 to 1). Positive values move this side forward
      */
-    public void setLeft(double speedLeft) {
-        leftController.set(speedLeft);
+    public void setLeft(double leftSpeed) {
+        leftController.set(leftSpeed);
     }
 
     /**
-     * Moves the right side of this drivetrain with a given speed.
+     * Moves the right side of this drivetrain by a given speed.
      *
-     * @param speedRight the speed to set to the right side. Positive values move this side forward.
+     * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
-    public void setRight(double speedRight) {
-        rightController.set(-speedRight);
+    public void setRight(double rightSpeed) {
+        rightController.set(-rightSpeed);
     }
 
+    /**
+     * Moves the left side of this drivetrain by a given voltage.
+     *
+     * @param leftVoltage the voltage to set to the left side (-12 to 12). Positive values move this side forward
+     */
+    public void setLeftVoltage(double leftVoltage) {
+        setLeft(leftVoltage / RobotController.getBatteryVoltage());
+    }
+
+    /**
+     * Moves the right side of this drivetrain by a given voltage.
+     *
+     * @param rightVoltage the voltage to set to the right side (-12 to 12). Positive values move this side forward
+     */
+    public void setRightVoltage(double rightVoltage) {
+        setRight(rightVoltage / RobotController.getBatteryVoltage());
+    }
+
+    /**
+     * Stops the drivetrain.
+     */
     public void stop() {
         leftController.stopMotor();
         rightController.stopMotor();
