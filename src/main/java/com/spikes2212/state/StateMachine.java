@@ -23,7 +23,7 @@ public abstract class StateMachine<T extends Enum<T>> {
     }
 
     public Command getTransformationFor(T state) {
-        return new ProxyScheduleCommand(transformations.get(state));
+        return new ProxyCommand(transformations.get(state));
     }
 
     protected void setState(T state) {
