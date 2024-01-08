@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @author Eran Goldstein
  */
-public class RepeatCommand extends CommandBase {
+public class RepeatCommand extends Command {
 
     private final Command command;
 

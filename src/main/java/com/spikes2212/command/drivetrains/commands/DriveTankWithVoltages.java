@@ -1,7 +1,7 @@
 package com.spikes2212.command.drivetrains.commands;
 
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author Yorai Coval
  * @see TankDrivetrain
  */
-public class DriveTankWithVoltages extends CommandBase {
+public class DriveTankWithVoltages extends Command {
 
     protected final Supplier<Double> leftVoltageSupplier;
     protected final Supplier<Double> rightVoltageSupplier;

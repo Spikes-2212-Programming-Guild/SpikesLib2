@@ -3,7 +3,7 @@ package com.spikes2212.command.drivetrains.commands;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.*;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.math.controller.PIDController;
 
 import java.util.function.Supplier;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  * @see TankDrivetrain
  */
-public class DriveArcadeWithPID extends CommandBase {
+public class DriveArcadeWithPID extends Command {
 
     /**
      * The drivetrain this command operates on.

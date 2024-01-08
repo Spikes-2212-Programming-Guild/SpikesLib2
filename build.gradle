@@ -5,8 +5,8 @@ plugins {
     id 'net.researchgate.release' version '2.6.0'
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 group = 'com.github.Spikes-2212-Programming-Guild'
 
@@ -24,14 +24,18 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'com.ctre.phoenix6', name: 'wpiapi-java', version: '24.0.0-beta-5'
-    implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.32.0-beta-4'
-    implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.32.0-beta-4'
-    implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2024.1.1-beta-4'
-    implementation group: 'edu.wpi.first.wpilibNewCommands', name: 'wpilibNewCommands-java', version: '2024.1.1-beta-4'
-    implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2024.1.1-beta-4'
-    implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2024.1.1-beta-4'
-    implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2024.1.1-beta-4'
-    implementation group: 'edu.wpi.first.wpimath', name: 'wpimath-java', version: '2024.1.1-beta-4'
-    implementation group: 'com.revrobotics.frc', name: 'REVLib-java', version: '2024.0.0'
+    implementation group: 'com.ctre.phoenix6', name: 'wpiapi-java', version: '24.0.0-beta-8'
+    implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpilibNewCommands', name: 'wpilibNewCommands-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpimath', name: 'wpimath-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpiunits', name: 'wpiunits-java', version: '2024.1.1'
+    implementation group: 'com.revrobotics.frc', name: 'REVLib-java', version: '2024.2.0'
+}
+
+dependencies {
+    implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.32.0-beta-5'
+    implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.31.0'
 }

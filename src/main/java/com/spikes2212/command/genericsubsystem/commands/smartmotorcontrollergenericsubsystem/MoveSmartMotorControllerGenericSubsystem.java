@@ -5,7 +5,7 @@ import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerGenericSubsystem
  */
-public class MoveSmartMotorControllerGenericSubsystem extends CommandBase {
+public class MoveSmartMotorControllerGenericSubsystem extends Command {
 
     /**
      * The {@link SmartMotorControllerGenericSubsystem} this command will run on.

@@ -1,7 +1,7 @@
 package com.spikes2212.command.drivetrains.commands;
 
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  * @see TankDrivetrain
  */
-public class DriveTank extends CommandBase {
+public class DriveTank extends Command {
 
     protected final TankDrivetrain tankDrivetrain;
     protected final Supplier<Double> leftSpeedSupplier;

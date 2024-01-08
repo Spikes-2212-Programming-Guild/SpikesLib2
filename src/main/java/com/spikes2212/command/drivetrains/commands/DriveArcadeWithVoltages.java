@@ -3,7 +3,7 @@ package com.spikes2212.command.drivetrains.commands;
 import java.util.function.Supplier;
 
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 /**
  * A command that moves a {@link TankDrivetrain} using linear and rotational voltages.
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * @see TankDrivetrain
  */
 
-public class DriveArcadeWithVoltages extends CommandBase {
+public class DriveArcadeWithVoltages extends Command {
 
     protected final TankDrivetrain tankDrivetrain;
     protected final Supplier<Double> moveValueSupplier;

@@ -2,7 +2,7 @@ package com.spikes2212.command.genericsubsystem.commands;
 
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  * @see GenericSubsystem
  */
-public class MoveGenericSubsystem extends CommandBase {
+public class MoveGenericSubsystem extends Command {
 
     protected final GenericSubsystem subsystem;
     protected final Supplier<Double> speedSupplier;

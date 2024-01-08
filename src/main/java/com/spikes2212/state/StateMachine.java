@@ -7,7 +7,7 @@ import java.util.Map;
 
 public abstract class StateMachine<T extends Enum<T>> {
 
-    private Map<T, CommandBase> transformations;
+    private Map<T, Command> transformations;
     private T state;
 
     public StateMachine(T initialState) {
@@ -22,7 +22,7 @@ public abstract class StateMachine<T extends Enum<T>> {
         transformations.put(state, new InstantCommand(() -> setState(state)).andThen(command));
     }
 
-    public CommandBase getTransformationFor(T state) {
+    public Command getTransformationFor(T state) {
         return new ProxyScheduleCommand(transformations.get(state));
     }
 
