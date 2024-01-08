@@ -2,8 +2,8 @@ package com.spikes2212.command.genericsubsystem;
 
 import com.spikes2212.dashboard.Namespace;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
+import java.util.ArrayList;
 import java.util.function.Supplier;
 
 /**
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public class MotoredGenericSubsystem extends GenericSubsystem {
 
-    protected MotorControllerGroup motorControllerGroup;
+    protected ArrayList<MotorController> motorControllerGroup;
 
     /**
      * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
@@ -26,9 +26,9 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed,
-                                   MotorController... motorControllers) {
+                                   ArrayList<MotorController> motorControllers) {
         super(namespaceName, minSpeed, maxSpeed);
-        this.motorControllerGroup = new MotorControllerGroup(motorControllers);
+        this.motorControllerGroup = new ArrayList<>(motorControllers);
     }
 
     /**
@@ -41,7 +41,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * @param motorControllers the motor controllers in the subsystem
      */
     public MotoredGenericSubsystem(String namespaceName, double minSpeed, double maxSpeed,
-                                   MotorController... motorControllers) {
+                                   ArrayList<MotorController> motorControllers) {
         this(namespaceName, () -> minSpeed, () -> maxSpeed, motorControllers);
     }
 
@@ -52,13 +52,15 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
      * @param namespaceName    the name of the subsystem's namespace
      * @param motorControllers the motor controllers in the subsystem
      */
-    public MotoredGenericSubsystem(String namespaceName, MotorController... motorControllers) {
+    public MotoredGenericSubsystem(String namespaceName, ArrayList<MotorController> motorControllers) {
         this(namespaceName, () -> -1.0, () -> 1.0, motorControllers);
     }
 
     @Override
     protected void apply(double speed) {
-        motorControllerGroup.set(speed);
+        for (MotorController i: motorControllerGroup) {
+            i.set(speed);
+        }
     }
 
     @Override
@@ -68,7 +70,9 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
 
     @Override
     public void stop() {
-        motorControllerGroup.stopMotor();
+        for (MotorController i: motorControllerGroup) {
+            i.stopMotor();
+        }
     }
 
     /**
