@@ -1,6 +1,6 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.SparkPIDController;
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import java.util.List;
 
 /**
- * A {@link Subsystem} which consists of a master {@link CANSparkMax} motor controller that runs control
- * loops and additional {@link CANSparkMax} motor controllers that follow it.
+ * A {@link Subsystem} which consists of a master {@link CANSparkBase} motor controller that runs control
+ * loops and additional {@link CANSparkBase} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
@@ -24,24 +24,24 @@ import java.util.List;
 public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
 
     /**
-     * The slot on the {@link CANSparkMax} on which the trapezoid profiling configurations are saved.
+     * The slot on the {@link CANSparkBase} on which the trapezoid profiling configurations are saved.
      */
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The slot on the {@link CANSparkMax} on which the PID loops are run.
+     * The slot on the {@link CANSparkBase} on which the PID loops are run.
      */
     private static final int PID_SLOT = 0;
 
     /**
-     * The {@link CANSparkMax} which runs the loops.
+     * The {@link CANSparkBase} which runs the loops.
      */
-    protected final CANSparkMax master;
+    protected final CANSparkBase master;
 
     /**
-     * Additional {@link CANSparkMax}s that follow the master.
+     * Additional {@link CANSparkBase}s that follow the master.
      */
-    protected final List<CANSparkMax> slaves;
+    protected final List<CANSparkBase> slaves;
 
     /**
      * Constructs a new instance of {@link SparkMaxGenericSubsystem}.
@@ -50,7 +50,7 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
      * @param master        the motor controller which runs the loops
      * @param slaves        additional motor controllers that follow the master
      */
-    public SparkMaxGenericSubsystem(String namespaceName, CANSparkMax master, CANSparkMax... slaves) {
+    public SparkMaxGenericSubsystem(String namespaceName, CANSparkBase master, CANSparkBase... slaves) {
         super(namespaceName);
         this.master = master;
         this.slaves = List.of(slaves);
