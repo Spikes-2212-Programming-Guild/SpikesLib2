@@ -1,9 +1,9 @@
 package com.spikes2212.command.drivetrains.commands;
 
-import java.util.function.Supplier;
-
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+
+import java.util.function.Supplier;
 
 /**
  * A command that moves a {@link TankDrivetrain} using linear and rotational voltages.

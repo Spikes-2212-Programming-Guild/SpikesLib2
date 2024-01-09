@@ -1,6 +1,5 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
@@ -118,7 +117,7 @@ public class CTRESmartMotorControllerGenericSubsystem
      */
     @Override
     public void finish() {
-        ((MotorController)master).stopMotor();
+        ((MotorController) master).stopMotor();
     }
 
     /**

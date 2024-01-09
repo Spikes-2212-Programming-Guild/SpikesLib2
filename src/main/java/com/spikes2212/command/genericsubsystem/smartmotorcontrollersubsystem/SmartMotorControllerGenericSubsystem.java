@@ -51,7 +51,7 @@ public interface SmartMotorControllerGenericSubsystem extends Subsystem {
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
     void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
-                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings);
+                FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings);
 
     /**
      * Updates any control loops running on the motor controller.

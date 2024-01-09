@@ -23,10 +23,10 @@ public class DriveTankWithVoltages extends Command {
      * values from Double {@link Supplier}s for the left and right sides. <br>
      * Positive values move the drivetrain forward.
      *
-     * @param drivetrain   the drivetrain this command requires and moves
+     * @param drivetrain           the drivetrain this command requires and moves
      * @param leftVoltageSupplier  the Double {@link Supplier} supplying the voltage for the left side (-12 to 12)
      * @param rightVoltageSupplier the Double {@link Supplier} supplying the voltage for the right side (-12 to 12)
-     * @param isFinished   when to finish the command
+     * @param isFinished           when to finish the command
      */
     public DriveTankWithVoltages(TankDrivetrain drivetrain, Supplier<Double> leftVoltageSupplier,
                                  Supplier<Double> rightVoltageSupplier, Supplier<Boolean> isFinished) {
@@ -41,7 +41,7 @@ public class DriveTankWithVoltages extends Command {
      * values from Double {@link Supplier}s for the left and right sides. <br>
      * Positive values move the drivetrain forward.
      *
-     * @param drivetrain   the drivetrain this command requires and moves
+     * @param drivetrain           the drivetrain this command requires and moves
      * @param leftVoltageSupplier  the Double {@link Supplier} supplying the voltage for the left side (-12 to 12)
      * @param rightVoltageSupplier the Double {@link Supplier} supplying the voltage for the right side (-12 to 12)
      */

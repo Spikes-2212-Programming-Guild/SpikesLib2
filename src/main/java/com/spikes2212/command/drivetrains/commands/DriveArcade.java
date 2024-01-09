@@ -116,10 +116,10 @@ public class DriveArcade extends Command {
      * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values for linear and rotational movements. Does not square the inputs.
      *
-     * @param drivetrain   the tank drivetrain this command operates on
-     * @param moveValue    the linear speed (-1 to 1). Positive values go forwards
-     * @param rotateValue  the rotational speed (-1 to 1). Positive values go clockwise
-     * @param isFinished   when to finish the command
+     * @param drivetrain  the tank drivetrain this command operates on
+     * @param moveValue   the linear speed (-1 to 1). Positive values go forwards
+     * @param rotateValue the rotational speed (-1 to 1). Positive values go clockwise
+     * @param isFinished  when to finish the command
      */
     public DriveArcade(TankDrivetrain drivetrain, double moveValue,
                        double rotateValue, Supplier<Boolean> isFinished) {
@@ -144,9 +144,9 @@ public class DriveArcade extends Command {
      * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values for linear and rotational movements. Does not square the inputs.
      *
-     * @param drivetrain   the tank drivetrain this command operates on
-     * @param moveValue    the linear speed (-1 to 1). Positive values go forwards
-     * @param rotateValue  the rotational speed (-1 to 1). Positive values go clockwise
+     * @param drivetrain  the tank drivetrain this command operates on
+     * @param moveValue   the linear speed (-1 to 1). Positive values go forwards
+     * @param rotateValue the rotational speed (-1 to 1). Positive values go clockwise
      */
     public DriveArcade(TankDrivetrain drivetrain, double moveValue,
                        double rotateValue) {
