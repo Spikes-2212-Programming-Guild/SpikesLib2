@@ -1,10 +1,10 @@
 package com.spikes2212.command.drivetrains;
 
 import com.spikes2212.command.DashboardedSubsystem;
+import com.spikes2212.command.genericsubsystem.MotorControllerGroup;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 /**
  * This class represents a type of drivetrain that its left and right sides are controlled independently,
@@ -20,20 +20,20 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "tank drivetrain";
 
-    protected MotorController leftController;
-    protected MotorController rightController;
+    protected MotorControllerGroup leftControllers;
+    protected MotorControllerGroup rightControllers;
 
     private final DifferentialDrive drive;
 
-    public TankDrivetrain(String namespaceName, MotorController left, MotorController right) {
+    public TankDrivetrain(String namespaceName, MotorControllerGroup left, MotorControllerGroup right) {
         super(namespaceName);
-        this.leftController = left;
-        this.rightController = right;
-        rightController.setInverted(true);
-        drive = new DifferentialDrive(leftController, rightController);
+        this.leftControllers = left;
+        this.rightControllers = right;
+        right.setInverted(true);
+        drive = new DifferentialDrive(left, right);
     }
 
-    public TankDrivetrain(MotorController left, MotorController right) {
+    public TankDrivetrain(MotorControllerGroup left, MotorControllerGroup right) {
         this(getClassName(DEFAULT_NAMESPACE_NAME), left, right);
     }
 
@@ -117,7 +117,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param leftSpeed the speed to set to the left side (-1 to 1). Positive values move this side forward
      */
     public void setLeft(double leftSpeed) {
-        leftController.set(leftSpeed);
+        leftControllers.set(leftSpeed);
     }
 
     /**
@@ -126,7 +126,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
     public void setRight(double rightSpeed) {
-        rightController.set(-rightSpeed);
+        rightControllers.set(-rightSpeed);
     }
 
     /**
@@ -151,8 +151,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * Stops the drivetrain.
      */
     public void stop() {
-        leftController.stopMotor();
-        rightController.stopMotor();
+        leftControllers.stopMotor();
+        rightControllers.stopMotor();
     }
 
     /**
