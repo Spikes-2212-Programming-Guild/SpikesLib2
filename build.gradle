@@ -33,9 +33,6 @@ dependencies {
     implementation group: 'edu.wpi.first.wpimath', name: 'wpimath-java', version: '2024.1.1'
     implementation group: 'edu.wpi.first.wpiunits', name: 'wpiunits-java', version: '2024.1.1'
     implementation group: 'com.revrobotics.frc', name: 'REVLib-java', version: '2024.2.0'
-}
-
-dependencies {
     implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.32.0-beta-5'
     implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.31.0'
 }
