@@ -1,16 +1,15 @@
 package com.spikes2212.util;
 
-import com.spikes2212.command.DashboardedSubsystem;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
- * A class that handles the communication between an LED strip and the code.
+ * A class that handles the communication between a LED strip and the code.
+ * This class still requires further testing and an update will be made as soon as testing is finished.
  *
  * @author Camellia Lami
- * @see DashboardedSubsystem
  */
 public class AddressableLEDWrapper {
 
@@ -18,6 +17,7 @@ public class AddressableLEDWrapper {
      * The controlled LED strip.
      */
     private final AddressableLED led;
+
     /**
      * The controlled LED strip's data.
      */
@@ -36,7 +36,7 @@ public class AddressableLEDWrapper {
      * @param blue  the blue value from 0 to 255
      */
     public void setStripColor(int red, int green, int blue) {
-        setColorInRange(red, green, blue, 0, ledBuffer.getLength());
+        setColorInRange(0, ledBuffer.getLength() - 1, red, green, blue);
     }
 
     /**
@@ -65,7 +65,7 @@ public class AddressableLEDWrapper {
      * @param blue  the blue value from 0 to 255
      */
     public void setColorInRange(int start, int end, int red, int green, int blue) {
-        for (int i = start; i < end; i++) {
+        for (int i = start; i <= end; i++) {
             ledBuffer.setRGB(i, red, green, blue);
         }
     }
@@ -78,7 +78,7 @@ public class AddressableLEDWrapper {
      * @param color the desired {@link Color}
      */
     public void setColorInRange(int start, int end, Color color) {
-        setColorInRange(color.getRed(), color.getGreen(), color.getBlue(), start, end);
+        setColorInRange(start, end, color.getRed(), color.getGreen(), color.getBlue());
     }
 
     /**
@@ -96,15 +96,16 @@ public class AddressableLEDWrapper {
     /**
      * Sets a specific LED to a specific color.
      *
-     * @param color the desired {@link Color}
      * @param index the index of the LED
+     * @param color the desired {@link Color}
      */
     public void setColorAt(int index, Color color) {
         ledBuffer.setRGB(index, color.getRed(), color.getGreen(), color.getBlue());
     }
 
     /**
-     * Takes the buffer's data and applies it to the LED strip periodically.
+     * Takes the buffer's data and applies it to the LED strip.
+     * This method should be called periodically.
      */
     public void update() {
         led.setData(ledBuffer);

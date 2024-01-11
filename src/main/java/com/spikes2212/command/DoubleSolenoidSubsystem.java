@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
- * A {@link Subsystem} that controls an applicable double solenoid.
+ * A {@link Subsystem} that controls a double solenoid.
  *
  * @author Camellia Lami
  * @see DashboardedSubsystem
@@ -33,7 +33,7 @@ public class DoubleSolenoidSubsystem extends DashboardedSubsystem {
      *
      * @return an {@link InstantCommand} that opens the solenoid
      */
-    public InstantCommand openSolenoid() {
+    public InstantCommand openCommand() {
         if (inverted) {
             return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kForward), this);
         }
@@ -45,7 +45,7 @@ public class DoubleSolenoidSubsystem extends DashboardedSubsystem {
      *
      * @return an {@link InstantCommand} that closes the solenoid
      */
-    public InstantCommand closeSolenoid() {
+    public InstantCommand closeCommand() {
         if (inverted) {
             return new InstantCommand(() -> doubleSolenoid.set(DoubleSolenoid.Value.kReverse), this);
         }

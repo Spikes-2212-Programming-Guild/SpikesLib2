@@ -17,46 +17,146 @@ public class DriveTank extends CommandBase {
     protected final Supplier<Double> leftSpeedSupplier;
     protected final Supplier<Double> rightSpeedSupplier;
     protected final Supplier<Boolean> isFinished;
+    protected final boolean squareInputs;
 
     /**
      * This constructs a new {@link DriveTank} command that moves the given
-     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for left and right sides.<br>
-     * Positive values move forwards.
+     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for left and right sides. <br>
+     * Positive values move the drivetrain forward.
      *
-     * @param drivetrain         the drivetrain this command requires and moves.
-     * @param leftSpeedSupplier  the double {@link Supplier} supplying the speed to move on the left side with.
-     * @param rightSpeedSupplier the double {@link Supplier} supplying the speed to move on the right side with.
+     * @param drivetrain         the tank drivetrain this command operates on
+     * @param leftSpeedSupplier  the Double {@link Supplier} supplying the left side's speed (-1 to 1).
+     *                           Positive values go forward
+     * @param rightSpeedSupplier the Double {@link Supplier} supplying the right side's speed (-1 to 1).
+     *                           Positive values go forward
+     * @param isFinished         when to finish the command
+     * @param squareInputs       whether to square the speed suppliers' values
      */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
-                     Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished) {
+                     Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished, boolean squareInputs) {
         addRequirements(drivetrain);
         this.tankDrivetrain = drivetrain;
         this.leftSpeedSupplier = leftSpeedSupplier;
         this.rightSpeedSupplier = rightSpeedSupplier;
         this.isFinished = isFinished;
+        this.squareInputs = squareInputs;
     }
 
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given
+     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for the left and right sides. <br>
+     * Positive values move the drivetrain forward. Does not square the inputs.
+     *
+     * @param drivetrain         the tank drivetrain this command operates on
+     * @param leftSpeedSupplier  the Double {@link Supplier} supplying the left side's speed (-1 to 1).
+     *                           Positive values go forward
+     * @param rightSpeedSupplier the Double {@link Supplier} supplying the right side's speed (-1 to 1).
+     *                           Positive values go forward
+     * @param isFinished         when to finish the command
+     */
+    public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
+                     Supplier<Double> rightSpeedSupplier, Supplier<Boolean> isFinished) {
+        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, isFinished, false);
+    }
+
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given
+     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for the left and right sides. <br>
+     * Positive values move the drivetrain forward.
+     *
+     * @param drivetrain         the tank drivetrain this command operates on
+     * @param leftSpeedSupplier  the Double {@link Supplier} supplying the left side's speed (-1 to 1).
+     *                           Positive values go forward
+     * @param rightSpeedSupplier the Double {@link Supplier} supplying the right side's speed (-1 to 1).
+     *                           Positive values go forward
+     * @param squareInputs       whether to square the speed suppliers' values
+     */
+    public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
+                     Supplier<Double> rightSpeedSupplier, boolean squareInputs) {
+        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, () -> false, squareInputs);
+    }
+
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given
+     * {@link TankDrivetrain} according to speed values from Double {@link Supplier}s for the left and right sides. <br>
+     * Positive values move the drivetrain forward. Does not square the inputs.
+     *
+     * @param drivetrain         the tank drivetrain this command operates on
+     * @param leftSpeedSupplier  the Double {@link Supplier} supplying the left side's speed (-1 to 1).
+     *                           Positive values go forward
+     * @param rightSpeedSupplier the Double {@link Supplier} supplying the right side's speed (-1 to 1).
+     *                           Positive values go forward
+     */
     public DriveTank(TankDrivetrain drivetrain, Supplier<Double> leftSpeedSupplier,
                      Supplier<Double> rightSpeedSupplier) {
-        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, () -> false);
+        this(drivetrain, leftSpeedSupplier, rightSpeedSupplier, () -> false, false);
     }
 
-    public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, boolean isFinished) {
-        this(drivetrain, () -> leftSpeed, () -> rightSpeed, () -> isFinished);
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given
+     * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
+     * Positive values move the drivetrain forward.
+     *
+     * @param drivetrain   the tank drivetrain this command operates on
+     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
+     * @param isFinished   when to finish the command
+     * @param squareInputs whether to square the speed values
+     */
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeed,
+                     double rightSpeed, Supplier<Boolean> isFinished, boolean squareInputs) {
+        this(drivetrain, () -> leftSpeed, () -> rightSpeed, isFinished, squareInputs);
     }
 
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given
+     * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
+     * Positive values move the drivetrain forward. Does not square the inputs.
+     *
+     * @param drivetrain   the tank drivetrain this command operates on
+     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
+     * @param isFinished   when to finish the command
+     */
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, Supplier<Boolean> isFinished) {
+        this(drivetrain, leftSpeed, rightSpeed, isFinished, false);
+    }
+
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given
+     * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
+     * Positive values move the drivetrain forward.
+     *
+     * @param drivetrain   the tank drivetrain this command operates on
+     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
+     * @param squareInputs whether to square the speed values
+     */
+    public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, boolean squareInputs) {
+        this(drivetrain, leftSpeed, rightSpeed, () -> false, squareInputs);
+    }
+
+    /**
+     * This constructs a new {@link DriveTank} command that moves the given
+     * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
+     * Positive values move the drivetrain forward. Does not square the inputs.
+     *
+     * @param drivetrain   the tank drivetrain this command operates on
+     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
+     */
     public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed) {
-        this(drivetrain, () -> leftSpeed, () -> rightSpeed, () -> false);
+        this(drivetrain, leftSpeed, rightSpeed, () -> false, false);
     }
 
     @Override
     public void execute() {
-        tankDrivetrain.tankDrive(leftSpeedSupplier.get(), rightSpeedSupplier.get());
+        tankDrivetrain.tankDrive(leftSpeedSupplier.get(), rightSpeedSupplier.get(), squareInputs);
     }
 
     @Override
     public boolean isFinished() {
-        return this.isFinished.get();
+        return isFinished.get();
     }
 
     @Override

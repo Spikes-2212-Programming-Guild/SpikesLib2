@@ -61,7 +61,6 @@ public class FeedForwardSettings {
         this(() -> kS, () -> kV, () -> kA, () -> kG);
     }
 
-
     public double getkS() {
         return kS.get();
     }
