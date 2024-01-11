@@ -52,6 +52,7 @@ public class SpikesLogger extends RootNamespace {
 
     public <T> void logWithTimestamp(T output) {
         log(LocalTime.now() + ": " + output);
+    }
       
     /**
      * Returns a command that logs the provided output to the NetworkTables and the SpikesLogger app.
