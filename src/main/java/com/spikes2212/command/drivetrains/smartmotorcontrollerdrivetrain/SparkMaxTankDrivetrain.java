@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * A {@link TankDrivetrain}, whose sides each consists of a master {@link CANSparkBase} motor controller that runs
- * control loops and additional {@link CANSparkBase}s that follow it.
+ * control loops and additional {@link CANSparkBase} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see TankDrivetrain
@@ -23,32 +23,32 @@ import java.util.List;
 public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
-     * The slot on the {@link CANSparkBase}s on which the trapezoid profiling configurations are saved.
+     * The slot on the {@link CANSparkBase} motor controller on which the trapezoid profiling configurations are saved.
      */
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The slot on the {@link CANSparkBase}s on which the PID loops are run.
+     * The slot on the {@link CANSparkBase} motor controller on which the PID loops are run.
      */
     private static final int PID_SLOT = 0;
 
     /**
-     * The left {@link CANSparkBase} which runs the loops.
+     * The left {@link CANSparkBase} motor controller which runs the loops.
      */
     protected final CANSparkBase leftMaster;
 
     /**
-     * The right {@link CANSparkBase} which runs the loops.
+     * The right {@link CANSparkBase} motor controller which runs the loops.
      */
     protected final CANSparkBase rightMaster;
 
     /**
-     * Additional {@link CANSparkBase}s that follow the left master.
+     * Additional {@link CANSparkBase} motor controller that follow the left master.
      */
     protected final List<CANSparkBase> leftSlaves;
 
     /**
-     * Additional {@link CANSparkBase}s that follow the right master.
+     * Additional {@link CANSparkBase} motor controller that follow the right master.
      */
     protected final List<CANSparkBase> rightSlaves;
 
@@ -56,10 +56,10 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
      * Constructs a new instance of {@link SparkMaxTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
-     * @param leftMaster    the {@link CANSparkBase} which runs the left side's loops
-     * @param leftSlaves    additional {@link CANSparkBase}s that follow the left master
-     * @param rightMaster   the {@link CANSparkBase} which runs the right side's loops
-     * @param rightSlaves   additional {@link CANSparkBase}s that follow the right master
+     * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
+     * @param leftSlaves    additional {@link CANSparkBase} motor controller that follow the left master
+     * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
+     * @param rightSlaves   additional {@link CANSparkBase} motor controller that follow the right master
      */
     public SparkMaxTankDrivetrain(String namespaceName, CANSparkBase leftMaster, List<CANSparkBase> leftSlaves,
                                   CANSparkBase rightMaster, List<CANSparkBase> rightSlaves) {
@@ -76,10 +76,10 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
      * Constructs a new instance of {@link SparkMaxTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
-     * @param leftMaster    the {@link CANSparkBase} which runs the left side's loops
-     * @param leftSlave     an additional {@link CANSparkBase} that follows the left master
-     * @param rightMaster   the {@link CANSparkBase} which runs the right side's loops
-     * @param rightSlave    an additional {@link CANSparkBase} that follows the right master
+     * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
+     * @param leftSlave     an additional {@link CANSparkBase} motor controller that follows the left master
+     * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
+     * @param rightSlave    an additional {@link CANSparkBase} motor controller that follows the right master
      */
     public SparkMaxTankDrivetrain(String namespaceName, CANSparkBase leftMaster, CANSparkBase leftSlave,
                                   CANSparkBase rightMaster, CANSparkBase rightSlave) {
@@ -138,7 +138,7 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     }
 
     /**
-     * Updates any control loops running on the master {@link CANSparkBase}s.
+     * Updates any control loops running on the master {@link CANSparkBase} motor controller.
      *
      * @param controlMode              the loop's control type (e.g. voltage, velocity, position...)
      * @param leftSetpoint             the left side loop's target setpoint
@@ -159,7 +159,7 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     }
 
     /**
-     * Stops any control loops running on each side's {@link CANSparkBase}s.
+     * Stops any control loops running on each side's {@link CANSparkBase} motor controller.
      */
     @Override
     public void finish() {
