@@ -1,4 +1,4 @@
-package com.spikes2212.command.genericsubsystem;
+package com.spikes2212.util;
 
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
