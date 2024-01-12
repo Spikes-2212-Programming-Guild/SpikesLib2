@@ -16,7 +16,7 @@ public abstract class LayoutManager<T extends Enum<T>, K extends Enum<K>> {
     }
 
     public Command getCommandFor(K button) {
-        return new ProxyCommand(allLayouts.get(currentLayout).getCommandForButton(button));
+        return new ProxyCommand(() -> allLayouts.get(currentLayout).getCommandForButton(button));
     }
 
     public void setLayout(T layout) {
