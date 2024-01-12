@@ -4,7 +4,7 @@ import com.spikes2212.command.DashboardedSubsystem;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * A class that handles the communication between an LED strip and the code.
