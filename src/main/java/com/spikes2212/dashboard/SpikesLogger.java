@@ -50,6 +50,11 @@ public class SpikesLogger extends RootNamespace {
         putString(key, output == null ? "null" : output.toString());
     }
 
+    /**
+     * Logs the provided output with a timestamp to the NetworkTables and the SpikesLogger app.
+     *
+     * @param output the data to be logged
+     */
     public <T> void logWithTimestamp(T output) {
         log(LocalTime.now() + ": " + output);
     }
@@ -62,5 +67,15 @@ public class SpikesLogger extends RootNamespace {
      */
     public <T> Command logCommand(T output) {
         return new InstantCommand(() -> log(output));
+    }
+
+    /**
+     * Returns a command that logs the provided output with a timestamp to the NetworkTables and the SpikesLogger app.
+     *
+     * @param output the data to be logged
+     * @return a command that logs the output
+     */
+    public <T> Command logWithTimestampCommand(T output) {
+        return new InstantCommand(() -> logWithTimestamp(output));
     }
 }
