@@ -37,7 +37,7 @@ public class MotorControllerGroup implements MotorController, Sendable, AutoClos
 
     @Override
     public double get() {
-        return 0.0;
+        return motorControllers.get(0).get();
     }
 
     @Override
