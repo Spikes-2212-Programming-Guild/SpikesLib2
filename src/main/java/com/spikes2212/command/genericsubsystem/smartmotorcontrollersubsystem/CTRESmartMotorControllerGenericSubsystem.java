@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * A {@link Subsystem} which consists of a master CTRE motor controller that can run control loops and additional
  * CTRE motor controllers that follow it.
+ * ONLY WORKS WITH PHOENIX 5 PRODUCTS
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
