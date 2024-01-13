@@ -21,7 +21,7 @@ import java.util.List;
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
-public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
+public class SparkGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
 
     /**
      * The slot on the {@link CANSparkBase} on which the trapezoid profiling configurations are saved.
@@ -44,13 +44,13 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
     protected final List<CANSparkBase> slaves;
 
     /**
-     * Constructs a new instance of {@link SparkMaxGenericSubsystem}.
+     * Constructs a new instance of {@link SparkGenericSubsystem}.
      *
      * @param namespaceName the name of the subsystem's namespace
      * @param master        the motor controller which runs the loops
      * @param slaves        additional motor controllers that follow the master
      */
-    public SparkMaxGenericSubsystem(String namespaceName, CANSparkBase master, CANSparkBase... slaves) {
+    public SparkGenericSubsystem(String namespaceName, CANSparkBase master, CANSparkBase... slaves) {
         super(namespaceName);
         this.master = master;
         this.slaves = List.of(slaves);
