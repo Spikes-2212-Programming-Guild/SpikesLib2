@@ -23,32 +23,32 @@ import java.util.List;
 public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
-     * The slot on the {@link CANSparkBase} motor controller on which the trapezoid profiling configurations are saved.
+     * The slot on the motor controller on which the trapezoid profiling configurations are saved.
      */
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The slot on the {@link CANSparkBase} motor controller on which the PID loops are run.
+     * The slot on the motor controller on which the PID loops are run.
      */
     private static final int PID_SLOT = 0;
 
     /**
-     * The left {@link CANSparkBase} motor controller which runs the loops.
+     * The left motor controller which runs the loops.
      */
     protected final CANSparkBase leftMaster;
 
     /**
-     * The right {@link CANSparkBase} motor controller which runs the loops.
+     * The right motor controller which runs the loops.
      */
     protected final CANSparkBase rightMaster;
 
     /**
-     * Additional {@link CANSparkBase} motor controller that follow the left master.
+     * Additional motor controller that follow the left master.
      */
     protected final List<CANSparkBase> leftSlaves;
 
     /**
-     * Additional {@link CANSparkBase} motor controller that follow the right master.
+     * Additional motor controller that follow the right master.
      */
     protected final List<CANSparkBase> rightSlaves;
 
@@ -159,7 +159,7 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     }
 
     /**
-     * Stops any control loops running on each side's {@link CANSparkBase} motor controller.
+     * Stops any control loops running on each side's motor controller.
      */
     @Override
     public void finish() {
