@@ -144,8 +144,8 @@ public class CTRESmartMotorControllerGenericSubsystem
             case CURRENT:
                 if (master instanceof BaseTalon) {
                     value = ((BaseTalon) master).getStatorCurrent();
-                    break;
                 }
+                else throw new UnsupportedOperationException("VictorSPX cannot run current control!");
             default:
                 value = master.getSelectedSensorPosition();
         }

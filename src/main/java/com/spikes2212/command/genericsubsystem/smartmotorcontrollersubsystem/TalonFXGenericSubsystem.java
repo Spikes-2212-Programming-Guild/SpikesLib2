@@ -1,7 +1,8 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
@@ -18,7 +19,7 @@ import java.util.List;
  * A {@link Subsystem} which consists of a master {@link TalonFX} motor controller that runs control
  * loops and additional {@link TalonFX} motor controllers that follow it.
  *
- * @author
+ * @author Netta Hamalish
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
@@ -52,6 +53,7 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
         this.slaves = List.of(slaves);
         this.slaves.forEach(s -> s.setControl(new Follower(master.getDeviceID(), false)));
     }
+
     /**
      * Adds any data or commands to the {@link NetworkTable}s, which can be accessed using the {@link Shuffleboard}.
      */
@@ -59,14 +61,8 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
     public void configureDashboard() {
     }
 
-    /**
-     * Configures the loop's PID constants and feed forward gains.
-     * Updates any loops running on the TalonFX.
-     *
-     * @param pidSettings         the PID constants
-     * @param feedForwardSettings the feed forward gains
-     */
-    public void pidSet(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+    @Override
+    public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
         TalonFXConfiguration config = new TalonFXConfiguration();
         config.Slot0.kP = pidSettings.getkP();
         config.Slot0.kI = pidSettings.getkI();
@@ -75,12 +71,41 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
         config.Slot0.kV = feedForwardSettings.getkV();
         config.Slot0.kA = feedForwardSettings.getkA();
         config.Slot0.kG = feedForwardSettings.getkG();
+
+    }
+
+    @Override
+    public void configureTrapezoid(TrapezoidProfileSettings settings) {
+        MotionMagicConfigs config = new MotionMagicConfigs();
+        config.MotionMagicAcceleration = settings.getAccelerationRate();
+        config.MotionMagicCruiseVelocity = settings.getMaxVelocity();
         master.getConfigurator().apply(config);
+    }
+
+    @Override
+    public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
+                              TrapezoidProfileSettings trapezoidProfileSettings) {
+        master.getConfigurator().apply(new TalonFXConfiguration());
+        configPIDF(pidSettings, feedForwardSettings);
+        configureTrapezoid(trapezoidProfileSettings);
     }
 
     @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
+        configPIDF(pidSettings, feedForwardSettings);
+        configureTrapezoid(trapezoidProfileSettings);
+        ControlRequest request = switch (controlMode) {
+            case CURRENT -> new TorqueCurrentFOC(setpoint);
+            case PERCENT_OUTPUT -> new DutyCycleOut(setpoint);
+            case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(setpoint);
+            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
+            case VOLTAGE -> new VoltageOut(setpoint);
+            case VELOCITY -> new VelocityDutyCycle(setpoint);
+            case POSITION -> new PositionDutyCycle(setpoint);
+        };
+        master.setControl(request);
+        slaves.forEach(s -> s.setControl(new Follower(master.getDeviceID(), false)));
     }
 
     /**
@@ -88,7 +113,7 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
      */
     @Override
     public void finish() {
-        ((TalonFX) master).stopMotor();
+        master.stopMotor();
     }
 
     /**
@@ -102,17 +127,13 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
      */
     @Override
     public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value;
-        switch (controlMode) {
-            case VELOCITY:
-                value = master.getVelocity().getValue();
-                break;
-            case PERCENT_OUTPUT:
-                value = master.get() * 100;
-                break;
-            default:
-                value = master.getPosition().getValue();
-        }
+        double value = switch (controlMode) {
+            case VELOCITY -> master.getVelocity().getValue();
+            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> master.getPosition().getValue();
+            case CURRENT -> master.getTorqueCurrent().getValue();
+            case PERCENT_OUTPUT -> master.get();
+            case VOLTAGE -> master.getMotorVoltage().getValue();
+        };
         return Math.abs(value - setpoint) <= tolerance;
     }
 }
