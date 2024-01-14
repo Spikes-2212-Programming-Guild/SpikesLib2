@@ -23,21 +23,35 @@ public class MotorControllerGroup implements MotorController, Sendable, AutoClos
 
     @Override
     public void set(double speed) {
-        for (MotorController motorController : motorControllers) {
-            motorController.set(inverted ? -speed : speed);
-        }
+        motorControllers.forEach(m -> m.set(inverted ? -speed : speed));
     }
 
     @Override
     public void setVoltage(double outputVolts) {
-        for (MotorController motorController : motorControllers) {
-            motorController.setVoltage(inverted ? -outputVolts : outputVolts);
-        }
+        motorControllers.forEach(m -> m.setVoltage(inverted ? -outputVolts : outputVolts));
     }
 
     @Override
     public double get() {
         return motorControllers.get(0).get();
+    }
+
+    @Override
+    public void disable() {
+        motorControllers.forEach(MotorController::disable);
+    }
+
+    @Override
+    public void stopMotor() {
+        motorControllers.forEach(MotorController::stopMotor);
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        builder.setSmartDashboardType("Motor Controller");
+        builder.setActuator(true);
+        builder.setSafeState(this::stopMotor);
+        builder.addDoubleProperty("Value", this::get, this::set);
     }
 
     @Override
@@ -48,27 +62,5 @@ public class MotorControllerGroup implements MotorController, Sendable, AutoClos
     @Override
     public void setInverted(boolean isInverted) {
         inverted = isInverted;
-    }
-
-    @Override
-    public void disable() {
-        for (MotorController motorController : motorControllers) {
-            motorController.disable();
-        }
-    }
-
-    @Override
-    public void stopMotor() {
-        for (MotorController motorController : motorControllers) {
-            motorController.stopMotor();
-        }
-    }
-
-    @Override
-    public void initSendable(SendableBuilder builder) {
-        builder.setSmartDashboardType("Motor Controller");
-        builder.setActuator(true);
-        builder.setSafeState(this::stopMotor);
-        builder.addDoubleProperty("Value", this::get, this::set);
     }
 }
