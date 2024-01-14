@@ -71,7 +71,6 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
         config.Slot0.kV = feedForwardSettings.getkV();
         config.Slot0.kA = feedForwardSettings.getkA();
         config.Slot0.kG = feedForwardSettings.getkG();
-
     }
 
     @Override
