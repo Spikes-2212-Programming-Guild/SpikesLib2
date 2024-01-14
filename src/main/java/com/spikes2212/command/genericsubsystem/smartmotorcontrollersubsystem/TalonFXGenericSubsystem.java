@@ -50,6 +50,7 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
         super(namespaceName);
         this.master = master;
         this.slaves = List.of(slaves);
+        this.slaves.forEach(s -> s.setControl(new Follower(master.getDeviceID(), false)));
     }
     /**
      * Adds any data or commands to the {@link NetworkTable}s, which can be accessed using the {@link Shuffleboard}.
@@ -75,7 +76,6 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
         config.Slot0.kA = feedForwardSettings.getkA();
         config.Slot0.kG = feedForwardSettings.getkG();
         master.getConfigurator().apply(config);
-        slaves.get(0).setControl(new Follower(master.getDeviceID(), false));
     }
 
     @Override
