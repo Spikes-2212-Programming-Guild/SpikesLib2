@@ -162,7 +162,6 @@ public interface Namespace {
      */
     double getNumber(String key);
 
-
     /**
      * Adds a Boolean {@link Supplier} to the namespace.
      *
@@ -170,7 +169,6 @@ public interface Namespace {
      * @param value the value to be added
      */
     void putBoolean(String key, Supplier<Boolean> value);
-
 
     /**
      * Adds a boolean value to the namespace.
@@ -195,7 +193,7 @@ public interface Namespace {
      *
      * @param name               the name to be given to the settings and the child namespace
      * @param initialPIDSettings the initial values for the PID settings to be added
-     * @return PID settings with the values from the network tables
+     * @return pid settings with the values from the network tables
      */
     default PIDSettings addPIDNamespace(String name, PIDSettings initialPIDSettings) {
         ChildNamespace child = this.addChild(name + " pid");

@@ -1,17 +1,15 @@
 package com.spikes2212.util;
 
-import com.spikes2212.command.DashboardedSubsystem;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 import java.awt.Color;
 
 /**
- * A class that handles the communication between an LED strip and the code.
+ * A class that handles the communication between a LED strip and the code.
  * This class still requires further testing and an update will be made as soon as testing is finished.
  *
  * @author Camellia Lami
- * @see DashboardedSubsystem
  */
 public class AddressableLEDWrapper {
 
@@ -38,7 +36,7 @@ public class AddressableLEDWrapper {
      * @param blue  the blue value from 0 to 255
      */
     public void setStripColor(int red, int green, int blue) {
-        setColorInRange(0, ledBuffer.getLength(), red, green, blue);
+        setColorInRange(0, ledBuffer.getLength() - 1, red, green, blue);
     }
 
     /**
@@ -67,7 +65,7 @@ public class AddressableLEDWrapper {
      * @param blue  the blue value from 0 to 255
      */
     public void setColorInRange(int start, int end, int red, int green, int blue) {
-        for (int i = start; i < end; i++) {
+        for (int i = start; i <= end; i++) {
             ledBuffer.setRGB(i, red, green, blue);
         }
     }

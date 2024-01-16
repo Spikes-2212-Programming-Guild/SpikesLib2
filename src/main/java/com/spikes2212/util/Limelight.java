@@ -62,7 +62,7 @@ public class Limelight {
      * Retrieves an entry from the Limelight's NetworkTable.
      *
      * @param key key for entry
-     * @return the value of the given entry
+     * @return the value of the given key's entry
      */
     public NetworkTableEntry getEntry(String key) {
         if (table == null) {

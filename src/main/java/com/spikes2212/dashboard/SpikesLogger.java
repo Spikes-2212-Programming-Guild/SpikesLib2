@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * A logger class meant to be used with the SpikesLogger desktop app to log values from the robot to a computer in real-time.
+ * A logger class meant to be used with the <a href="https://github.com/Spikes-2212-Programming-Guild/SpikesLogger"> SpikesLogger desktop app </a>
+ * to log values from the robot to a computer in real-time.
  * Uses a {@link NetworkTable} to communicate with the computer.
  *
  * @author TzintzeneT
@@ -26,7 +27,7 @@ public class SpikesLogger extends RootNamespace {
     }
 
     /**
-     * Creates a default SpikesLogger instance with custom key (name = "SpikesLogger").
+     * Creates a default SpikesLogger instance with a custom key (name = "SpikesLogger").
      */
     public SpikesLogger(String key) {
         this("SpikesLogger", key);
@@ -47,7 +48,6 @@ public class SpikesLogger extends RootNamespace {
     public <T> void log(T output) {
         putString(key, output == null ? "null" : output.toString());
     }
-
 
     /**
      * Returns a command that logs the provided output to the NetworkTables and the SpikesLogger app.
