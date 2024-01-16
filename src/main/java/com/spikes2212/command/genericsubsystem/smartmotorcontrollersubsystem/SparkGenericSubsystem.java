@@ -41,7 +41,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
     /**
      * Additional {@link CANSparkBase}s that follow the master.
      */
-    protected final List<CANSparkBase> slaves;
+    protected final List<? extends CANSparkBase> slaves;
 
     /**
      * Constructs a new instance of {@link SparkGenericSubsystem}.
