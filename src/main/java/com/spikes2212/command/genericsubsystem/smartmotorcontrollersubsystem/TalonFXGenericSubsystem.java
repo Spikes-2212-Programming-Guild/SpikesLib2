@@ -38,7 +38,7 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
     /**
      * Additional TalonFXs that follow the master.
      */
-    protected final List<? extends TalonFX> slaves;
+    protected final List<TalonFX> slaves;
 
     /**
      * Constructs a new instance of {@link TalonFXGenericSubsystem}.
@@ -71,6 +71,7 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
         config.Slot0.kV = feedForwardSettings.getkV();
         config.Slot0.kA = feedForwardSettings.getkA();
         config.Slot0.kG = feedForwardSettings.getkG();
+        master.getConfigurator().apply(config);
     }
 
     @Override
