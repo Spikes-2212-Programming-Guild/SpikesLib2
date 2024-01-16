@@ -60,13 +60,11 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     public TalonFXTankDrivetrain(String namespaceName, TalonFX leftMaster,
                                  List<? extends TalonFX> leftSlaves, TalonFX rightMaster,
                                  List<? extends TalonFX> rightSlaves) {
-        super(namespaceName, (MotorController) leftMaster, (MotorController) rightMaster);
+        super(namespaceName, leftMaster, rightMaster);
         this.leftMaster = leftMaster;
         this.leftSlaves = leftSlaves;
-        this.leftSlaves.forEach(s -> s.setControl(new Follower(leftMaster.getDeviceID(), false)));
         this.rightMaster = rightMaster;
         this.rightSlaves = rightSlaves;
-        this.rightSlaves.forEach(s -> s.setControl(new Follower(rightMaster.getDeviceID(), false)));
     }
 
     /**
@@ -158,7 +156,6 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
                        PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
-        configureTrapezoid(trapezoidProfileSettings);
         ControlRequest leftRequest = switch (controlMode) {
             case CURRENT -> new TorqueCurrentFOC(leftSetpoint);
             case PERCENT_OUTPUT -> new DutyCycleOut(leftSetpoint);
@@ -188,8 +185,8 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
      */
     @Override
     public void finish() {
-        ((MotorController) leftMaster).stopMotor();
-        ((MotorController) rightMaster).stopMotor();
+        leftMaster.stopMotor();
+        rightMaster.stopMotor();
     }
 
     /**
