@@ -46,7 +46,6 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
         super(namespaceName);
         this.master = master;
         this.slaves = List.of(slaves);
-        this.slaves.forEach(s -> s.setControl(new Follower(master.getDeviceID(), false)));
     }
 
     /**
