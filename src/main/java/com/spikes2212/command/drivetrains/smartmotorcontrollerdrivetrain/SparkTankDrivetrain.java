@@ -43,12 +43,12 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     protected final CANSparkBase rightMaster;
 
     /**
-     * Additional motor controller that follow the left master.
+     * Additional motor controllers that follow the left master.
      */
     protected final List<? extends CANSparkBase> leftSlaves;
 
     /**
-     * Additional motor controller that follow the right master.
+     * Additional motor controllers that follow the right master.
      */
     protected final List<? extends  CANSparkBase> rightSlaves;
 
@@ -57,9 +57,9 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      *
      * @param namespaceName the name of the drivetrain's namespace
      * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
-     * @param leftSlaves    additional {@link CANSparkBase} motor controller that follow the left master
+     * @param leftSlaves    additional {@link CANSparkBase} motor controllers that follow the left master
      * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
-     * @param rightSlaves   additional {@link CANSparkBase} motor controller that follow the right master
+     * @param rightSlaves   additional {@link CANSparkBase} motor controllers that follow the right master
      */
     public SparkTankDrivetrain(String namespaceName, CANSparkBase leftMaster, List<? extends CANSparkBase> leftSlaves,
                                CANSparkBase rightMaster, List<? extends CANSparkBase> rightSlaves) {
