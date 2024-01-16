@@ -191,7 +191,7 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
                     break;
                 }
             case VOLTAGE:
-                value = leftMaster.getBusVoltage();
+                value = leftMaster.getMotorOutputVoltage();
                 break;
             default:
                 value = leftMaster.getSelectedSensorPosition();
@@ -223,7 +223,7 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
                     break;
                 }
             case VOLTAGE:
-                value = rightMaster.getBusVoltage();
+                value = rightMaster.getMotorOutputVoltage();
                 break;
             default:
                 value = rightMaster.getSelectedSensorPosition();
