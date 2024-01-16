@@ -18,14 +18,15 @@ import java.util.List;
 /**
  * A {@link Subsystem} which consists of a master CTRE motor controller that can run control loops and additional
  * CTRE motor controllers that follow it.
- * ONLY WORKS WITH PHOENIX 5 PRODUCTS
+ * <br>
+ * Only works with Phoenix V5 motor controller classes!
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
-public class CTRESmartMotorControllerGenericSubsystem
-        extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
+public class CTRESmartMotorControllerGenericSubsystem extends DashboardedSubsystem
+        implements SmartMotorControllerGenericSubsystem {
 
     /**
      * The slot on the motor controller on which the loop is run.
@@ -144,8 +145,7 @@ public class CTRESmartMotorControllerGenericSubsystem
             case CURRENT:
                 if (master instanceof BaseTalon) {
                     value = ((BaseTalon) master).getStatorCurrent();
-                }
-                else throw new UnsupportedOperationException("VictorSPX cannot run current control!");
+                } else throw new UnsupportedOperationException("VictorSPX cannot run current control!");
             default:
                 value = master.getSelectedSensorPosition();
         }

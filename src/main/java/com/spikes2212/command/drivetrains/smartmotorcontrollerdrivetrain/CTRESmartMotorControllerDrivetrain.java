@@ -17,6 +17,8 @@ import java.util.List;
 /**
  * A {@link TankDrivetrain} which consists of a master CTRE motor controller that can run control loops and additional
  * CTRE motor controllers that follow it.
+ * <br>
+ * Only works with Phoenix V5 motor controller classes!
  *
  * @author Yoel Perman Brilliant
  * @see TankDrivetrain
