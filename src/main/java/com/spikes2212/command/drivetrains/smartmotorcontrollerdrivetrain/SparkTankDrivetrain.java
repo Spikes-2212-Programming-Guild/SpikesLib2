@@ -178,23 +178,13 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      */
     @Override
     public boolean leftOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value;
-        switch (controlMode) {
-            case PERCENT_OUTPUT:
-                value = leftMaster.getAppliedOutput();
-                break;
-            case VELOCITY:
-                value = leftMaster.getEncoder().getVelocity();
-                break;
-            case CURRENT:
-                value = leftMaster.getOutputCurrent();
-                break;
-            case VOLTAGE:
-                value = leftMaster.getBusVoltage() * rightMaster.getAppliedOutput();
-                break;
-            default:
-                value = leftMaster.getEncoder().getPosition();
-        }
+        double value = switch (controlMode) {
+            case PERCENT_OUTPUT -> leftMaster.getAppliedOutput();
+            case VELOCITY -> leftMaster.getEncoder().getVelocity();
+            case CURRENT -> leftMaster.getOutputCurrent();
+            case VOLTAGE -> leftMaster.getBusVoltage() * leftMaster.getAppliedOutput();
+            default -> leftMaster.getEncoder().getPosition();
+        };
         return Math.abs(value - setpoint) <= tolerance;
     }
 
@@ -208,23 +198,13 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      */
     @Override
     public boolean rightOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value;
-        switch (controlMode) {
-            case PERCENT_OUTPUT:
-                value = rightMaster.getAppliedOutput();
-                break;
-            case VELOCITY:
-                value = rightMaster.getEncoder().getVelocity();
-                break;
-            case CURRENT:
-                value = rightMaster.getOutputCurrent();
-                break;
-            case VOLTAGE:
-                value = rightMaster.getBusVoltage() * rightMaster.getAppliedOutput();
-                break;
-            default:
-                value = rightMaster.getEncoder().getPosition();
-        }
+        double value = switch (controlMode) {
+            case PERCENT_OUTPUT -> rightMaster.getAppliedOutput();
+            case VELOCITY -> rightMaster.getEncoder().getVelocity();
+            case CURRENT -> rightMaster.getOutputCurrent();
+            case VOLTAGE -> rightMaster.getBusVoltage() * rightMaster.getAppliedOutput();
+            default -> rightMaster.getEncoder().getPosition();
+        };
         return Math.abs(value - setpoint) <= tolerance;
     }
 }
