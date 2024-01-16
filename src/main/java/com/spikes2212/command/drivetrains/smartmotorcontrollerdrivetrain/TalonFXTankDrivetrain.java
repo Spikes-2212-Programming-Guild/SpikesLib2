@@ -3,6 +3,10 @@ package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.*;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -15,44 +19,37 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import java.util.List;
 
 /**
- * A {@link TankDrivetrain} which consists of a master CTRE motor controller that can run control loops and additional
- * CTRE motor controllers that follow it.
- * <br>
- * Only works with Phoenix V5 motor controller classes!
+ * A {@link TankDrivetrain} which consists of a master {@link TalonFX} controller that can run control loops and additional
+ * {@link TalonFX} motor controllers that follow it.
  *
- * @author Yoel Perman Brilliant
+ * @author Camilia Lami
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
-public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
-
-    /**
-     * The slot on the motor controller on which the loop is run.
-     */
-    private static final int LOOP_SLOT = 0;
+public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
      * The motor controller that runs the left side's loops.
      */
-    protected final BaseMotorController leftMaster;
+    protected final TalonFX leftMaster;
 
     /**
      * The motor controller that runs the right side's loops.
      */
-    protected final BaseMotorController rightMaster;
+    protected final TalonFX rightMaster;
 
     /**
      * Additional motor controllers that follow the left master.
      */
-    protected final List<? extends IFollower> leftSlaves;
+    protected final List<? extends TalonFX> leftSlaves;
 
     /**
      * Additional motor controllers that follow the right master.
      */
-    protected final List<? extends IFollower> rightSlaves;
+    protected final List<? extends TalonFX> rightSlaves;
 
     /**
-     * Constructs a new instance of {@link CTRESmartMotorControllerDrivetrain}.
+     * Constructs a new instance of {@link TalonFXTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
      * @param leftMaster    the motor controller that runs the left side's loops
@@ -60,20 +57,18 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
      * @param rightMaster   the motor controller that runs the right side's loops
      * @param rightSlaves   additional motor controllers that follow the right master
      */
-    public CTRESmartMotorControllerDrivetrain(String namespaceName, BaseMotorController leftMaster,
-                                              List<? extends IFollower> leftSlaves, BaseMotorController rightMaster,
-                                              List<? extends IFollower> rightSlaves) {
-        super(namespaceName, (MotorController) leftMaster, (MotorController) rightMaster);
+    public TalonFXTankDrivetrain(String namespaceName, TalonFX leftMaster,
+                                 List<? extends TalonFX> leftSlaves, TalonFX rightMaster,
+                                 List<? extends TalonFX> rightSlaves) {
+        super(namespaceName, leftMaster, rightMaster);
         this.leftMaster = leftMaster;
         this.leftSlaves = leftSlaves;
-        this.leftSlaves.forEach(s -> s.follow(leftMaster));
         this.rightMaster = rightMaster;
         this.rightSlaves = rightSlaves;
-        this.rightSlaves.forEach(s -> s.follow(rightMaster));
     }
 
     /**
-     * Constructs a new instance of {@link CTRESmartMotorControllerDrivetrain}, where each side has two
+     * Constructs a new instance of {@link TalonFXTankDrivetrain}, where each side has two
      * motor controllers.
      *
      * @param namespaceName the name of the drivetrain's namespace
@@ -82,9 +77,8 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
      * @param rightMaster   the motor controller that runs the right side's loops
      * @param rightSlave    an additional motor controller that follows the right master
      */
-    public CTRESmartMotorControllerDrivetrain(String namespaceName, BaseMotorController leftMaster,
-                                              IFollower leftSlave, BaseMotorController rightMaster,
-                                              IFollower rightSlave) {
+    public TalonFXTankDrivetrain(String namespaceName, TalonFX leftMaster, TalonFX leftSlave, TalonFX rightMaster,
+                                 TalonFX rightSlave) {
         this(namespaceName, leftMaster, List.of(leftSlave), rightMaster, List.of(rightSlave));
     }
 
@@ -101,14 +95,24 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
     @Override
     public void configPIDF(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                            FeedForwardSettings feedForwardSettings) {
-        leftMaster.config_kP(LOOP_SLOT, leftPIDSettings.getkP());
-        leftMaster.config_kI(LOOP_SLOT, leftPIDSettings.getkI());
-        leftMaster.config_kD(LOOP_SLOT, leftPIDSettings.getkD());
-        leftMaster.config_kF(LOOP_SLOT, feedForwardSettings.getkV());
-        rightMaster.config_kP(LOOP_SLOT, rightPIDSettings.getkP());
-        rightMaster.config_kI(LOOP_SLOT, rightPIDSettings.getkI());
-        rightMaster.config_kD(LOOP_SLOT, rightPIDSettings.getkD());
-        rightMaster.config_kF(LOOP_SLOT, feedForwardSettings.getkV());
+        TalonFXConfiguration leftConfig = new TalonFXConfiguration();
+        TalonFXConfiguration rightConfig = new TalonFXConfiguration();
+        leftConfig.Slot0.kP = leftPIDSettings.getkP();
+        leftConfig.Slot0.kI = leftPIDSettings.getkI();
+        leftConfig.Slot0.kD = leftPIDSettings.getkD();
+        leftConfig.Slot0.kS = feedForwardSettings.getkS();
+        leftConfig.Slot0.kV = feedForwardSettings.getkV();
+        leftConfig.Slot0.kA = feedForwardSettings.getkA();
+        leftConfig.Slot0.kG = feedForwardSettings.getkG();
+        leftMaster.getConfigurator().apply(leftConfig);
+        rightConfig.Slot0.kP = rightPIDSettings.getkP();
+        rightConfig.Slot0.kI = rightPIDSettings.getkI();
+        rightConfig.Slot0.kD = rightPIDSettings.getkD();
+        rightConfig.Slot0.kS = feedForwardSettings.getkS();
+        rightConfig.Slot0.kV = feedForwardSettings.getkV();
+        rightConfig.Slot0.kA = feedForwardSettings.getkA();
+        rightConfig.Slot0.kG = feedForwardSettings.getkG();
+        rightMaster.getConfigurator().apply(rightConfig);
     }
 
     /**
@@ -116,12 +120,11 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
-        leftMaster.configMotionAcceleration(settings.getAccelerationRate());
-        leftMaster.configMotionCruiseVelocity(settings.getMaxVelocity());
-        leftMaster.configMotionSCurveStrength(settings.getCurve());
-        rightMaster.configMotionAcceleration(settings.getAccelerationRate());
-        rightMaster.configMotionCruiseVelocity(settings.getMaxVelocity());
-        rightMaster.configMotionSCurveStrength(settings.getCurve());
+        MotionMagicConfigs config = new MotionMagicConfigs();
+        config.MotionMagicAcceleration = settings.getAccelerationRate();
+        config.MotionMagicCruiseVelocity = settings.getMaxVelocity();
+        leftMaster.getConfigurator().apply(config);
+        rightMaster.getConfigurator().apply(config);
     }
 
     /**
@@ -131,8 +134,8 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
     public void configureLoop(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                               FeedForwardSettings feedForwardSettings,
                               TrapezoidProfileSettings trapezoidProfileSettings) {
-        leftMaster.configFactoryDefault();
-        rightMaster.configFactoryDefault();
+        leftMaster.getConfigurator().apply(new TalonFXConfiguration());
+        rightMaster.getConfigurator().apply(new TalonFXConfiguration());
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
     }
@@ -153,9 +156,28 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
                        PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
-        configureTrapezoid(trapezoidProfileSettings);
-        leftMaster.set(controlMode.getCTREControlMode(), leftSetpoint);
-        rightMaster.set(controlMode.getCTREControlMode(), rightSetpoint);
+        ControlRequest leftRequest = switch (controlMode) {
+            case CURRENT -> new TorqueCurrentFOC(leftSetpoint);
+            case PERCENT_OUTPUT -> new DutyCycleOut(leftSetpoint);
+            case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(leftSetpoint);
+            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
+            case VOLTAGE -> new VoltageOut(leftSetpoint);
+            case VELOCITY -> new VelocityDutyCycle(leftSetpoint);
+            case POSITION -> new PositionDutyCycle(leftSetpoint);
+        };
+        ControlRequest rightRequest = switch (controlMode) {
+            case CURRENT -> new TorqueCurrentFOC(rightSetpoint);
+            case PERCENT_OUTPUT -> new DutyCycleOut(rightSetpoint);
+            case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(rightSetpoint);
+            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
+            case VOLTAGE -> new VoltageOut(rightSetpoint);
+            case VELOCITY -> new VelocityDutyCycle(rightSetpoint);
+            case POSITION -> new PositionDutyCycle(rightSetpoint);
+        };
+        leftMaster.setControl(leftRequest);
+        rightMaster.setControl(rightRequest);
+        leftSlaves.forEach(s -> s.setControl(new Follower(leftMaster.getDeviceID(), false)));
+        rightSlaves.forEach(s -> s.setControl(new Follower(rightMaster.getDeviceID(), false)));
     }
 
     /**
@@ -163,8 +185,8 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
      */
     @Override
     public void finish() {
-        ((MotorController) leftMaster).stopMotor();
-        ((MotorController) rightMaster).stopMotor();
+        leftMaster.stopMotor();
+        rightMaster.stopMotor();
     }
 
     /**
@@ -177,25 +199,13 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
      */
     @Override
     public boolean leftOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value;
-        switch (controlMode) {
-            case PERCENT_OUTPUT:
-                value = leftMaster.getMotorOutputPercent();
-                break;
-            case VELOCITY:
-                value = leftMaster.getSelectedSensorVelocity();
-                break;
-            case CURRENT:
-                if (leftMaster instanceof BaseTalon) {
-                    value = ((BaseTalon) leftMaster).getStatorCurrent();
-                    break;
-                }
-            case VOLTAGE:
-                value = leftMaster.getMotorOutputVoltage();
-                break;
-            default:
-                value = leftMaster.getSelectedSensorPosition();
-        }
+        double value = switch (controlMode) {
+            case VELOCITY -> leftMaster.getVelocity().getValue();
+            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> leftMaster.getPosition().getValue();
+            case CURRENT -> leftMaster.getTorqueCurrent().getValue();
+            case PERCENT_OUTPUT -> leftMaster.get();
+            case VOLTAGE -> leftMaster.getMotorVoltage().getValue();
+        };
         return Math.abs(value - setpoint) <= tolerance;
     }
 
@@ -209,25 +219,13 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
      */
     @Override
     public boolean rightOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value;
-        switch (controlMode) {
-            case PERCENT_OUTPUT:
-                value = rightMaster.getMotorOutputPercent();
-                break;
-            case VELOCITY:
-                value = rightMaster.getSelectedSensorVelocity();
-                break;
-            case CURRENT:
-                if (rightMaster instanceof BaseTalon) {
-                    value = ((BaseTalon) rightMaster).getStatorCurrent();
-                    break;
-                }
-            case VOLTAGE:
-                value = rightMaster.getMotorOutputVoltage();
-                break;
-            default:
-                value = rightMaster.getSelectedSensorPosition();
-        }
+        double value = switch (controlMode) {
+            case VELOCITY -> rightMaster.getVelocity().getValue();
+            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> rightMaster.getPosition().getValue();
+            case CURRENT -> rightMaster.getTorqueCurrent().getValue();
+            case PERCENT_OUTPUT -> rightMaster.get();
+            case VOLTAGE -> rightMaster.getMotorVoltage().getValue();
+        };
         return Math.abs(value - setpoint) <= tolerance;
     }
 }

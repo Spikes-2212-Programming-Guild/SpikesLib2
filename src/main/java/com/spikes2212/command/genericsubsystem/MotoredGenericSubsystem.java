@@ -1,8 +1,8 @@
 package com.spikes2212.command.genericsubsystem;
 
 import com.spikes2212.dashboard.Namespace;
+import com.spikes2212.util.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 import java.util.function.Supplier;
 
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public class MotoredGenericSubsystem extends GenericSubsystem {
 
-    protected MotorControllerGroup motorControllerGroup;
+    protected MotorController motorController;
 
     /**
      * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
@@ -28,7 +28,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     public MotoredGenericSubsystem(String namespaceName, Supplier<Double> minSpeed, Supplier<Double> maxSpeed,
                                    MotorController... motorControllers) {
         super(namespaceName, minSpeed, maxSpeed);
-        this.motorControllerGroup = new MotorControllerGroup(motorControllers);
+        this.motorController = new MotorControllerGroup(motorControllers);
     }
 
     /**
@@ -58,7 +58,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
 
     @Override
     protected void apply(double speed) {
-        motorControllerGroup.set(speed);
+        motorController.set(speed);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
 
     @Override
     public void stop() {
-        motorControllerGroup.stopMotor();
+        motorController.stopMotor();
     }
 
     /**

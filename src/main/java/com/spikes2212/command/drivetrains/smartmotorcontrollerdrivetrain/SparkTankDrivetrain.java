@@ -1,7 +1,7 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkBase;
+import com.revrobotics.SparkPIDController;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -13,56 +13,56 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import java.util.List;
 
 /**
- * A {@link TankDrivetrain}, whose sides each consists of a master {@link CANSparkMax} motor controller that runs
- * control loops and additional {@link CANSparkMax}s that follow it.
+ * A {@link TankDrivetrain}, whose sides each consists of a master {@link CANSparkBase} motor controller that runs
+ * control loops and additional {@link CANSparkBase} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
-public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
+public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
-     * The slot on the {@link CANSparkMax}s on which the trapezoid profiling configurations are saved.
+     * The slot on the motor controller on which the trapezoid profiling configurations are saved.
      */
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The slot on the {@link CANSparkMax}s on which the PID loops are run.
+     * The slot on the motor controller on which the PID loops are run.
      */
     private static final int PID_SLOT = 0;
 
     /**
-     * The left {@link CANSparkMax} which runs the loops.
+     * The left motor controller which runs the loops.
      */
-    protected final CANSparkMax leftMaster;
+    protected final CANSparkBase leftMaster;
 
     /**
-     * The right {@link CANSparkMax} which runs the loops.
+     * The right motor controller which runs the loops.
      */
-    protected final CANSparkMax rightMaster;
+    protected final CANSparkBase rightMaster;
 
     /**
-     * Additional {@link CANSparkMax}s that follow the left master.
+     * Additional motor controllers that follow the left master.
      */
-    protected final List<CANSparkMax> leftSlaves;
+    protected final List<? extends CANSparkBase> leftSlaves;
 
     /**
-     * Additional {@link CANSparkMax}s that follow the right master.
+     * Additional motor controllers that follow the right master.
      */
-    protected final List<CANSparkMax> rightSlaves;
+    protected final List<? extends  CANSparkBase> rightSlaves;
 
     /**
-     * Constructs a new instance of {@link SparkMaxTankDrivetrain}.
+     * Constructs a new instance of {@link SparkTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
-     * @param leftMaster    the {@link CANSparkMax} which runs the left side's loops
-     * @param leftSlaves    additional {@link CANSparkMax}s that follow the left master
-     * @param rightMaster   the {@link CANSparkMax} which runs the right side's loops
-     * @param rightSlaves   additional {@link CANSparkMax}s that follow the right master
+     * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
+     * @param leftSlaves    additional {@link CANSparkBase} motor controllers that follow the left master
+     * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
+     * @param rightSlaves   additional {@link CANSparkBase} motor controllers that follow the right master
      */
-    public SparkMaxTankDrivetrain(String namespaceName, CANSparkMax leftMaster, List<CANSparkMax> leftSlaves,
-                                  CANSparkMax rightMaster, List<CANSparkMax> rightSlaves) {
+    public SparkTankDrivetrain(String namespaceName, CANSparkBase leftMaster, List<? extends CANSparkBase> leftSlaves,
+                               CANSparkBase rightMaster, List<? extends CANSparkBase> rightSlaves) {
         super(namespaceName, leftMaster, rightMaster);
         this.leftMaster = leftMaster;
         this.rightMaster = rightMaster;
@@ -73,16 +73,16 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     }
 
     /**
-     * Constructs a new instance of {@link SparkMaxTankDrivetrain}.
+     * Constructs a new instance of {@link SparkTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
-     * @param leftMaster    the {@link CANSparkMax} which runs the left side's loops
-     * @param leftSlave     an additional {@link CANSparkMax} that follows the left master
-     * @param rightMaster   the {@link CANSparkMax} which runs the right side's loops
-     * @param rightSlave    an additional {@link CANSparkMax} that follows the right master
+     * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
+     * @param leftSlave     an additional {@link CANSparkBase} motor controller that follows the left master
+     * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
+     * @param rightSlave    an additional {@link CANSparkBase} motor controller that follows the right master
      */
-    public SparkMaxTankDrivetrain(String namespaceName, CANSparkMax leftMaster, CANSparkMax leftSlave,
-                                  CANSparkMax rightMaster, CANSparkMax rightSlave) {
+    public SparkTankDrivetrain(String namespaceName, CANSparkBase leftMaster, CANSparkBase leftSlave,
+                               CANSparkBase rightMaster, CANSparkBase rightSlave) {
         this(namespaceName, leftMaster, List.of(leftSlave), rightMaster, List.of(rightSlave));
     }
 
@@ -117,11 +117,11 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
         leftMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
         leftMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
         leftMaster.getPIDController().setSmartMotionAccelStrategy(
-                SparkMaxPIDController.AccelStrategy.fromInt(settings.getCurve()), TRAPEZOID_SLOT_ID);
+                SparkPIDController.AccelStrategy.fromInt(settings.getCurve()), TRAPEZOID_SLOT_ID);
         rightMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
         rightMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
         rightMaster.getPIDController().setSmartMotionAccelStrategy(
-                SparkMaxPIDController.AccelStrategy.fromInt(settings.getCurve()), TRAPEZOID_SLOT_ID);
+                SparkPIDController.AccelStrategy.fromInt(settings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
     /**
@@ -138,7 +138,7 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     }
 
     /**
-     * Updates any control loops running on the master {@link CANSparkMax}s.
+     * Updates any control loops running on the master {@link CANSparkBase} motor controllers.
      *
      * @param controlMode              the loop's control type (e.g. voltage, velocity, position...)
      * @param leftSetpoint             the left side loop's target setpoint
@@ -159,7 +159,8 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     }
 
     /**
-     * Stops any control loops running on each side's {@link CANSparkMax}s.
+     * Stops any control loops running on each side's master motor controller.
+     
      */
     @Override
     public void finish() {
@@ -177,23 +178,13 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
      */
     @Override
     public boolean leftOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value;
-        switch (controlMode) {
-            case PERCENT_OUTPUT:
-                value = leftMaster.getAppliedOutput();
-                break;
-            case VELOCITY:
-                value = leftMaster.getEncoder().getVelocity();
-                break;
-            case CURRENT:
-                value = leftMaster.getOutputCurrent();
-                break;
-            case VOLTAGE:
-                value = leftMaster.getBusVoltage();
-                break;
-            default:
-                value = leftMaster.getEncoder().getPosition();
-        }
+        double value = switch (controlMode) {
+            case PERCENT_OUTPUT -> leftMaster.getAppliedOutput();
+            case VELOCITY -> leftMaster.getEncoder().getVelocity();
+            case CURRENT -> leftMaster.getOutputCurrent();
+            case VOLTAGE -> leftMaster.getBusVoltage() * leftMaster.getAppliedOutput();
+            default -> leftMaster.getEncoder().getPosition();
+        };
         return Math.abs(value - setpoint) <= tolerance;
     }
 
@@ -207,23 +198,13 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
      */
     @Override
     public boolean rightOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value;
-        switch (controlMode) {
-            case PERCENT_OUTPUT:
-                value = rightMaster.getAppliedOutput();
-                break;
-            case VELOCITY:
-                value = rightMaster.getEncoder().getVelocity();
-                break;
-            case CURRENT:
-                value = rightMaster.getOutputCurrent();
-                break;
-            case VOLTAGE:
-                value = rightMaster.getBusVoltage();
-                break;
-            default:
-                value = rightMaster.getEncoder().getPosition();
-        }
+        double value = switch (controlMode) {
+            case PERCENT_OUTPUT -> rightMaster.getAppliedOutput();
+            case VELOCITY -> rightMaster.getEncoder().getVelocity();
+            case CURRENT -> rightMaster.getOutputCurrent();
+            case VOLTAGE -> rightMaster.getBusVoltage() * rightMaster.getAppliedOutput();
+            default -> rightMaster.getEncoder().getPosition();
+        };
         return Math.abs(value - setpoint) <= tolerance;
     }
 }
