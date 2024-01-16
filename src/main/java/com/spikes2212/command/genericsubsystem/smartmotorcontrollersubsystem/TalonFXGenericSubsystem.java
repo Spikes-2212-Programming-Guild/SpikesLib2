@@ -26,11 +26,6 @@ import java.util.List;
 public class TalonFXGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
 
     /**
-     * The slot on the motor controller on which the loop is run.
-     */
-    private static final int PID_SLOT = 0;
-
-    /**
      * The TalonFX which runs the loops.
      */
     protected final TalonFX master;
