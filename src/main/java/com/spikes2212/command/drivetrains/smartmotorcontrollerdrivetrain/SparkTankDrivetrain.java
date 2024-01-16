@@ -190,7 +190,7 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
                 value = leftMaster.getOutputCurrent();
                 break;
             case VOLTAGE:
-                value = leftMaster.getBusVoltage();
+                value = leftMaster.getBusVoltage() * rightMaster.getAppliedOutput();
                 break;
             default:
                 value = leftMaster.getEncoder().getPosition();
@@ -220,7 +220,7 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
                 value = rightMaster.getOutputCurrent();
                 break;
             case VOLTAGE:
-                value = rightMaster.getBusVoltage();
+                value = rightMaster.getBusVoltage() * rightMaster.getAppliedOutput();
                 break;
             default:
                 value = rightMaster.getEncoder().getPosition();

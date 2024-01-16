@@ -29,11 +29,6 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The slot on the {@link CANSparkBase} on which the PID loops are run.
-     */
-    private static final int PID_SLOT = 0;
-
-    /**
      * The {@link CANSparkBase} which runs the loops.
      */
     protected final CANSparkBase master;
@@ -144,7 +139,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
                 value = master.getOutputCurrent();
                 break;
             case VOLTAGE:
-                value = master.getBusVoltage();
+                value = master.getBusVoltage() * master.getAppliedOutput();
                 break;
             default:
                 value = master.getEncoder().getPosition();
