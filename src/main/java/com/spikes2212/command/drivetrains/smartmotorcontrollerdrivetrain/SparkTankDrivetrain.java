@@ -20,7 +20,7 @@ import java.util.List;
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
-public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
+public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
      * The slot on the motor controller on which the trapezoid profiling configurations are saved.
@@ -45,15 +45,15 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     /**
      * Additional motor controller that follow the left master.
      */
-    protected final List<CANSparkBase> leftSlaves;
+    protected final List<? extends CANSparkBase> leftSlaves;
 
     /**
      * Additional motor controller that follow the right master.
      */
-    protected final List<CANSparkBase> rightSlaves;
+    protected final List<? extends  CANSparkBase> rightSlaves;
 
     /**
-     * Constructs a new instance of {@link SparkMaxTankDrivetrain}.
+     * Constructs a new instance of {@link SparkTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
      * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
@@ -61,8 +61,8 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
      * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
      * @param rightSlaves   additional {@link CANSparkBase} motor controller that follow the right master
      */
-    public SparkMaxTankDrivetrain(String namespaceName, CANSparkBase leftMaster, List<CANSparkBase> leftSlaves,
-                                  CANSparkBase rightMaster, List<CANSparkBase> rightSlaves) {
+    public SparkTankDrivetrain(String namespaceName, CANSparkBase leftMaster, List<? extends CANSparkBase> leftSlaves,
+                               CANSparkBase rightMaster, List<? extends CANSparkBase> rightSlaves) {
         super(namespaceName, leftMaster, rightMaster);
         this.leftMaster = leftMaster;
         this.rightMaster = rightMaster;
@@ -73,7 +73,7 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
     }
 
     /**
-     * Constructs a new instance of {@link SparkMaxTankDrivetrain}.
+     * Constructs a new instance of {@link SparkTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
      * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
@@ -81,8 +81,8 @@ public class SparkMaxTankDrivetrain extends TankDrivetrain implements SmartMotor
      * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
      * @param rightSlave    an additional {@link CANSparkBase} motor controller that follows the right master
      */
-    public SparkMaxTankDrivetrain(String namespaceName, CANSparkBase leftMaster, CANSparkBase leftSlave,
-                                  CANSparkBase rightMaster, CANSparkBase rightSlave) {
+    public SparkTankDrivetrain(String namespaceName, CANSparkBase leftMaster, CANSparkBase leftSlave,
+                               CANSparkBase rightMaster, CANSparkBase rightSlave) {
         this(namespaceName, leftMaster, List.of(leftSlave), rightMaster, List.of(rightSlave));
     }
 
