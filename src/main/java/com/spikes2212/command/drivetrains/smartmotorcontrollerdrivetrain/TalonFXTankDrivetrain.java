@@ -19,19 +19,14 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import java.util.List;
 
 /**
- * A {@link TankDrivetrain} which consists of a master CTRE motor controller that can run control loops and additional
- * CTRE motor controllers that follow it.
+ * A {@link TankDrivetrain} which consists of a master {@link TalonFX} controller that can run control loops and additional
+ * {@link TalonFX} motor controllers that follow it.
  *
- * @author Yoel Perman Brilliant
+ * @author Camilia Lami
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
 public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
-
-    /**
-     * The slot on the motor controller on which the loop is run.
-     */
-    private static final int LOOP_SLOT = 0;
 
     /**
      * The motor controller that runs the left side's loops.
@@ -54,7 +49,7 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     protected final List<? extends TalonFX> rightSlaves;
 
     /**
-     * Constructs a new instance of {@link CTRESmartMotorControllerDrivetrain}.
+     * Constructs a new instance of {@link TalonFXTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
      * @param leftMaster    the motor controller that runs the left side's loops
@@ -75,7 +70,7 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     }
 
     /**
-     * Constructs a new instance of {@link CTRESmartMotorControllerDrivetrain}, where each side has two
+     * Constructs a new instance of {@link TalonFXTankDrivetrain}, where each side has two
      * motor controllers.
      *
      * @param namespaceName the name of the drivetrain's namespace
