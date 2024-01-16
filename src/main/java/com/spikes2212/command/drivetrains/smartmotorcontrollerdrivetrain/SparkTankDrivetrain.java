@@ -138,7 +138,7 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     }
 
     /**
-     * Updates any control loops running on the master {@link CANSparkBase} motor controller.
+     * Updates any control loops running on the master {@link CANSparkBase} motor controllers.
      *
      * @param controlMode              the loop's control type (e.g. voltage, velocity, position...)
      * @param leftSetpoint             the left side loop's target setpoint
