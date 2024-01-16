@@ -127,23 +127,13 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      */
     @Override
     public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value;
-        switch (controlMode) {
-            case PERCENT_OUTPUT:
-                value = master.getAppliedOutput();
-                break;
-            case VELOCITY:
-                value = master.getEncoder().getVelocity();
-                break;
-            case CURRENT:
-                value = master.getOutputCurrent();
-                break;
-            case VOLTAGE:
-                value = master.getBusVoltage() * master.getAppliedOutput();
-                break;
-            default:
-                value = master.getEncoder().getPosition();
-        }
+        double value = switch (controlMode) {
+            case PERCENT_OUTPUT -> master.getAppliedOutput();
+            case VELOCITY -> master.getEncoder().getVelocity();
+            case CURRENT -> master.getOutputCurrent();
+            case VOLTAGE -> master.getBusVoltage() * master.getAppliedOutput();
+            default -> master.getEncoder().getPosition();
+        };
         return Math.abs(value - setpoint) <= tolerance;
     }
 }
