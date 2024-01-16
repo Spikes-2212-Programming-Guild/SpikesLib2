@@ -159,7 +159,8 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     }
 
     /**
-     * Stops any control loops running on each side's motor controller.
+     * Stops any control loops running on each side's master motor controller.
+     
      */
     @Override
     public void finish() {
