@@ -147,6 +147,9 @@ public class CTRESmartMotorControllerGenericSubsystem extends DashboardedSubsyst
                     value = ((BaseTalon) master).getStatorCurrent();
                     break;
                 } else throw new UnsupportedOperationException("VictorSPX cannot run current control!");
+            case VOLTAGE:
+                value = master.getMotorOutputVoltage();
+                break;
             default:
                 value = master.getSelectedSensorPosition();
         }
