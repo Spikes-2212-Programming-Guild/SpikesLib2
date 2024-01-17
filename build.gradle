@@ -23,6 +23,18 @@ repositories {
     }
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'org.gradle.sample'
+            artifactId = 'library'
+            version = '4.0.3'
+
+            from components.java
+        }
+    }
+}
+
 dependencies {
     implementation group: 'com.ctre.phoenix6', name: 'wpiapi-java', version: '24.0.0-beta-8'
     implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2024.1.1'
