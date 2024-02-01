@@ -2,6 +2,7 @@ package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IFollower;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
@@ -134,6 +135,8 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
         rightMaster.configFactoryDefault();
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> ((BaseMotorController) s).setInverted(InvertType.FollowMaster));
     }
 
     /**
