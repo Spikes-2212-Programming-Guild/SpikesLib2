@@ -135,6 +135,8 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         rightMaster.restoreFactoryDefaults();
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> s.setInverted(true));
     }
 
     /**
