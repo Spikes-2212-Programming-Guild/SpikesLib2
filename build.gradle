@@ -1,19 +1,19 @@
 
 plugins {
     id 'java-library'
-    id 'maven'
+    id 'maven-publish'
     id 'net.researchgate.release' version '2.6.0'
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 group = 'com.github.Spikes-2212-Programming-Guild'
 
 repositories {
     mavenCentral()
     maven {
-        url 'http://devsite.ctr-electronics.com/maven/release'
+        url 'https://maven.ctr-electronics.com/release/'
     }
     maven {
         url 'https://frcmaven.wpi.edu/artifactory/release'
@@ -23,14 +23,28 @@ repositories {
     }
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'org.gradle.sample'
+            artifactId = 'library'
+            version = '4.0.4'
+
+            from components.java
+        }
+    }
+}
+
 dependencies {
-    implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.30.4'
-    implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.30.4'
-    implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2023.4.1'
-    implementation group: 'edu.wpi.first.wpilibNewCommands', name: 'wpilibNewCommands-java', version: '2023.4.1'
-    implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2023.4.1'
-    implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2023.4.1'
-    implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2023.4.1'
-    implementation group: 'edu.wpi.first.wpimath', name: 'wpimath-java', version: '2023.4.1'
-    implementation group: 'com.revrobotics.frc', name: 'REVLib-java', version: '2023.1.3'
+    implementation group: 'com.ctre.phoenix6', name: 'wpiapi-java', version: '24.0.0-beta-8'
+    implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpilibNewCommands', name: 'wpilibNewCommands-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpimath', name: 'wpimath-java', version: '2024.1.1'
+    implementation group: 'edu.wpi.first.wpiunits', name: 'wpiunits-java', version: '2024.1.1'
+    implementation group: 'com.revrobotics.frc', name: 'REVLib-java', version: '2024.2.0'
+    implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.32.0-beta-5'
+    implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.31.0'
 }

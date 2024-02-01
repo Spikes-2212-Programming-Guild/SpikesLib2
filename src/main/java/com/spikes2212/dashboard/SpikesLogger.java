@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
- * A logger class meant to be used with the SpikesLogger desktop app to log values from the robot to a computer in real-time.
+ * A logger class meant to be used with the <a href="https://github.com/Spikes-2212-Programming-Guild/SpikesLogger"> SpikesLogger desktop app </a>
+ * to log values from the robot to a computer in real-time.
  * Uses a {@link NetworkTable} to communicate with the computer.
  *
  * @author TzintzeneT

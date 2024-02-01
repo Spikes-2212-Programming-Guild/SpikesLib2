@@ -1,7 +1,7 @@
 package com.spikes2212.command.drivetrains.commands;
 
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author Simon Kharmatsky
  * @see TankDrivetrain
  */
-public class DriveCurvature extends CommandBase {
+public class DriveCurvature extends Command {
 
     protected TankDrivetrain drivetrain;
     protected Supplier<Double> speed;

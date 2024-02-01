@@ -6,7 +6,7 @@ import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
@@ -16,7 +16,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  * @see TankDrivetrain
  */
-public class DriveTankWithPID extends CommandBase {
+public class DriveTankWithPID extends Command {
 
     /**
      * The drivetrain this command operates on.

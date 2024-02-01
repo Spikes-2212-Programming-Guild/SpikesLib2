@@ -1,7 +1,7 @@
 package com.spikes2212.command.drivetrains.commands;
 
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  * @see TankDrivetrain
  */
-public class DriveTank extends CommandBase {
+public class DriveTank extends Command {
 
     protected final TankDrivetrain tankDrivetrain;
     protected final Supplier<Double> leftSpeedSupplier;
@@ -113,10 +113,10 @@ public class DriveTank extends CommandBase {
      * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
      * Positive values move the drivetrain forward. Does not square the inputs.
      *
-     * @param drivetrain   the tank drivetrain this command operates on
-     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
-     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
-     * @param isFinished   when to finish the command
+     * @param drivetrain the tank drivetrain this command operates on
+     * @param leftSpeed  the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed the right side's speed (-1 to 1). Positive values go forward
+     * @param isFinished when to finish the command
      */
     public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed, Supplier<Boolean> isFinished) {
         this(drivetrain, leftSpeed, rightSpeed, isFinished, false);
@@ -141,9 +141,9 @@ public class DriveTank extends CommandBase {
      * {@link TankDrivetrain} according to speed values for the left and right sides. <br>
      * Positive values move the drivetrain forward. Does not square the inputs.
      *
-     * @param drivetrain   the tank drivetrain this command operates on
-     * @param leftSpeed    the left side's speed (-1 to 1). Positive values go forward
-     * @param rightSpeed   the right side's speed (-1 to 1). Positive values go forward
+     * @param drivetrain the tank drivetrain this command operates on
+     * @param leftSpeed  the left side's speed (-1 to 1). Positive values go forward
+     * @param rightSpeed the right side's speed (-1 to 1). Positive values go forward
      */
     public DriveTank(TankDrivetrain drivetrain, double leftSpeed, double rightSpeed) {
         this(drivetrain, leftSpeed, rightSpeed, () -> false, false);

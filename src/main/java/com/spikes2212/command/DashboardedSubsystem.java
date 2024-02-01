@@ -41,6 +41,7 @@ public abstract class DashboardedSubsystem extends SubsystemBase {
     /**
      * Should be used inside a constructor to get the name of the class of the object that is being created.
      * The method achieves that by finding the earliest constructor in the method call stack.
+     *
      * @param defaultName default return value in case the method, for any reason, does not find a constructor.
      * @return name of the class
      */

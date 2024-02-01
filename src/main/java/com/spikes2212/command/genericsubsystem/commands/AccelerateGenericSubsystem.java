@@ -1,10 +1,9 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
-import java.util.function.Supplier;
-
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
-
 import edu.wpi.first.wpilibj.Timer;
+
+import java.util.function.Supplier;
 
 /**
  * This command accelerate the speed of a {@link GenericSubsystem} linearly,
