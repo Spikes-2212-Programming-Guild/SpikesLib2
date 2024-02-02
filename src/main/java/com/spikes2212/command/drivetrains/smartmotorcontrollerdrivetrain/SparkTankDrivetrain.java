@@ -70,6 +70,9 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         this.rightSlaves = rightSlaves;
         this.leftSlaves.forEach(s -> s.follow(leftMaster));
         this.rightSlaves.forEach(s -> s.follow(rightMaster));
+        rightController.setInverted(false);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> s.setInverted(true));
     }
 
     /**

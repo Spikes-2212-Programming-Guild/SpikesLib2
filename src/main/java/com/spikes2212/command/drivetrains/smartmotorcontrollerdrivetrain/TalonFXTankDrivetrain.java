@@ -65,6 +65,9 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
         this.leftSlaves = leftSlaves;
         this.rightMaster = rightMaster;
         this.rightSlaves = rightSlaves;
+        rightController.setInverted(false);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> s.setInverted(true));
     }
 
     /**

@@ -71,6 +71,9 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
         this.rightMaster = rightMaster;
         this.rightSlaves = rightSlaves;
         this.rightSlaves.forEach(s -> s.follow(rightMaster));
+        rightController.setInverted(false);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> ((BaseMotorController) s).setInverted(InvertType.FollowMaster));
     }
 
     /**
