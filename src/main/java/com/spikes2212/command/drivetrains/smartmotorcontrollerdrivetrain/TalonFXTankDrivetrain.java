@@ -1,8 +1,5 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
-import com.ctre.phoenix.motorcontrol.IFollower;
-import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
-import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.*;
@@ -13,7 +10,6 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import java.util.List;

@@ -28,11 +28,6 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The slot on the motor controller on which the PID loops are run.
-     */
-    private static final int PID_SLOT = 0;
-
-    /**
      * The left motor controller which runs the loops.
      */
     protected final CANSparkBase leftMaster;
