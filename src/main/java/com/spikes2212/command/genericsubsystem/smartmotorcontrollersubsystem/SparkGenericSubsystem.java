@@ -90,6 +90,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
         master.restoreFactoryDefaults();
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
+        slaves.forEach(s -> s.follow(master));
     }
 
     /**
