@@ -1,6 +1,7 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -94,23 +95,23 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     @Override
     public void configPIDF(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                            FeedForwardSettings feedForwardSettings) {
-        TalonFXConfiguration leftConfig = new TalonFXConfiguration();
-        TalonFXConfiguration rightConfig = new TalonFXConfiguration();
-        leftConfig.Slot0.kP = leftPIDSettings.getkP();
-        leftConfig.Slot0.kI = leftPIDSettings.getkI();
-        leftConfig.Slot0.kD = leftPIDSettings.getkD();
-        leftConfig.Slot0.kS = feedForwardSettings.getkS();
-        leftConfig.Slot0.kV = feedForwardSettings.getkV();
-        leftConfig.Slot0.kA = feedForwardSettings.getkA();
-        leftConfig.Slot0.kG = feedForwardSettings.getkG();
+        Slot0Configs leftConfig = new Slot0Configs();
+        Slot0Configs rightConfig = new Slot0Configs();
+        leftConfig.kP = leftPIDSettings.getkP();
+        leftConfig.kI = leftPIDSettings.getkI();
+        leftConfig.kD = leftPIDSettings.getkD();
+        leftConfig.kS = feedForwardSettings.getkS();
+        leftConfig.kV = feedForwardSettings.getkV();
+        leftConfig.kA = feedForwardSettings.getkA();
+        leftConfig.kG = feedForwardSettings.getkG();
         leftMaster.getConfigurator().apply(leftConfig);
-        rightConfig.Slot0.kP = rightPIDSettings.getkP();
-        rightConfig.Slot0.kI = rightPIDSettings.getkI();
-        rightConfig.Slot0.kD = rightPIDSettings.getkD();
-        rightConfig.Slot0.kS = feedForwardSettings.getkS();
-        rightConfig.Slot0.kV = feedForwardSettings.getkV();
-        rightConfig.Slot0.kA = feedForwardSettings.getkA();
-        rightConfig.Slot0.kG = feedForwardSettings.getkG();
+        rightConfig.kP = rightPIDSettings.getkP();
+        rightConfig.kI = rightPIDSettings.getkI();
+        rightConfig.kD = rightPIDSettings.getkD();
+        rightConfig.kS = feedForwardSettings.getkS();
+        rightConfig.kV = feedForwardSettings.getkV();
+        rightConfig.kA = feedForwardSettings.getkA();
+        rightConfig.kG = feedForwardSettings.getkG();
         rightMaster.getConfigurator().apply(rightConfig);
     }
 
