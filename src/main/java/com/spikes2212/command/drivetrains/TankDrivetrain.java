@@ -31,6 +31,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
         this.rightController = rightController;
         rightController.setInverted(true);
         drive = new DifferentialDrive(leftController, rightController);
+        drive.setSafetyEnabled(false);
     }
 
     public TankDrivetrain(MotorController leftController, MotorController rightController) {
