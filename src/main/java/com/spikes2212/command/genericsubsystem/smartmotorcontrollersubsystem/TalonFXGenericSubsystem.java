@@ -74,6 +74,7 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
         MotionMagicConfigs config = new MotionMagicConfigs();
         config.MotionMagicAcceleration = settings.getAccelerationRate();
         config.MotionMagicCruiseVelocity = settings.getMaxVelocity();
+        config.MotionMagicJerk = settings.getCurve();
         master.getConfigurator().apply(config);
     }
 

@@ -45,7 +45,7 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     /**
      * Additional motor controllers that follow the right master.
      */
-    protected final List<? extends  CANSparkBase> rightSlaves;
+    protected final List<? extends CANSparkBase> rightSlaves;
 
     /**
      * Constructs a new instance of {@link SparkTankDrivetrain}.
@@ -115,11 +115,11 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         leftMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
         leftMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
         leftMaster.getPIDController().setSmartMotionAccelStrategy(
-                SparkPIDController.AccelStrategy.fromInt(settings.getCurve()), TRAPEZOID_SLOT_ID);
+                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
         rightMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
         rightMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
         rightMaster.getPIDController().setSmartMotionAccelStrategy(
-                SparkPIDController.AccelStrategy.fromInt(settings.getCurve()), TRAPEZOID_SLOT_ID);
+                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
     /**
@@ -162,7 +162,6 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
 
     /**
      * Stops any control loops running on each side's master motor controller.
-     
      */
     @Override
     public void finish() {

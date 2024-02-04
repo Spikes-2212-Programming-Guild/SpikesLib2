@@ -123,6 +123,7 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
         MotionMagicConfigs config = new MotionMagicConfigs();
         config.MotionMagicAcceleration = settings.getAccelerationRate();
         config.MotionMagicCruiseVelocity = settings.getMaxVelocity();
+        config.MotionMagicJerk = settings.getCurve();
         leftMaster.getConfigurator().apply(config);
         rightMaster.getConfigurator().apply(config);
     }
