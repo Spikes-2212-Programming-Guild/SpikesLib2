@@ -1,6 +1,7 @@
 package com.spikes2212.dashboard;
 
 import edu.wpi.first.networktables.NetworkTable;
+import java.time.LocalTime;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
@@ -50,6 +51,15 @@ public class SpikesLogger extends RootNamespace {
     }
 
     /**
+     * Logs the provided output with a timestamp to the NetworkTables and the SpikesLogger app.
+     *
+     * @param output the data to be logged
+     */
+    public <T> void logWithTimestamp(T output) {
+        log(LocalTime.now() + ": " + output);
+    }
+      
+    /**
      * Returns a command that logs the provided output to the NetworkTables and the SpikesLogger app.
      *
      * @param output the data to be logged
@@ -57,5 +67,15 @@ public class SpikesLogger extends RootNamespace {
      */
     public <T> Command logCommand(T output) {
         return new InstantCommand(() -> log(output));
+    }
+
+    /**
+     * Returns a command that logs the provided output with a timestamp to the NetworkTables and the SpikesLogger app.
+     *
+     * @param output the data to be logged
+     * @return a command that logs the output
+     */
+    public <T> Command logWithTimestampCommand(T output) {
+        return new InstantCommand(() -> logWithTimestamp(output));
     }
 }
