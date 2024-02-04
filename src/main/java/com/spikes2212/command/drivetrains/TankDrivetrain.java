@@ -157,7 +157,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Sets the motor safety features of the speed controllers on/off.
+     * Sets the motor safety feature of the speed controllers on/off.
      * @param enabled whether motor safety should be enabled
      */
     public void setMotorSafety(boolean enabled) {
