@@ -5,7 +5,6 @@ import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MotorControllerGroup implements MotorController, Sendable, AutoCloseable {
