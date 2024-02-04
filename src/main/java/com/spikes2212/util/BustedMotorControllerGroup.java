@@ -1,7 +1,6 @@
 package com.spikes2212.util;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 import java.util.function.Supplier;
 
@@ -18,13 +17,13 @@ public class BustedMotorControllerGroup extends MotorControllerGroup {
      */
     protected final Supplier<Double> correction;
 
-    public BustedMotorControllerGroup(Supplier<Double> correction, MotorController motorController, MotorController... motorControllers) {
-        super(motorController, motorControllers);
+    public BustedMotorControllerGroup(Supplier<Double> correction, MotorController... motorControllers) {
+        super(motorControllers);
         this.correction = correction;
     }
 
-    public BustedMotorControllerGroup(double correction, MotorController motorController, MotorController... motorControllers) {
-        this(() -> correction, motorController, motorControllers);
+    public BustedMotorControllerGroup(double correction, MotorController... motorControllers) {
+        this(() -> correction, motorControllers);
     }
 
     @Override
