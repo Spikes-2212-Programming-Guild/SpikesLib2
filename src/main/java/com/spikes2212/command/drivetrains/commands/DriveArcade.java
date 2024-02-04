@@ -1,7 +1,7 @@
 package com.spikes2212.command.drivetrains.commands;
 
 import com.spikes2212.command.drivetrains.TankDrivetrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @see TankDrivetrain
  */
 
-public class DriveArcade extends CommandBase {
+public class DriveArcade extends Command {
 
     protected final TankDrivetrain tankDrivetrain;
     protected final Supplier<Double> moveValueSupplier;
@@ -116,10 +116,10 @@ public class DriveArcade extends CommandBase {
      * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values for linear and rotational movements. Does not square the inputs.
      *
-     * @param drivetrain   the tank drivetrain this command operates on
-     * @param moveValue    the linear speed (-1 to 1). Positive values go forwards
-     * @param rotateValue  the rotational speed (-1 to 1). Positive values go clockwise
-     * @param isFinished   when to finish the command
+     * @param drivetrain  the tank drivetrain this command operates on
+     * @param moveValue   the linear speed (-1 to 1). Positive values go forwards
+     * @param rotateValue the rotational speed (-1 to 1). Positive values go clockwise
+     * @param isFinished  when to finish the command
      */
     public DriveArcade(TankDrivetrain drivetrain, double moveValue,
                        double rotateValue, Supplier<Boolean> isFinished) {
@@ -144,9 +144,9 @@ public class DriveArcade extends CommandBase {
      * Constructs a new {@link DriveArcade} command that moves the given
      * {@link TankDrivetrain} according to speed values for linear and rotational movements. Does not square the inputs.
      *
-     * @param drivetrain   the tank drivetrain this command operates on
-     * @param moveValue    the linear speed (-1 to 1). Positive values go forwards
-     * @param rotateValue  the rotational speed (-1 to 1). Positive values go clockwise
+     * @param drivetrain  the tank drivetrain this command operates on
+     * @param moveValue   the linear speed (-1 to 1). Positive values go forwards
+     * @param rotateValue the rotational speed (-1 to 1). Positive values go clockwise
      */
     public DriveArcade(TankDrivetrain drivetrain, double moveValue,
                        double rotateValue) {

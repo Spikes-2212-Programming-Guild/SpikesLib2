@@ -1,6 +1,5 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
@@ -19,13 +18,18 @@ import java.util.List;
 /**
  * A {@link Subsystem} which consists of a master CTRE motor controller that can run control loops and additional
  * CTRE motor controllers that follow it.
+ * <br>
+ * Only works with Phoenix V5 motor controller classes!
+ * <br>
+ * Due to Phoenix V5 being deprecated, this class is deprecated as well.
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
-public class CTRESmartMotorControllerGenericSubsystem
-        extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
+@Deprecated(since = "2024", forRemoval = true)
+public class CTRESmartMotorControllerGenericSubsystem extends DashboardedSubsystem
+        implements SmartMotorControllerGenericSubsystem {
 
     /**
      * The slot on the motor controller on which the loop is run.
@@ -82,7 +86,7 @@ public class CTRESmartMotorControllerGenericSubsystem
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
         master.configMotionAcceleration(settings.getAccelerationRate());
         master.configMotionCruiseVelocity(settings.getMaxVelocity());
-        master.configMotionSCurveStrength(settings.getCurve());
+        master.configMotionSCurveStrength((int) settings.getCurve());
     }
 
     /**
@@ -118,7 +122,7 @@ public class CTRESmartMotorControllerGenericSubsystem
      */
     @Override
     public void finish() {
-        ((MotorController)master).stopMotor();
+        ((MotorController) master).stopMotor();
     }
 
     /**
@@ -145,7 +149,10 @@ public class CTRESmartMotorControllerGenericSubsystem
                 if (master instanceof BaseTalon) {
                     value = ((BaseTalon) master).getStatorCurrent();
                     break;
-                }
+                } else throw new UnsupportedOperationException("VictorSPX cannot run current control!");
+            case VOLTAGE:
+                value = master.getMotorOutputVoltage();
+                break;
             default:
                 value = master.getSelectedSensorPosition();
         }

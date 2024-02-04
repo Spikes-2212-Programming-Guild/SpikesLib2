@@ -25,16 +25,17 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     private final DifferentialDrive drive;
 
-    public TankDrivetrain(String namespaceName, MotorController left, MotorController right) {
+    public TankDrivetrain(String namespaceName, MotorController leftController, MotorController rightController) {
         super(namespaceName);
-        this.leftController = left;
-        this.rightController = right;
+        this.leftController = leftController;
+        this.rightController = rightController;
         rightController.setInverted(true);
         drive = new DifferentialDrive(leftController, rightController);
+        drive.setSafetyEnabled(false);
     }
 
-    public TankDrivetrain(MotorController left, MotorController right) {
-        this(getClassName(DEFAULT_NAMESPACE_NAME), left, right);
+    public TankDrivetrain(MotorController leftController, MotorController rightController) {
+        this(getClassName(DEFAULT_NAMESPACE_NAME), leftController, rightController);
     }
 
     /**
@@ -93,7 +94,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the drivetrain by the given forward and angular voltage.
      *
-     * @param moveVoltage  the forward movement voltage (-12 to 12)
+     * @param moveVoltage   the forward movement voltage (-12 to 12)
      * @param rotateVoltage the angular movement voltage (-12 to 12). Positive values go clockwise
      */
     public void arcadeDriveVoltages(double moveVoltage, double rotateVoltage) {
@@ -153,6 +154,14 @@ public class TankDrivetrain extends DashboardedSubsystem {
     public void stop() {
         leftController.stopMotor();
         rightController.stopMotor();
+    }
+
+    /**
+     * Sets the motor safety feature of the speed controllers on/off.
+     * @param enabled whether motor safety should be enabled
+     */
+    public void setMotorSafety(boolean enabled) {
+        drive.setSafetyEnabled(enabled);
     }
 
     /**

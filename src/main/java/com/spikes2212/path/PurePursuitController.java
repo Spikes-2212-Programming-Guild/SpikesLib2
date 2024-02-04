@@ -60,8 +60,8 @@ public class PurePursuitController {
         Waypoint robot = odometryHandler.getWaypoint();
         double minDistance = Double.POSITIVE_INFINITY, distance;
         int minIndex = lastClosestIndex;
-        for(int i = lastClosestIndex; i < path.size(); i++) {
-            if((distance = path.get(i).distance(robot)) < minDistance) {
+        for (int i = lastClosestIndex; i < path.size(); i++) {
+            if ((distance = path.get(i).distance(robot)) < minDistance) {
                 minIndex = i;
                 minDistance = distance;
             }
@@ -72,7 +72,7 @@ public class PurePursuitController {
 
     private Waypoint getLookaheadPoint() {
         Waypoint robot = odometryHandler.getWaypoint();
-        for(int i = lastLookaheadIndex; i < path.size() - 1; i++) {
+        for (int i = lastLookaheadIndex; i < path.size() - 1; i++) {
             Waypoint segment = new Waypoint(path.get(i + 1).getX() - path.get(i).getX()
                     , path.get(i + 1).getY() - path.get(i).getY());
             Waypoint robotToStart = new Waypoint(path.get(i).getX() - robot.getX()
@@ -82,11 +82,11 @@ public class PurePursuitController {
             double c = robotToStart.getX() * robotToStart.getX() + robotToStart.getY() * robotToStart.getY()
                     - lookaheadDistance * lookaheadDistance;
             double discriminant = b * b - 4 * a * c;
-            if(discriminant >= 0) {
+            if (discriminant >= 0) {
                 discriminant = Math.sqrt(discriminant);
                 double t1 = (-b - discriminant) / (2 * a);
                 double t2 = (-b + discriminant) / (2 * a);
-                if(t1 >= 0 && t1 <= 1) {
+                if (t1 >= 0 && t1 <= 1) {
                     lastLookaheadIndex = i;
                     return new Waypoint(path.get(i).getX() + t1 * segment.getX(),
                             path.get(i).getY() + t1 * segment.getY());
@@ -104,7 +104,7 @@ public class PurePursuitController {
     private double pathCurvature() {
         Waypoint robot = odometryHandler.getWaypoint();
         Waypoint lookahead = getLookaheadPoint();
-        if(lookahead == null) return Double.POSITIVE_INFINITY;
+        if (lookahead == null) return Double.POSITIVE_INFINITY;
         double yaw = Math.toRadians(90 - odometryHandler.getYaw());
         double slope = Math.tan(yaw);
         double freeTerm = slope * robot.getX() - robot.getY();
@@ -112,7 +112,7 @@ public class PurePursuitController {
                 Math.sqrt(slope * slope + 1); //distance between lookahead point and robot line
         double side = Math.sin(yaw) * (lookahead.getX() - robot.getX()) -
                 Math.cos(yaw) * (lookahead.getY() - robot.getY()); //uses cross product to determine side
-        if(side == 0) return 0;
+        if (side == 0) return 0;
         return 2 * x / (lookaheadDistance * lookaheadDistance) * side / Math.abs(side);
     }
 
@@ -123,7 +123,7 @@ public class PurePursuitController {
      *
      * @return the target side speeds as an array
      */
-    public double[] getTargetSpeeds(){
+    public double[] getTargetSpeeds() {
         double velocity = rateLimiter.calculate(closestPoint().getV());
         double pathCurvature = pathCurvature();
         return new double[]{velocity * (2 + pathCurvature * robotWidth) / 2,
@@ -141,6 +141,7 @@ public class PurePursuitController {
 
     /**
      * returns whether the PurePursuitController has finished following the path.
+     *
      * @return whether the PurePursuitController has finished following the path
      */
     public boolean done() {

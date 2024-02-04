@@ -20,22 +20,22 @@ public class TrapezoidProfileSettings {
     private Supplier<Double> maxVelocity;
 
     /**
-     * The S curve of the acceleration phase. The scale changes depending on the motor controller.
+     * The S curve of the acceleration phase. The scale and units change depending on the motor controller.
      */
-    private Supplier<Integer> curve;
+    private Supplier<Double> curve;
 
     public TrapezoidProfileSettings(Supplier<Double> accelerationRate, Supplier<Double> maxVelocity,
-                                    Supplier<Integer> curve) {
+                                    Supplier<Double> curve) {
         this.accelerationRate = accelerationRate;
         this.maxVelocity = maxVelocity;
         this.curve = curve;
     }
 
     public TrapezoidProfileSettings(Supplier<Double> accelerationRate, Supplier<Double> maxVelocity) {
-        this(accelerationRate, maxVelocity, () -> 0);
+        this(accelerationRate, maxVelocity, () -> 0.0);
     }
 
-    public TrapezoidProfileSettings(double accelerationRate, double maxVelocity, int curve) {
+    public TrapezoidProfileSettings(double accelerationRate, double maxVelocity, double curve) {
         this(() -> accelerationRate, () -> maxVelocity, () -> curve);
     }
 
@@ -59,11 +59,11 @@ public class TrapezoidProfileSettings {
         this.maxVelocity = maxVelocity;
     }
 
-    public int getCurve() {
+    public double getCurve() {
         return curve.get();
     }
 
-    public void setCurve(Supplier<Integer> curve) {
+    public void setCurve(Supplier<Double> curve) {
         this.curve = curve;
     }
 }

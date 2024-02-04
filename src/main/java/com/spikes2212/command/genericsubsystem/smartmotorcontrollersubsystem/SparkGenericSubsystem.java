@@ -1,7 +1,7 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkBase;
+import com.revrobotics.SparkPIDController;
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -14,43 +14,38 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import java.util.List;
 
 /**
- * A {@link Subsystem} which consists of a master {@link CANSparkMax} motor controller that runs control
- * loops and additional {@link CANSparkMax} motor controllers that follow it.
+ * A {@link Subsystem} which consists of a master {@link CANSparkBase} motor controller that runs control
+ * loops and additional {@link CANSparkBase} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
-public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
+public class SparkGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
 
     /**
-     * The slot on the {@link CANSparkMax} on which the trapezoid profiling configurations are saved.
+     * The slot on the {@link CANSparkBase} on which the trapezoid profiling configurations are saved.
      */
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The slot on the {@link CANSparkMax} on which the PID loops are run.
+     * The {@link CANSparkBase} which runs the loops.
      */
-    private static final int PID_SLOT = 0;
+    protected final CANSparkBase master;
 
     /**
-     * The {@link CANSparkMax} which runs the loops.
+     * Additional {@link CANSparkBase}s that follow the master.
      */
-    protected final CANSparkMax master;
+    protected final List<? extends CANSparkBase> slaves;
 
     /**
-     * Additional {@link CANSparkMax}s that follow the master.
-     */
-    protected final List<CANSparkMax> slaves;
-
-    /**
-     * Constructs a new instance of {@link SparkMaxGenericSubsystem}.
+     * Constructs a new instance of {@link SparkGenericSubsystem}.
      *
      * @param namespaceName the name of the subsystem's namespace
      * @param master        the motor controller which runs the loops
      * @param slaves        additional motor controllers that follow the master
      */
-    public SparkMaxGenericSubsystem(String namespaceName, CANSparkMax master, CANSparkMax... slaves) {
+    public SparkGenericSubsystem(String namespaceName, CANSparkBase master, CANSparkBase... slaves) {
         super(namespaceName);
         this.master = master;
         this.slaves = List.of(slaves);
@@ -83,7 +78,7 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
         master.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
         master.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
         master.getPIDController().setSmartMotionAccelStrategy(
-                SparkMaxPIDController.AccelStrategy.fromInt(settings.getCurve()), TRAPEZOID_SLOT_ID);
+                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
     /**
@@ -95,6 +90,7 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
         master.restoreFactoryDefaults();
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
+        slaves.forEach(s -> s.follow(master));
     }
 
     /**
@@ -132,23 +128,13 @@ public class SparkMaxGenericSubsystem extends DashboardedSubsystem implements Sm
      */
     @Override
     public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value;
-        switch (controlMode) {
-            case PERCENT_OUTPUT:
-                value = master.getAppliedOutput();
-                break;
-            case VELOCITY:
-                value = master.getEncoder().getVelocity();
-                break;
-            case CURRENT:
-                value = master.getOutputCurrent();
-                break;
-            case VOLTAGE:
-                value = master.getBusVoltage();
-                break;
-            default:
-                value = master.getEncoder().getPosition();
-        }
+        double value = switch (controlMode) {
+            case PERCENT_OUTPUT -> master.getAppliedOutput();
+            case VELOCITY -> master.getEncoder().getVelocity();
+            case CURRENT -> master.getOutputCurrent();
+            case VOLTAGE -> master.getBusVoltage() * master.getAppliedOutput();
+            default -> master.getEncoder().getPosition();
+        };
         return Math.abs(value - setpoint) <= tolerance;
     }
 }
