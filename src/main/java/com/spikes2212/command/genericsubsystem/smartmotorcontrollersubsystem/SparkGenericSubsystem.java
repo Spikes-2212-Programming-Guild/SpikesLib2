@@ -78,7 +78,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
         master.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
         master.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
         master.getPIDController().setSmartMotionAccelStrategy(
-                SparkPIDController.AccelStrategy.fromInt(settings.getCurve()), TRAPEZOID_SLOT_ID);
+                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
     /**

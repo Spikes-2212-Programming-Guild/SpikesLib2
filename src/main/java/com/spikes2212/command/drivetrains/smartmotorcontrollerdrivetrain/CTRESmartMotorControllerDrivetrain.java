@@ -125,10 +125,10 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
         leftMaster.configMotionAcceleration(settings.getAccelerationRate());
         leftMaster.configMotionCruiseVelocity(settings.getMaxVelocity());
-        leftMaster.configMotionSCurveStrength(settings.getCurve());
+        leftMaster.configMotionSCurveStrength((int) settings.getCurve());
         rightMaster.configMotionAcceleration(settings.getAccelerationRate());
         rightMaster.configMotionCruiseVelocity(settings.getMaxVelocity());
-        rightMaster.configMotionSCurveStrength(settings.getCurve());
+        rightMaster.configMotionSCurveStrength((int) settings.getCurve());
     }
 
     /**
