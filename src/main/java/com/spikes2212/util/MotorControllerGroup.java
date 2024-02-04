@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MotorControllerGroup implements MotorController, Sendable, AutoCloseable {
 
-    private final List<MotorController> motorControllers;
+    private final List<? extends MotorController> motorControllers;
     private boolean inverted;
 
     public MotorControllerGroup(MotorController... motorControllers) {
