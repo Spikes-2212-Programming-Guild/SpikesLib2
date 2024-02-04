@@ -1,6 +1,7 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
 import com.ctre.phoenix.motorcontrol.IFollower;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
@@ -19,11 +20,14 @@ import java.util.List;
  * CTRE motor controllers that follow it.
  * <br>
  * Only works with Phoenix V5 motor controller classes!
+ * <br>
+ * Due to Phoenix V5 being deprecated, this class is deprecated as well.
  *
  * @author Yoel Perman Brilliant
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
+@Deprecated(since = "2024", forRemoval = true)
 public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
@@ -70,6 +74,9 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
         this.rightMaster = rightMaster;
         this.rightSlaves = rightSlaves;
         this.rightSlaves.forEach(s -> s.follow(rightMaster));
+        rightController.setInverted(false);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> ((BaseMotorController) s).setInverted(InvertType.FollowMaster));
     }
 
     /**
@@ -135,6 +142,8 @@ public class CTRESmartMotorControllerDrivetrain extends TankDrivetrain implement
         rightMaster.configFactoryDefault();
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> ((BaseMotorController) s).setInverted(InvertType.FollowMaster));
     }
 
     /**

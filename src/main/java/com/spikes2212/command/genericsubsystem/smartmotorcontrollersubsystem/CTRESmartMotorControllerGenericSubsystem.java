@@ -20,11 +20,14 @@ import java.util.List;
  * CTRE motor controllers that follow it.
  * <br>
  * Only works with Phoenix V5 motor controller classes!
+ * <br>
+ * Due to Phoenix V5 being deprecated, this class is deprecated as well.
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
+@Deprecated(since = "2024", forRemoval = true)
 public class CTRESmartMotorControllerGenericSubsystem extends DashboardedSubsystem
         implements SmartMotorControllerGenericSubsystem {
 

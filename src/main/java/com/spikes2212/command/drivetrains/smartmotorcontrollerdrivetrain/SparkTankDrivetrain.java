@@ -28,11 +28,6 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The slot on the motor controller on which the PID loops are run.
-     */
-    private static final int PID_SLOT = 0;
-
-    /**
      * The left motor controller which runs the loops.
      */
     protected final CANSparkBase leftMaster;
@@ -70,6 +65,9 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         this.rightSlaves = rightSlaves;
         this.leftSlaves.forEach(s -> s.follow(leftMaster));
         this.rightSlaves.forEach(s -> s.follow(rightMaster));
+        rightController.setInverted(false);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> s.setInverted(true));
     }
 
     /**
@@ -135,6 +133,10 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         rightMaster.restoreFactoryDefaults();
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> s.setInverted(true));
+        leftSlaves.forEach(s -> s.follow(leftMaster));
+        rightSlaves.forEach(s -> s.follow(rightMaster));
     }
 
     /**

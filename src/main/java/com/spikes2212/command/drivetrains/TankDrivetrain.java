@@ -31,6 +31,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
         this.rightController = rightController;
         rightController.setInverted(true);
         drive = new DifferentialDrive(leftController, rightController);
+        drive.setSafetyEnabled(false);
     }
 
     public TankDrivetrain(MotorController leftController, MotorController rightController) {
@@ -153,6 +154,14 @@ public class TankDrivetrain extends DashboardedSubsystem {
     public void stop() {
         leftController.stopMotor();
         rightController.stopMotor();
+    }
+
+    /**
+     * Sets the motor safety feature of the speed controllers on/off.
+     * @param enabled whether motor safety should be enabled
+     */
+    public void setMotorSafety(boolean enabled) {
+        drive.setSafetyEnabled(enabled);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -57,14 +58,14 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
 
     @Override
     public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-        TalonFXConfiguration config = new TalonFXConfiguration();
-        config.Slot0.kP = pidSettings.getkP();
-        config.Slot0.kI = pidSettings.getkI();
-        config.Slot0.kD = pidSettings.getkD();
-        config.Slot0.kS = feedForwardSettings.getkS();
-        config.Slot0.kV = feedForwardSettings.getkV();
-        config.Slot0.kA = feedForwardSettings.getkA();
-        config.Slot0.kG = feedForwardSettings.getkG();
+        Slot0Configs config = new Slot0Configs();
+        config.kP = pidSettings.getkP();
+        config.kI = pidSettings.getkI();
+        config.kD = pidSettings.getkD();
+        config.kS = feedForwardSettings.getkS();
+        config.kV = feedForwardSettings.getkV();
+        config.kA = feedForwardSettings.getkA();
+        config.kG = feedForwardSettings.getkG();
         master.getConfigurator().apply(config);
     }
 
