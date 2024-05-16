@@ -103,7 +103,7 @@ public class DriveArcadeWithPID extends Command {
                 feedForwardSettings.getkA(), feedForwardSettings.getkG());
 
         drivetrain.arcadeDrive(moveValue.get(), pidController.calculate(source.get(), setpoint.get()) +
-                feedForwardController.calculate(setpoint.get()));
+                feedForwardController.calculate(setpoint.get(), source.get()));
     }
 
     @Override

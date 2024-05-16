@@ -94,7 +94,7 @@ public class MoveGenericSubsystemWithPID extends Command {
                 feedForwardSettings.getkA(), feedForwardSettings.getkG());
 
         double pidValue = pidController.calculate(source.get(), setpoint.get());
-        double svagValue = feedForwardController.calculate(setpoint.get());
+        double svagValue = feedForwardController.calculate(setpoint.get(), source.get());
         return pidValue + svagValue;
     }
 

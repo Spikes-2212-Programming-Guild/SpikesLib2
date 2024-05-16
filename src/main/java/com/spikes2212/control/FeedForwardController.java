@@ -128,9 +128,9 @@ public class FeedForwardController {
      * @param setpoint the target velocity
      * @return the desired output
      */
-    public double calculate(double setpoint) {
+    public double calculate(double setpoint, double source) {
         double targetDerivative = (setpoint - previousTarget) / period;
         previousTarget = setpoint;
-        return kG + kS * Math.signum(setpoint) + kV * setpoint + kA * targetDerivative;
+        return kG + kS * Math.signum(setpoint - source) + kV * setpoint + kA * targetDerivative;
     }
 }
