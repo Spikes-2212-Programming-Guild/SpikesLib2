@@ -13,6 +13,8 @@ import java.util.List;
 
 public class FollowPath extends Command {
 
+    private static final double PERIODIC_RATE = 0.02;
+
     private OdometryDrivetrain drivetrain;
     private List<Waypoint> path;
     private double lookaheadDistance;
@@ -58,12 +60,10 @@ public class FollowPath extends Command {
     @Override
     public void execute() {
         double[] speeds = purePursuitController.getTargetSpeeds();
-        double leftSpeed = leftFeedForwardController.calculate(speeds[0]) + leftController.calculate(
-                drivetrain.getLeftRate(), speeds[0]
-        );
-        double rightSpeed = rightFeedForwardController.calculate(speeds[1]) + rightController.calculate(
-                drivetrain.getRightRate(), speeds[1]
-        );
+        double leftSpeed = leftFeedForwardController.calculate(speeds[0], drivetrain.getLeftRate() / PERIODIC_RATE)
+                + leftController.calculate(drivetrain.getLeftRate(), speeds[0]);
+        double rightSpeed = rightFeedForwardController.calculate(speeds[1], drivetrain.getRightRate() / PERIODIC_RATE)
+                + rightController.calculate(drivetrain.getRightRate(), speeds[1]);
         drivetrain.tankDrive(leftSpeed, rightSpeed, false);
     }
 
