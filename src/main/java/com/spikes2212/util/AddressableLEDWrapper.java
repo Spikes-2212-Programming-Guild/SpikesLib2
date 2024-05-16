@@ -23,9 +23,27 @@ public class AddressableLEDWrapper {
      */
     private final AddressableLEDBuffer ledBuffer;
 
-    public AddressableLEDWrapper(int ledPort, int numberOfLEDs) {
+    /**
+     * Whether the LED strip should update its data by itself.
+     */
+    private boolean updateAutomatically;
+
+    public AddressableLEDWrapper(int ledPort, int numberOfLEDs, boolean updateAutomatically) {
         this.led = new AddressableLED(ledPort);
         this.ledBuffer = new AddressableLEDBuffer(numberOfLEDs);
+        this.updateAutomatically = updateAutomatically;
+    }
+
+    public AddressableLEDWrapper(int ledPort, int numberOfLEDs) {
+        this(ledPort, numberOfLEDs, true);
+    }
+
+    public void periodic() {
+        if (updateAutomatically) update();
+    }
+
+    public void updateAutomatically(boolean shouldUpdate) {
+        updateAutomatically = shouldUpdate;
     }
 
     /**
@@ -104,6 +122,40 @@ public class AddressableLEDWrapper {
     }
 
     /**
+     * @param index the index of the LED
+     * @return the {@link Color} of said LED
+     */
+    public Color getColorAt(int index) {
+        return new Color((int) ledBuffer.getLED(index).red * 255,
+                (int) ledBuffer.getLED(index).green * 255,
+                (int) ledBuffer.getLED(index).blue * 255);
+    }
+
+    /**
+     * @param index
+     * @return the red value of said LED
+     */
+    public int getRedAt(int index) {
+        return getColorAt(index).getRed();
+    }
+
+    /**
+     * @param index
+     * @return the green value of said LED
+     */
+    public int getGreenAt(int index) {
+        return getColorAt(index).getGreen();
+    }
+
+    /**
+     * @param index
+     * @return the blue value of said LED
+     */
+    public int getBlueAt(int index) {
+        return getColorAt(index).getBlue();
+    }
+
+    /**
      * Takes the buffer's data and applies it to the LED strip.
      * This method should be called periodically.
      */
@@ -123,5 +175,37 @@ public class AddressableLEDWrapper {
      */
     public void disableStrip() {
         led.stop();
+    }
+
+    /**
+     * Advances all the LED lights on the strip.
+     *
+     * @param advanceBy how many lights should the LED advance by
+     * @param loop      whether LED lights should return to the start after leaving the strip
+     */
+    public void advance(int advanceBy, boolean loop) {
+        AddressableLEDBuffer newBuffer = new AddressableLEDBuffer(ledBuffer.getLength());
+        if (loop) {
+            for (int i = 0; i < ledBuffer.getLength(); i++) {
+                newBuffer.setLED((i + advanceBy) % ledBuffer.getLength(), ledBuffer.getLED(i));
+            }
+        } else {
+            for (int i = advanceBy; i < ledBuffer.getLength(); i++) {
+                newBuffer.setLED(i, ledBuffer.getLED(i));
+            }
+        }
+        for (int i = 0; i < ledBuffer.getLength(); i++) {
+            ledBuffer.setLED(i, newBuffer.getLED(i));
+        }
+    }
+
+    public void invert() {
+        AddressableLEDBuffer newBuffer = new AddressableLEDBuffer(ledBuffer.getLength());
+        for (int i = 0; i < ledBuffer.getLength(); i++) {
+            newBuffer.setLED(i, ledBuffer.getLED(ledBuffer.getLength() - i - 1));
+        }
+        for (int i = 0; i < ledBuffer.getLength(); i++) {
+            ledBuffer.setLED(i, newBuffer.getLED(i));
+        }
     }
 }
