@@ -81,18 +81,6 @@ public class Limelight {
         return getEntry(key).getValue();
     }
 
-    @Deprecated(since = "2023", forRemoval = true)
-    public void periodic() {
-    }
-
-    /**
-     * @deprecated use {@link #hasTarget()}
-     */
-    @Deprecated(since = "2023", forRemoval = true)
-    public boolean isOnTarget() {
-        return this.hasTarget();
-    }
-
     /**
      * @return whether a target is detected by the limelight
      */
