@@ -27,8 +27,8 @@ public class Limelight {
         public int getCamMode() {
             return mode;
         }
-    }
 
+    }
     public enum LedMode {
 
         DEFAULT(0), FORCE_OFF(1), FORCE_BLINK(2), FORCE_ON(3);
@@ -42,11 +42,11 @@ public class Limelight {
         public int getLedMode() {
             return this.mode;
         }
+
     }
+    private static final String DEFAULT_NAME = "limelight";
 
     protected static NetworkTableInstance table;
-
-    private static final String DEFAULT_NAME = "limeligt";
 
     private final String name;
 
