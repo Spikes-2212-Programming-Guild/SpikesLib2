@@ -46,7 +46,7 @@ public class Limelight {
 
     protected static NetworkTableInstance table;
 
-    private static final String DEFAULT_NAME = "limelight";
+    private static final String DEFAULT_NAME = "limeligt";
 
     private final String name;
 
