@@ -44,9 +44,9 @@ public class Limelight {
         }
     }
 
-    protected static NetworkTableInstance table;
-
     private static final String DEFAULT_NAME = "limelight";
+
+    protected static NetworkTableInstance table;
 
     private final String name;
 
@@ -79,18 +79,6 @@ public class Limelight {
      */
     public NetworkTableValue getValue(String key) {
         return getEntry(key).getValue();
-    }
-
-    @Deprecated(since = "2023", forRemoval = true)
-    public void periodic() {
-    }
-
-    /**
-     * @deprecated use {@link #hasTarget()}
-     */
-    @Deprecated(since = "2023", forRemoval = true)
-    public boolean isOnTarget() {
-        return this.hasTarget();
     }
 
     /**
