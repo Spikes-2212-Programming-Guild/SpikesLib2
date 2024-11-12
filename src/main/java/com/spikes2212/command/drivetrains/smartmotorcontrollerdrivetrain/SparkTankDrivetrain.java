@@ -101,10 +101,12 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         leftMaster.getPIDController().setP(leftPIDSettings.getkP());
         leftMaster.getPIDController().setI(leftPIDSettings.getkI());
         leftMaster.getPIDController().setD(leftPIDSettings.getkD());
+        leftMaster.getPIDController().setIZone(leftPIDSettings.getIZone());
         rightMaster.getPIDController().setFF(feedForwardSettings.getkV());
         rightMaster.getPIDController().setP(rightPIDSettings.getkP());
         rightMaster.getPIDController().setI(rightPIDSettings.getkI());
         rightMaster.getPIDController().setD(rightPIDSettings.getkD());
+        rightMaster.getPIDController().setIZone(rightPIDSettings.getIZone());
     }
 
     /**
