@@ -90,6 +90,7 @@ public class MoveGenericSubsystemWithPID extends Command {
     protected double calculatePIDAndFFValues() {
         pidController.setTolerance(pidSettings.getTolerance());
         pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        pidController.setIZone(pidSettings.getIZone());
         feedForwardController.setGains(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
                 feedForwardSettings.getkA(), feedForwardSettings.getkG());
 
