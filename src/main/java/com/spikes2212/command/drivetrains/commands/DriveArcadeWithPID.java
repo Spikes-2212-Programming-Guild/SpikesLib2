@@ -73,10 +73,10 @@ public class DriveArcadeWithPID extends Command {
         this.feedForwardSettings = feedForwardSettings;
         this.source = source;
         this.moveValue = moveValue;
-        this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
-        this.pidController.setSetpoint(setpoint.get());
-        this.pidController.setIZone(pidSettings.getIZone());
-        this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
+        pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        pidController.setSetpoint(setpoint.get());
+        pidController.setIZone(pidSettings.getIZone());
+        feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
                 feedForwardSettings.getkA(), feedForwardSettings.getkG(), FeedForwardController.DEFAULT_PERIOD);
     }
 
