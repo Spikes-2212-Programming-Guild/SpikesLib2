@@ -6,9 +6,11 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.spikes2212.command.DashboardedSubsystem;
+import com.spikes2212.command.genericsubsystem.MotoredGenericSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import com.spikes2212.util.MotorControllerGroup;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -24,7 +26,7 @@ import java.util.List;
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
-public class TalonFXGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
+public class TalonFXGenericSubsystem extends MotoredGenericSubsystem implements SmartMotorControllerGenericSubsystem {
 
     /**
      * The TalonFX which runs the loops.
@@ -44,7 +46,7 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
      * @param slaves        additional TalonFXs that follow the master
      */
     public TalonFXGenericSubsystem(String namespaceName, TalonFX master, TalonFX... slaves) {
-        super(namespaceName);
+        super(namespaceName, new MotorControllerGroup(master, new MotorControllerGroup(slaves)));
         this.master = master;
         this.slaves = List.of(slaves);
     }
