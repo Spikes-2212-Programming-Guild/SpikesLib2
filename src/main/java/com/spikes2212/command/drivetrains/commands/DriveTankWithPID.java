@@ -111,6 +111,8 @@ public class DriveTankWithPID extends Command {
         this.rightSource = rightSource;
         this.leftPIDController.setSetpoint(leftSetpoint.get());
         this.rightPIDController.setSetpoint(rightSetpoint.get());
+        this.leftPIDController.setIZone(leftPIDSettings.getIZone());
+        this.rightPIDController.setIZone(rightPIDSettings.getIZone());
         this.leftFeedForwardSettings = leftFeedForwardSettings;
         this.rightFeedForwardSettings = rightFeedForwardSettings;
         this.leftFeedForwardController = new FeedForwardController(leftFeedForwardSettings.getkS(),
@@ -151,6 +153,8 @@ public class DriveTankWithPID extends Command {
         rightPIDController.setTolerance(rightPIDSettings.getTolerance());
         leftPIDController.setPID(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD());
         rightPIDController.setPID(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD());
+        leftPIDController.setIZone(leftPIDSettings.getIZone());
+        rightPIDController.setIZone(rightPIDSettings.getIZone());
         leftFeedForwardController.setGains(leftFeedForwardSettings.getkS(), leftFeedForwardSettings.getkV(),
                 leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG());
         rightFeedForwardController.setGains(rightFeedForwardSettings.getkS(), rightFeedForwardSettings.getkV(),
