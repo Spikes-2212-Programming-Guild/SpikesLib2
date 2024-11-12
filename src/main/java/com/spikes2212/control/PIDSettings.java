@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  */
 public class PIDSettings {
 
-    public static final PIDSettings EMPTY_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
+    public static final PIDSettings EMPTY_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0, 0);
 
     /**
      * the proportional component of the PID settings
@@ -36,25 +36,31 @@ public class PIDSettings {
      */
     private Supplier<Double> waitTime;
 
+    /**
+     * the distance required to pass to activate i
+     */
+    private Supplier<Double> iZone;
+
     public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance,
-                       Supplier<Double> waitTime) {
+                       Supplier<Double> waitTime, Supplier<Double> iZone) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
         this.tolerance = tolerance;
         this.waitTime = waitTime;
+        this.iZone = iZone;
     }
 
     public PIDSettings(double kP, double tolerance, double waitTime) {
-        this(kP, 0.0, 0.0, tolerance, waitTime);
+        this(kP, 0.0, 0.0, tolerance, waitTime, 0.0);
     }
 
-    public PIDSettings(double kP, double kI, double kD, double tolerance, double waitTime) {
-        this(() -> kP, () -> kI, () -> kD, () -> tolerance, () -> waitTime);
+    public PIDSettings(double kP, double kI, double kD, double tolerance, double waitTime, double iZone) {
+        this(() -> kP, () -> kI, () -> kD, () -> tolerance, () -> waitTime, () -> iZone);
     }
 
     public PIDSettings(Supplier<Double> kP, Supplier<Double> tolerance, Supplier<Double> waitTime) {
-        this(kP, () -> 0.0, () -> 0.0, tolerance, waitTime);
+        this(kP, () -> 0.0, () -> 0.0, tolerance, waitTime, () -> 0.0);
     }
 
     public double getkP() {
@@ -95,5 +101,13 @@ public class PIDSettings {
 
     public void setWaitTime(Supplier<Double> waitTime) {
         this.waitTime = waitTime;
+    }
+
+    public double getIZone(){
+        return iZone.get();
+    }
+
+    public void setIZone(Supplier<Double> iZone) {
+        this.iZone = iZone;
     }
 }
