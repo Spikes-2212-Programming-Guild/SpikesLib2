@@ -68,6 +68,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
         master.getPIDController().setP(pidSettings.getkP());
         master.getPIDController().setI(pidSettings.getkI());
         master.getPIDController().setD(pidSettings.getkD());
+        master.getPIDController().setIZone(pidSettings.getIZone());
     }
 
     /**
