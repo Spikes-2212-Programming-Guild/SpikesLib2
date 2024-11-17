@@ -3,9 +3,11 @@ package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.SparkPIDController;
 import com.spikes2212.command.DashboardedSubsystem;
+import com.spikes2212.command.genericsubsystem.MotoredGenericSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import com.spikes2212.util.MotorControllerGroup;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -21,7 +23,7 @@ import java.util.List;
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
-public class SparkGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
+public class SparkGenericSubsystem extends MotoredGenericSubsystem implements SmartMotorControllerGenericSubsystem {
 
     /**
      * The slot on the {@link CANSparkBase} on which the trapezoid profiling configurations are saved.
@@ -46,7 +48,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      * @param slaves        additional motor controllers that follow the master
      */
     public SparkGenericSubsystem(String namespaceName, CANSparkBase master, CANSparkBase... slaves) {
-        super(namespaceName);
+        super(namespaceName, new MotorControllerGroup(master, new MotorControllerGroup(slaves)));
         this.master = master;
         this.slaves = List.of(slaves);
         this.slaves.forEach(s -> s.follow(master));
