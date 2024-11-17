@@ -40,7 +40,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
     }
 
     public TankDrivetrain(MotorController leftMaster, MotorController leftSlave, MotorController rightMaster, MotorController rightSlave) {
-        this(getClassName(DEFAULT_NAMESPACE_NAME), new MotorControllerGroup(leftMaster, leftSlave), new MotorControllerGroup(rightMaster, rightSlave));
+        this(getClassName(DEFAULT_NAMESPACE_NAME), leftMaster, leftSlave, rightMaster, rightSlave);
     }
 
     public TankDrivetrain(String namespaceName, MotorController leftMaster, MotorController leftSlave, MotorController rightMaster, MotorController rightSlave) {
