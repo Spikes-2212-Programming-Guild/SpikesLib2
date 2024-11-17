@@ -1,6 +1,7 @@
 package com.spikes2212.command.drivetrains;
 
 import com.spikes2212.command.DashboardedSubsystem;
+import com.spikes2212.util.MotorControllerGroup;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -36,6 +37,10 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     public TankDrivetrain(MotorController leftController, MotorController rightController) {
         this(getClassName(DEFAULT_NAMESPACE_NAME), leftController, rightController);
+    }
+
+    public TankDrivetrain(MotorController leftMaster, MotorController leftSlave, MotorController rightMaster, MotorController rightSlave) {
+        this(getClassName(DEFAULT_NAMESPACE_NAME), new MotorControllerGroup(leftMaster, leftSlave), new MotorControllerGroup(rightMaster, rightSlave));
     }
 
     /**
