@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.List;
 
+@Deprecated(since = "2025", forRemoval = true)
 public class FollowPath extends Command {
 
     private OdometryDrivetrain drivetrain;
