@@ -20,8 +20,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "tank drivetrain";
 
-    protected MotorController leftController;
-    protected MotorController rightController;
+    protected final MotorController leftController;
+    protected final MotorController rightController;
 
     private final DifferentialDrive drive;
 
