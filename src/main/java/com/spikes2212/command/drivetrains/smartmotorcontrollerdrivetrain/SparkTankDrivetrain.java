@@ -3,6 +3,7 @@ package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 import com.revrobotics.CANSparkBase;
 import com.revrobotics.SparkPIDController;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
+import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
@@ -94,12 +95,12 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      */
     @Override
     public void configPIDF(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
-                           FeedForwardSettings feedForwardSettings) {
-        leftMaster.getPIDController().setFF(feedForwardSettings.getkV());
+                           FeedForwardSettings leftFeedForwardSettings, FeedForwardSettings rightFeedForwardSettings) {
+        leftMaster.getPIDController().setFF(leftFeedForwardSettings.getkV());
         leftMaster.getPIDController().setP(leftPIDSettings.getkP());
         leftMaster.getPIDController().setI(leftPIDSettings.getkI());
         leftMaster.getPIDController().setD(leftPIDSettings.getkD());
-        rightMaster.getPIDController().setFF(feedForwardSettings.getkV());
+        rightMaster.getPIDController().setFF(rightFeedForwardSettings.getkV());
         rightMaster.getPIDController().setP(rightPIDSettings.getkP());
         rightMaster.getPIDController().setI(rightPIDSettings.getkI());
         rightMaster.getPIDController().setD(rightPIDSettings.getkD());
@@ -109,15 +110,15 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      * Configures the loops' trapezoid profile settings.
      */
     @Override
-    public void configureTrapezoid(TrapezoidProfileSettings settings) {
-        leftMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
-        leftMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
+    public void configureTrapezoid(TrapezoidProfileSettings leftSettings, TrapezoidProfileSettings rightSettings) {
+        leftMaster.getPIDController().setSmartMotionMaxAccel(leftSettings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
+        leftMaster.getPIDController().setSmartMotionMaxVelocity(leftSettings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
         leftMaster.getPIDController().setSmartMotionAccelStrategy(
-                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
-        rightMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
-        rightMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
+                SparkPIDController.AccelStrategy.fromInt((int) leftSettings.getCurve()), TRAPEZOID_SLOT_ID);
+        rightMaster.getPIDController().setSmartMotionMaxAccel(rightSettings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
+        rightMaster.getPIDController().setSmartMotionMaxVelocity(rightSettings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
         rightMaster.getPIDController().setSmartMotionAccelStrategy(
-                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
+                SparkPIDController.AccelStrategy.fromInt((int) rightSettings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
     /**
@@ -145,17 +146,25 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      * @param rightSetpoint            the right side loop's target setpoint
      * @param leftPIDSettings          the left side's PID constants
      * @param rightPIDSettings         the right side's PID constants
-     * @param feedForwardSettings      the feed forward gains
+     * @param leftFeedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
     @Override
     public void pidSet(UnifiedControlMode controlMode, double leftSetpoint, double rightSetpoint,
                        PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
-                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
-        configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
-        configureTrapezoid(trapezoidProfileSettings);
-        leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType());
-        rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType());
+                       FeedForwardSettings leftFeedForwardSettings, FeedForwardSettings rightFeedForwardSettings,
+                       TrapezoidProfileSettings leftTrapezoidProfileSettings,
+                       TrapezoidProfileSettings rightTrapezoidProfileSettings) {
+        configPIDF(leftPIDSettings, rightPIDSettings, leftFeedForwardSettings, rightFeedForwardSettings);
+        configureTrapezoid(leftTrapezoidProfileSettings);
+        FeedForwardController leftFeedForwardController = new FeedForwardController(leftFeedForwardSettings,
+                FeedForwardController.DEFAULT_PERIOD);
+        FeedForwardController rightFeedForwardController = new FeedForwardController(rightFeedForwardSettings,
+                FeedForwardController.DEFAULT_PERIOD);
+        leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType(), 0,
+                leftFeedForwardController.calculate(leftSetpoint));
+        rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType(), 0,
+                rightFeedForwardController.calculate(rightSetpoint));
     }
 
     /**
