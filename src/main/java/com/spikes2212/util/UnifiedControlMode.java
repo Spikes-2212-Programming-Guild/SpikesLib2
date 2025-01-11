@@ -1,28 +1,29 @@
 package com.spikes2212.util;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkMax;
 
 /**
- * A wrapper for the CTRE motor controllers and {@link CANSparkMax} control modes.
+ * A wrapper for the CTRE motor controllers and {@link SparkMax} control modes.
  *
  * @author Yoel Perman Brilliant
  * @see ControlMode
- * @see CANSparkMax.ControlType
+ * @see SparkMax.ControlType
  */
 public enum UnifiedControlMode {
-    POSITION(ControlMode.Position, CANSparkMax.ControlType.kPosition),
-    VELOCITY(ControlMode.Velocity, CANSparkMax.ControlType.kVelocity),
-    CURRENT(ControlMode.Current, CANSparkMax.ControlType.kCurrent),
-    PERCENT_OUTPUT(ControlMode.PercentOutput, CANSparkMax.ControlType.kDutyCycle),
-    TRAPEZOID_PROFILE(ControlMode.MotionMagic, CANSparkMax.ControlType.kSmartMotion),
+    POSITION(ControlMode.Position, SparkMax.ControlType.kPosition),
+    VELOCITY(ControlMode.Velocity, SparkMax.ControlType.kVelocity),
+    CURRENT(ControlMode.Current, SparkMax.ControlType.kCurrent),
+    PERCENT_OUTPUT(ControlMode.PercentOutput, SparkMax.ControlType.kDutyCycle),
+    TRAPEZOID_PROFILE(ControlMode.MotionMagic, SparkMax.ControlType.kMAXMotionPositionControl),
     MOTION_PROFILING(ControlMode.MotionProfile, null),
-    VOLTAGE(null, CANSparkMax.ControlType.kVoltage);
+    VOLTAGE(null, SparkMax.ControlType.kVoltage);
 
     private final ControlMode ctreControlMode;
-    private final CANSparkMax.ControlType sparkMaxControlType;
+    private final SparkMax.ControlType sparkMaxControlType;
 
-    UnifiedControlMode(ControlMode ctreControlMode, CANSparkMax.ControlType sparkMaxControlType) {
+    UnifiedControlMode(ControlMode ctreControlMode, SparkMax.ControlType sparkMaxControlType) {
         this.ctreControlMode = ctreControlMode;
         this.sparkMaxControlType = sparkMaxControlType;
     }
@@ -31,7 +32,7 @@ public enum UnifiedControlMode {
         return ctreControlMode;
     }
 
-    public CANSparkMax.ControlType getSparkMaxControlType() {
+    public SparkMax.ControlType getSparkMaxControlType() {
         return sparkMaxControlType;
     }
 }

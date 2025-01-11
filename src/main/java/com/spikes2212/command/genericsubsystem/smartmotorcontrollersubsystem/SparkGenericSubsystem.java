@@ -1,7 +1,9 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
-import com.revrobotics.CANSparkBase;
-import com.revrobotics.SparkPIDController;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.*;
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -14,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import java.util.List;
 
 /**
- * A {@link Subsystem} which consists of a master {@link CANSparkBase} motor controller that runs control
- * loops and additional {@link CANSparkBase} motor controllers that follow it.
+ * A {@link Subsystem} which consists of a master {@link SparkBase} motor controller that runs control
+ * loops and additional {@link SparkBase} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
@@ -24,19 +26,21 @@ import java.util.List;
 public class SparkGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
 
     /**
-     * The slot on the {@link CANSparkBase} on which the trapezoid profiling configurations are saved.
+     * The slot on the {@link SparkBase} on which the trapezoid profiling configurations are saved.
      */
     private static final int TRAPEZOID_SLOT_ID = 0;
 
     /**
-     * The {@link CANSparkBase} which runs the loops.
+     * The {@link SparkBase} which runs the loops.
      */
-    protected final CANSparkBase master;
+    protected final SparkBase master;
 
     /**
-     * Additional {@link CANSparkBase}s that follow the master.
+     * Additional {@link SparkBase}s that follow the master.
      */
-    protected final List<? extends CANSparkBase> slaves;
+    protected final List<? extends SparkBase> slaves;
+
+    protected final SparkBaseConfig config;
 
     /**
      * Constructs a new instance of {@link SparkGenericSubsystem}.
@@ -45,11 +49,18 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      * @param master        the motor controller which runs the loops
      * @param slaves        additional motor controllers that follow the master
      */
-    public SparkGenericSubsystem(String namespaceName, CANSparkBase master, CANSparkBase... slaves) {
+    public SparkGenericSubsystem(String namespaceName, SparkBase master, SparkBase... slaves) {
         super(namespaceName);
         this.master = master;
         this.slaves = List.of(slaves);
-        this.slaves.forEach(s -> s.follow(master));
+        if (master instanceof SparkMax) config = new SparkMaxConfig();
+        else if (master instanceof SparkFlex) config = new SparkFlexConfig();
+        else config = null;
+
+        this.slaves.forEach(s -> {
+            s.configure(config, SparkBase.ResetMode.kNoResetSafeParameters,
+                    SparkBase.PersistMode.kNoPersistParameters);
+        });
     }
 
     /**
@@ -64,10 +75,12 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      */
     @Override
     public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-        master.getPIDController().setFF(feedForwardSettings.getkV());
-        master.getPIDController().setP(pidSettings.getkP());
-        master.getPIDController().setI(pidSettings.getkI());
-        master.getPIDController().setD(pidSettings.getkD());
+        ClosedLoopConfig closedLoopConfig = new ClosedLoopConfig();
+        closedLoopConfig.pidf(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD(),
+                feedForwardSettings.getkV());
+        config.apply(closedLoopConfig);
+        master.configure(config, SparkBase.ResetMode.kNoResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters);
     }
 
     /**
@@ -75,10 +88,12 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
-        master.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
-        master.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
-        master.getPIDController().setSmartMotionAccelStrategy(
-                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
+        MAXMotionConfig maxMotionConfig = new MAXMotionConfig();
+        maxMotionConfig.maxAcceleration(settings.getAccelerationRate());
+        maxMotionConfig.maxVelocity(settings.getAccelerationRate());
+        // @TODO what
+//        master.getPIDController().setSmartMotionAccelStrategy(
+//                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
     /**
@@ -87,10 +102,12 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
     @Override
     public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
                               TrapezoidProfileSettings trapezoidProfileSettings) {
-        master.restoreFactoryDefaults();
+        master.configure(config, SparkBase.ResetMode.kResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters);
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        slaves.forEach(s -> s.follow(master));
+        slaves.forEach(s -> s.configure(config, SparkBase.ResetMode.kNoResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters));
     }
 
     /**
@@ -107,7 +124,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        master.getPIDController().setReference(setpoint, controlMode.getSparkMaxControlType());
+        master.getClosedLoopController().setReference(setpoint, controlMode.getSparkMaxControlType());
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
-import com.revrobotics.CANSparkBase;
+import com.revrobotics.SparkBase;
 import com.revrobotics.SparkPIDController;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import java.util.List;
 
 /**
- * A {@link TankDrivetrain}, whose sides each consists of a master {@link CANSparkBase} motor controller that runs
- * control loops and additional {@link CANSparkBase} motor controllers that follow it.
+ * A {@link TankDrivetrain}, whose sides each consists of a master {@link SparkBase} motor controller that runs
+ * control loops and additional {@link SparkBase} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see TankDrivetrain
@@ -30,34 +30,34 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     /**
      * The left motor controller which runs the loops.
      */
-    protected final CANSparkBase leftMaster;
+    protected final SparkBase leftMaster;
 
     /**
      * The right motor controller which runs the loops.
      */
-    protected final CANSparkBase rightMaster;
+    protected final SparkBase rightMaster;
 
     /**
      * Additional motor controllers that follow the left master.
      */
-    protected final List<? extends CANSparkBase> leftSlaves;
+    protected final List<? extends SparkBase> leftSlaves;
 
     /**
      * Additional motor controllers that follow the right master.
      */
-    protected final List<? extends CANSparkBase> rightSlaves;
+    protected final List<? extends SparkBase> rightSlaves;
 
     /**
      * Constructs a new instance of {@link SparkTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
-     * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
-     * @param leftSlaves    additional {@link CANSparkBase} motor controllers that follow the left master
-     * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
-     * @param rightSlaves   additional {@link CANSparkBase} motor controllers that follow the right master
+     * @param leftMaster    the {@link SparkBase} motor controller which runs the left side's loops
+     * @param leftSlaves    additional {@link SparkBase} motor controllers that follow the left master
+     * @param rightMaster   the {@link SparkBase} motor controller which runs the right side's loops
+     * @param rightSlaves   additional {@link SparkBase} motor controllers that follow the right master
      */
-    public SparkTankDrivetrain(String namespaceName, CANSparkBase leftMaster, List<? extends CANSparkBase> leftSlaves,
-                               CANSparkBase rightMaster, List<? extends CANSparkBase> rightSlaves) {
+    public SparkTankDrivetrain(String namespaceName, SparkBase leftMaster, List<? extends SparkBase> leftSlaves,
+                               SparkBase rightMaster, List<? extends SparkBase> rightSlaves) {
         super(namespaceName, leftMaster, rightMaster);
         this.leftMaster = leftMaster;
         this.rightMaster = rightMaster;
@@ -74,13 +74,13 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      * Constructs a new instance of {@link SparkTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
-     * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
-     * @param leftSlave     an additional {@link CANSparkBase} motor controller that follows the left master
-     * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
-     * @param rightSlave    an additional {@link CANSparkBase} motor controller that follows the right master
+     * @param leftMaster    the {@link SparkBase} motor controller which runs the left side's loops
+     * @param leftSlave     an additional {@link SparkBase} motor controller that follows the left master
+     * @param rightMaster   the {@link SparkBase} motor controller which runs the right side's loops
+     * @param rightSlave    an additional {@link SparkBase} motor controller that follows the right master
      */
-    public SparkTankDrivetrain(String namespaceName, CANSparkBase leftMaster, CANSparkBase leftSlave,
-                               CANSparkBase rightMaster, CANSparkBase rightSlave) {
+    public SparkTankDrivetrain(String namespaceName, SparkBase leftMaster, SparkBase leftSlave,
+                               SparkBase rightMaster, SparkBase rightSlave) {
         this(namespaceName, leftMaster, List.of(leftSlave), rightMaster, List.of(rightSlave));
     }
 
@@ -140,7 +140,7 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     }
 
     /**
-     * Updates any control loops running on the master {@link CANSparkBase} motor controllers.
+     * Updates any control loops running on the master {@link SparkBase} motor controllers.
      *
      * @param controlMode              the loop's control type (e.g. voltage, velocity, position...)
      * @param leftSetpoint             the left side loop's target setpoint
