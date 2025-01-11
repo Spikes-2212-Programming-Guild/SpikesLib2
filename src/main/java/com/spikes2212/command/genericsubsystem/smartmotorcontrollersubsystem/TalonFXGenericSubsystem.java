@@ -11,6 +11,8 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.units.Unit;
+import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
@@ -124,11 +126,11 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
     @Override
     public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value = switch (controlMode) {
-            case VELOCITY -> master.getVelocity().getValue();
-            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> master.getPosition().getValue();
-            case CURRENT -> master.getTorqueCurrent().getValue();
+            case VELOCITY -> master.getVelocity().getValue().in(Units.RotationsPerSecond);
+            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> master.getPosition().getValue().in(Units.Revolutions);
+            case CURRENT -> master.getTorqueCurrent().getValue().in(Units.Amps);
             case PERCENT_OUTPUT -> master.get();
-            case VOLTAGE -> master.getMotorVoltage().getValue();
+            case VOLTAGE -> master.getMotorVoltage().getValue().in(Units.Volts);
         };
         return Math.abs(value - setpoint) <= tolerance;
     }
