@@ -1,16 +1,19 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import java.util.List;
@@ -57,14 +60,15 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     public TalonFXTankDrivetrain(String namespaceName, TalonFX leftMaster,
                                  List<? extends TalonFX> leftSlaves, TalonFX rightMaster,
                                  List<? extends TalonFX> rightSlaves) {
-        super(namespaceName, leftMaster, rightMaster);
+        super(namespaceName, (MotorController) leftMaster, (MotorController) rightMaster);
         this.leftMaster = leftMaster;
         this.leftSlaves = leftSlaves;
         this.rightMaster = rightMaster;
         this.rightSlaves = rightSlaves;
         rightController.setInverted(false);
-        rightMaster.setInverted(true);
-        rightSlaves.forEach(s -> s.setInverted(true));
+        MotorOutputConfigs configuration = new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive);
+        rightMaster.getConfigurator().apply(configuration);
+        rightSlaves.forEach(s -> s.getConfigurator().apply(configuration));
     }
 
     /**
@@ -201,11 +205,11 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     @Override
     public boolean leftOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value = switch (controlMode) {
-            case VELOCITY -> leftMaster.getVelocity().getValue();
-            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> leftMaster.getPosition().getValue();
-            case CURRENT -> leftMaster.getTorqueCurrent().getValue();
+            case VELOCITY -> leftMaster.getVelocity().getValueAsDouble();
+            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> leftMaster.getPosition().getValueAsDouble();
+            case CURRENT -> leftMaster.getTorqueCurrent().getValueAsDouble();
             case PERCENT_OUTPUT -> leftMaster.get();
-            case VOLTAGE -> leftMaster.getMotorVoltage().getValue();
+            case VOLTAGE -> leftMaster.getMotorVoltage().getValueAsDouble();
         };
         return Math.abs(value - setpoint) <= tolerance;
     }
@@ -221,11 +225,11 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     @Override
     public boolean rightOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value = switch (controlMode) {
-            case VELOCITY -> rightMaster.getVelocity().getValue();
-            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> rightMaster.getPosition().getValue();
-            case CURRENT -> rightMaster.getTorqueCurrent().getValue();
+            case VELOCITY -> rightMaster.getVelocity().getValueAsDouble();
+            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> rightMaster.getPosition().getValueAsDouble();
+            case CURRENT -> rightMaster.getTorqueCurrent().getValueAsDouble();
             case PERCENT_OUTPUT -> rightMaster.get();
-            case VOLTAGE -> rightMaster.getMotorVoltage().getValue();
+            case VOLTAGE -> rightMaster.getMotorVoltage().getValueAsDouble();
         };
         return Math.abs(value - setpoint) <= tolerance;
     }

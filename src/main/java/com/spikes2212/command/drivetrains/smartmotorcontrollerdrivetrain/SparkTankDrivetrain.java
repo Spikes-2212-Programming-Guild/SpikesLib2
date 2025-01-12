@@ -1,7 +1,9 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
-import com.revrobotics.SparkBase;
-import com.revrobotics.SparkPIDController;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.*;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -47,6 +49,9 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      */
     protected final List<? extends SparkBase> rightSlaves;
 
+    protected final SparkBaseConfig leftConfig;
+    protected final SparkBaseConfig rightConfig;
+
     /**
      * Constructs a new instance of {@link SparkTankDrivetrain}.
      *
@@ -63,11 +68,28 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         this.rightMaster = rightMaster;
         this.leftSlaves = leftSlaves;
         this.rightSlaves = rightSlaves;
-        this.leftSlaves.forEach(s -> s.follow(leftMaster));
-        this.rightSlaves.forEach(s -> s.follow(rightMaster));
-        rightController.setInverted(false);
-        rightMaster.setInverted(true);
-        rightSlaves.forEach(s -> s.setInverted(true));
+        if (leftMaster instanceof SparkMax) {
+            leftConfig = new SparkMaxConfig();
+            rightConfig = new SparkMaxConfig();
+        }
+        else if (leftMaster instanceof SparkFlex) {
+            leftConfig = new SparkFlexConfig();
+            rightConfig = new SparkFlexConfig();
+        }
+        else {
+            leftConfig = null;
+            rightConfig = null;
+        }
+        this.leftSlaves.forEach(s -> {
+            s.configure(leftConfig.follow(leftMaster), SparkBase.ResetMode.kNoResetSafeParameters,
+                    SparkBase.PersistMode.kNoPersistParameters);
+        });
+
+        rightConfig.inverted(true);
+        this.rightSlaves.forEach(s -> {
+            s.configure(rightConfig.follow(rightMaster), SparkBase.ResetMode.kNoResetSafeParameters,
+                    SparkBase.PersistMode.kNoPersistParameters);
+        });
     }
 
     /**
@@ -97,14 +119,19 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     @Override
     public void configPIDF(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                            FeedForwardSettings feedForwardSettings) {
-        leftMaster.getPIDController().setFF(feedForwardSettings.getkV());
-        leftMaster.getPIDController().setP(leftPIDSettings.getkP());
-        leftMaster.getPIDController().setI(leftPIDSettings.getkI());
-        leftMaster.getPIDController().setD(leftPIDSettings.getkD());
-        rightMaster.getPIDController().setFF(feedForwardSettings.getkV());
-        rightMaster.getPIDController().setP(rightPIDSettings.getkP());
-        rightMaster.getPIDController().setI(rightPIDSettings.getkI());
-        rightMaster.getPIDController().setD(rightPIDSettings.getkD());
+        ClosedLoopConfig leftClosedLoopConfig = new ClosedLoopConfig();
+        leftClosedLoopConfig.pidf(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD(),
+                feedForwardSettings.getkV());
+        leftConfig.apply(leftClosedLoopConfig);
+        leftMaster.configure(leftConfig, SparkBase.ResetMode.kNoResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters);
+
+        ClosedLoopConfig rightClosedLoopConfig = new ClosedLoopConfig();
+        rightClosedLoopConfig.pidf(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD(),
+                feedForwardSettings.getkV());
+        rightConfig.apply(rightClosedLoopConfig);
+        rightMaster.configure(rightConfig, SparkBase.ResetMode.kNoResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters);
     }
 
     /**
@@ -112,14 +139,19 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
-        leftMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
-        leftMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
-        leftMaster.getPIDController().setSmartMotionAccelStrategy(
-                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
-        rightMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
-        rightMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
-        rightMaster.getPIDController().setSmartMotionAccelStrategy(
-                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
+        MAXMotionConfig leftMaxMotionConfig = new MAXMotionConfig();
+        leftMaxMotionConfig.maxAcceleration(settings.getAccelerationRate());
+        leftMaxMotionConfig.maxVelocity(settings.getAccelerationRate());
+        // @TODO what
+//        master.getPIDController().setSmartMotionAccelStrategy(
+//                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
+
+
+        MAXMotionConfig rightMaxMotionConfig = new MAXMotionConfig();
+        rightMaxMotionConfig.maxAcceleration(settings.getAccelerationRate());
+        rightMaxMotionConfig.maxVelocity(settings.getAccelerationRate());
+//        master.getPIDController().setSmartMotionAccelStrategy(
+//                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
     /**
@@ -129,14 +161,19 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     public void configureLoop(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                               FeedForwardSettings feedForwardSettings,
                               TrapezoidProfileSettings trapezoidProfileSettings) {
-        leftMaster.restoreFactoryDefaults();
-        rightMaster.restoreFactoryDefaults();
+        leftMaster.configure(leftConfig, SparkBase.ResetMode.kResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters);
+        leftSlaves.forEach(s -> s.configure(leftConfig, SparkBase.ResetMode.kNoResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters));
+
+        rightConfig.inverted(true);
+        rightMaster.configure(rightConfig, SparkBase.ResetMode.kResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters);
+        rightSlaves.forEach(s -> s.configure(rightConfig, SparkBase.ResetMode.kNoResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters));
+
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        rightMaster.setInverted(true);
-        rightSlaves.forEach(s -> s.setInverted(true));
-        leftSlaves.forEach(s -> s.follow(leftMaster));
-        rightSlaves.forEach(s -> s.follow(rightMaster));
     }
 
     /**
@@ -156,8 +193,9 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType());
-        rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType());
+
+        leftMaster.getClosedLoopController().setReference(leftSetpoint, controlMode.getSparkMaxControlType());
+        rightMaster.getClosedLoopController().setReference(rightSetpoint, controlMode.getSparkMaxControlType());
     }
 
     /**

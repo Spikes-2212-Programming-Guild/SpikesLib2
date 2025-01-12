@@ -58,7 +58,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
         else config = null;
 
         this.slaves.forEach(s -> {
-            s.configure(config, SparkBase.ResetMode.kNoResetSafeParameters,
+            s.configure(config.follow(master), SparkBase.ResetMode.kNoResetSafeParameters,
                     SparkBase.PersistMode.kNoPersistParameters);
         });
     }

@@ -126,11 +126,11 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
     @Override
     public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value = switch (controlMode) {
-            case VELOCITY -> master.getVelocity().getValue().in(Units.RotationsPerSecond);
-            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> master.getPosition().getValue().in(Units.Revolutions);
-            case CURRENT -> master.getTorqueCurrent().getValue().in(Units.Amps);
+            case VELOCITY -> master.getVelocity().getValueAsDouble();
+            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> master.getPosition().getValueAsDouble();
+            case CURRENT -> master.getTorqueCurrent().getValueAsDouble();
             case PERCENT_OUTPUT -> master.get();
-            case VOLTAGE -> master.getMotorVoltage().getValue().in(Units.Volts);
+            case VOLTAGE -> master.getMotorVoltage().getValueAsDouble();
         };
         return Math.abs(value - setpoint) <= tolerance;
     }
