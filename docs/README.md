@@ -17,7 +17,7 @@ https://spikes2212.com/SpikesLib.json
 
 <h2 style="color: #00156E;">2024 Season</h2>
 
-Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v3.2.1...v4.1.0"> updated </a> to support WPILib 2024.
+Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v3.2.1...v5.0.0-beta"> updated </a> to support WPILib 2024.
 
 <h2 style="color: #00156E;">2023 Season</h2>
 
