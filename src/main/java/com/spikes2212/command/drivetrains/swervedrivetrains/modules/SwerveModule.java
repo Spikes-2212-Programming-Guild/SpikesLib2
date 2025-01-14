@@ -56,7 +56,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         turnController.stopMotor();
     }
 
-    public abstract void resetRelativeEncoders();
+    public abstract void resetRelativeEncoder();
 
     public Rotation2d getRotation2d() {
         return Rotation2d.fromDegrees(getAngle());
@@ -69,6 +69,10 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     }
 
     public abstract double getVelocity();
+
+    public Translation2d getModulePosition() {
+        return modulePosition;
+    }
 
     private SwerveModuleState optimize(SwerveModuleState state) {
         double wantedAngle = placeInAppropriate0To360Scope(state.angle.getDegrees());
