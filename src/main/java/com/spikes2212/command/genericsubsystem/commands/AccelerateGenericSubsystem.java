@@ -12,6 +12,7 @@ import java.util.function.Supplier;
  * @author Yuval Levy
  * @see MoveGenericSubsystem
  */
+@Deprecated(forRemoval = true, since = "2025")
 public class AccelerateGenericSubsystem extends MoveGenericSubsystem {
 
     protected final double time;
