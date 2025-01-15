@@ -6,6 +6,7 @@ import com.spikes2212.control.PIDSettings;
 
 import java.util.function.Supplier;
 
+@Deprecated(forRemoval = true, since = "2025")
 public class OrientWithPID extends DriveArcadeWithPID {
 
     public OrientWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
