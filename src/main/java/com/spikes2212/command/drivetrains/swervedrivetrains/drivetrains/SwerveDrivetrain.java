@@ -10,7 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 import java.util.function.Supplier;
 
-public abstract class SwerveDrivetrain extends DashboardedSubsystem {
+public class SwerveDrivetrain extends DashboardedSubsystem {
 
     private final SwerveModule frontLeft;
     private final SwerveModule frontRight;
