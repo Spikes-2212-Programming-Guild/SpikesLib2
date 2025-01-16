@@ -13,8 +13,6 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 
-import java.time.Clock;
-
 public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController {
 
     private TalonFX talonFX;
@@ -72,7 +70,8 @@ public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController 
             case CURRENT -> new TorqueCurrentFOC(setpoint);
             case PERCENT_OUTPUT -> new DutyCycleOut(setpoint);
             case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(setpoint);
-            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
+            case MOTION_PROFILING ->
+                    throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
             case VOLTAGE -> new VoltageOut(setpoint);
             case VELOCITY -> new VelocityDutyCycle(setpoint);
             case POSITION -> new PositionDutyCycle(setpoint);
