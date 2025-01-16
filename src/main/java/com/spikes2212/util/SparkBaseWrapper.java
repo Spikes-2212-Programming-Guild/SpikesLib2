@@ -50,6 +50,6 @@ public class SparkBaseWrapper extends SparkBase {
     // @TODO figure out trapezoids
 
     protected void configure(SparkBaseConfig config) {
-        configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+        configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
     }
 }
