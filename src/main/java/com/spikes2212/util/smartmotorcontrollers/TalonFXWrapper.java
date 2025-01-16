@@ -4,6 +4,7 @@ import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.core.CoreTalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -64,6 +65,19 @@ public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController 
     @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
+        configurePID(pidSettings);
+        configureFF(feedForwardSettings);
+        configureTrapezoid(trapezoidProfileSettings);
+        ControlRequest request = switch (controlMode) {
+            case CURRENT -> new TorqueCurrentFOC(setpoint);
+            case PERCENT_OUTPUT -> new DutyCycleOut(setpoint);
+            case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(setpoint);
+            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
+            case VOLTAGE -> new VoltageOut(setpoint);
+            case VELOCITY -> new VelocityDutyCycle(setpoint);
+            case POSITION -> new PositionDutyCycle(setpoint);
+        };
+        talonFX.setControl(request);
     }
 
     @Override
