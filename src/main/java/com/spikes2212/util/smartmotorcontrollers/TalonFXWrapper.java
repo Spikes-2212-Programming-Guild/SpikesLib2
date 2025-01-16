@@ -93,7 +93,7 @@ public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController 
     @Override
     public void setInverted(boolean inverted) {
         talonFX.getConfigurator().apply(new MotorOutputConfigs().withInverted(inverted ?
-                InvertedValue.CounterClockwise_Positive : InvertedValue.Clockwise_Positive));
+                InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive));
         this.inverted = inverted;
     }
 
