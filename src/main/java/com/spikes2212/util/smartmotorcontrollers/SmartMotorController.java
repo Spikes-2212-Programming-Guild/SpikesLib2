@@ -8,13 +8,16 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 public interface SmartMotorController extends MotorController {
 
-    void configurePIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings);
+    void configurePID(PIDSettings pidSettings);
+
+    void configureFF(FeedForwardSettings feedForwardSettings);
 
     void configureTrapezoid(TrapezoidProfileSettings trapezoidProfileSettings);
 
     default void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
                                TrapezoidProfileSettings trapezoidProfileSettings) {
-        configurePIDF(pidSettings, feedForwardSettings);
+        configurePID(pidSettings);
+        configureFF(feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
     }
 
