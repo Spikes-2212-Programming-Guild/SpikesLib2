@@ -79,6 +79,10 @@ public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController 
         talonFX.setControl(request);
     }
 
+    public void follow(TalonFX master) {
+        talonFX.setControl(new Follower(master.getDeviceID(), false));
+    }
+
     @Override
     public void set(double speed) {
         talonFX.set(speed);
