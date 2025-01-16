@@ -99,6 +99,7 @@ public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController 
 
     @Override
     public boolean getInverted() {
+        //@TODO figure out a better way to do this
         return inverted;
     }
 
