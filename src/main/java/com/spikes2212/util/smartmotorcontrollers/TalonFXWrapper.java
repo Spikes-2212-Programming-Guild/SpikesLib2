@@ -15,7 +15,7 @@ import com.spikes2212.util.UnifiedControlMode;
 
 public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController {
 
-    private TalonFX talonFX;
+    private final TalonFX talonFX;
     private boolean inverted;
 
     public TalonFXWrapper(int deviceId, String canbus) {
