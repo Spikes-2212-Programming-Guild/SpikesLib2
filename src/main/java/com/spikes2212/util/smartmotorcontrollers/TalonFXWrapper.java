@@ -16,11 +16,13 @@ import com.spikes2212.util.UnifiedControlMode;
 public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController {
 
     private final TalonFX talonFX;
+    private final Slot0Configs closedLoopConfig;
     private boolean inverted;
 
     public TalonFXWrapper(int deviceId, String canbus) {
         super(-deviceId, canbus);
         talonFX = new TalonFX(deviceId);
+        closedLoopConfig = new Slot0Configs();
         inverted = false;
     }
 
@@ -34,21 +36,19 @@ public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController 
 
     @Override
     public void configurePID(PIDSettings pidSettings) {
-        Slot0Configs config = new Slot0Configs();
-        config.kP = pidSettings.getkP();
-        config.kI = pidSettings.getkI();
-        config.kD = pidSettings.getkD();
-        talonFX.getConfigurator().apply(config);
+        closedLoopConfig.kP = pidSettings.getkP();
+        closedLoopConfig.kI = pidSettings.getkI();
+        closedLoopConfig.kD = pidSettings.getkD();
+        talonFX.getConfigurator().apply(closedLoopConfig);
     }
 
     @Override
     public void configureFF(FeedForwardSettings feedForwardSettings) {
-        Slot0Configs config = new Slot0Configs();
-        config.kS = feedForwardSettings.getkS();
-        config.kV = feedForwardSettings.getkV();
-        config.kA = feedForwardSettings.getkA();
-        config.kG = feedForwardSettings.getkG();
-        talonFX.getConfigurator().apply(config);
+        closedLoopConfig.kS = feedForwardSettings.getkS();
+        closedLoopConfig.kV = feedForwardSettings.getkV();
+        closedLoopConfig.kA = feedForwardSettings.getkA();
+        closedLoopConfig.kG = feedForwardSettings.getkG();
+        talonFX.getConfigurator().apply(closedLoopConfig);
     }
 
     @Override
