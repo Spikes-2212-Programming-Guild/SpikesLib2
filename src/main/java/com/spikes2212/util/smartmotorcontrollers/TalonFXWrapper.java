@@ -4,6 +4,7 @@ import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.core.CoreTalonFX;
@@ -36,6 +37,10 @@ public class TalonFXWrapper implements SmartMotorController {
 
     public void setIdleMode(NeutralModeValue neutralModeValue) {
         talonFX.getConfigurator().apply(motorOutputConfigs.withNeutralMode(neutralModeValue));
+    }
+
+    public TalonFXConfigurator getConfigurator() {
+        return talonFX.getConfigurator();
     }
 
     @Override
