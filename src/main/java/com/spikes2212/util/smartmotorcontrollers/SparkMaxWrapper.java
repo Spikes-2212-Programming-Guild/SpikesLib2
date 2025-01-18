@@ -4,6 +4,7 @@ import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.MAXMotionConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
@@ -63,7 +64,13 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
 
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings trapezoidProfileSettings) {
-        // @TODO figure out trapezoids
+        MAXMotionConfig maxMotionConfig = new MAXMotionConfig();
+        maxMotionConfig.maxVelocity(trapezoidProfileSettings.getMaxVelocity()).
+                maxAcceleration(trapezoidProfileSettings.getAccelerationRate());
+        closedLoopConfig.apply(maxMotionConfig);
+        // @TODO add s-curve when it is implemented
+        configure(sparkConfig.apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
+                PersistMode.kNoPersistParameters);
     }
 
     @Override
