@@ -32,6 +32,25 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
                 FeedForwardController.DEFAULT_PERIOD));
     }
 
+    public SparkMaxConfig getSparkConfiguration() {
+        return sparkConfig;
+    }
+
+    public void applyConfiguration(SparkMaxConfig newConfig) {
+        sparkConfig.apply(newConfig);
+        configure(sparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
+
+    public ClosedLoopConfig getClosedLoopConfiguration() {
+        return closedLoopConfig;
+    }
+
+    public void applyClosedLoopConfig(ClosedLoopConfig newConfig) {
+        closedLoopConfig.apply(newConfig);
+        configure(sparkConfig.apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
+                PersistMode.kNoPersistParameters);
+    }
+
     public void restoreFactoryDefaults() {
         sparkConfig = new SparkMaxConfig();
         closedLoopConfig = new ClosedLoopConfig();
