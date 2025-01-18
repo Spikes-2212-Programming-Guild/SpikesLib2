@@ -9,35 +9,34 @@ import java.util.function.Supplier;
  */
 public class PIDSettings {
 
-    public static final PIDSettings EMPTY_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0,
-            0);
+    public static final PIDSettings EMPTY_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0, 0);
 
     /**
      * the proportional component of the PID settings
      */
-    private final Supplier<Double> kP;
+    private Supplier<Double> kP;
 
     /**
      * the integral component of the PID settings
      */
-    private final Supplier<Double> kI;
+    private Supplier<Double> kI;
 
     /**
      * the derivative component of the PID settings
      */
-    private final Supplier<Double> kD;
+    private Supplier<Double> kD;
 
-    private final Supplier<Double> IZone;
+    private Supplier<Double> IZone;
 
     /**
      * the acceptable distance from the target
      */
-    private final Supplier<Double> tolerance;
+    private Supplier<Double> tolerance;
 
     /**
      * the time required to stay on target
      */
-    private final Supplier<Double> waitTime;
+    private Supplier<Double> waitTime;
 
     public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> IZone,
                        Supplier<Double> tolerance, Supplier<Double> waitTime) {
@@ -93,7 +92,9 @@ public class PIDSettings {
         this.tolerance = tolerance;
     }
 
-    public double getIZone() {return IZone.get(); }
+    public double getIZone() {
+        return IZone.get();
+    }
 
     public void setIZone(Supplier<Double> IZone) {
         this.IZone = IZone;
