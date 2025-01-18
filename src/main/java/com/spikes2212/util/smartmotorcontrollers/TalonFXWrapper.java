@@ -17,12 +17,12 @@ public class TalonFXWrapper implements SmartMotorController {
 
     protected final TalonFX talonFX;
     protected final Slot0Configs closedLoopConfig;
-    private boolean inverted;
+    protected final MotorOutputConfigs motorOutputConfigs;
 
     public TalonFXWrapper(int deviceId, String canbus) {
         talonFX = new TalonFX(deviceId, canbus);
         closedLoopConfig = new Slot0Configs();
-        inverted = false;
+        motorOutputConfigs = new MotorOutputConfigs();
     }
 
     public TalonFXWrapper(int deviceId, CANBus canbus) {
@@ -69,8 +69,7 @@ public class TalonFXWrapper implements SmartMotorController {
             case CURRENT -> new TorqueCurrentFOC(setpoint);
             case PERCENT_OUTPUT -> new DutyCycleOut(setpoint);
             case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(setpoint);
-            case MOTION_PROFILING ->
-                    throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
+            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
             case VOLTAGE -> new VoltageOut(setpoint);
             case VELOCITY -> new VelocityDutyCycle(setpoint);
             case POSITION -> new PositionDutyCycle(setpoint);
@@ -94,15 +93,13 @@ public class TalonFXWrapper implements SmartMotorController {
 
     @Override
     public void setInverted(boolean inverted) {
-        talonFX.getConfigurator().apply(new MotorOutputConfigs().withInverted(inverted ?
+        talonFX.getConfigurator().apply(motorOutputConfigs.withInverted(inverted ?
                 InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive));
-        this.inverted = inverted;
     }
 
     @Override
     public boolean getInverted() {
-        //@TODO figure out a better way to do this
-        return inverted;
+        return motorOutputConfigs.Inverted == InvertedValue.Clockwise_Positive;
     }
 
     @Override
