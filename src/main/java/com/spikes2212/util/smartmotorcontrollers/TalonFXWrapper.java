@@ -15,8 +15,8 @@ import com.spikes2212.util.UnifiedControlMode;
 
 public class TalonFXWrapper implements SmartMotorController {
 
-    private final TalonFX talonFX;
-    private final Slot0Configs closedLoopConfig;
+    protected final TalonFX talonFX;
+    protected final Slot0Configs closedLoopConfig;
     private boolean inverted;
 
     public TalonFXWrapper(int deviceId, String canbus) {
