@@ -15,29 +15,29 @@ public class PIDSettings {
     /**
      * the proportional component of the PID settings
      */
-    private Supplier<Double> kP;
+    private final Supplier<Double> kP;
 
     /**
      * the integral component of the PID settings
      */
-    private Supplier<Double> kI;
+    private final Supplier<Double> kI;
 
     /**
      * the derivative component of the PID settings
      */
-    private Supplier<Double> kD;
+    private final Supplier<Double> kD;
 
-    private Supplier<Double> IZone;
+    private final Supplier<Double> IZone;
 
     /**
      * the acceptable distance from the target
      */
-    private Supplier<Double> tolerance;
+    private final Supplier<Double> tolerance;
 
     /**
      * the time required to stay on target
      */
-    private Supplier<Double> waitTime;
+    private final Supplier<Double> waitTime;
 
     public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> IZone,
                        Supplier<Double> tolerance, Supplier<Double> waitTime) {
