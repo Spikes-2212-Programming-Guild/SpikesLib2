@@ -8,6 +8,7 @@ import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.core.CoreTalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
@@ -31,6 +32,10 @@ public class TalonFXWrapper implements SmartMotorController {
 
     public TalonFXWrapper(int deviceId) {
         this(deviceId, "");
+    }
+
+    public void setIdleMode(NeutralModeValue neutralModeValue) {
+        talonFX.getConfigurator().apply(motorOutputConfigs.withNeutralMode(neutralModeValue));
     }
 
     @Override
