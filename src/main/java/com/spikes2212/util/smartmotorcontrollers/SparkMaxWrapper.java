@@ -37,12 +37,15 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
     }
 
     public void setInverted(boolean inverted) {
-        configure(sparkConfig.inverted(inverted), ResetMode.kNoResetSafeParameters,
-                PersistMode.kNoPersistParameters);
+        int leaderID = configAccessor.getFollowerModeLeaderId();
+        if (leaderID != 0) {
+            sparkConfig.follow(leaderID, inverted);
+        } else sparkConfig.inverted(inverted);
+        configure(sparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
     public void follow(SparkBase master) {
-        configure(sparkConfig.follow(master), ResetMode.kNoResetSafeParameters,
+        configure(sparkConfig.follow(master, configAccessor.getInverted()), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
     }
 
