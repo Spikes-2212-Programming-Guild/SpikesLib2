@@ -5,6 +5,7 @@ import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.MAXMotionConfig;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
@@ -48,6 +49,11 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
     public void follow(SparkBase master) {
         configure(sparkConfig.follow(master, configAccessor.getInverted()), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
+    }
+
+    public void setIdleMode(SparkBaseConfig.IdleMode idleMode) {
+        sparkConfig.idleMode(idleMode);
+        configure(sparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
     @Override
