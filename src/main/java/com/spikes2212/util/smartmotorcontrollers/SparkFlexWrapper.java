@@ -3,7 +3,10 @@ package com.spikes2212.util.smartmotorcontrollers;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.MAXMotionConfig;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
@@ -14,11 +17,15 @@ import com.spikes2212.util.UnifiedControlMode;
 public class SparkFlexWrapper extends SparkFlex implements SmartMotorController {
 
     private final FeedForwardController feedForwardController;
+    private SparkFlexConfig sparkConfig;
+    private ClosedLoopConfig closedLoopConfig;
 
     //@TODO change ffcontroller param to relevant enum constant
     public SparkFlexWrapper(int deviceID, MotorType type, FeedForwardController feedForwardController) {
         super(deviceID, type);
         this.feedForwardController = feedForwardController;
+        sparkConfig = new SparkFlexConfig();
+        closedLoopConfig = new ClosedLoopConfig();
     }
 
     public SparkFlexWrapper(int deviceID, MotorType type) {
@@ -26,21 +33,58 @@ public class SparkFlexWrapper extends SparkFlex implements SmartMotorController 
                 FeedForwardController.DEFAULT_PERIOD));
     }
 
-    public void setInverted(boolean inverted) {
-        configure(new SparkFlexConfig().inverted(inverted), ResetMode.kNoResetSafeParameters,
+    public SparkFlexConfig getSparkConfiguration() {
+        return sparkConfig;
+    }
+
+    public void applyConfiguration(SparkFlexConfig newConfig) {
+        sparkConfig.apply(newConfig);
+        configure(sparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
+
+    public ClosedLoopConfig getClosedLoopConfiguration() {
+        return closedLoopConfig;
+    }
+
+    public void applyClosedLoopConfig(ClosedLoopConfig newConfig) {
+        closedLoopConfig.apply(newConfig);
+        configure(sparkConfig.apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
     }
 
+    public void restoreFactoryDefaults() {
+        sparkConfig = new SparkFlexConfig();
+        closedLoopConfig = new ClosedLoopConfig();
+        configure(sparkConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    }
+
+    public void setInverted(boolean inverted) {
+        int leaderID = configAccessor.getFollowerModeLeaderId();
+        if (leaderID != 0) {
+            sparkConfig.follow(leaderID, inverted);
+        } else sparkConfig.inverted(inverted);
+        configure(sparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
+
     public void follow(SparkBase master) {
-        configure(new SparkFlexConfig().follow(master), ResetMode.kNoResetSafeParameters,
+        configure(sparkConfig.follow(master, configAccessor.getInverted()), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
+    }
+
+    public void unfollow() {
+        sparkConfig.disableFollowerMode();
+        configure(sparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
+
+    public void setIdleMode(SparkBaseConfig.IdleMode idleMode) {
+        sparkConfig.idleMode(idleMode);
+        configure(sparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
     @Override
     public void configurePID(PIDSettings pidSettings) {
-        ClosedLoopConfig closedLoopConfig = new ClosedLoopConfig();
         closedLoopConfig.pid(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
-        configure(new SparkFlexConfig().apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
+        configure(sparkConfig.apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
     }
 
@@ -51,7 +95,13 @@ public class SparkFlexWrapper extends SparkFlex implements SmartMotorController 
 
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings trapezoidProfileSettings) {
-        // @TODO figure out trapezoids
+        MAXMotionConfig maxMotionConfig = new MAXMotionConfig();
+        maxMotionConfig.maxVelocity(trapezoidProfileSettings.getMaxVelocity()).
+                maxAcceleration(trapezoidProfileSettings.getAccelerationRate());
+        closedLoopConfig.apply(maxMotionConfig);
+        // @TODO add s-curve when it is implemented
+        configure(sparkConfig.apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
+                PersistMode.kNoPersistParameters);
     }
 
     @Override
