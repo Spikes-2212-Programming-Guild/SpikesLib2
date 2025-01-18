@@ -15,12 +15,14 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
 
     private final FeedForwardController feedForwardController;
     private SparkMaxConfig sparkConfig;
+    private ClosedLoopConfig closedLoopConfig;
 
     //@TODO change ffcontroller param to relevant enum constant
     public SparkMaxWrapper(int deviceID, MotorType type, FeedForwardController feedForwardController) {
         super(deviceID, type);
         this.feedForwardController = feedForwardController;
         sparkConfig = new SparkMaxConfig();
+        closedLoopConfig = new ClosedLoopConfig();
     }
 
     public SparkMaxWrapper(int deviceID, MotorType type) {
@@ -30,6 +32,7 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
 
     public void restoreFactoryDefaults() {
         sparkConfig = new SparkMaxConfig();
+        closedLoopConfig = new ClosedLoopConfig();
         configure(sparkConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
@@ -45,7 +48,6 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
 
     @Override
     public void configurePID(PIDSettings pidSettings) {
-        ClosedLoopConfig closedLoopConfig = new ClosedLoopConfig();
         closedLoopConfig.pid(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
         configure(sparkConfig.apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
