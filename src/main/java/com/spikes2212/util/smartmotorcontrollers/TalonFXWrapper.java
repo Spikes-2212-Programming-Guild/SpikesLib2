@@ -13,15 +13,14 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 
-public class TalonFXWrapper extends CoreTalonFX implements SmartMotorController {
+public class TalonFXWrapper implements SmartMotorController {
 
     private final TalonFX talonFX;
     private final Slot0Configs closedLoopConfig;
     private boolean inverted;
 
     public TalonFXWrapper(int deviceId, String canbus) {
-        super(-deviceId, canbus);
-        talonFX = new TalonFX(deviceId);
+        talonFX = new TalonFX(deviceId, canbus);
         closedLoopConfig = new Slot0Configs();
         inverted = false;
     }
