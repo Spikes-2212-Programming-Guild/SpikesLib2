@@ -16,25 +16,23 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     private final MotorController driveController;
     private final MotorController turnController;
-    private final Supplier<Double> absoluteAngle;
 
     private final double minSpeed;
 
     private final Translation2d modulePosition;
 
     public SwerveModule(String namespaceName, MotorController driveController, MotorController turnController,
-                        Supplier<Double> absoluteAngle, double minSpeed, Translation2d modulePosition) {
+                        double minSpeed, Translation2d modulePosition) {
         super(namespaceName);
         this.driveController = driveController;
         this.turnController = turnController;
-        this.absoluteAngle = absoluteAngle;
         this.minSpeed = minSpeed;
         this.modulePosition = modulePosition;
     }
 
     public SwerveModule(String namespaceName, MotorController driveController, MotorController turnController,
-                        Supplier<Double> absoluteAngle, Translation2d modulePosition) {
-        this(namespaceName, driveController, turnController, absoluteAngle, 0, modulePosition);
+                        Translation2d modulePosition) {
+        this(namespaceName, driveController, turnController, 0, modulePosition);
     }
 
     public void set(SwerveModuleState state, boolean usePID, boolean limitSpeed) {
@@ -64,9 +62,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     public abstract double getAngle();
 
-    public double getAbsoluteAngle() {
-        return absoluteAngle.get();
-    }
+    public abstract double getAbsoluteAngle();
 
     public abstract double getVelocity();
 
