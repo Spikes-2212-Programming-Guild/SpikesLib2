@@ -16,7 +16,6 @@ public class TrapezoidProfileSettings {
             new TrapezoidProfileSettings(0, 0, 0);
 
     private Supplier<Double> maxAcceleration;
-
     private Supplier<Double> maxVelocity;
 
     /**
