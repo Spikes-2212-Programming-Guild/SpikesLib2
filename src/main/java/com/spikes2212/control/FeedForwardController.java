@@ -10,6 +10,11 @@ public class FeedForwardController {
     }
 
     /**
+     * The type of feed forward control to use
+     */
+    private final ControlMode controlMode;
+
+    /**
      * The static constant
      */
     private double kS;
@@ -28,11 +33,6 @@ public class FeedForwardController {
      * The gravity constant
      */
     private double kG;
-
-    /**
-     * The type of feed forward control to use
-     */
-    private ControlMode controlMode;
 
     public FeedForwardController(double kS, double kV, double kA, double kG, ControlMode controlMode) {
         this.kS = kS;
@@ -111,10 +111,6 @@ public class FeedForwardController {
 
     public ControlMode getControlMode() {
         return controlMode;
-    }
-
-    public void setControlMode(ControlMode controlMode) {
-        this.controlMode = controlMode;
     }
 
     /**
