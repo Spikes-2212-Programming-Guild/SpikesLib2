@@ -23,23 +23,23 @@ public class TrapezoidProfileSettings {
      */
     private Supplier<Double> curve;
 
-    public TrapezoidProfileSettings(Supplier<Double> MaxAcceleration, Supplier<Double> maxVelocity,
+    public TrapezoidProfileSettings(Supplier<Double> maxAcceleration, Supplier<Double> maxVelocity,
                                     Supplier<Double> curve) {
-        this.maxAcceleration = MaxAcceleration;
+        this.maxAcceleration = maxAcceleration;
         this.maxVelocity = maxVelocity;
         this.curve = curve;
     }
 
-    public TrapezoidProfileSettings(Supplier<Double> MaxAcceleration, Supplier<Double> maxVelocity) {
-        this(MaxAcceleration, maxVelocity, () -> 0.0);
+    public TrapezoidProfileSettings(Supplier<Double> maxAcceleration, Supplier<Double> maxVelocity) {
+        this(maxAcceleration, maxVelocity, () -> 0.0);
     }
 
-    public TrapezoidProfileSettings(double MaxAcceleration, double maxVelocity, double curve) {
-        this(() -> MaxAcceleration, () -> maxVelocity, () -> curve);
+    public TrapezoidProfileSettings(double maxAcceleration, double maxVelocity, double curve) {
+        this(() -> maxAcceleration, () -> maxVelocity, () -> curve);
     }
 
-    public TrapezoidProfileSettings(double MaxAcceleration, double maxVelocity) {
-        this(MaxAcceleration, maxVelocity, 0);
+    public TrapezoidProfileSettings(double maxAcceleration, double maxVelocity) {
+        this(maxAcceleration, maxVelocity, 0);
     }
 
     public double getMaxAcceleration() {
