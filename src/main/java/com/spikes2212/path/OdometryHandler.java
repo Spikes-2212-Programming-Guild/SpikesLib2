@@ -6,7 +6,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Twist2d;
 
 import java.util.function.Supplier;
-
+@Deprecated(since = "2025", forRemoval = true)
 /**
  * A class which uses encoders to find the progress of a robot between discrete times.<br>
  *

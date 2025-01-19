@@ -1,5 +1,5 @@
 package com.spikes2212.path;
-
+@Deprecated(since = "2025", forRemoval = true)
 /**
  * This class represents a point in 2d space, with additional fields used for path generation and following.
  *
