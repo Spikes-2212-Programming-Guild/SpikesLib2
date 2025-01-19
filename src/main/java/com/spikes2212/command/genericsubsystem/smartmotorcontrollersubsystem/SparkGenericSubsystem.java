@@ -89,8 +89,8 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
         MAXMotionConfig maxMotionConfig = new MAXMotionConfig();
-        maxMotionConfig.maxAcceleration(settings.getAccelerationRate());
-        maxMotionConfig.maxVelocity(settings.getAccelerationRate());
+        maxMotionConfig.maxAcceleration(settings.getMaxAcceleration());
+        maxMotionConfig.maxVelocity(settings.getMaxAcceleration());
         // @TODO what
 //        master.getPIDController().setSmartMotionAccelStrategy(
 //                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
