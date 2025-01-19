@@ -1,6 +1,7 @@
 package com.spikes2212.control.noise;
 
 import java.util.function.Supplier;
+@Deprecated(since = "2025", forRemoval = true)
 
 /**
  * @author Simon Kharmatsky

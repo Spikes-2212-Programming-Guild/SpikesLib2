@@ -1,10 +1,12 @@
 package com.spikes2212.control.noise;
+@Deprecated(since = "2025", forRemoval = true)
 
 /**
  * A class that handles noise-filtering by controlling the speed of motors using an average filter.
  *
  * @author Simon Kharmatsky
  */
+
 public class RunningAverageFilter implements NoiseFilter {
 
     private double sum = 0;
