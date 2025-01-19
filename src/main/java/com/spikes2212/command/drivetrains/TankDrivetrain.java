@@ -45,6 +45,13 @@ public class TankDrivetrain extends DashboardedSubsystem {
                 new MotorControllerGroup(rightFrontController, rightBackController));
     }
 
+    public TankDrivetrain(String namespaceName, MotorController leftFrontController,
+                          MotorController rightFrontController, MotorController leftBackController,
+                          MotorController rightBackController){
+        this(namespaceName, new MotorControllerGroup(leftFrontController, leftBackController),
+                new MotorControllerGroup(rightFrontController, rightBackController));
+    }
+
     /**
      * Moves both sides of this drivetrain by the given speeds for each side.
      *
