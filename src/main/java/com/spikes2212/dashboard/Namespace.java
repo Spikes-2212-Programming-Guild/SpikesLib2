@@ -218,7 +218,7 @@ public interface Namespace {
         Supplier<Double> kV = child.addConstantDouble("kV " + name, initialFeedForwardSettings.getkV());
         Supplier<Double> kA = child.addConstantDouble("kA " + name, initialFeedForwardSettings.getkA());
         Supplier<Double> kG = child.addConstantDouble("kG " + name, initialFeedForwardSettings.getkG());
-        return new FeedForwardSettings(kS, kV, kA, kG);
+        return new FeedForwardSettings(kS, kV, kA, kG, initialFeedForwardSettings.getControlMode());
     }
 
     /**
