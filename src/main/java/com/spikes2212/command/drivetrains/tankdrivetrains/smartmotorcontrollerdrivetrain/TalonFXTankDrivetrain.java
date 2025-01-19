@@ -1,4 +1,4 @@
-package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
+package com.spikes2212.command.drivetrains.tankdrivetrains.smartmotorcontrollerdrivetrain;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -7,7 +7,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
-import com.spikes2212.command.drivetrains.TankDrivetrain;
+import com.spikes2212.command.drivetrains.tankdrivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
