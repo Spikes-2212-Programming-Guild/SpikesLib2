@@ -125,7 +125,7 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
         MotionMagicConfigs config = new MotionMagicConfigs();
-        config.MotionMagicAcceleration = settings.getAccelerationRate();
+        config.MotionMagicAcceleration = settings.getMaxAcceleration();
         config.MotionMagicCruiseVelocity = settings.getMaxVelocity();
         config.MotionMagicJerk = settings.getCurve();
         leftMaster.getConfigurator().apply(config);
