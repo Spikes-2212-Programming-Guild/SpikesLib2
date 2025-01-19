@@ -46,42 +46,42 @@ public class DriveTankWithPID extends Command {
     /**
      * The PID Controller of the PID loop operating on the left side of the drivetrain.
      */
-    protected PIDController leftPIDController;
+    protected final PIDController leftPIDController;
 
     /**
      * The PID Controller of the PID loop operating on the right side of the drivetrain.
      */
-    protected PIDController rightPIDController;
+    protected final PIDController rightPIDController;
 
     /**
      * The setpoint the left side of the drivetrain should reach.
      */
-    protected Supplier<Double> leftSetpoint;
+    protected final Supplier<Double> leftSetpoint;
 
     /**
      * The setpoint the right side of the drivetrain should reach.
      */
-    protected Supplier<Double> rightSetpoint;
+    protected final Supplier<Double> rightSetpoint;
 
     /**
      * How far the left side of the drivetrain drove.
      */
-    protected Supplier<Double> leftSource;
+    protected final Supplier<Double> leftSource;
 
     /**
      * How far the right side of the drivetrain drove.
      */
-    protected Supplier<Double> rightSource;
+    protected final Supplier<Double> rightSource;
 
     /**
      * The FeedForwards Controller of the FeedForward loop operating on the left side of the drivetrain.
      */
-    protected FeedForwardController leftFeedForwardController;
+    protected final FeedForwardController leftFeedForwardController;
 
     /**
      * The FeedForwards Controller of the FeedForward loop operating on the right side of the drivetrain.
      */
-    protected FeedForwardController rightFeedForwardController;
+    protected final FeedForwardController rightFeedForwardController;
 
     /**
      * The last time the left side of the drivetrain was not within its target zone.
