@@ -12,7 +12,7 @@ public class FeedForwardSettings {
     /**
      * Empty FeedForwardSettings, which effectively make the FeedForwardController do nothing.
      */
-    public static final FeedForwardSettings EMPTY_FFSETTINGS = new FeedForwardSettings(0, 0,
+    public static final FeedForwardSettings EMPTY_FFSETTINGS = new FeedForwardSettings(
             FeedForwardController.ControlMode.LINEAR_POSITION);
 
     /**
@@ -70,6 +70,10 @@ public class FeedForwardSettings {
     public FeedForwardSettings(double kS, double kV, double kA, double kG,
                                FeedForwardController.ControlMode controlMode) {
         this(() -> kS, () -> kV, () -> kA, () -> kG, controlMode);
+    }
+
+    public FeedForwardSettings(FeedForwardController.ControlMode controlMode) {
+        this(() -> 0.0, () -> 0.0, () -> 0.0, () -> 0.0, controlMode);
     }
 
     public double getkS() {
