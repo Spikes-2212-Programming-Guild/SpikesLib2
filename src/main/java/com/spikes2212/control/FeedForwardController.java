@@ -152,8 +152,4 @@ public class FeedForwardController {
     public double calculate(double source, double setpoint) {
         return calculate(source, setpoint, 0);
     }
-
-    public double calculate(double setpoint) {
-        return calculate(0, setpoint);
-    }
 }
