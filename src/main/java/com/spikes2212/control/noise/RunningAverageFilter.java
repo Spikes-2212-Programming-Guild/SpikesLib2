@@ -5,6 +5,7 @@ package com.spikes2212.control.noise;
  *
  * @author Simon Kharmatsky
  */
+@Deprecated(since = "2025", forRemoval = true)
 public class RunningAverageFilter implements NoiseFilter {
 
     private double sum = 0;
