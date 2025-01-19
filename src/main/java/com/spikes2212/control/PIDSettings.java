@@ -26,6 +26,9 @@ public class PIDSettings {
      */
     private Supplier<Double> kD;
 
+    /**
+     * the zone that kI don`t work in
+     */
     private Supplier<Double> IZone;
 
     /**
