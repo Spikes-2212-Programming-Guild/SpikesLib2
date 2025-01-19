@@ -56,11 +56,11 @@ public class FollowPath extends Command {
     @Override
     public void execute() {
         double[] speeds = purePursuitController.getTargetSpeeds();
-        double leftSpeed = leftFeedForwardController.calculate(speeds[0]) + leftController.calculate(
-                drivetrain.getLeftRate(), speeds[0]
+        double leftSpeed = leftFeedForwardController.calculate(drivetrain.getLeftRate(), speeds[0]) +
+                leftController.calculate(drivetrain.getLeftRate(), speeds[0]
         );
-        double rightSpeed = rightFeedForwardController.calculate(speeds[1]) + rightController.calculate(
-                drivetrain.getRightRate(), speeds[1]
+        double rightSpeed = rightFeedForwardController.calculate(drivetrain.getRightRate(), speeds[1]) +
+                rightController.calculate(drivetrain.getRightRate(), speeds[1]
         );
         drivetrain.tankDrive(leftSpeed, rightSpeed, false);
     }
