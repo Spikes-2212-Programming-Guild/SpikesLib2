@@ -6,4 +6,4 @@ Currently, we support only Tank drivetrains, and will be glad to accept contribu
 
 Command bindings for this controller are located in `com.spikes2212.command.drivetrains.command`
 
-This package is Deprecated and will be deleted in 2026.
+This package is deprecated and will be deleted in 2026.
