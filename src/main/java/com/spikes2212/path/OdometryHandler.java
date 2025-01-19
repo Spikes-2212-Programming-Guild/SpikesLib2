@@ -18,7 +18,7 @@ public class OdometryHandler {
     private Supplier<Double> leftPosition, rightPosition;
     private Supplier<Double> yaw;
     private double lastLeftPosition = 0, lastRightPosition = 0, lastYaw = 0;
-    private Pose2d pose;
+    private Pose2d pos;
 
     /**
      * creates a new {@link OdometryHandler} object, with given parameters
