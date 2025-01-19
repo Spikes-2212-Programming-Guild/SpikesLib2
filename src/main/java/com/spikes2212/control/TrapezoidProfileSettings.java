@@ -46,8 +46,8 @@ public class TrapezoidProfileSettings {
         return maxAcceleration.get();
     }
 
-    public void setMaxAcceleration(Supplier<Double> MaxAcceleration) {
-        this.maxAcceleration = MaxAcceleration;
+    public void setMaxAcceleration(Supplier<Double> maxAcceleration) {
+        this.maxAcceleration = maxAcceleration;
     }
 
     public double getMaxVelocity() {
