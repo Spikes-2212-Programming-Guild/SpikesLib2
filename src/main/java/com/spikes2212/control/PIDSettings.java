@@ -27,7 +27,7 @@ public class PIDSettings {
     private Supplier<Double> kD;
 
     /**
-     * the zone that kI don`t work in
+     * the distance in which the integral component begins to work
      */
     private Supplier<Double> IZone;
 
