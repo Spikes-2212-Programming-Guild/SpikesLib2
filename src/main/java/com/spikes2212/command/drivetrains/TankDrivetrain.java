@@ -141,7 +141,6 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
     public void setRight(double rightSpeed) {
-        rightController.setInverted(true);
         rightController.set(rightSpeed);
     }
 
