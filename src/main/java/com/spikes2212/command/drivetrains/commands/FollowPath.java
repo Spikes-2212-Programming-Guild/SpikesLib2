@@ -46,9 +46,9 @@ public class FollowPath extends Command {
         purePursuitController.getOdometryHandler().set(0, 0);
         purePursuitController.reset();
         leftFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(),
-                FeedForwardController.DEFAULT_PERIOD, FeedForwardSettings.getControlMode());
+                FeedForwardSettings.getControlMode());
         rightFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(),
-                FeedForwardController.DEFAULT_PERIOD, FeedForwardSettings.getControlMode());
+                FeedForwardSettings.getControlMode());
         leftController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
         rightController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }

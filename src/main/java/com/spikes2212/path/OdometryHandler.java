@@ -29,8 +29,8 @@ public class OdometryHandler {
      * @param x             the initial x coordinate
      * @param y             the initial y coordinate
      */
-    public OdometryHandler(Supplier<Double> leftPosition, Supplier<Double> rightPosition, Supplier<Double> angleSupplier
-            , double x, double y) {
+    public OdometryHandler(Supplier<Double> leftPosition, Supplier<Double> rightPosition,
+                           Supplier<Double> angleSupplier, double x, double y) {
         this.leftPosition = leftPosition;
         this.rightPosition = rightPosition;
         this.yaw = angleSupplier;

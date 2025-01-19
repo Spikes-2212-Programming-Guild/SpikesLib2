@@ -9,8 +9,6 @@ public class FeedForwardController {
         LINEAR_POSITION, LINEAR_VELOCITY, ANGULAR_POSITION, ANGULAR_VELOCITY;
     }
 
-    public static final double DEFAULT_PERIOD = 0.02;
-
     /**
      * The static constant
      */
@@ -36,7 +34,7 @@ public class FeedForwardController {
      */
     private ControlMode controlMode;
 
-    public FeedForwardController(double kS, double kV, double kA, double kG, double period, ControlMode controlMode) {
+    public FeedForwardController(double kS, double kV, double kA, double kG, ControlMode controlMode) {
         this.kS = kS;
         this.kV = kV;
         this.kA = kA;
@@ -44,16 +42,16 @@ public class FeedForwardController {
         this.controlMode = controlMode;
     }
 
-    public FeedForwardController(double kV, double kA, double period, ControlMode controlMode) {
-        this(0, kV, kA, 0, period, controlMode);
+    public FeedForwardController(double kV, double kA, ControlMode controlMode) {
+        this(0, kV, kA, 0, controlMode);
     }
 
-    public FeedForwardController(double kS, double kV, double kA, double period, ControlMode controlMode) {
-        this(kS, kV, kA, 0, period, controlMode);
+    public FeedForwardController(double kS, double kV, double kA, ControlMode controlMode) {
+        this(kS, kV, kA, 0, controlMode);
     }
 
-    public FeedForwardController(FeedForwardSettings settings, double period, ControlMode controlMode) {
-        this(settings.getkS(), settings.getkV(), settings.getkA(), settings.getkG(), period, controlMode);
+    public FeedForwardController(FeedForwardSettings settings, ControlMode controlMode) {
+        this(settings.getkS(), settings.getkV(), settings.getkA(), settings.getkG(), controlMode);
     }
 
     public void setGains(double kV, double kA) {
