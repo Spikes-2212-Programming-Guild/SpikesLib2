@@ -84,7 +84,7 @@ public class CTRESmartMotorControllerGenericSubsystem extends DashboardedSubsyst
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
-        master.configMotionAcceleration(settings.getAccelerationRate());
+        master.configMotionAcceleration(settings.getMaxAcceleration());
         master.configMotionCruiseVelocity(settings.getMaxVelocity());
         master.configMotionSCurveStrength((int) settings.getCurve());
     }
