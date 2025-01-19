@@ -13,6 +13,7 @@ import java.util.function.Supplier;
  * <b>The calculate method should be called repeatedly, otherwise your robot's position
  * would not be recalculated, and therefore will be substantially inaccurate.</b>
  */
+@Deprecated(since = "2025", forRemoval = true)
 public class OdometryHandler {
 
     private Supplier<Double> leftPosition, rightPosition;

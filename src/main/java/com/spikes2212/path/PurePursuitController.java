@@ -8,6 +8,7 @@ import java.util.List;
  *
  * @author Tuval Rivking Barlev
  */
+@Deprecated(since = "2025", forRemoval = true)
 public class PurePursuitController {
 
     private OdometryHandler odometryHandler;
