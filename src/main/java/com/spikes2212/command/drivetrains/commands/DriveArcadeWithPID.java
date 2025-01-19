@@ -99,8 +99,7 @@ public class DriveArcadeWithPID extends Command {
         pidController.setTolerance(pidSettings.getTolerance());
         pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
 
-        feedForwardController.setGains(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
-                feedForwardSettings.getkA(), feedForwardSettings.getkG());
+        feedForwardController.setGains(feedForwardSettings);
 
         drivetrain.arcadeDrive(moveValue.get(), pidController.calculate(source.get(), setpoint.get()) +
                 feedForwardController.calculate(setpoint.get()));
