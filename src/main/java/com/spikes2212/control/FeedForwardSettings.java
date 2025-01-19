@@ -16,6 +16,11 @@ public class FeedForwardSettings {
             FeedForwardController.ControlMode.LINEAR_POSITION);
 
     /**
+     * The applied control mode
+     */
+    private final FeedForwardController.ControlMode controlMode;
+
+    /**
      * The static constant
      */
     private Supplier<Double> kS;
@@ -34,11 +39,6 @@ public class FeedForwardSettings {
      * The gravity constant
      */
     private Supplier<Double> kG;
-
-    /**
-     * The applied control mode
-     */
-    private FeedForwardController.ControlMode controlMode;
 
     public FeedForwardSettings(Supplier<Double> kS, Supplier<Double> kV, Supplier<Double> kA, Supplier<Double> kG,
                                FeedForwardController.ControlMode controlMode) {
@@ -106,9 +106,5 @@ public class FeedForwardSettings {
 
     public FeedForwardController.ControlMode getControlMode() {
         return controlMode;
-    }
-
-    public void setControlMode(FeedForwardController.ControlMode controlMode) {
-        this.controlMode = controlMode;
     }
 }
