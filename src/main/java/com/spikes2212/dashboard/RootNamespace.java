@@ -17,13 +17,13 @@ import java.util.function.Supplier;
  */
 public class RootNamespace implements Namespace {
 
-    private final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
-
-    protected String name;
     protected final Map<String, Supplier<String>> stringFields;
     protected final Map<String, Supplier<? extends Number>> numberFields;
     protected final Map<String, Supplier<Boolean>> booleanFields;
     protected final NetworkTable table;
+    protected final String name;
+
+    private final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
 
     public RootNamespace(String name) {
         this.name = name;
