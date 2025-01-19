@@ -200,9 +200,10 @@ public interface Namespace {
         Supplier<Double> kP = child.addConstantDouble("kP " + name, initialPIDSettings.getkP());
         Supplier<Double> kI = child.addConstantDouble("kI " + name, initialPIDSettings.getkI());
         Supplier<Double> kD = child.addConstantDouble("kD " + name, initialPIDSettings.getkD());
+        Supplier<Double> IZone = child.addConstantDouble(name + "i zone", initialPIDSettings.getIZone());
         Supplier<Double> tolerance = child.addConstantDouble(name + " tolerance", initialPIDSettings.getTolerance());
         Supplier<Double> waitTime = child.addConstantDouble(name + " wait time", initialPIDSettings.getWaitTime());
-        return new PIDSettings(kP, kI, kD, tolerance, waitTime);
+        return new PIDSettings(kP, kI, kD, IZone, tolerance, waitTime);
     }
 
     /**
