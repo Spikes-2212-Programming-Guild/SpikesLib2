@@ -98,7 +98,7 @@ public class SparkFlexWrapper extends SparkFlex implements SmartMotorController 
         maxMotionConfig.maxVelocity(trapezoidProfileSettings.getMaxVelocity()).
                 maxAcceleration(trapezoidProfileSettings.getMaxAcceleration());
         closedLoopConfig.apply(maxMotionConfig);
-        // @TODO add s-curve when it is implemented
+        // @TODO add s-curve when rev implements it
         configure(sparkConfig.apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
     }
