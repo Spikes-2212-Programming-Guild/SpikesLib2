@@ -21,10 +21,10 @@ public class OrientWithPID extends DriveArcadeWithPID {
 
     public OrientWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
                          PIDSettings pidSettings) {
-        this(drivetrain, source, setpoint, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
+        this(drivetrain, source, setpoint, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     public OrientWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, PIDSettings pidSettings) {
-        this(drivetrain, source, setpoint, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
+        this(drivetrain, source, setpoint, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 }

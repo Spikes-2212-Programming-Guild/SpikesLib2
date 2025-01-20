@@ -68,7 +68,7 @@ public class MoveGenericSubsystemWithPID extends Command {
         this.setpoint = setpoint;
         this.source = source;
         this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
-                feedForwardSettings.getkA(), feedForwardSettings.getkG(), FeedForwardController.DEFAULT_PERIOD);
+                feedForwardSettings.getkA(), feedForwardSettings.getkG(), feedForwardSettings.getControlMode());
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
 
@@ -79,12 +79,12 @@ public class MoveGenericSubsystemWithPID extends Command {
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
                                        PIDSettings pidSettings) {
-        this(subsystem, setpoint, source, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
+        this(subsystem, setpoint, source, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
                                        PIDSettings pidSettings) {
-        this(subsystem, () -> setpoint, () -> source, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
+        this(subsystem, () -> setpoint, () -> source, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     protected double calculatePIDAndFFValues() {
@@ -93,7 +93,7 @@ public class MoveGenericSubsystemWithPID extends Command {
         feedForwardController.setGains(feedForwardSettings);
 
         double pidValue = pidController.calculate(source.get(), setpoint.get());
-        double svagValue = feedForwardController.calculate(setpoint.get());
+        double svagValue = feedForwardController.calculate(source.get(), setpoint.get());
         return pidValue + svagValue;
     }
 

@@ -115,17 +115,17 @@ public class DriveTankWithPID extends Command {
         this.rightFeedForwardSettings = rightFeedForwardSettings;
         this.leftFeedForwardController = new FeedForwardController(leftFeedForwardSettings.getkS(),
                 leftFeedForwardSettings.getkV(), leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG(),
-                FeedForwardController.DEFAULT_PERIOD);
+                leftFeedForwardSettings.getControlMode());
         this.rightFeedForwardController = new FeedForwardController(rightFeedForwardSettings.getkS(),
                 rightFeedForwardSettings.getkV(), rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG(),
-                FeedForwardController.DEFAULT_PERIOD);
+                rightFeedForwardSettings.getControlMode());
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                             Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
                             Supplier<Double> rightSource) {
         this(drivetrain, leftPIDSettings, rightPIDSettings, leftSetpoint, rightSetpoint, leftSource, rightSource,
-                FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
+                FeedForwardSettings.EMPTY_FF_SETTINGS, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
@@ -140,7 +140,7 @@ public class DriveTankWithPID extends Command {
                             double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
                             Supplier<Double> rightSource) {
         this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource,
-                rightSource, FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
+                rightSource, FeedForwardSettings.EMPTY_FF_SETTINGS, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     @Override
@@ -154,9 +154,9 @@ public class DriveTankWithPID extends Command {
         leftFeedForwardController.setGains(leftFeedForwardSettings);
         rightFeedForwardController.setGains(rightFeedForwardSettings);
         drivetrain.tankDrive((leftPIDController.calculate(leftSource.get()) +
-                        leftFeedForwardController.calculate(leftSetpoint.get())),
+                        leftFeedForwardController.calculate(leftSource.get(), leftSetpoint.get())),
                 rightPIDController.calculate(rightSource.get()) +
-                        rightFeedForwardController.calculate(rightSetpoint.get()));
+                        rightFeedForwardController.calculate(rightSource.get(), rightSetpoint.get()));
     }
 
     @Override
