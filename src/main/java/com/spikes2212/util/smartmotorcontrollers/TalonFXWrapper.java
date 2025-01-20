@@ -63,7 +63,7 @@ public class TalonFXWrapper implements SmartMotorController {
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings trapezoidProfileSettings) {
         MotionMagicConfigs config = new MotionMagicConfigs();
-        config.MotionMagicAcceleration = trapezoidProfileSettings.getAccelerationRate();
+        config.MotionMagicAcceleration = trapezoidProfileSettings.getMaxAcceleration();
         config.MotionMagicCruiseVelocity = trapezoidProfileSettings.getMaxVelocity();
         config.MotionMagicJerk = trapezoidProfileSettings.getCurve();
         talonFX.getConfigurator().apply(config);

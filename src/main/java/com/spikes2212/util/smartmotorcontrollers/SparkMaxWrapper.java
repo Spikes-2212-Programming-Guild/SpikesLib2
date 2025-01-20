@@ -16,20 +16,19 @@ import com.spikes2212.util.UnifiedControlMode;
 public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
 
     private final FeedForwardController feedForwardController;
+
     private SparkMaxConfig sparkConfig;
     private ClosedLoopConfig closedLoopConfig;
 
-    //@TODO change ffcontroller param to relevant enum constant
-    public SparkMaxWrapper(int deviceID, MotorType type, FeedForwardController feedForwardController) {
+    public SparkMaxWrapper(int deviceID, MotorType type, FeedForwardController.ControlMode controlMode) {
         super(deviceID, type);
-        this.feedForwardController = feedForwardController;
+        feedForwardController = new FeedForwardController(new FeedForwardSettings(controlMode));
         sparkConfig = new SparkMaxConfig();
         closedLoopConfig = new ClosedLoopConfig();
     }
 
     public SparkMaxWrapper(int deviceID, MotorType type) {
-        this(deviceID, type, new FeedForwardController(FeedForwardSettings.EMPTY_FFSETTINGS,
-                FeedForwardController.DEFAULT_PERIOD));
+        this(deviceID, type, FeedForwardController.ControlMode.LINEAR_VELOCITY);
     }
 
     public SparkMaxConfig getSparkConfiguration() {
@@ -96,18 +95,30 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
     public void configureTrapezoid(TrapezoidProfileSettings trapezoidProfileSettings) {
         MAXMotionConfig maxMotionConfig = new MAXMotionConfig();
         maxMotionConfig.maxVelocity(trapezoidProfileSettings.getMaxVelocity()).
-                maxAcceleration(trapezoidProfileSettings.getAccelerationRate());
+                maxAcceleration(trapezoidProfileSettings.getMaxAcceleration());
         closedLoopConfig.apply(maxMotionConfig);
         // @TODO add s-curve when it is implemented
         configure(sparkConfig.apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
     }
 
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
+                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
+        configureLoop(pidSettings, feedForwardSettings, trapezoidProfileSettings);
+        double source;
+        if (feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.LINEAR_POSITION ||
+                feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.ANGULAR_POSITION) {
+            source = getEncoder().getPosition();
+        } else {
+            source = getEncoder().getVelocity();
+        }
+        getClosedLoopController().setReference(setpoint, controlMode.getSparkMaxControlType(), ClosedLoopSlot.kSlot0,
+                feedForwardController.calculate(source, setpoint, acceleration));
+    }
+
     @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
-        configureLoop(pidSettings, feedForwardSettings, trapezoidProfileSettings);
-        getClosedLoopController().setReference(setpoint, controlMode.getSparkMaxControlType(), ClosedLoopSlot.kSlot0,
-                feedForwardController.calculate(setpoint));
+        pidSet(controlMode, setpoint, 0, pidSettings, feedForwardSettings, trapezoidProfileSettings);
     }
 }
