@@ -50,8 +50,8 @@ public class FeedForwardController {
         this(kS, kV, kA, 0, controlMode);
     }
 
-    public FeedForwardController(FeedForwardSettings settings, ControlMode controlMode) {
-        this(settings.getkS(), settings.getkV(), settings.getkA(), settings.getkG(), controlMode);
+    public FeedForwardController(FeedForwardSettings settings) {
+        this(settings.getkS(), settings.getkV(), settings.getkA(), settings.getkG(), settings.getControlMode());
     }
 
     public void setGains(double kV, double kA) {
