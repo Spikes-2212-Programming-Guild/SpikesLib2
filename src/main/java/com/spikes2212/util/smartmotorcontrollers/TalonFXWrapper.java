@@ -87,8 +87,20 @@ public class TalonFXWrapper implements SmartMotorController {
         talonFX.setControl(request);
     }
 
+    public void follow(TalonFX master, boolean invert) {
+        talonFX.setControl(new Follower(master.getDeviceID(), invert));
+    }
+
+    public void follow(TalonFXWrapper master, boolean invert) {
+        follow(master.talonFX, invert);
+    }
+
     public void follow(TalonFX master) {
-        talonFX.setControl(new Follower(master.getDeviceID(), false));
+        follow(master, false);
+    }
+
+    public void follow(TalonFXWrapper master) {
+        follow(master.talonFX);
     }
 
     @Override
