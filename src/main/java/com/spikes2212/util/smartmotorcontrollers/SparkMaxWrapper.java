@@ -83,6 +83,7 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
     @Override
     public void configurePID(PIDSettings pidSettings) {
         closedLoopConfig.pid(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        closedLoopConfig.iZone(pidSettings.getIZone());
         configure(sparkConfig.apply(closedLoopConfig), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
     }
