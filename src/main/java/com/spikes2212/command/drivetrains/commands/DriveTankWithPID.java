@@ -125,7 +125,7 @@ public class DriveTankWithPID extends Command {
                             Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
                             Supplier<Double> rightSource) {
         this(drivetrain, leftPIDSettings, rightPIDSettings, leftSetpoint, rightSetpoint, leftSource, rightSource,
-                FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
+                FeedForwardSettings.EMPTY_FF_SETTINGS, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
@@ -140,7 +140,7 @@ public class DriveTankWithPID extends Command {
                             double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
                             Supplier<Double> rightSource) {
         this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource,
-                rightSource, FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
+                rightSource, FeedForwardSettings.EMPTY_FF_SETTINGS, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     @Override

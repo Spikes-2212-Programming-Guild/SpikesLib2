@@ -79,12 +79,12 @@ public class MoveGenericSubsystemWithPID extends Command {
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
                                        PIDSettings pidSettings) {
-        this(subsystem, setpoint, source, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
+        this(subsystem, setpoint, source, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
                                        PIDSettings pidSettings) {
-        this(subsystem, () -> setpoint, () -> source, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
+        this(subsystem, () -> setpoint, () -> source, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     protected double calculatePIDAndFFValues() {

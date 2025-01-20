@@ -12,7 +12,7 @@ public class FeedForwardSettings {
     /**
      * Empty FeedForwardSettings, which effectively make the FeedForwardController do nothing.
      */
-    public static final FeedForwardSettings EMPTY_FFSETTINGS = new FeedForwardSettings(
+    public static final FeedForwardSettings EMPTY_FF_SETTINGS = new FeedForwardSettings(
             FeedForwardController.ControlMode.LINEAR_POSITION);
 
     /**

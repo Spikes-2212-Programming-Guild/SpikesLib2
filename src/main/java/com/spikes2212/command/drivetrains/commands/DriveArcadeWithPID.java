@@ -86,7 +86,7 @@ public class DriveArcadeWithPID extends Command {
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
                               Supplier<Double> moveValue, PIDSettings pidSettings) {
-        this(drivetrain, source, setpoint, moveValue, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
+        this(drivetrain, source, setpoint, moveValue, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, double moveValue,
