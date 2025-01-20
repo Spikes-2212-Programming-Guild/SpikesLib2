@@ -64,7 +64,8 @@ public class SparkMaxWrapper extends SparkMax implements SmartMotorController {
         configure(sparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
-    public void follow(SparkBase master) {
+    public void follow(SparkMax master) {
+        setIdleMode(master.configAccessor.getIdleMode());
         configure(sparkConfig.follow(master, configAccessor.getInverted()), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
     }

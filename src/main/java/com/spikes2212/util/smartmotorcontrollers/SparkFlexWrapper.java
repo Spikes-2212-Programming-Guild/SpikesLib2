@@ -65,7 +65,8 @@ public class SparkFlexWrapper extends SparkFlex implements SmartMotorController 
         configure(sparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
-    public void follow(SparkBase master) {
+    public void follow(SparkFlex master) {
+        setIdleMode(master.configAccessor.getIdleMode());
         configure(sparkConfig.follow(master, configAccessor.getInverted()), ResetMode.kNoResetSafeParameters,
                 PersistMode.kNoPersistParameters);
     }
