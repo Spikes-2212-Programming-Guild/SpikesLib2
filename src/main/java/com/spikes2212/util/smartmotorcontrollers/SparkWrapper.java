@@ -70,8 +70,8 @@ public class SparkWrapper implements SmartMotorController {
         if (sparkBase instanceof SparkMax) sparkConfig = new SparkMaxConfig();
         else if (sparkBase instanceof SparkFlex) sparkConfig = new SparkFlexConfig();
         closedLoopConfig = new ClosedLoopConfig();
-        sparkBase.configure(sparkConfig, SparkBase.ResetMode.kResetSafeParameters,
-                SparkBase.PersistMode.kPersistParameters);
+        sparkBase.configure(sparkConfig.idleMode(SparkBaseConfig.IdleMode.kCoast),
+                SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
     }
 
     @Override
