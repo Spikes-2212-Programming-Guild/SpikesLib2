@@ -22,6 +22,7 @@ public class SparkWrapper implements SmartMotorController {
         SparkWrapper sparkWrapper = new SparkWrapper(controlMode);
         sparkWrapper.sparkBase = new SparkMax(deviceID, type);
         sparkWrapper.sparkConfig = new SparkMaxConfig();
+        sparkWrapper.configAccessor = ((SparkMax)(sparkWrapper.sparkBase)).configAccessor;
         return sparkWrapper;
     }
 
@@ -34,6 +35,7 @@ public class SparkWrapper implements SmartMotorController {
         SparkWrapper sparkWrapper = new SparkWrapper(controlMode);
         sparkWrapper.sparkBase = new SparkFlex(deviceID, type);
         sparkWrapper.sparkConfig = new SparkFlexConfig();
+        sparkWrapper.configAccessor = ((SparkFlex)(sparkWrapper.sparkBase)).configAccessor;
         return sparkWrapper;
     }
 
