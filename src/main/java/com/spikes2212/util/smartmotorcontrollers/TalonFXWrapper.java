@@ -5,8 +5,11 @@ import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.core.CoreTalonFX;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
+import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
@@ -59,6 +62,32 @@ public class TalonFXWrapper implements SmartMotorController {
         closedLoopConfig.kV = feedForwardSettings.getkV();
         closedLoopConfig.kA = feedForwardSettings.getkA();
         closedLoopConfig.kG = feedForwardSettings.getkG();
+        StaticFeedforwardSignValue kSType;
+        GravityTypeValue kGType;
+        switch (feedForwardSettings.getControlMode()) {
+            case LINEAR_POSITION -> {
+                kSType = StaticFeedforwardSignValue.UseClosedLoopSign;
+                kGType = GravityTypeValue.Elevator_Static;
+            }
+            case ANGULAR_POSITION -> {
+                kSType = StaticFeedforwardSignValue.UseClosedLoopSign;
+                kGType = GravityTypeValue.Arm_Cosine;
+            }
+            case LINEAR_VELOCITY -> {
+                kSType = StaticFeedforwardSignValue.UseVelocitySign;
+                kGType = GravityTypeValue.Elevator_Static;
+            }
+            case ANGULAR_VELOCITY -> {
+                kSType = StaticFeedforwardSignValue.UseVelocitySign;
+                kGType = GravityTypeValue.Arm_Cosine;
+            }
+            default -> {
+                kSType = null;
+                kGType = null;
+            }
+        }
+        closedLoopConfig.withStaticFeedforwardSign(kSType);
+        closedLoopConfig.withGravityType(kGType);
         talonFX.getConfigurator().apply(closedLoopConfig);
     }
 
