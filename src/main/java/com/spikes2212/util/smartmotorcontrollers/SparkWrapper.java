@@ -84,6 +84,7 @@ public class SparkWrapper implements SmartMotorController {
         return sparkBase.get();
     }
 
+    @Override
     public void setInverted(boolean inverted) {
         int leaderID = configAccessor.getFollowerModeLeaderId();
         if (leaderID != 0) {
