@@ -146,7 +146,7 @@ public class SparkWrapper implements SmartMotorController {
         maxMotionConfig.maxVelocity(trapezoidProfileSettings.getMaxVelocity()).
                 maxAcceleration(trapezoidProfileSettings.getMaxAcceleration());
         closedLoopConfig.apply(maxMotionConfig);
-        // @TODO add s-curve when rev implements it
+        // @TODO add s-curve when REV implements it
         sparkBase.configure(sparkConfig.apply(closedLoopConfig), SparkBase.ResetMode.kNoResetSafeParameters,
                 SparkBase.PersistMode.kNoPersistParameters);
     }
