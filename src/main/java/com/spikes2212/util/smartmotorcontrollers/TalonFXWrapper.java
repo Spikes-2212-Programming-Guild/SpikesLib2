@@ -138,6 +138,11 @@ public class TalonFXWrapper implements SmartMotorController {
     }
 
     @Override
+    public void setVoltage(double voltage) {
+        talonFX.setVoltage(voltage);
+    }
+
+    @Override
     public double get() {
         return talonFX.get();
     }
