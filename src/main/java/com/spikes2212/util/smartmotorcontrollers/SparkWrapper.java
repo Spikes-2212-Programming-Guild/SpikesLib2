@@ -18,11 +18,11 @@ public class SparkWrapper implements SmartMotorController {
     private ClosedLoopConfig closedLoopConfig;
 
     public static SparkWrapper createSparkMax(int deviceID, SparkLowLevel.MotorType type,
-                                          FeedForwardController.ControlMode controlMode) {
+                                              FeedForwardController.ControlMode controlMode) {
         SparkWrapper sparkWrapper = new SparkWrapper(controlMode);
         sparkWrapper.sparkBase = new SparkMax(deviceID, type);
         sparkWrapper.sparkConfig = new SparkMaxConfig();
-        sparkWrapper.configAccessor = ((SparkMax)(sparkWrapper.sparkBase)).configAccessor;
+        sparkWrapper.configAccessor = ((SparkMax) (sparkWrapper.sparkBase)).configAccessor;
         return sparkWrapper;
     }
 
@@ -31,11 +31,11 @@ public class SparkWrapper implements SmartMotorController {
     }
 
     public static SparkWrapper createSparkFlex(int deviceID, SparkLowLevel.MotorType type,
-                                              FeedForwardController.ControlMode controlMode) {
+                                               FeedForwardController.ControlMode controlMode) {
         SparkWrapper sparkWrapper = new SparkWrapper(controlMode);
         sparkWrapper.sparkBase = new SparkFlex(deviceID, type);
         sparkWrapper.sparkConfig = new SparkFlexConfig();
-        sparkWrapper.configAccessor = ((SparkFlex)(sparkWrapper.sparkBase)).configAccessor;
+        sparkWrapper.configAccessor = ((SparkFlex) (sparkWrapper.sparkBase)).configAccessor;
         return sparkWrapper;
     }
 
@@ -171,5 +171,21 @@ public class SparkWrapper implements SmartMotorController {
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         pidSet(controlMode, setpoint, 0, pidSettings, feedForwardSettings, trapezoidProfileSettings);
+    }
+
+    public void setEncoderConversionFactor(double factor) {
+        EncoderConfig config = new EncoderConfig();
+        config.positionConversionFactor(factor);
+        config.velocityConversionFactor(factor);
+        sparkBase.configure(sparkConfig.apply(config), SparkBase.ResetMode.kNoResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters);
+    }
+
+    public double getPosition() {
+        return sparkBase.getEncoder().getPosition();
+    }
+
+    public double getVelocity() {
+        return sparkBase.getEncoder().getVelocity();
     }
 }

@@ -167,6 +167,7 @@ public class TalonFXWrapper implements SmartMotorController {
     public void setEncoderConversionFactor(double factor) {
         FeedbackConfigs configs = new FeedbackConfigs();
         configs.withSensorToMechanismRatio(1 / factor);
+        talonFX.getConfigurator().apply(configs);
     }
 
     public double getPosition() {
