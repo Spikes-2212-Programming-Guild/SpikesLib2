@@ -16,6 +16,7 @@ public class SparkWrapper implements SmartMotorController {
     private SparkBaseConfigAccessor configAccessor;
     private SparkBaseConfig sparkConfig;
     private ClosedLoopConfig closedLoopConfig;
+    private EncoderConfig encoderConfig;
 
     public static SparkWrapper createSparkMax(int deviceID, SparkLowLevel.MotorType type,
                                               FeedForwardController.ControlMode controlMode) {
@@ -46,6 +47,7 @@ public class SparkWrapper implements SmartMotorController {
     private SparkWrapper(FeedForwardController.ControlMode controlMode) {
         feedForwardController = new FeedForwardController(new FeedForwardSettings(controlMode));
         closedLoopConfig = new ClosedLoopConfig();
+        encoderConfig = new EncoderConfig();
     }
 
     public SparkBaseConfig getSparkConfiguration() {
@@ -72,6 +74,7 @@ public class SparkWrapper implements SmartMotorController {
         if (sparkBase instanceof SparkMax) sparkConfig = new SparkMaxConfig();
         else if (sparkBase instanceof SparkFlex) sparkConfig = new SparkFlexConfig();
         closedLoopConfig = new ClosedLoopConfig();
+        encoderConfig = new EncoderConfig();
         sparkBase.configure(sparkConfig, SparkBase.ResetMode.kResetSafeParameters,
                 SparkBase.PersistMode.kPersistParameters);
     }
@@ -180,11 +183,15 @@ public class SparkWrapper implements SmartMotorController {
                 configurePeriodically);
     }
 
-    public void setEncoderConversionFactor(double factor) {
-        EncoderConfig config = new EncoderConfig();
-        config.positionConversionFactor(factor);
-        config.velocityConversionFactor(factor);
-        sparkBase.configure(sparkConfig.apply(config), SparkBase.ResetMode.kNoResetSafeParameters,
+    public void setPositionConversionFactor(double factor) {
+        encoderConfig.positionConversionFactor(factor);
+        sparkBase.configure(sparkConfig.apply(encoderConfig), SparkBase.ResetMode.kNoResetSafeParameters,
+                SparkBase.PersistMode.kNoPersistParameters);
+    }
+
+    public void setVelocityConversionFactor(double factor) {
+        encoderConfig.velocityConversionFactor(factor);
+        sparkBase.configure(sparkConfig.apply(encoderConfig), SparkBase.ResetMode.kNoResetSafeParameters,
                 SparkBase.PersistMode.kNoPersistParameters);
     }
 
