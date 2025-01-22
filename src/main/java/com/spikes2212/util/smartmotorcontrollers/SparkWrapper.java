@@ -183,6 +183,18 @@ public class SparkWrapper implements SmartMotorController {
                 configurePeriodically);
     }
 
+    @Override
+    public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
+        double value = switch (controlMode) {
+            case PERCENT_OUTPUT -> sparkBase.getAppliedOutput();
+            case VELOCITY -> getVelocity();
+            case CURRENT -> getCurrent();
+            case VOLTAGE -> getVoltage() * sparkBase.getAppliedOutput();
+            default -> getPosition();
+        };
+        return Math.abs(value - setpoint) <= tolerance;
+    }
+
     public void setPositionConversionFactor(double factor) {
         encoderConfig.positionConversionFactor(factor);
         sparkBase.configure(sparkConfig.apply(encoderConfig), SparkBase.ResetMode.kNoResetSafeParameters,

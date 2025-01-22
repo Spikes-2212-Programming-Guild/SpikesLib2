@@ -184,10 +184,22 @@ public class TalonFXWrapper implements SmartMotorController {
     }
 
     public double getCurrent() {
-        return talonFX.getSupplyCurrent().getValueAsDouble();
+        return talonFX.getTorqueCurrent().getValueAsDouble();
     }
 
     public double getVoltage() {
         return talonFX.getMotorVoltage().getValueAsDouble();
+    }
+
+    @Override
+    public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
+        double value = switch (controlMode) {
+            case VELOCITY -> getVelocity();
+            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> getPosition();
+            case CURRENT -> getCurrent();
+            case PERCENT_OUTPUT -> talonFX.get();
+            case VOLTAGE -> getVoltage();
+        };
+        return Math.abs(value - setpoint) <= tolerance;
     }
 }
