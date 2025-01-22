@@ -82,6 +82,11 @@ public class SparkWrapper implements SmartMotorController {
     }
 
     @Override
+    public void setVoltage(double voltage) {
+        sparkBase.setVoltage(voltage);
+    }
+
+    @Override
     public double get() {
         return sparkBase.get();
     }
