@@ -26,7 +26,8 @@ import java.util.List;
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
-public class TalonFXGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
+@Deprecated(since = "2025", forRemoval = true)
+public class TalonFXGenericSubsystem extends SmartMotorControllerGenericSubsystem {
 
     /**
      * The TalonFX which runs the loops.
@@ -88,7 +89,6 @@ public class TalonFXGenericSubsystem extends DashboardedSubsystem implements Sma
         configureTrapezoid(trapezoidProfileSettings);
     }
 
-    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);

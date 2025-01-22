@@ -23,7 +23,8 @@ import java.util.List;
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
-public class SparkGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
+@Deprecated(since = "2025", forRemoval = true)
+public class SparkGenericSubsystem extends SmartMotorControllerGenericSubsystem {
 
     /**
      * The slot on the {@link SparkBase} on which the trapezoid profiling configurations are saved.
@@ -119,7 +120,6 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
-    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);

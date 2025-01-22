@@ -28,8 +28,7 @@ import java.util.List;
  * @see SmartMotorControllerGenericSubsystem
  */
 @Deprecated(since = "2024", forRemoval = true)
-public class CTRESmartMotorControllerGenericSubsystem extends DashboardedSubsystem
-        implements SmartMotorControllerGenericSubsystem {
+public class CTRESmartMotorControllerGenericSubsystem extends SmartMotorControllerGenericSubsystem {
 
     /**
      * The slot on the motor controller on which the loop is run.
@@ -109,7 +108,6 @@ public class CTRESmartMotorControllerGenericSubsystem extends DashboardedSubsyst
      * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
-    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
