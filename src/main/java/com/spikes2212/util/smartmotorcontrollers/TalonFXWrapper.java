@@ -101,10 +101,9 @@ public class TalonFXWrapper implements SmartMotorController {
 
     @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
-                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
-        configurePID(pidSettings);
-        configureFF(feedForwardSettings);
-        configureTrapezoid(trapezoidProfileSettings);
+                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
+                       boolean updatePeriodically) {
+        if (updatePeriodically) configureLoop(pidSettings, feedForwardSettings, trapezoidProfileSettings);
         ControlRequest request = switch (controlMode) {
             case CURRENT -> new TorqueCurrentFOC(setpoint);
             case PERCENT_OUTPUT -> new DutyCycleOut(setpoint);

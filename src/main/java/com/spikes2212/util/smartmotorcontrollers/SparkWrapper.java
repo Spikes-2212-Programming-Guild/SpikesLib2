@@ -154,8 +154,9 @@ public class SparkWrapper implements SmartMotorController {
     }
 
     public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
-                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
-        configureLoop(pidSettings, feedForwardSettings, trapezoidProfileSettings);
+                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
+                       boolean configurePeriodically) {
+        if (configurePeriodically) configureLoop(pidSettings, feedForwardSettings, trapezoidProfileSettings);
         double source;
         if (feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.LINEAR_POSITION ||
                 feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.ANGULAR_POSITION) {
@@ -167,10 +168,11 @@ public class SparkWrapper implements SmartMotorController {
                 ClosedLoopSlot.kSlot0, feedForwardController.calculate(source, setpoint, acceleration));
     }
 
-    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
-                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
-        pidSet(controlMode, setpoint, 0, pidSettings, feedForwardSettings, trapezoidProfileSettings);
+                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
+                       boolean configurePeriodically) {
+        pidSet(controlMode, setpoint, 0, pidSettings, feedForwardSettings, trapezoidProfileSettings,
+                configurePeriodically);
     }
 
     public void setEncoderConversionFactor(double factor) {
