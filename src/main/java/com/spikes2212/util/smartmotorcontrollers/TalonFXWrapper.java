@@ -38,6 +38,7 @@ public class TalonFXWrapper implements SmartMotorController {
     public void restoreFactoryDefaults() {
         talonFX.getConfigurator().apply(new TalonFXConfiguration());
         motorOutputConfigs.withInverted(InvertedValue.CounterClockwise_Positive);
+        setIdleMode(NeutralModeValue.Coast);
     }
 
     public void setIdleMode(NeutralModeValue neutralModeValue) {
