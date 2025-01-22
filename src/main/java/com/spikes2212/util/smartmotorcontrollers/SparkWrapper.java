@@ -190,4 +190,12 @@ public class SparkWrapper implements SmartMotorController {
     public double getVelocity() {
         return sparkBase.getEncoder().getVelocity();
     }
+
+    public double getVoltage() {
+        return sparkBase.getBusVoltage();
+    }
+
+    public double getCurrent() {
+        return sparkBase.getOutputCurrent();
+    }
 }
