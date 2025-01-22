@@ -22,10 +22,13 @@ public interface SmartMotorController extends MotorController {
     }
 
     default void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
-                FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
-                boolean updatePeriodically) {}
+                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
+                        boolean updatePeriodically) {
+    }
 
     void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                 FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
                 boolean updatePeriodically);
+
+    boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint);
 }
