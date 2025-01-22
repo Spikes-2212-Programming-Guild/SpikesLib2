@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  *
  * @author Yoel Perman Brilliant
  */
-public abstract class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsystem {
+public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsystem {
 
     private final List<? extends SmartMotorController> motorControllers;
 
