@@ -80,10 +80,7 @@ public class TalonFXWrapper implements SmartMotorController {
                 kSType = StaticFeedforwardSignValue.UseVelocitySign;
                 kGType = GravityTypeValue.Arm_Cosine;
             }
-            default -> {
-                kSType = null;
-                kGType = null;
-            }
+            default -> throw new IllegalArgumentException("Invalid feed forward type!");
         }
         closedLoopConfig.withStaticFeedforwardSign(kSType);
         closedLoopConfig.withGravityType(kGType);
