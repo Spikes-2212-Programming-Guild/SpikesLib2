@@ -29,11 +29,15 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
     /**
      * Configures the loop's PID constants and feed forward gains.
      */
-    public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-        motorControllers.forEach(smartMotorController -> {
-            smartMotorController.configurePID(pidSettings);
-            smartMotorController.configureFF(feedForwardSettings);
-        });
+    public void configPID(PIDSettings pidSettings) {
+        motorControllers.forEach(smartMotorController -> smartMotorController.configurePID(pidSettings));
+    }
+
+    /**
+     * Configures the loop's PID constants and feed forward gains.
+     */
+    public void configFF(FeedForwardSettings feedForwardSettings) {
+        motorControllers.forEach(smartMotorController -> smartMotorController.configureFF(feedForwardSettings));
     }
 
     /**
@@ -48,7 +52,8 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
      */
     public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
                               TrapezoidProfileSettings trapezoidProfileSettings) {
-        configPIDF(pidSettings, feedForwardSettings);
+        configPID(pidSettings);
+        configFF(feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
     }
 
