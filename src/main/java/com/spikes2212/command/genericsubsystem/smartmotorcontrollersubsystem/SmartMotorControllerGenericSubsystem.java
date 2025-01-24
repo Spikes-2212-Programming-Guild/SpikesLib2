@@ -6,11 +6,9 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import com.spikes2212.util.smartmotorcontrollers.SmartMotorController;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * A {@link Subsystem} that runs control loops on an applicable motor controller.
@@ -29,14 +27,14 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
     /**
      * Configures the loop's PID constants and feed forward gains.
      */
-    public void configPID(PIDSettings pidSettings) {
+    public void configurePID(PIDSettings pidSettings) {
         motorControllers.forEach(smartMotorController -> smartMotorController.configurePID(pidSettings));
     }
 
     /**
      * Configures the loop's PID constants and feed forward gains.
      */
-    public void configFF(FeedForwardSettings feedForwardSettings) {
+    public void configureFF(FeedForwardSettings feedForwardSettings) {
         motorControllers.forEach(smartMotorController -> smartMotorController.configureFF(feedForwardSettings));
     }
 
@@ -52,8 +50,8 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
      */
     public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
                               TrapezoidProfileSettings trapezoidProfileSettings) {
-        configPID(pidSettings);
-        configFF(feedForwardSettings);
+        configurePID(pidSettings);
+        configureFF(feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
     }
 
