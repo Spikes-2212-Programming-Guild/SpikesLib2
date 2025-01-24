@@ -110,13 +110,7 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */
     public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        boolean onTarget = true;
-        for (SmartMotorController motorController : motorControllers) {
-            if (!motorController.onTarget(controlMode, tolerance, setpoint)) {
-                onTarget = false;
-                break;
-            }
-        }
-        return onTarget;
+        return motorControllers.stream().allMatch(motorController -> motorController.onTarget(controlMode, tolerance,
+                setpoint));
     }
 }
