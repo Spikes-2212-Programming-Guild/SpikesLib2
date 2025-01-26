@@ -29,7 +29,7 @@ public class PIDSettings {
     /**
      * the distance in which the integral component begins to work
      */
-    private Supplier<Double> IZone;
+    private Supplier<Double> iZone;
 
     /**
      * the acceptable distance from the target
@@ -41,12 +41,12 @@ public class PIDSettings {
      */
     private Supplier<Double> waitTime;
 
-    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> IZone,
+    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> iZone,
                        Supplier<Double> tolerance, Supplier<Double> waitTime) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
-        this.IZone = IZone;
+        this.iZone = iZone;
         this.tolerance = tolerance;
         this.waitTime = waitTime;
     }
@@ -55,8 +55,8 @@ public class PIDSettings {
         this(kP, 0.0, 0.0, tolerance, 0.0, waitTime);
     }
 
-    public PIDSettings(double kP, double kI, double kD, double IZone, double tolerance, double waitTime) {
-        this(() -> kP, () -> kI, () -> kD, () -> IZone, () -> tolerance, () -> waitTime);
+    public PIDSettings(double kP, double kI, double kD, double iZone, double tolerance, double waitTime) {
+        this(() -> kP, () -> kI, () -> kD, () -> iZone, () -> tolerance, () -> waitTime);
     }
 
     public PIDSettings(Supplier<Double> kP, Supplier<Double> tolerance, Supplier<Double> waitTime) {
@@ -96,11 +96,11 @@ public class PIDSettings {
     }
 
     public double getIZone() {
-        return IZone.get();
+        return iZone.get();
     }
 
-    public void setIZone(Supplier<Double> IZone) {
-        this.IZone = IZone;
+    public void setIZone(Supplier<Double> iZone) {
+        this.iZone = iZone;
     }
 
     public double getWaitTime() {
