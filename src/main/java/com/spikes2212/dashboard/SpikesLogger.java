@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  */
 public class SpikesLogger extends RootNamespace {
 
-    private static final String NAME = "SpikesLogger";
-    private static final String KEY = "output";
+    private static final String DEFAULT_NAME = "SpikesLogger";
+    private static final String DEFAULT_KEY = "output";
 
     /**
      * NetworkTables key to use for the output.
@@ -34,14 +34,14 @@ public class SpikesLogger extends RootNamespace {
      * Creates a default SpikesLogger instance with a custom key (name = "SpikesLogger").
      */
     public SpikesLogger(String key) {
-        this(NAME, key);
+        this(DEFAULT_NAME, key);
     }
 
     /**
      * Creates a default SpikesLogger instance (name = "SpikesLogger", key = "output").
      */
     public SpikesLogger() {
-        this(NAME, KEY);
+        this(DEFAULT_NAME, DEFAULT_KEY);
     }
 
     /**
