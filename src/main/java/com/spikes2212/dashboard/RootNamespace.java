@@ -23,7 +23,7 @@ public class RootNamespace implements Namespace {
     protected final NetworkTable table;
     protected final String name;
 
-    private final Map<String, Sendable> TABLES_TO_DATA = new HashMap<>();
+    private final Map<String, Sendable> tablesToData = new HashMap<>();
 
     public RootNamespace(String name) {
         this.name = name;
@@ -71,9 +71,9 @@ public class RootNamespace implements Namespace {
 
     @Override
     public void putData(String key, Sendable value) {
-        Sendable sddata = TABLES_TO_DATA.get(key);
+        Sendable sddata = tablesToData.get(key);
         if (sddata == null || sddata != value) {
-            TABLES_TO_DATA.put(key, value);
+            tablesToData.put(key, value);
             NetworkTable dataTable = table.getSubTable(key);
             SendableBuilderImpl builder = new SendableBuilderImpl();
             builder.setTable(dataTable);
@@ -171,7 +171,7 @@ public class RootNamespace implements Namespace {
     }
 
     private void updateSendable() {
-        for (Sendable data : TABLES_TO_DATA.values()) {
+        for (Sendable data : tablesToData.values()) {
             SendableRegistry.update(data);
         }
     }
