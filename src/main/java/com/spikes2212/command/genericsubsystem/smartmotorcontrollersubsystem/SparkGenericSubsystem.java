@@ -124,7 +124,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        master.getClosedLoopController().setReference(setpoint, controlMode.getSparkMaxControlType());
+        master.getClosedLoopController().setReference(setpoint, controlMode.getSparkControlType());
     }
 
     /**

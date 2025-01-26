@@ -172,7 +172,7 @@ public class SparkWrapper implements SmartMotorController {
         } else {
             source = sparkBase.getEncoder().getVelocity();
         }
-        sparkBase.getClosedLoopController().setReference(setpoint, controlMode.getSparkMaxControlType(),
+        sparkBase.getClosedLoopController().setReference(setpoint, controlMode.getSparkControlType(),
                 ClosedLoopSlot.kSlot0, feedForwardController.calculate(source, setpoint, acceleration));
     }
 

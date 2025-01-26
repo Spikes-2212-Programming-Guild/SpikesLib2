@@ -194,8 +194,8 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
 
-        leftMaster.getClosedLoopController().setReference(leftSetpoint, controlMode.getSparkMaxControlType());
-        rightMaster.getClosedLoopController().setReference(rightSetpoint, controlMode.getSparkMaxControlType());
+        leftMaster.getClosedLoopController().setReference(leftSetpoint, controlMode.getSparkControlType());
+        rightMaster.getClosedLoopController().setReference(rightSetpoint, controlMode.getSparkControlType());
     }
 
     /**
