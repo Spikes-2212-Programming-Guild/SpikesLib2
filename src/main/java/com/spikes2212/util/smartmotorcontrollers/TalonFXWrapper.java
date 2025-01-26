@@ -97,6 +97,11 @@ public class TalonFXWrapper implements SmartMotorController {
     }
 
     @Override
+    public void setPosition(double position) {
+        talonFX.setPosition(position);
+    }
+
+    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
                        boolean updatePeriodically) {

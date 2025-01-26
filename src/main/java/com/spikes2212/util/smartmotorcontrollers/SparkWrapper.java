@@ -162,6 +162,11 @@ public class SparkWrapper implements SmartMotorController {
     }
 
     @Override
+    public void setPosition(double position) {
+        sparkBase.getEncoder().setPosition(position);
+    }
+
+    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
                        boolean configurePeriodically) {
