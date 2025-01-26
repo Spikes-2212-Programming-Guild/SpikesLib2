@@ -39,15 +39,15 @@ public class TankDrivetrain extends DashboardedSubsystem {
         this(getClassName(DEFAULT_NAMESPACE_NAME), leftController, rightController);
     }
 
-    public TankDrivetrain(MotorController leftMaster, MotorController leftSlave,
+    public TankDrivetrain(String namespaceName, MotorController leftMaster, MotorController leftSlave,
                           MotorController rightMaster, MotorController rightSlave) {
-        this(new MotorControllerGroup(leftMaster, leftSlave),
+        this(namespaceName, new MotorControllerGroup(leftMaster, leftSlave),
                 new MotorControllerGroup(rightMaster, rightSlave));
     }
 
-    public TankDrivetrain(String namespaceName, MotorController leftMaster, MotorController leftSlave,
-                          MotorController rightMaster, MotorController rightSlave){
-        this(namespaceName, new MotorControllerGroup(leftMaster, leftSlave),
+    public TankDrivetrain(MotorController leftMaster, MotorController leftSlave,
+                          MotorController rightMaster, MotorController rightSlave) {
+        this(new MotorControllerGroup(leftMaster, leftSlave),
                 new MotorControllerGroup(rightMaster, rightSlave));
     }
 
@@ -171,6 +171,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     /**
      * Sets the motor safety feature of the speed controllers on/off.
+     *
      * @param enabled whether motor safety should be enabled
      */
     public void setMotorSafety(boolean enabled) {
