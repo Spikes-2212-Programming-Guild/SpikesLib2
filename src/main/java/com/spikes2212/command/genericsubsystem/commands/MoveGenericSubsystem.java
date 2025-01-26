@@ -23,7 +23,6 @@ public class MoveGenericSubsystem extends Command {
      * speed the {@link GenericSubsystem} should move with.
      *
      * @param subsystem     the {@link GenericSubsystem} this command should move.
-     * @param speedSupplier a Double {@link Supplier} supplying the speed this subsystem
      *                      should be moved with. Must only supply values between -1 and 1.
      */
     public MoveGenericSubsystem(GenericSubsystem subsystem, Supplier<Double> speedSupplier) {
