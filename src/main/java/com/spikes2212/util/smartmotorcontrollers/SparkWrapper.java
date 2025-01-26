@@ -161,6 +161,12 @@ public class SparkWrapper implements SmartMotorController {
                 SparkBase.PersistMode.kNoPersistParameters);
     }
 
+    @Override
+    public void setPosition(double position) {
+        sparkBase.getEncoder().setPosition(position);
+    }
+
+    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
                        boolean configurePeriodically) {
@@ -176,11 +182,24 @@ public class SparkWrapper implements SmartMotorController {
                 ClosedLoopSlot.kSlot0, feedForwardController.calculate(source, setpoint, acceleration));
     }
 
+    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
                        boolean configurePeriodically) {
         pidSet(controlMode, setpoint, 0, pidSettings, feedForwardSettings, trapezoidProfileSettings,
                 configurePeriodically);
+    }
+
+    @Override
+    public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
+        double value = switch (controlMode) {
+            case PERCENT_OUTPUT -> sparkBase.getAppliedOutput();
+            case VELOCITY -> getVelocity();
+            case CURRENT -> getCurrent();
+            case VOLTAGE -> getVoltage() * sparkBase.getAppliedOutput();
+            default -> getPosition();
+        };
+        return Math.abs(value - setpoint) <= tolerance;
     }
 
     public void setPositionConversionFactor(double factor) {

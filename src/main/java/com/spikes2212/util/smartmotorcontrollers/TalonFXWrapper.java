@@ -97,6 +97,18 @@ public class TalonFXWrapper implements SmartMotorController {
     }
 
     @Override
+    public void setPosition(double position) {
+        talonFX.setPosition(position);
+    }
+
+    @Override
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
+                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
+                       boolean updatePeriodically) {
+        pidSet(controlMode, setpoint, pidSettings, feedForwardSettings, trapezoidProfileSettings, updatePeriodically);
+    }
+
+    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
                        boolean updatePeriodically) {
@@ -184,10 +196,22 @@ public class TalonFXWrapper implements SmartMotorController {
     }
 
     public double getCurrent() {
-        return talonFX.getSupplyCurrent().getValueAsDouble();
+        return talonFX.getTorqueCurrent().getValueAsDouble();
     }
 
     public double getVoltage() {
         return talonFX.getMotorVoltage().getValueAsDouble();
+    }
+
+    @Override
+    public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
+        double value = switch (controlMode) {
+            case VELOCITY -> getVelocity();
+            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> getPosition();
+            case CURRENT -> getCurrent();
+            case PERCENT_OUTPUT -> talonFX.get();
+            case VOLTAGE -> getVoltage();
+        };
+        return Math.abs(value - setpoint) <= tolerance;
     }
 }
