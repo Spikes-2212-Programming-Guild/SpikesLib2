@@ -110,7 +110,6 @@ public class TalonFXWrapper implements SmartMotorController {
             case CURRENT -> new TorqueCurrentFOC(setpoint);
             case PERCENT_OUTPUT -> new DutyCycleOut(setpoint);
             case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(setpoint);
-            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
             case VOLTAGE -> new VoltageOut(setpoint);
             case VELOCITY -> new VelocityDutyCycle(setpoint);
             case POSITION -> new PositionDutyCycle(setpoint);
@@ -214,7 +213,7 @@ public class TalonFXWrapper implements SmartMotorController {
     public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value = switch (controlMode) {
             case VELOCITY -> getVelocity();
-            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> getPosition();
+            case POSITION, TRAPEZOID_PROFILE -> getPosition();
             case CURRENT -> getCurrent();
             case PERCENT_OUTPUT -> talonFX.get();
             case VOLTAGE -> getVoltage();

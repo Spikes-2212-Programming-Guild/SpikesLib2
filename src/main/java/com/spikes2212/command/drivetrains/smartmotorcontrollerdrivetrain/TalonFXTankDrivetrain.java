@@ -165,7 +165,6 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
             case CURRENT -> new TorqueCurrentFOC(leftSetpoint);
             case PERCENT_OUTPUT -> new DutyCycleOut(leftSetpoint);
             case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(leftSetpoint);
-            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
             case VOLTAGE -> new VoltageOut(leftSetpoint);
             case VELOCITY -> new VelocityDutyCycle(leftSetpoint);
             case POSITION -> new PositionDutyCycle(leftSetpoint);
@@ -174,7 +173,6 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
             case CURRENT -> new TorqueCurrentFOC(rightSetpoint);
             case PERCENT_OUTPUT -> new DutyCycleOut(rightSetpoint);
             case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(rightSetpoint);
-            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
             case VOLTAGE -> new VoltageOut(rightSetpoint);
             case VELOCITY -> new VelocityDutyCycle(rightSetpoint);
             case POSITION -> new PositionDutyCycle(rightSetpoint);
@@ -206,7 +204,7 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     public boolean leftOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value = switch (controlMode) {
             case VELOCITY -> leftMaster.getVelocity().getValueAsDouble();
-            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> leftMaster.getPosition().getValueAsDouble();
+            case POSITION, TRAPEZOID_PROFILE -> leftMaster.getPosition().getValueAsDouble();
             case CURRENT -> leftMaster.getTorqueCurrent().getValueAsDouble();
             case PERCENT_OUTPUT -> leftMaster.get();
             case VOLTAGE -> leftMaster.getMotorVoltage().getValueAsDouble();
@@ -226,7 +224,7 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     public boolean rightOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value = switch (controlMode) {
             case VELOCITY -> rightMaster.getVelocity().getValueAsDouble();
-            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> rightMaster.getPosition().getValueAsDouble();
+            case POSITION, TRAPEZOID_PROFILE -> rightMaster.getPosition().getValueAsDouble();
             case CURRENT -> rightMaster.getTorqueCurrent().getValueAsDouble();
             case PERCENT_OUTPUT -> rightMaster.get();
             case VOLTAGE -> rightMaster.getMotorVoltage().getValueAsDouble();

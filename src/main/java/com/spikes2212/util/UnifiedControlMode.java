@@ -18,7 +18,6 @@ public enum UnifiedControlMode {
     CURRENT(ControlModeValue.TorqueCurrentFOC, SparkBase.ControlType.kCurrent),
     PERCENT_OUTPUT(ControlModeValue.DutyCycleOut, SparkBase.ControlType.kDutyCycle),
     TRAPEZOID_PROFILE(ControlModeValue.MotionMagicDutyCycle, SparkBase.ControlType.kMAXMotionPositionControl),
-    MOTION_PROFILING(null, null),
     VOLTAGE(ControlModeValue.VoltageOut, SparkBase.ControlType.kVoltage);
 
     private final ControlModeValue talonFXControlMode;
