@@ -228,10 +228,12 @@ public class SparkWrapper implements SmartMotorController {
                 SparkBase.PersistMode.kNoPersistParameters);
     }
 
+    @Override
     public double getPosition() {
         return sparkBase.getEncoder().getPosition();
     }
 
+    @Override
     public double getVelocity() {
         return sparkBase.getEncoder().getVelocity();
     }

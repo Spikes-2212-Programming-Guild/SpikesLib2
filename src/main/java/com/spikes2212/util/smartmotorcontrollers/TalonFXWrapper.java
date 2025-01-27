@@ -188,10 +188,12 @@ public class TalonFXWrapper implements SmartMotorController {
         talonFX.getConfigurator().apply(configs);
     }
 
+    @Override
     public double getPosition() {
         return talonFX.getPosition().getValueAsDouble();
     }
 
+    @Override
     public double getVelocity() {
         return talonFX.getVelocity().getValueAsDouble();
     }

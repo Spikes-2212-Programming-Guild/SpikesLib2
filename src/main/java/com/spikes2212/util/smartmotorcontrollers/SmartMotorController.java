@@ -38,4 +38,8 @@ public interface SmartMotorController extends MotorController {
                 FeedForwardSettings feedForwardSettings, boolean updatePeriodically);
 
     boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint);
+
+    double getPosition();
+
+    double getVelocity();
 }
