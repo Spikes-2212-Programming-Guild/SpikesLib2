@@ -92,16 +92,6 @@ public class DriveArcadeWithPID extends Command {
     }
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
-                              Supplier<Double> acceleration, Supplier<Double> moveValue, PIDSettings pidSettings) {
-        this(drivetrain, source, setpoint, acceleration, moveValue, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
-    }
-
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint,
-                              Supplier<Double> acceleration, double moveValue, PIDSettings pidSettings) {
-        this(drivetrain, source, () -> setpoint, acceleration, () -> moveValue, pidSettings);
-    }
-
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
                               Supplier<Double> moveValue, PIDSettings pidSettings,
                               FeedForwardSettings feedForwardSettings) {
         this(drivetrain, source, setpoint, () -> 0.0, moveValue, pidSettings, feedForwardSettings);
@@ -119,7 +109,7 @@ public class DriveArcadeWithPID extends Command {
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint,
                               double moveValue, PIDSettings pidSettings) {
-        this(drivetrain, source, () -> setpoint, () -> 0.0, () -> moveValue, pidSettings);
+        this(drivetrain, source, () -> setpoint, () -> moveValue, pidSettings);
     }
 
     @Override
