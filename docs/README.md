@@ -15,6 +15,10 @@ Spikes#2212.
 After creating a Robot Project, import SpikesLib as an online vendor libray, using this link: <br> <br>
 https://spikes2212.com/SpikesLib.json
 
+<h2 style="color: #00156B;">2025 Season</h2>
+
+Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v4.1.0...v5.0.0-beta"> updated </a> to support WPILib 2025.
+
 <h2 style="color: #00156B;">2024 Season</h2>
 
 Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v3.2.1...v4.1.0"> updated </a> to support WPILib 2024.
