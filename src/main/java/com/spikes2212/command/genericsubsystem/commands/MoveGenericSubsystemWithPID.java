@@ -24,6 +24,7 @@ public class MoveGenericSubsystemWithPID extends Command {
     protected final PIDSettings pidSettings;
     protected final FeedForwardSettings feedForwardSettings;
     protected final Supplier<Double> setpoint;
+    protected final Supplier<Double> acceleration;
 
     /**
      * An object that makes the necessary calculations for the PID control loop.
@@ -51,12 +52,14 @@ public class MoveGenericSubsystemWithPID extends Command {
      * @param feedForwardSettings the feed forward constants used for calculating the move value
      */
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
-                                       PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+                                       Supplier<Double> acceleration, PIDSettings pidSettings,
+                                       FeedForwardSettings feedForwardSettings) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.pidSettings = pidSettings;
         this.feedForwardSettings = feedForwardSettings;
         this.setpoint = setpoint;
+        this.acceleration = acceleration;
         this.source = source;
         this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
                 feedForwardSettings.getkA(), feedForwardSettings.getkG(), feedForwardSettings.getControlMode());
@@ -64,18 +67,29 @@ public class MoveGenericSubsystemWithPID extends Command {
     }
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
-                                       PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-        this(subsystem, () -> setpoint, () -> source, pidSettings, feedForwardSettings);
+                                       Supplier<Double> acceleration, PIDSettings pidSettings,
+                                       FeedForwardSettings feedForwardSettings) {
+        this(subsystem, () -> setpoint, () -> source, acceleration, pidSettings, feedForwardSettings);
     }
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
                                        PIDSettings pidSettings) {
-        this(subsystem, setpoint, source, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
+        this(subsystem, setpoint, source, () -> 0.0, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
                                        PIDSettings pidSettings) {
-        this(subsystem, () -> setpoint, () -> source, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
+        this(subsystem, () -> setpoint, () -> source, pidSettings);
+    }
+
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
+                                       PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+        this(subsystem, setpoint, source, () -> 0.0, pidSettings, feedForwardSettings);
+    }
+
+    public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, double setpoint, double source,
+                                       PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+        this(subsystem, () -> setpoint, () -> source, () -> 0.0, pidSettings, feedForwardSettings);
     }
 
     protected double calculatePIDAndFFValues() {
