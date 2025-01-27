@@ -39,8 +39,8 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
                                                          FeedForwardSettings feedForwardSettings,
                                                          Supplier<Double> setpoint, Supplier<Double> acceleration,
                                                          TrapezoidProfileSettings trapezoidProfileSettings,
-                                                         boolean updateAutomatically) {
-        super(subsystem, pidSettings, feedForwardSettings, UnifiedControlMode.TRAPEZOID_PROFILE, setpoint, updateAutomatically);
+                                                         boolean updatePeriodically) {
+        super(subsystem, pidSettings, feedForwardSettings, UnifiedControlMode.TRAPEZOID_PROFILE, setpoint, updatePeriodically);
         this.trapezoidProfileSettings = trapezoidProfileSettings;
         this.acceleration = acceleration;
     }
