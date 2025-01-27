@@ -126,6 +126,7 @@ public class DriveArcadeWithPID extends Command {
     public void execute() {
         pidController.setTolerance(pidSettings.getTolerance());
         pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        pidController.setIZone(pidSettings.getIZone());
 
         feedForwardController.setGains(feedForwardSettings);
 
