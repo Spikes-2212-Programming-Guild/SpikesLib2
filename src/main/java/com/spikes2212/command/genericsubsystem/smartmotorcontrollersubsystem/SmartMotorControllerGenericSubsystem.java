@@ -87,7 +87,7 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
      * @param feedForwardSettings the feed forward gains
      */
     public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
-                        FeedForwardSettings feedForwardSettings, boolean updatePeriodically) {
+                       FeedForwardSettings feedForwardSettings, boolean updatePeriodically) {
         motorControllers.forEach(motorController -> motorController.pidSet(controlMode, setpoint, acceleration,
                 pidSettings, feedForwardSettings, updatePeriodically));
     }
@@ -98,6 +98,7 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
         motorControllers.forEach(motorController -> motorController.pidSet(controlMode, setpoint, 0,
                 pidSettings, feedForwardSettings, updatePeriodically));
     }
+
     /**
      * Stops any control loops running on the motor controller.
      */

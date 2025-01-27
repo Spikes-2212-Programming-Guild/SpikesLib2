@@ -1,9 +1,10 @@
 package com.spikes2212.dashboard;
 
 import edu.wpi.first.networktables.NetworkTable;
-import java.time.LocalTime;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+
+import java.time.LocalTime;
 
 /**
  * A logger class meant to be used with the <a href="https://github.com/Spikes-2212-Programming-Guild/SpikesLogger"> SpikesLogger desktop app </a>
@@ -61,7 +62,7 @@ public class SpikesLogger extends RootNamespace {
     public <T> void logWithTimestamp(T output) {
         log(LocalTime.now() + ": " + output);
     }
-      
+
     /**
      * Returns a command that logs the provided output to the NetworkTables and the SpikesLogger app.
      *

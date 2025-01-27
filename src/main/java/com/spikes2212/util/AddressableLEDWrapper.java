@@ -3,7 +3,7 @@ package com.spikes2212.util;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * A class that handles the communication between a LED strip and the code.

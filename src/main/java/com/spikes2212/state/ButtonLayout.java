@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @Deprecated(since = "2025", forRemoval = true)
 public abstract class ButtonLayout<T extends Enum<T>> {
 

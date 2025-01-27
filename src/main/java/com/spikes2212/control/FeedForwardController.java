@@ -6,6 +6,7 @@ package com.spikes2212.control;
 public class FeedForwardController {
 
     public enum ControlMode {
+
         LINEAR_POSITION, LINEAR_VELOCITY, ANGULAR_POSITION, ANGULAR_VELOCITY;
     }
 
