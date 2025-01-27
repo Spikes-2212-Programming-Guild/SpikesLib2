@@ -42,7 +42,7 @@ public class MoveSmartMotorControllerGenericSubsystem extends Command {
      */
     protected final Supplier<Double> setpoint;
 
-    protected final boolean updateAutomatically;
+    protected final boolean updatePeriodically;
 
     /**
      * The most recent timestamp on which the loop has not reached its target setpoint.
@@ -61,14 +61,14 @@ public class MoveSmartMotorControllerGenericSubsystem extends Command {
     public MoveSmartMotorControllerGenericSubsystem(SmartMotorControllerGenericSubsystem subsystem, PIDSettings pidSettings,
                                                     FeedForwardSettings feedForwardSettings,
                                                     UnifiedControlMode controlMode, Supplier<Double> setpoint,
-                                                    boolean updateAutomatically) {
+                                                    boolean updatePeriodically) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.controlMode = controlMode;
         this.pidSettings = pidSettings;
         this.feedForwardSettings = feedForwardSettings;
         this.setpoint = setpoint;
-        this.updateAutomatically = updateAutomatically;
+        this.updatePeriodically = updatePeriodically;
         this.lastTimeNotOnTarget = 0;
     }
 
@@ -85,7 +85,7 @@ public class MoveSmartMotorControllerGenericSubsystem extends Command {
      */
     @Override
     public void execute() {
-        subsystem.pidSet(controlMode, setpoint.get(), pidSettings, feedForwardSettings, updateAutomatically);
+        subsystem.pidSet(controlMode, setpoint.get(), pidSettings, feedForwardSettings, updatePeriodically);
     }
 
     @Override

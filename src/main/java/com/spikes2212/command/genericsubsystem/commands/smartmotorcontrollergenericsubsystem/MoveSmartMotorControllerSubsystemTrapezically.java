@@ -53,6 +53,6 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
     @Override
     public void execute() {
         subsystem.pidSet(controlMode, setpoint.get(), acceleration.get(), pidSettings, feedForwardSettings,
-                trapezoidProfileSettings, updateAutomatically);
+                trapezoidProfileSettings, updatePeriodically);
     }
 }
