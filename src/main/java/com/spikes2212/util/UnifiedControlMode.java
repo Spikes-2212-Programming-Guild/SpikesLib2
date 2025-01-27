@@ -1,6 +1,7 @@
 package com.spikes2212.util;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix6.signals.ControlModeValue;
 import com.revrobotics.spark.SparkBase;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -12,24 +13,24 @@ import com.ctre.phoenix6.hardware.TalonFX;
  * @see SparkBase.ControlType
  */
 public enum UnifiedControlMode {
-    POSITION(ControlMode.Position, SparkBase.ControlType.kPosition),
-    VELOCITY(ControlMode.Velocity, SparkBase.ControlType.kVelocity),
-    CURRENT(ControlMode.Current, SparkBase.ControlType.kCurrent),
-    PERCENT_OUTPUT(ControlMode.PercentOutput, SparkBase.ControlType.kDutyCycle),
-    TRAPEZOID_PROFILE(ControlMode.MotionMagic, SparkBase.ControlType.kMAXMotionPositionControl),
-    MOTION_PROFILING(ControlMode.MotionProfile, null),
-    VOLTAGE(null, SparkBase.ControlType.kVoltage);
+    POSITION(ControlModeValue.PositionDutyCycle, SparkBase.ControlType.kPosition),
+    VELOCITY(ControlModeValue.VelocityDutyCycle, SparkBase.ControlType.kVelocity),
+    CURRENT(ControlModeValue.TorqueCurrentFOC, SparkBase.ControlType.kCurrent),
+    PERCENT_OUTPUT(ControlModeValue.DutyCycleOut, SparkBase.ControlType.kDutyCycle),
+    TRAPEZOID_PROFILE(ControlModeValue.MotionMagicDutyCycle, SparkBase.ControlType.kMAXMotionPositionControl),
+    MOTION_PROFILING(null, null),
+    VOLTAGE(ControlModeValue.VoltageOut, SparkBase.ControlType.kVoltage);
 
-    private final ControlMode ctreControlMode;
+    private final ControlModeValue talonFXControlMode;
     private final SparkBase.ControlType sparkControlType;
 
-    UnifiedControlMode(ControlMode ctreControlMode, SparkBase.ControlType sparkControlType) {
-        this.ctreControlMode = ctreControlMode;
+    UnifiedControlMode(ControlModeValue talonFXControlMode, SparkBase.ControlType sparkControlType) {
+        this.talonFXControlMode = talonFXControlMode;
         this.sparkControlType = sparkControlType;
     }
 
-    public ControlMode getCTREControlMode() {
-        return ctreControlMode;
+    public ControlModeValue getTalonFXControlMode() {
+        return talonFXControlMode;
     }
 
     public SparkBase.ControlType getSparkControlType() {
