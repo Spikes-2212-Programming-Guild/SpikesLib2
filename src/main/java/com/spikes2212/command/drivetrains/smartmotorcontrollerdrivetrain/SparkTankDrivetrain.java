@@ -71,12 +71,10 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         if (leftMaster instanceof SparkMax) {
             leftConfig = new SparkMaxConfig();
             rightConfig = new SparkMaxConfig();
-        }
-        else if (leftMaster instanceof SparkFlex) {
+        } else if (leftMaster instanceof SparkFlex) {
             leftConfig = new SparkFlexConfig();
             rightConfig = new SparkFlexConfig();
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Not a valid spark type!");
         }
 
