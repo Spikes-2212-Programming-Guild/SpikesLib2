@@ -185,6 +185,8 @@ public class DriveTankWithPID extends Command {
         rightPIDController.setTolerance(rightPIDSettings.getTolerance());
         leftPIDController.setPID(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD());
         rightPIDController.setPID(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD());
+        leftPIDController.setIZone(leftPIDSettings.getIZone());
+        rightPIDController.setIZone(rightPIDSettings.getIZone());
         leftFeedForwardController.setGains(leftFeedForwardSettings);
         rightFeedForwardController.setGains(rightFeedForwardSettings);
         drivetrain.tankDrive((leftPIDController.calculate(leftSource.get()) +
