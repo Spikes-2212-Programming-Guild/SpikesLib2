@@ -142,16 +142,10 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         MAXMotionConfig leftMaxMotionConfig = new MAXMotionConfig();
         leftMaxMotionConfig.maxAcceleration(settings.getMaxAcceleration());
         leftMaxMotionConfig.maxVelocity(settings.getMaxAcceleration());
-        // @TODO what
-//        master.getPIDController().setSmartMotionAccelStrategy(
-//                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
-
 
         MAXMotionConfig rightMaxMotionConfig = new MAXMotionConfig();
         rightMaxMotionConfig.maxAcceleration(settings.getMaxAcceleration());
         rightMaxMotionConfig.maxVelocity(settings.getMaxAcceleration());
-//        master.getPIDController().setSmartMotionAccelStrategy(
-//                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
     /**
