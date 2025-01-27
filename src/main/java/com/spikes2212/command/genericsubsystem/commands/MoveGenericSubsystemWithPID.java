@@ -19,29 +19,10 @@ import java.util.function.Supplier;
  */
 public class MoveGenericSubsystemWithPID extends Command {
 
-    /**
-     * the subsystem the command moves.
-     */
     protected final GenericSubsystem subsystem;
-
-    /**
-     * A supplier that returns the subsystem's current location.
-     */
     protected final Supplier<Double> source;
-
-    /**
-     * The PID Settings for the PID control loop.
-     */
     protected final PIDSettings pidSettings;
-
-    /**
-     * The Feed Forward Settings for the feed forward control loop.
-     */
     protected final FeedForwardSettings feedForwardSettings;
-
-    /**
-     * the setpoint for the subsystem.
-     */
     protected final Supplier<Double> setpoint;
 
     /**
@@ -55,10 +36,20 @@ public class MoveGenericSubsystemWithPID extends Command {
     protected final FeedForwardController feedForwardController;
 
     /**
-     * The last time the subsystem didn't reach target.
+     * The last time the subsystem didn't reach the target.
      */
     private double lastTimeNotOnTarget;
 
+    /**
+     * Constructs a new {@link MoveGenericSubsystemWithPID} command that moves the given
+     * {@link GenericSubsystem} towards a setpoint given from a Double {@link Supplier}.
+     *
+     * @param subsystem           the subsystem this command operates on
+     * @param setpoint            the Double {@link Supplier} supplying the setpoint
+     * @param source              the Double {@link Supplier} supplying the current position
+     * @param pidSettings         the pid constants used for calculating the move value for each iteration
+     * @param feedForwardSettings the feed forward constants used for calculating the move value
+     */
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
                                        PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
         addRequirements(subsystem);
