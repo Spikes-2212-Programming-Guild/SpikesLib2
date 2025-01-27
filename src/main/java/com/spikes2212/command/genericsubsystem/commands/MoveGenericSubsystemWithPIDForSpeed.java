@@ -1,6 +1,7 @@
 package com.spikes2212.command.genericsubsystem.commands;
 
 import com.spikes2212.command.genericsubsystem.GenericSubsystem;
+import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 
@@ -12,6 +13,7 @@ import java.util.function.Supplier;
  * @author Ofri Rosenbaum
  * @see MoveGenericSubsystemWithPID
  */
+@Deprecated(forRemoval = true, since = "2025")
 public class MoveGenericSubsystemWithPIDForSpeed extends MoveGenericSubsystemWithPID {
 
     public MoveGenericSubsystemWithPIDForSpeed(GenericSubsystem subsystem, Supplier<Double> targetVelocity,

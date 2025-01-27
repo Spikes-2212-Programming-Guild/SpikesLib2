@@ -1,6 +1,7 @@
 package com.spikes2212.command.drivetrains;
 
 import com.spikes2212.command.DashboardedSubsystem;
+import com.spikes2212.util.MotorControllerGroup;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -20,8 +21,8 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "tank drivetrain";
 
-    protected MotorController leftController;
-    protected MotorController rightController;
+    protected final MotorController leftController;
+    protected final MotorController rightController;
 
     private final DifferentialDrive drive;
 
@@ -36,6 +37,18 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     public TankDrivetrain(MotorController leftController, MotorController rightController) {
         this(getClassName(DEFAULT_NAMESPACE_NAME), leftController, rightController);
+    }
+
+    public TankDrivetrain(String namespaceName, MotorController leftMaster, MotorController leftSlave,
+                          MotorController rightMaster, MotorController rightSlave) {
+        this(namespaceName, new MotorControllerGroup(leftMaster, leftSlave),
+                new MotorControllerGroup(rightMaster, rightSlave));
+    }
+
+    public TankDrivetrain(MotorController leftMaster, MotorController leftSlave,
+                          MotorController rightMaster, MotorController rightSlave) {
+        this(new MotorControllerGroup(leftMaster, leftSlave),
+                new MotorControllerGroup(rightMaster, rightSlave));
     }
 
     /**
@@ -127,7 +140,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
      * @param rightSpeed the speed to set to the right side (-1 to 1). Positive values move this side forward
      */
     public void setRight(double rightSpeed) {
-        rightController.set(-rightSpeed);
+        rightController.set(rightSpeed);
     }
 
     /**
@@ -158,6 +171,7 @@ public class TankDrivetrain extends DashboardedSubsystem {
 
     /**
      * Sets the motor safety feature of the speed controllers on/off.
+     *
      * @param enabled whether motor safety should be enabled
      */
     public void setMotorSafety(boolean enabled) {

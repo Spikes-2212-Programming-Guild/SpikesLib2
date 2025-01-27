@@ -31,7 +31,7 @@ public class DriveArcadeWithPID extends Command {
     /**
      * The PID controller for the turning PID loop.
      */
-    protected PIDController pidController;
+    protected final PIDController pidController;
 
     /**
      * The FeedForward settings for the turning FeedForwards loop.
@@ -41,34 +41,40 @@ public class DriveArcadeWithPID extends Command {
     /**
      * The FeedForward controller for the turning FeedForwards loop.
      */
-    protected FeedForwardController feedForwardController;
+    protected final FeedForwardController feedForwardController;
 
     /**
      * The angle of the drivetrain.
      */
-    protected Supplier<Double> source;
+    protected final Supplier<Double> source;
+
+    /**
+     * The angle the drivetrain should reach.
+     */
+    protected final Supplier<Double> setpoint;
+
+    /**
+     * The acceleration the drivetrain should be at.
+     */
+    protected final Supplier<Double> acceleration;
+
+    /**
+     * The speed at which to move the drivetrain forward.
+     */
+    protected final Supplier<Double> moveValue;
 
     /**
      * The last time the drivetrain's angle wasn't within the target range.
      */
     private double lastTimeNotOnTarget;
 
-    /**
-     * The angle the drivetrain should reach.
-     */
-    protected Supplier<Double> setpoint;
-
-    /**
-     * The speed at which to move the drivetrain forward.
-     */
-    protected Supplier<Double> moveValue;
-
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
-                              Supplier<Double> moveValue, PIDSettings pidSettings,
+                              Supplier<Double> acceleration, Supplier<Double> moveValue, PIDSettings pidSettings,
                               FeedForwardSettings feedForwardSettings) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.setpoint = setpoint;
+        this.acceleration = acceleration;
         this.pidSettings = pidSettings;
         this.feedForwardSettings = feedForwardSettings;
         this.source = source;
@@ -76,21 +82,33 @@ public class DriveArcadeWithPID extends Command {
         this.pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
         this.pidController.setSetpoint(setpoint.get());
         this.feedForwardController = new FeedForwardController(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
-                feedForwardSettings.getkA(), feedForwardSettings.getkG(), FeedForwardController.DEFAULT_PERIOD);
+                feedForwardSettings.getkA(), feedForwardSettings.getkG(), feedForwardSettings.getControlMode());
     }
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, double moveValue,
-                              PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-        this(drivetrain, source, () -> setpoint, () -> moveValue, pidSettings, feedForwardSettings);
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint,
+                              Supplier<Double> acceleration, double moveValue, PIDSettings pidSettings,
+                              FeedForwardSettings feedForwardSettings) {
+        this(drivetrain, source, () -> setpoint, acceleration, () -> moveValue, pidSettings, feedForwardSettings);
+    }
+
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
+                              Supplier<Double> moveValue, PIDSettings pidSettings,
+                              FeedForwardSettings feedForwardSettings) {
+        this(drivetrain, source, setpoint, () -> 0.0, moveValue, pidSettings, feedForwardSettings);
+    }
+
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint,
+                              double moveValue, PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
+        this(drivetrain, source, () -> setpoint, () -> 0.0, () -> moveValue, pidSettings, feedForwardSettings);
     }
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
                               Supplier<Double> moveValue, PIDSettings pidSettings) {
-        this(drivetrain, source, setpoint, moveValue, pidSettings, FeedForwardSettings.EMPTY_FFSETTINGS);
+        this(drivetrain, source, setpoint, () -> 0.0, moveValue, pidSettings, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
-    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint, double moveValue,
-                              PIDSettings pidSettings) {
+    public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, double setpoint,
+                              double moveValue, PIDSettings pidSettings) {
         this(drivetrain, source, () -> setpoint, () -> moveValue, pidSettings);
     }
 
@@ -98,12 +116,12 @@ public class DriveArcadeWithPID extends Command {
     public void execute() {
         pidController.setTolerance(pidSettings.getTolerance());
         pidController.setPID(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
+        pidController.setIZone(pidSettings.getIZone());
 
-        feedForwardController.setGains(feedForwardSettings.getkS(), feedForwardSettings.getkV(),
-                feedForwardSettings.getkA(), feedForwardSettings.getkG());
+        feedForwardController.setGains(feedForwardSettings);
 
         drivetrain.arcadeDrive(moveValue.get(), pidController.calculate(source.get(), setpoint.get()) +
-                feedForwardController.calculate(setpoint.get()));
+                feedForwardController.calculate(source.get(), setpoint.get(), acceleration.get()));
     }
 
     @Override
