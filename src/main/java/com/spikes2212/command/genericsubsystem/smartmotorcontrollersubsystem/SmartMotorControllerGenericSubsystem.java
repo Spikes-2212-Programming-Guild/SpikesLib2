@@ -71,11 +71,11 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
      * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
      */
-    public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
                        boolean updatePeriodically) {
-        motorControllers.forEach(motorController -> motorController.pidSet(controlMode, setpoint, acceleration,
-                pidSettings, feedForwardSettings, trapezoidProfileSettings, updatePeriodically));
+        motorControllers.forEach(motorController -> motorController.pidSet(controlMode, setpoint, pidSettings,
+                feedForwardSettings, trapezoidProfileSettings, updatePeriodically));
     }
 
     /**
@@ -86,12 +86,18 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
      * @param pidSettings         the PID constants
      * @param feedForwardSettings the feed forward gains
      */
-    public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
-                        FeedForwardSettings feedForwardSettings, boolean updateAutomatically) {
-        pidSet(controlMode, setpoint, 0, pidSettings, feedForwardSettings,
-                TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS, updateAutomatically);
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
+                        FeedForwardSettings feedForwardSettings, boolean updatePeriodically) {
+        motorControllers.forEach(motorController -> motorController.pidSet(controlMode, setpoint, acceleration,
+                pidSettings, feedForwardSettings, updatePeriodically));
     }
 
+
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
+                       FeedForwardSettings feedForwardSettings, boolean updatePeriodically) {
+        motorControllers.forEach(motorController -> motorController.pidSet(controlMode, setpoint, 0,
+                pidSettings, feedForwardSettings, updatePeriodically));
+    }
     /**
      * Stops any control loops running on the motor controller.
      */

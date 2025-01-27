@@ -167,10 +167,26 @@ public class SparkWrapper implements SmartMotorController {
     }
 
     @Override
-    public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
-                       boolean configurePeriodically) {
-        if (configurePeriodically) configureLoop(pidSettings, feedForwardSettings, trapezoidProfileSettings);
+                       boolean updatePeriodically) {
+        if (updatePeriodically) configureLoop(pidSettings, feedForwardSettings, trapezoidProfileSettings);
+        double source;
+        if (feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.LINEAR_POSITION ||
+                feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.ANGULAR_POSITION) {
+            source = sparkBase.getEncoder().getPosition();
+        } else {
+            source = sparkBase.getEncoder().getVelocity();
+        }
+        sparkBase.getClosedLoopController().setReference(setpoint, controlMode.getSparkControlType(),
+                ClosedLoopSlot.kSlot0, feedForwardController.calculate(source, setpoint));
+    }
+
+    @Override
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
+                       FeedForwardSettings feedForwardSettings, boolean updatePeriodically) {
+        if (updatePeriodically) configureLoop(pidSettings, feedForwardSettings,
+                TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
         double source;
         if (feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.LINEAR_POSITION ||
                 feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.ANGULAR_POSITION) {
@@ -184,10 +200,8 @@ public class SparkWrapper implements SmartMotorController {
 
     @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
-                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
-                       boolean configurePeriodically) {
-        pidSet(controlMode, setpoint, 0, pidSettings, feedForwardSettings, trapezoidProfileSettings,
-                configurePeriodically);
+                       FeedForwardSettings feedForwardSettings, boolean updatePeriodically) {
+        pidSet(controlMode, setpoint, 0, pidSettings, feedForwardSettings, updatePeriodically);
     }
 
     @Override

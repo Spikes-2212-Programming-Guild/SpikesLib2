@@ -102,13 +102,6 @@ public class TalonFXWrapper implements SmartMotorController {
     }
 
     @Override
-    public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
-                       FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
-                       boolean updatePeriodically) {
-        pidSet(controlMode, setpoint, pidSettings, feedForwardSettings, trapezoidProfileSettings, updatePeriodically);
-    }
-
-    @Override
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
                        boolean updatePeriodically) {
@@ -123,6 +116,18 @@ public class TalonFXWrapper implements SmartMotorController {
             case POSITION -> new PositionDutyCycle(setpoint);
         };
         talonFX.setControl(request);
+    }
+
+    @Override
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, double acceleration, PIDSettings pidSettings,
+                       FeedForwardSettings feedForwardSettings, boolean updatePeriodically) {
+        pidSet(controlMode, setpoint, pidSettings, feedForwardSettings, updatePeriodically);
+    }
+
+    @Override
+    public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
+                       FeedForwardSettings feedForwardSettings, boolean updatePeriodically) {
+        pidSet(controlMode, setpoint, 0, pidSettings, feedForwardSettings, updatePeriodically);
     }
 
     public void follow(TalonFX master, boolean invert) {
