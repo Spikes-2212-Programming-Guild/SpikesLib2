@@ -5,7 +5,6 @@ package com.spikes2212.control.noise;
  *
  * @author Simon Kharmatsky
  */
-@Deprecated(since = "2025", forRemoval = true)
 public interface NoiseFilter {
 
     /**

@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 /**
  * @author Simon Kharmatsky
  */
-@Deprecated(since = "2025", forRemoval = true)
 public class NoiseReducer implements Supplier<Double> {
 
     private Supplier<Double> source;
