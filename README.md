@@ -4,7 +4,8 @@ SpikesLib is a library that extends <a href="https://github.com/wpilibsuite/allw
 Spikes#2212.
 
 <h2 style="color: #00156E;">Examples</h2>
-Examples of how to use the library can be found <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2-Examples">here</a>.
+Examples of how to use the library can be
+found <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2-Examples">here</a>.
 
 <h2 style="color: #00156E;">Packages</h2>
 
@@ -20,11 +21,13 @@ https://spikes2212.com/SpikesLib.json
 
 <h2 style="color: #00156E;">2024 Season</h2>
 
-Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v3.2.1...v5.0.0-beta"> updated </a> to support WPILib 2024.
+Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v3.2.1...v5.0.0-beta">
+updated </a> to support WPILib 2024.
 
 <h2 style="color: #00156E;">2023 Season</h2>
 
-Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v2.0.0...v3.0.0"> updated </a> to support WPILib 2023.
+Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v2.0.0...v3.0.0">
+updated </a> to support WPILib 2023.
 
 <h2 style="color: #00156E;">2022 Season</h2>
 
@@ -40,7 +43,6 @@ SpikesLib is developed in a feature branches workflow. <br>
 All feature branches are merged into <code><i>dev</i></code> branch after testing, which in turn is merged into
 <code><i>master</i></code> after it passing complete testing <br>
 Branches should be named according to the following convention - <code><i>name_package_feature</i></code>
-
 
 <h2 style="color: #00156E;">Help us out!</h2>
 We accept help from everyone! <br>
