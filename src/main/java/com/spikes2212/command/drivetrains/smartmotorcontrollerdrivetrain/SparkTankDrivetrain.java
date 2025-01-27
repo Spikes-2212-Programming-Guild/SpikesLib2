@@ -79,6 +79,7 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
         else {
             throw new IllegalArgumentException("Not a valid spark type!");
         }
+
         this.leftSlaves.forEach(s -> {
             s.configure(leftConfig.follow(leftMaster), SparkBase.ResetMode.kNoResetSafeParameters,
                     SparkBase.PersistMode.kNoPersistParameters);
