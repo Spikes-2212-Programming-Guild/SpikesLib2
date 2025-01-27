@@ -42,6 +42,8 @@ public class MoveSmartMotorControllerGenericSubsystem extends Command {
      */
     protected final Supplier<Double> setpoint;
 
+    protected final Supplier<Double> acceleration;
+
     protected final boolean updatePeriodically;
 
     /**
@@ -61,15 +63,23 @@ public class MoveSmartMotorControllerGenericSubsystem extends Command {
     public MoveSmartMotorControllerGenericSubsystem(SmartMotorControllerGenericSubsystem subsystem, PIDSettings pidSettings,
                                                     FeedForwardSettings feedForwardSettings,
                                                     UnifiedControlMode controlMode, Supplier<Double> setpoint,
-                                                    boolean updatePeriodically) {
+                                                    Supplier<Double> acceleration, boolean updatePeriodically) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
         this.controlMode = controlMode;
         this.pidSettings = pidSettings;
         this.feedForwardSettings = feedForwardSettings;
         this.setpoint = setpoint;
+        this.acceleration = acceleration;
         this.updatePeriodically = updatePeriodically;
         this.lastTimeNotOnTarget = 0;
+    }
+
+    public MoveSmartMotorControllerGenericSubsystem(SmartMotorControllerGenericSubsystem subsystem, PIDSettings pidSettings,
+                                                    FeedForwardSettings feedForwardSettings,
+                                                    UnifiedControlMode controlMode, Supplier<Double> setpoint,
+                                                    boolean updatePeriodically) {
+        this(subsystem, pidSettings, feedForwardSettings, controlMode, setpoint, () -> 0.0, updatePeriodically);
     }
 
     /**
@@ -85,7 +95,8 @@ public class MoveSmartMotorControllerGenericSubsystem extends Command {
      */
     @Override
     public void execute() {
-        subsystem.pidSet(controlMode, setpoint.get(), pidSettings, feedForwardSettings, updatePeriodically);
+        subsystem.pidSet(controlMode, setpoint.get(), acceleration.get(), pidSettings, feedForwardSettings,
+                updatePeriodically);
     }
 
     @Override
