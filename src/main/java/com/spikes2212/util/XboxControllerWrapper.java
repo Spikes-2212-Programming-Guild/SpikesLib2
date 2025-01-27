@@ -29,19 +29,19 @@ public class XboxControllerWrapper extends Joystick {
         xbox = new XboxController(port);
     }
 
-    public JoystickButton getGreenButton() {
+    public JoystickButton getAButton() {
         return new JoystickButton(this, XboxController.Button.kA.value);
     }
 
-    public JoystickButton getBlueButton() {
+    public JoystickButton getXButton() {
         return new JoystickButton(this, XboxController.Button.kX.value);
     }
 
-    public JoystickButton getRedButton() {
+    public JoystickButton getBButton() {
         return new JoystickButton(this, XboxController.Button.kB.value);
     }
 
-    public JoystickButton getYellowButton() {
+    public JoystickButton getYButton() {
         return new JoystickButton(this, XboxController.Button.kY.value);
     }
 
