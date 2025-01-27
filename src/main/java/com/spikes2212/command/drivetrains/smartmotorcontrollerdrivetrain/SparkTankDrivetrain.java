@@ -120,16 +120,16 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     public void configPIDF(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                            FeedForwardSettings feedForwardSettings) {
         ClosedLoopConfig leftClosedLoopConfig = new ClosedLoopConfig();
-        leftClosedLoopConfig.pidf(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD(),
-                feedForwardSettings.getkV());
+        leftClosedLoopConfig.pid(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD());
+        leftClosedLoopConfig.iZone(leftPIDSettings.getIZone());
         leftConfig.apply(leftClosedLoopConfig);
         leftMaster.configure(leftConfig, SparkBase.ResetMode.kNoResetSafeParameters,
                 SparkBase.PersistMode.kNoPersistParameters);
 
         ClosedLoopConfig rightClosedLoopConfig = new ClosedLoopConfig();
-        rightClosedLoopConfig.pidf(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD(),
-                feedForwardSettings.getkV());
         rightConfig.apply(rightClosedLoopConfig);
+        rightClosedLoopConfig.pid(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD());
+        rightClosedLoopConfig.iZone(rightPIDSettings.getIZone());
         rightMaster.configure(rightConfig, SparkBase.ResetMode.kNoResetSafeParameters,
                 SparkBase.PersistMode.kNoPersistParameters);
     }
