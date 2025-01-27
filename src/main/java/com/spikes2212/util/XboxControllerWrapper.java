@@ -102,35 +102,35 @@ public class XboxControllerWrapper extends Joystick {
     }
 
     public Trigger getUpButton() {
-        return new Trigger(() -> getPOV() == DPAD.UP.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.UP.value);
     }
 
     public Trigger getDownButton() {
-        return new Trigger(() -> getPOV() == DPAD.DOWN.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.DOWN.value);
     }
 
     public Trigger getLeftButton() {
-        return new Trigger(() -> getPOV() == DPAD.LEFT.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.LEFT.value);
     }
 
     public Trigger getRightButton() {
-        return new Trigger(() -> getPOV() == DPAD.RIGHT.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.RIGHT.value);
     }
 
     public Trigger getUpperRightButton() {
-        return new Trigger(() -> getPOV() == DPAD.UPPER_RIGHT.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.UPPER_RIGHT.value);
     }
 
     public Trigger getLowerRightButton() {
-        return new Trigger(() -> getPOV() == DPAD.LOWER_RIGHT.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.LOWER_RIGHT.value);
     }
 
     public Trigger getLowerLeftButton() {
-        return new Trigger(() -> getPOV() == DPAD.LOWER_LEFT.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.LOWER_LEFT.value);
     }
 
     public Trigger getUpperLeftButton() {
-        return new Trigger(() -> getPOV() == DPAD.UPPER_LEFT.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.UPPER_LEFT.value);
     }
 
     public void setRumble(double value) {
