@@ -24,7 +24,15 @@ public class MoveGenericSubsystemWithPID extends Command {
     protected final PIDSettings pidSettings;
     protected final FeedForwardSettings feedForwardSettings;
     protected final Supplier<Double> setpoint;
+
+    /**
+     * An object that makes the necessary calculations for the PID control loop.
+     */
     protected final PIDController pidController;
+
+    /**
+     * An object that makes the necessary calculations for the feed forward control loop.
+     */
     protected final FeedForwardController feedForwardController;
 
     /**
@@ -36,10 +44,10 @@ public class MoveGenericSubsystemWithPID extends Command {
      * Constructs a new {@link MoveGenericSubsystemWithPID} command that moves the given
      * {@link GenericSubsystem} towards a setpoint given from a Double {@link Supplier}.
      *
-     * @param subsystem the subsystem this command operates on
-     * @param setpoint the Double {@link Supplier} supplying the setpoint
-     * @param source the Double {@link Supplier} supplying the current position
-     * @param pidSettings the pid constants used for calculating the move value for each iteration
+     * @param subsystem           the subsystem this command operates on
+     * @param setpoint            the Double {@link Supplier} supplying the setpoint
+     * @param source              the Double {@link Supplier} supplying the current position
+     * @param pidSettings         the pid constants used for calculating the move value for each iteration
      * @param feedForwardSettings the feed forward constants used for calculating the move value
      */
     public MoveGenericSubsystemWithPID(GenericSubsystem subsystem, Supplier<Double> setpoint, Supplier<Double> source,
