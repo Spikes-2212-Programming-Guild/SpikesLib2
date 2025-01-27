@@ -31,7 +31,7 @@ public class DriveArcadeWithPID extends Command {
     /**
      * The PID controller for the turning PID loop.
      */
-    protected PIDController pidController;
+    protected final PIDController pidController;
 
     /**
      * The FeedForward settings for the turning FeedForwards loop.
@@ -41,32 +41,32 @@ public class DriveArcadeWithPID extends Command {
     /**
      * The FeedForward controller for the turning FeedForwards loop.
      */
-    protected FeedForwardController feedForwardController;
+    protected final FeedForwardController feedForwardController;
 
     /**
      * The angle of the drivetrain.
      */
-    protected Supplier<Double> source;
+    protected final Supplier<Double> source;
+
+    /**
+     * The angle the drivetrain should reach.
+     */
+    protected final Supplier<Double> setpoint;
+
+    /**
+     * The acceleration the drivetrain should be at.
+     */
+    protected final Supplier<Double> acceleration;
+
+    /**
+     * The speed at which to move the drivetrain forward.
+     */
+    protected final Supplier<Double> moveValue;
 
     /**
      * The last time the drivetrain's angle wasn't within the target range.
      */
     private double lastTimeNotOnTarget;
-
-    /**
-     * The angle the drivetrain should reach.
-     */
-    protected Supplier<Double> setpoint;
-
-    /**
-     * The acceleration the drivetrain should be at.
-     */
-    protected Supplier<Double> acceleration;
-
-    /**
-     * The speed at which to move the drivetrain forward.
-     */
-    protected Supplier<Double> moveValue;
 
     public DriveArcadeWithPID(TankDrivetrain drivetrain, Supplier<Double> source, Supplier<Double> setpoint,
                               Supplier<Double> acceleration, Supplier<Double> moveValue, PIDSettings pidSettings,
