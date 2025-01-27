@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.ProxyCommand;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @Deprecated(since = "2025", forRemoval = true)
 public abstract class StateMachine<T extends Enum<T>> {
 

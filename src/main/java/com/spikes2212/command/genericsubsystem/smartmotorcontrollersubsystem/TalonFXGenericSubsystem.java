@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
  * A {@link Subsystem} which consists of a master {@link TalonFX} motor controller that runs control
  * loops and additional {@link TalonFX} motor controllers that follow it.
  *
- * @author Netta Hamalish
+ * @author Netta Halamish
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */

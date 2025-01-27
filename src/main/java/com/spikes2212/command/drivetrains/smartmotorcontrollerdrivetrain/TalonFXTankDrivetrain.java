@@ -22,7 +22,7 @@ import java.util.List;
  * A {@link TankDrivetrain} which consists of a master {@link TalonFX} controller that can run control loops and additional
  * {@link TalonFX} motor controllers that follow it.
  *
- * @author Camilia Lami
+ * @author Camellia Lami
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
