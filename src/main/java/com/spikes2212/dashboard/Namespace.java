@@ -206,6 +206,10 @@ public interface Namespace {
         return new PIDSettings(kP, kI, kD, IZone, tolerance, waitTime);
     }
 
+    default PIDSettings addPIDNamespace(String name) {
+        return addPIDNamespace(name, PIDSettings.EMPTY_PID_SETTINGS);
+    }
+
     /**
      * Adds a set of {@link FeedForwardSettings} values to a designated {@link ChildNamespace}.
      *
@@ -220,6 +224,10 @@ public interface Namespace {
         Supplier<Double> kA = child.addConstantDouble(name + " kA", initialFeedForwardSettings.getkA());
         Supplier<Double> kG = child.addConstantDouble(name + " kG", initialFeedForwardSettings.getkG());
         return new FeedForwardSettings(kS, kV, kA, kG, initialFeedForwardSettings.getControlMode());
+    }
+
+    default FeedForwardSettings addFeedForwardNamespace(String name) {
+        return addFeedForwardNamespace(name, FeedForwardSettings.EMPTY_FF_SETTINGS);
     }
 
     /**
