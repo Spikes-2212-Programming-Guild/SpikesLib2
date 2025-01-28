@@ -228,8 +228,8 @@ public class SparkWrapper implements SmartMotorController {
                        boolean updatePeriodically) {
         if (updatePeriodically) configureLoop(pidSettings, feedForwardSettings, trapezoidProfileSettings);
         double source;
-        if (feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.LINEAR_POSITION ||
-                feedForwardSettings.getControlMode() == FeedForwardController.ControlMode.ANGULAR_POSITION) {
+        if (feedForwardController.getControlMode() == FeedForwardController.ControlMode.LINEAR_POSITION ||
+                feedForwardController.getControlMode() == FeedForwardController.ControlMode.ANGULAR_POSITION) {
             source = sparkBase.getEncoder().getPosition();
         } else {
             source = sparkBase.getEncoder().getVelocity();
