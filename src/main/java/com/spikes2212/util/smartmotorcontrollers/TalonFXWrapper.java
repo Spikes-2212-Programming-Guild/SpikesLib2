@@ -22,7 +22,7 @@ import com.spikes2212.util.UnifiedControlMode;
 public class TalonFXWrapper implements SmartMotorController {
 
     /**
-     * The TalonFX.
+     * The TalonFX motor controller.
      */
     protected final TalonFX talonFX;
 
