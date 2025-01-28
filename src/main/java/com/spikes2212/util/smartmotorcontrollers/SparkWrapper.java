@@ -22,7 +22,7 @@ public class SparkWrapper implements SmartMotorController {
     private final FeedForwardController feedForwardController;
 
     /**
-     * The spark motor.
+     * The spark motor controller.
      */
     private SparkBase sparkBase;
 
