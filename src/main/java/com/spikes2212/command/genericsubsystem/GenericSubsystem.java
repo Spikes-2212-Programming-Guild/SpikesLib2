@@ -15,8 +15,8 @@ public abstract class GenericSubsystem extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "generic subsystem";
 
-    protected Supplier<Double> maxSpeed;
-    protected Supplier<Double> minSpeed;
+    protected final Supplier<Double> maxSpeed;
+    protected final Supplier<Double> minSpeed;
 
     private double currentSpeed = 0;
 

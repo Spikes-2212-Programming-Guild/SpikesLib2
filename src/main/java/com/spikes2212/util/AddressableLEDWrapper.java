@@ -3,7 +3,7 @@ package com.spikes2212.util;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * A class that handles the communication between a LED strip and the code.
@@ -16,15 +16,16 @@ public class AddressableLEDWrapper {
     /**
      * The controlled LED strip.
      */
-    private final AddressableLED led;
+    protected final AddressableLED led;
 
     /**
      * The controlled LED strip's data.
      */
-    private final AddressableLEDBuffer ledBuffer;
+    protected final AddressableLEDBuffer ledBuffer;
 
     public AddressableLEDWrapper(int ledPort, int numberOfLEDs) {
         this.led = new AddressableLED(ledPort);
+        led.setLength(numberOfLEDs);
         this.ledBuffer = new AddressableLEDBuffer(numberOfLEDs);
     }
 

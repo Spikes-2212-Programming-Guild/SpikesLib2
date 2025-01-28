@@ -106,18 +106,18 @@ public class PlaystationControllerWrapper extends Joystick {
     }
 
     public Trigger getUpButton() {
-        return new Trigger(() -> getPOV() == DPAD.UP.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.UP.value);
     }
 
     public Trigger getDownButton() {
-        return new Trigger(() -> getPOV() == DPAD.DOWN.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.DOWN.value);
     }
 
     public Trigger getLeftButton() {
-        return new Trigger(() -> getPOV() == DPAD.LEFT.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.LEFT.value);
     }
 
     public Trigger getRightButton() {
-        return new Trigger(() -> getPOV() == DPAD.RIGHT.VALUE);
+        return new Trigger(() -> getPOV() == DPAD.RIGHT.value);
     }
 }
