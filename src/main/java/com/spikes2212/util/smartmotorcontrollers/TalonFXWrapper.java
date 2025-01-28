@@ -37,7 +37,7 @@ public class TalonFXWrapper implements SmartMotorController {
     protected final MotorOutputConfigs motorOutputConfigs;
 
     /**
-     * Constructs a new instance of {@link TalonFXWrapper}
+     * Constructs a new instance of {@link TalonFXWrapper}.
      *
      * @param deviceId the talon's id
      * @param canbus   the name of the canbus which the talon runs on
