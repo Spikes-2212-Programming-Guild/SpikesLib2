@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.List;
 
-@Deprecated(forRemoval = true, since = "2025")
 public class FollowPath extends Command {
 
     private OdometryDrivetrain drivetrain;
@@ -47,9 +46,11 @@ public class FollowPath extends Command {
         purePursuitController.getOdometryHandler().set(0, 0);
         purePursuitController.reset();
         leftFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(),
-                FeedForwardSettings.getControlMode());
+                FeedForwardController.DEFAULT_PERIOD);
         rightFeedForwardController = new FeedForwardController(FeedForwardSettings.getkV(), FeedForwardSettings.getkA(),
-                FeedForwardSettings.getControlMode());
+                FeedForwardController.DEFAULT_PERIOD);
+        leftFeedForwardController.reset();
+        rightFeedForwardController.reset();
         leftController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
         rightController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
     }
@@ -57,12 +58,12 @@ public class FollowPath extends Command {
     @Override
     public void execute() {
         double[] speeds = purePursuitController.getTargetSpeeds();
-        double leftSpeed = leftFeedForwardController.calculate(drivetrain.getLeftRate(), speeds[0]) +
-                leftController.calculate(drivetrain.getLeftRate(), speeds[0]
-                );
-        double rightSpeed = rightFeedForwardController.calculate(drivetrain.getRightRate(), speeds[1]) +
-                rightController.calculate(drivetrain.getRightRate(), speeds[1]
-                );
+        double leftSpeed = leftFeedForwardController.calculate(speeds[0]) + leftController.calculate(
+                drivetrain.getLeftRate(), speeds[0]
+        );
+        double rightSpeed = rightFeedForwardController.calculate(speeds[1]) + rightController.calculate(
+                drivetrain.getRightRate(), speeds[1]
+        );
         drivetrain.tankDrive(leftSpeed, rightSpeed, false);
     }
 

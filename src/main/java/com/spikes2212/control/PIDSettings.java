@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  */
 public class PIDSettings {
 
-    public static final PIDSettings EMPTY_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0, 0);
+    public static final PIDSettings EMPTY_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
 
     /**
      * the proportional component of the PID settings
@@ -27,11 +27,6 @@ public class PIDSettings {
     private Supplier<Double> kD;
 
     /**
-     * the distance in which the integral component begins to work
-     */
-    private Supplier<Double> iZone;
-
-    /**
      * the acceptable distance from the target
      */
     private Supplier<Double> tolerance;
@@ -41,26 +36,25 @@ public class PIDSettings {
      */
     private Supplier<Double> waitTime;
 
-    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> iZone,
-                       Supplier<Double> tolerance, Supplier<Double> waitTime) {
+    public PIDSettings(Supplier<Double> kP, Supplier<Double> kI, Supplier<Double> kD, Supplier<Double> tolerance,
+                       Supplier<Double> waitTime) {
         this.kP = kP;
         this.kI = kI;
         this.kD = kD;
-        this.iZone = iZone;
         this.tolerance = tolerance;
         this.waitTime = waitTime;
     }
 
     public PIDSettings(double kP, double tolerance, double waitTime) {
-        this(kP, 0.0, 0.0, tolerance, 0.0, waitTime);
+        this(kP, 0.0, 0.0, tolerance, waitTime);
     }
 
-    public PIDSettings(double kP, double kI, double kD, double iZone, double tolerance, double waitTime) {
-        this(() -> kP, () -> kI, () -> kD, () -> iZone, () -> tolerance, () -> waitTime);
+    public PIDSettings(double kP, double kI, double kD, double tolerance, double waitTime) {
+        this(() -> kP, () -> kI, () -> kD, () -> tolerance, () -> waitTime);
     }
 
     public PIDSettings(Supplier<Double> kP, Supplier<Double> tolerance, Supplier<Double> waitTime) {
-        this(kP, () -> 0.0, () -> 0.0, () -> 0.0, tolerance, waitTime);
+        this(kP, () -> 0.0, () -> 0.0, tolerance, waitTime);
     }
 
     public double getkP() {
@@ -93,14 +87,6 @@ public class PIDSettings {
 
     public void setTolerance(Supplier<Double> tolerance) {
         this.tolerance = tolerance;
-    }
-
-    public double getIZone() {
-        return iZone.get();
-    }
-
-    public void setIZone(Supplier<Double> iZone) {
-        this.iZone = iZone;
     }
 
     public double getWaitTime() {

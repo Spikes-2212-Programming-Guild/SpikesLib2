@@ -36,6 +36,9 @@ public class MoveGenericSubsystem extends Command {
         this(subsystem, () -> speedSupplier);
     }
 
+    /**
+     * moves the subsystem at the given speed
+     */
     @Override
     public void execute() {
         subsystem.move(speedSupplier.get());

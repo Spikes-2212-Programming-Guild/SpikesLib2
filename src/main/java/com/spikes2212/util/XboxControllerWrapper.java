@@ -29,19 +29,19 @@ public class XboxControllerWrapper extends Joystick {
         xbox = new XboxController(port);
     }
 
-    public JoystickButton getAButton() {
+    public JoystickButton getGreenButton() {
         return new JoystickButton(this, XboxController.Button.kA.value);
     }
 
-    public JoystickButton getXButton() {
+    public JoystickButton getBlueButton() {
         return new JoystickButton(this, XboxController.Button.kX.value);
     }
 
-    public JoystickButton getBButton() {
+    public JoystickButton getRedButton() {
         return new JoystickButton(this, XboxController.Button.kB.value);
     }
 
-    public JoystickButton getYButton() {
+    public JoystickButton getYellowButton() {
         return new JoystickButton(this, XboxController.Button.kY.value);
     }
 
@@ -102,35 +102,35 @@ public class XboxControllerWrapper extends Joystick {
     }
 
     public Trigger getUpButton() {
-        return new Trigger(() -> getPOV() == DPAD.UP.value);
+        return new Trigger(() -> getPOV() == DPAD.UP.VALUE);
     }
 
     public Trigger getDownButton() {
-        return new Trigger(() -> getPOV() == DPAD.DOWN.value);
+        return new Trigger(() -> getPOV() == DPAD.DOWN.VALUE);
     }
 
     public Trigger getLeftButton() {
-        return new Trigger(() -> getPOV() == DPAD.LEFT.value);
+        return new Trigger(() -> getPOV() == DPAD.LEFT.VALUE);
     }
 
     public Trigger getRightButton() {
-        return new Trigger(() -> getPOV() == DPAD.RIGHT.value);
+        return new Trigger(() -> getPOV() == DPAD.RIGHT.VALUE);
     }
 
     public Trigger getUpperRightButton() {
-        return new Trigger(() -> getPOV() == DPAD.UPPER_RIGHT.value);
+        return new Trigger(() -> getPOV() == DPAD.UPPER_RIGHT.VALUE);
     }
 
     public Trigger getLowerRightButton() {
-        return new Trigger(() -> getPOV() == DPAD.LOWER_RIGHT.value);
+        return new Trigger(() -> getPOV() == DPAD.LOWER_RIGHT.VALUE);
     }
 
     public Trigger getLowerLeftButton() {
-        return new Trigger(() -> getPOV() == DPAD.LOWER_LEFT.value);
+        return new Trigger(() -> getPOV() == DPAD.LOWER_LEFT.VALUE);
     }
 
     public Trigger getUpperLeftButton() {
-        return new Trigger(() -> getPOV() == DPAD.UPPER_LEFT.value);
+        return new Trigger(() -> getPOV() == DPAD.UPPER_LEFT.VALUE);
     }
 
     public void setRumble(double value) {

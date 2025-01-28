@@ -5,15 +5,7 @@ package com.spikes2212.control;
  */
 public class FeedForwardController {
 
-    public enum ControlMode {
-
-        LINEAR_POSITION, LINEAR_VELOCITY, ANGULAR_POSITION, ANGULAR_VELOCITY;
-    }
-
-    /**
-     * The type of feed forward control to use
-     */
-    private final ControlMode controlMode;
+    public static final double DEFAULT_PERIOD = 0.02;
 
     /**
      * The static constant
@@ -35,24 +27,35 @@ public class FeedForwardController {
      */
     private double kG;
 
-    public FeedForwardController(double kS, double kV, double kA, double kG, ControlMode controlMode) {
+    /**
+     * The previous target used for the derivative.
+     */
+    private double previousTarget;
+
+    /**
+     * The calling period for the calculate function.
+     */
+    private final double period;
+
+    public FeedForwardController(double kS, double kV, double kA, double kG, double period) {
         this.kS = kS;
         this.kV = kV;
         this.kA = kA;
         this.kG = kG;
-        this.controlMode = controlMode;
+        this.period = period;
+        this.previousTarget = 0;
     }
 
-    public FeedForwardController(double kV, double kA, ControlMode controlMode) {
-        this(0, kV, kA, 0, controlMode);
+    public FeedForwardController(double kV, double kA, double period) {
+        this(0, kV, kA, 0, period);
     }
 
-    public FeedForwardController(double kS, double kV, double kA, ControlMode controlMode) {
-        this(kS, kV, kA, 0, controlMode);
+    public FeedForwardController(double kS, double kV, double kA, double period) {
+        this(kS, kV, kA, 0, period);
     }
 
-    public FeedForwardController(FeedForwardSettings settings) {
-        this(settings.getkS(), settings.getkV(), settings.getkA(), settings.getkG(), settings.getControlMode());
+    public FeedForwardController(FeedForwardSettings settings, double period) {
+        this(settings.getkS(), settings.getkV(), settings.getkA(), settings.getkG(), period);
     }
 
     public void setGains(double kV, double kA) {
@@ -110,43 +113,24 @@ public class FeedForwardController {
         this.kG = kG;
     }
 
-    public ControlMode getControlMode() {
-        return controlMode;
+    public double getPeriod() {
+        return period;
+    }
+
+    public void reset() {
+        this.previousTarget = 0;
     }
 
     /**
      * Calculates the desired output using a simple feed forward method.
+     * This method should be called with the period given in the constructor.
      *
-     * @param source       the current state
-     * @param setpoint     the desired state
-     * @param acceleration the desired acceleration
+     * @param setpoint the target velocity
      * @return the desired output
      */
-    public double calculate(double source, double setpoint, double acceleration) {
-        double kSValue = 0;
-        double kGValue = 0;
-        switch (controlMode) {
-            case LINEAR_POSITION -> {
-                kSValue = kS * Math.signum(setpoint - source);
-                kGValue = kG;
-            }
-            case LINEAR_VELOCITY -> {
-                kSValue = kS * Math.signum(setpoint);
-                kGValue = kG;
-            }
-            case ANGULAR_POSITION -> {
-                kSValue = kS * Math.signum(setpoint - source);
-                kGValue = kG * Math.cos(source);
-            }
-            case ANGULAR_VELOCITY -> {
-                kSValue = kS * Math.signum(setpoint);
-                kGValue = kG * Math.cos(source);
-            }
-        }
-        return kSValue + kV * setpoint + kA * acceleration + kGValue;
-    }
-
-    public double calculate(double source, double setpoint) {
-        return calculate(source, setpoint, 0);
+    public double calculate(double setpoint) {
+        double targetDerivative = (setpoint - previousTarget) / period;
+        previousTarget = setpoint;
+        return kG + kS * Math.signum(setpoint) + kV * setpoint + kA * targetDerivative;
     }
 }

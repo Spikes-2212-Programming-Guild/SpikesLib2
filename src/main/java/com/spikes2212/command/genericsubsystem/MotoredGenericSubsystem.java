@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public class MotoredGenericSubsystem extends GenericSubsystem {
 
-    protected final MotorController motorController;
+    protected MotorController motorController;
 
     /**
      * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given

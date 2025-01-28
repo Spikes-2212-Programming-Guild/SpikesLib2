@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-@Deprecated(since = "2025", forRemoval = true)
+
 public class Paths {
 
     /**

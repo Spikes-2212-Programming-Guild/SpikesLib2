@@ -1,39 +1,37 @@
 package com.spikes2212.util;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.ControlModeValue;
-import com.revrobotics.spark.SparkBase;
+import com.revrobotics.CANSparkMax;
 
 /**
- * A wrapper for the REV motor controllers and the {@link TalonFX} control modes.
+ * A wrapper for the CTRE motor controllers and {@link CANSparkMax} control modes.
  *
  * @author Yoel Perman Brilliant
  * @see ControlMode
- * @see SparkBase.ControlType
+ * @see CANSparkMax.ControlType
  */
 public enum UnifiedControlMode {
+    POSITION(ControlMode.Position, CANSparkMax.ControlType.kPosition),
+    VELOCITY(ControlMode.Velocity, CANSparkMax.ControlType.kVelocity),
+    CURRENT(ControlMode.Current, CANSparkMax.ControlType.kCurrent),
+    PERCENT_OUTPUT(ControlMode.PercentOutput, CANSparkMax.ControlType.kDutyCycle),
+    TRAPEZOID_PROFILE(ControlMode.MotionMagic, CANSparkMax.ControlType.kSmartMotion),
+    MOTION_PROFILING(ControlMode.MotionProfile, null),
+    VOLTAGE(null, CANSparkMax.ControlType.kVoltage);
 
-    POSITION(ControlModeValue.PositionDutyCycle, SparkBase.ControlType.kPosition),
-    VELOCITY(ControlModeValue.VelocityDutyCycle, SparkBase.ControlType.kVelocity),
-    CURRENT(ControlModeValue.TorqueCurrentFOC, SparkBase.ControlType.kCurrent),
-    PERCENT_OUTPUT(ControlModeValue.DutyCycleOut, SparkBase.ControlType.kDutyCycle),
-    TRAPEZOID_PROFILE(ControlModeValue.MotionMagicDutyCycle, SparkBase.ControlType.kMAXMotionPositionControl),
-    VOLTAGE(ControlModeValue.VoltageOut, SparkBase.ControlType.kVoltage);
+    private final ControlMode ctreControlMode;
+    private final CANSparkMax.ControlType sparkMaxControlType;
 
-    private final ControlModeValue talonFXControlMode;
-    private final SparkBase.ControlType sparkControlType;
-
-    UnifiedControlMode(ControlModeValue talonFXControlMode, SparkBase.ControlType sparkControlType) {
-        this.talonFXControlMode = talonFXControlMode;
-        this.sparkControlType = sparkControlType;
+    UnifiedControlMode(ControlMode ctreControlMode, CANSparkMax.ControlType sparkMaxControlType) {
+        this.ctreControlMode = ctreControlMode;
+        this.sparkMaxControlType = sparkMaxControlType;
     }
 
-    public ControlModeValue getTalonFXControlMode() {
-        return talonFXControlMode;
+    public ControlMode getCTREControlMode() {
+        return ctreControlMode;
     }
 
-    public SparkBase.ControlType getSparkControlType() {
-        return sparkControlType;
+    public CANSparkMax.ControlType getSparkMaxControlType() {
+        return sparkMaxControlType;
     }
 }

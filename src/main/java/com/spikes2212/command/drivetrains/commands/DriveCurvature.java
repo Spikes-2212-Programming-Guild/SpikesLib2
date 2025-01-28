@@ -14,9 +14,9 @@ import java.util.function.Supplier;
  */
 public class DriveCurvature extends Command {
 
-    protected final TankDrivetrain drivetrain;
-    protected final Supplier<Double> speed;
-    protected final Supplier<Double> rotation;
+    protected TankDrivetrain drivetrain;
+    protected Supplier<Double> speed;
+    protected Supplier<Double> rotation;
 
     public DriveCurvature(TankDrivetrain drivetrain, Supplier<Double> speed, Supplier<Double> rotation) {
         this.drivetrain = drivetrain;

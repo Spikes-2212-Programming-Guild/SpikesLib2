@@ -4,7 +4,6 @@ package com.spikes2212.path;
  * This class is used to limit the rate of change of robot velocities,
  * it is used in {@link PurePursuitController} in order to achieve smoother acceleration.
  */
-@Deprecated(since = "2025", forRemoval = true)
 public class RateLimiter {
 
     private double maxAcceleration;
