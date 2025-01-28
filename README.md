@@ -9,11 +9,11 @@ found <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2-Exa
 
 <h2 style="color: #00156B;">Packages</h2>
 
-- command - extensions for WPILib's Command Based framework
-- control - controller wrappers and custom controllers
-- dashboard - wrappers for NetworkTables elements
-- path - path following code and pure pursuit algorithm
-- util - additional utilities
+<li>command - extensions for WPILib's Command Based framework</li>
+<li>control - controller wrappers and custom controllers</li>
+<li>dashboard - wrappers for NetworkTables elements</li>
+<li>path - path following code and pure pursuit algorithm</li>
+<li>util - additional utilities</li>
 
 <h2 style="color: #00156B;">Installation</h2>
 After creating a Robot Project, import SpikesLib as an online vendor libray, using this link: <br> <br>
