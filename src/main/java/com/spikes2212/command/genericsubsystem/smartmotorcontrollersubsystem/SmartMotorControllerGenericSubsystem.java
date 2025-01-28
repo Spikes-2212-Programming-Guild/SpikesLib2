@@ -25,14 +25,14 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
     }
 
     /**
-     * Configures the loop's PID constants and feed forward gains.
+     * Configures the loop's PID constants.
      */
     public void configurePID(PIDSettings pidSettings) {
         motorControllers.forEach(smartMotorController -> smartMotorController.configurePID(pidSettings));
     }
 
     /**
-     * Configures the loop's PID constants and feed forward gains.
+     * Configures the loop's feed forward gains.
      */
     public void configureFF(FeedForwardSettings feedForwardSettings) {
         motorControllers.forEach(smartMotorController -> smartMotorController.configureFF(feedForwardSettings));
