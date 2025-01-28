@@ -36,9 +36,8 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
     public MoveSmartMotorControllerSubsystemTrapezically(SmartMotorControllerGenericSubsystem subsystem, PIDSettings pidSettings,
                                                          FeedForwardSettings feedForwardSettings,
                                                          Supplier<Double> setpoint,
-                                                         TrapezoidProfileSettings trapezoidProfileSettings,
-                                                         boolean updatePeriodically) {
-        super(subsystem, pidSettings, feedForwardSettings, UnifiedControlMode.TRAPEZOID_PROFILE, setpoint, updatePeriodically);
+                                                         TrapezoidProfileSettings trapezoidProfileSettings) {
+        super(subsystem, pidSettings, feedForwardSettings, UnifiedControlMode.TRAPEZOID_PROFILE, setpoint);
         this.trapezoidProfileSettings = trapezoidProfileSettings;
     }
 
@@ -49,7 +48,6 @@ public class MoveSmartMotorControllerSubsystemTrapezically extends MoveSmartMoto
 
     @Override
     public void execute() {
-        subsystem.pidSet(controlMode, setpoint.get(), pidSettings, feedForwardSettings,
-                trapezoidProfileSettings, updatePeriodically);
+        subsystem.pidSet(controlMode, setpoint.get(), pidSettings, feedForwardSettings, trapezoidProfileSettings);
     }
 }

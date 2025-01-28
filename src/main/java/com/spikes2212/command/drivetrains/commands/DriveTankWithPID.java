@@ -46,52 +46,42 @@ public class DriveTankWithPID extends Command {
     /**
      * The PID Controller of the PID loop operating on the left side of the drivetrain.
      */
-    protected final PIDController leftPIDController;
+    protected PIDController leftPIDController;
 
     /**
      * The PID Controller of the PID loop operating on the right side of the drivetrain.
      */
-    protected final PIDController rightPIDController;
+    protected PIDController rightPIDController;
 
     /**
      * The setpoint the left side of the drivetrain should reach.
      */
-    protected final Supplier<Double> leftSetpoint;
+    protected Supplier<Double> leftSetpoint;
 
     /**
      * The setpoint the right side of the drivetrain should reach.
      */
-    protected final Supplier<Double> rightSetpoint;
-
-    /**
-     * The acceleration the left side of the drivetrain should reach.
-     */
-    protected final Supplier<Double> leftAcceleration;
-
-    /**
-     * The acceleration the right side of the drivetrain should reach.
-     */
-    protected final Supplier<Double> rightAcceleration;
+    protected Supplier<Double> rightSetpoint;
 
     /**
      * How far the left side of the drivetrain drove.
      */
-    protected final Supplier<Double> leftSource;
+    protected Supplier<Double> leftSource;
 
     /**
      * How far the right side of the drivetrain drove.
      */
-    protected final Supplier<Double> rightSource;
+    protected Supplier<Double> rightSource;
 
     /**
      * The FeedForwards Controller of the FeedForward loop operating on the left side of the drivetrain.
      */
-    protected final FeedForwardController leftFeedForwardController;
+    protected FeedForwardController leftFeedForwardController;
 
     /**
      * The FeedForwards Controller of the FeedForward loop operating on the right side of the drivetrain.
      */
-    protected final FeedForwardController rightFeedForwardController;
+    protected FeedForwardController rightFeedForwardController;
 
     /**
      * The last time the left side of the drivetrain was not within its target zone.
@@ -105,8 +95,7 @@ public class DriveTankWithPID extends Command {
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                             Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
-                            Supplier<Double> rightSource, Supplier<Double> leftAcceleration,
-                            Supplier<Double> rightAcceleration, FeedForwardSettings leftFeedForwardSettings,
+                            Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
                             FeedForwardSettings rightFeedForwardSettings) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
@@ -120,61 +109,38 @@ public class DriveTankWithPID extends Command {
         this.rightSetpoint = rightSetpoint;
         this.leftSource = leftSource;
         this.rightSource = rightSource;
-        this.leftAcceleration = leftAcceleration;
-        this.rightAcceleration = rightAcceleration;
         this.leftPIDController.setSetpoint(leftSetpoint.get());
         this.rightPIDController.setSetpoint(rightSetpoint.get());
         this.leftFeedForwardSettings = leftFeedForwardSettings;
         this.rightFeedForwardSettings = rightFeedForwardSettings;
         this.leftFeedForwardController = new FeedForwardController(leftFeedForwardSettings.getkS(),
                 leftFeedForwardSettings.getkV(), leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG(),
-                leftFeedForwardSettings.getControlMode());
+                FeedForwardController.DEFAULT_PERIOD);
         this.rightFeedForwardController = new FeedForwardController(rightFeedForwardSettings.getkS(),
                 rightFeedForwardSettings.getkV(), rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG(),
-                rightFeedForwardSettings.getControlMode());
+                FeedForwardController.DEFAULT_PERIOD);
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
-                            Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint,
-                            Supplier<Double> leftSource, Supplier<Double> rightSource) {
+                            Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
+                            Supplier<Double> rightSource) {
         this(drivetrain, leftPIDSettings, rightPIDSettings, leftSetpoint, rightSetpoint, leftSource, rightSource,
-                () -> 0.0, () -> 0.0, FeedForwardSettings.EMPTY_FF_SETTINGS,
-                FeedForwardSettings.EMPTY_FF_SETTINGS);
+                FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                             double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
-                            Supplier<Double> rightSource, Supplier<Double> leftAcceleration,
-                            Supplier<Double> rightAcceleration, FeedForwardSettings leftFeedForwardSettings,
+                            Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
                             FeedForwardSettings rightFeedForwardSettings) {
-        this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint,
-                leftAcceleration, rightAcceleration, leftSource, rightSource, leftFeedForwardSettings,
-                rightFeedForwardSettings);
+        this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource,
+                rightSource, leftFeedForwardSettings, rightFeedForwardSettings);
     }
 
     public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                             double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
                             Supplier<Double> rightSource) {
-        this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint, () -> 0.0,
-                () -> 0.0, leftSource, rightSource, FeedForwardSettings.EMPTY_FF_SETTINGS,
-                FeedForwardSettings.EMPTY_FF_SETTINGS);
-    }
-
-    public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
-                            Supplier<Double> leftSetpoint, Supplier<Double> rightSetpoint, Supplier<Double> leftSource,
-                            Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
-                            FeedForwardSettings rightFeedForwardSettings) {
-        this(drivetrain, leftPIDSettings, rightPIDSettings, leftSetpoint, rightSetpoint, leftSource, rightSource,
-                () -> 0.0, () -> 0.0, leftFeedForwardSettings, rightFeedForwardSettings);
-    }
-
-    public DriveTankWithPID(TankDrivetrain drivetrain, PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
-                            double leftSetpoint, double rightSetpoint, Supplier<Double> leftSource,
-                            Supplier<Double> rightSource, FeedForwardSettings leftFeedForwardSettings,
-                            FeedForwardSettings rightFeedForwardSettings) {
-        this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint,
-                () -> 0.0, () -> 0.0, leftSource, rightSource, leftFeedForwardSettings,
-                rightFeedForwardSettings);
+        this(drivetrain, leftPIDSettings, rightPIDSettings, () -> leftSetpoint, () -> rightSetpoint, leftSource,
+                rightSource, FeedForwardSettings.EMPTY_FFSETTINGS, FeedForwardSettings.EMPTY_FFSETTINGS);
     }
 
     @Override
@@ -185,16 +151,14 @@ public class DriveTankWithPID extends Command {
         rightPIDController.setTolerance(rightPIDSettings.getTolerance());
         leftPIDController.setPID(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD());
         rightPIDController.setPID(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD());
-        leftPIDController.setIZone(leftPIDSettings.getIZone());
-        rightPIDController.setIZone(rightPIDSettings.getIZone());
-        leftFeedForwardController.setGains(leftFeedForwardSettings);
-        rightFeedForwardController.setGains(rightFeedForwardSettings);
+        leftFeedForwardController.setGains(leftFeedForwardSettings.getkS(), leftFeedForwardSettings.getkV(),
+                leftFeedForwardSettings.getkA(), leftFeedForwardSettings.getkG());
+        rightFeedForwardController.setGains(rightFeedForwardSettings.getkS(), rightFeedForwardSettings.getkV(),
+                rightFeedForwardSettings.getkA(), rightFeedForwardSettings.getkG());
         drivetrain.tankDrive((leftPIDController.calculate(leftSource.get()) +
-                        leftFeedForwardController.calculate(leftSource.get(), leftSetpoint.get(),
-                                leftAcceleration.get())),
+                        leftFeedForwardController.calculate(leftSetpoint.get())),
                 rightPIDController.calculate(rightSource.get()) +
-                        rightFeedForwardController.calculate(rightSource.get(), rightSetpoint.get(),
-                                rightAcceleration.get()));
+                        rightFeedForwardController.calculate(rightSetpoint.get()));
     }
 
     @Override

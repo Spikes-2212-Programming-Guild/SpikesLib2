@@ -15,7 +15,8 @@ public class TrapezoidProfileSettings {
     public static final TrapezoidProfileSettings EMPTY_TRAPEZOID_PROFILE_SETTINGS =
             new TrapezoidProfileSettings(0, 0, 0);
 
-    private Supplier<Double> maxAcceleration;
+    private Supplier<Double> accelerationRate;
+
     private Supplier<Double> maxVelocity;
 
     /**
@@ -23,31 +24,31 @@ public class TrapezoidProfileSettings {
      */
     private Supplier<Double> curve;
 
-    public TrapezoidProfileSettings(Supplier<Double> maxAcceleration, Supplier<Double> maxVelocity,
+    public TrapezoidProfileSettings(Supplier<Double> accelerationRate, Supplier<Double> maxVelocity,
                                     Supplier<Double> curve) {
-        this.maxAcceleration = maxAcceleration;
+        this.accelerationRate = accelerationRate;
         this.maxVelocity = maxVelocity;
         this.curve = curve;
     }
 
-    public TrapezoidProfileSettings(Supplier<Double> maxAcceleration, Supplier<Double> maxVelocity) {
-        this(maxAcceleration, maxVelocity, () -> 0.0);
+    public TrapezoidProfileSettings(Supplier<Double> accelerationRate, Supplier<Double> maxVelocity) {
+        this(accelerationRate, maxVelocity, () -> 0.0);
     }
 
-    public TrapezoidProfileSettings(double maxAcceleration, double maxVelocity, double curve) {
-        this(() -> maxAcceleration, () -> maxVelocity, () -> curve);
+    public TrapezoidProfileSettings(double accelerationRate, double maxVelocity, double curve) {
+        this(() -> accelerationRate, () -> maxVelocity, () -> curve);
     }
 
-    public TrapezoidProfileSettings(double maxAcceleration, double maxVelocity) {
-        this(maxAcceleration, maxVelocity, 0);
+    public TrapezoidProfileSettings(double accelerationRate, double maxVelocity) {
+        this(accelerationRate, maxVelocity, 0);
     }
 
-    public double getMaxAcceleration() {
-        return maxAcceleration.get();
+    public double getAccelerationRate() {
+        return accelerationRate.get();
     }
 
-    public void setMaxAcceleration(Supplier<Double> maxAcceleration) {
-        this.maxAcceleration = maxAcceleration;
+    public void setAccelerationRate(Supplier<Double> accelerationRate) {
+        this.accelerationRate = accelerationRate;
     }
 
     public double getMaxVelocity() {

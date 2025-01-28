@@ -1,51 +1,60 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
-import com.revrobotics.CANSparkBase;
-import com.revrobotics.SparkPIDController;
+import com.ctre.phoenix.motorcontrol.IFollower;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import java.util.List;
 
 /**
- * A {@link Subsystem} which consists of a master {@link CANSparkBase} motor controller that runs control
- * loops and additional {@link CANSparkBase} motor controllers that follow it.
+ * A {@link Subsystem} which consists of a master CTRE motor controller that can run control loops and additional
+ * CTRE motor controllers that follow it.
+ * <br>
+ * Only works with Phoenix V5 motor controller classes!
+ * <br>
+ * Due to Phoenix V5 being deprecated, this class is deprecated as well.
  *
  * @author Yoel Perman Brilliant
  * @see DashboardedSubsystem
  * @see SmartMotorControllerGenericSubsystem
  */
-public class SparkGenericSubsystem extends DashboardedSubsystem implements SmartMotorControllerGenericSubsystem {
+@Deprecated(since = "2024", forRemoval = true)
+public class CTRESmartMotorControllerGenericSubsystem extends DashboardedSubsystem
+        implements SmartMotorControllerGenericSubsystem {
 
     /**
-     * The slot on the {@link CANSparkBase} on which the trapezoid profiling configurations are saved.
+     * The slot on the motor controller on which the loop is run.
      */
-    private static final int TRAPEZOID_SLOT_ID = 0;
+    private static final int LOOP_SLOT = 0;
 
     /**
-     * The {@link CANSparkBase} which runs the loops.
+     * The motor controller which runs the loops.
      */
-    protected final CANSparkBase master;
+    protected final BaseMotorController master;
 
     /**
-     * Additional {@link CANSparkBase}s that follow the master.
+     * Additional motor controllers that follow the master.
      */
-    protected final List<? extends CANSparkBase> slaves;
+    protected final List<? extends IFollower> slaves;
 
     /**
-     * Constructs a new instance of {@link SparkGenericSubsystem}.
+     * Constructs a new instance of {@link CTRESmartMotorControllerGenericSubsystem}.
      *
      * @param namespaceName the name of the subsystem's namespace
      * @param master        the motor controller which runs the loops
      * @param slaves        additional motor controllers that follow the master
      */
-    public SparkGenericSubsystem(String namespaceName, CANSparkBase master, CANSparkBase... slaves) {
+    public CTRESmartMotorControllerGenericSubsystem(String namespaceName, BaseMotorController master,
+                                                    IFollower... slaves) {
         super(namespaceName);
         this.master = master;
         this.slaves = List.of(slaves);
@@ -64,10 +73,10 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      */
     @Override
     public void configPIDF(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings) {
-        master.getPIDController().setFF(feedForwardSettings.getkV());
-        master.getPIDController().setP(pidSettings.getkP());
-        master.getPIDController().setI(pidSettings.getkI());
-        master.getPIDController().setD(pidSettings.getkD());
+        master.config_kP(LOOP_SLOT, pidSettings.getkP());
+        master.config_kI(LOOP_SLOT, pidSettings.getkI());
+        master.config_kD(LOOP_SLOT, pidSettings.getkD());
+        master.config_kF(LOOP_SLOT, feedForwardSettings.getkV());
     }
 
     /**
@@ -75,10 +84,9 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
-        master.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
-        master.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
-        master.getPIDController().setSmartMotionAccelStrategy(
-                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
+        master.configMotionAcceleration(settings.getAccelerationRate());
+        master.configMotionCruiseVelocity(settings.getMaxVelocity());
+        master.configMotionSCurveStrength((int) settings.getCurve());
     }
 
     /**
@@ -87,16 +95,15 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
     @Override
     public void configureLoop(PIDSettings pidSettings, FeedForwardSettings feedForwardSettings,
                               TrapezoidProfileSettings trapezoidProfileSettings) {
-        master.restoreFactoryDefaults();
+        master.configFactoryDefault();
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        slaves.forEach(s -> s.follow(master));
     }
 
     /**
      * Updates any control loops running on the motor controller.
      *
-     * @param controlMode              the loop's control type (e.g. voltage, velocity, position...)
+     * @param controlMode              the loop's control mode (e.g. voltage, velocity, position...)
      * @param setpoint                 the loop's target setpoint
      * @param pidSettings              the PID constants
      * @param feedForwardSettings      the feed forward gains
@@ -107,7 +114,7 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(pidSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-        master.getPIDController().setReference(setpoint, controlMode.getSparkMaxControlType());
+        master.set(controlMode.getCTREControlMode(), setpoint);
     }
 
     /**
@@ -115,11 +122,12 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      */
     @Override
     public void finish() {
-        master.stopMotor();
+        ((MotorController) master).stopMotor();
     }
 
     /**
-     * Checks whether the loop is currently on the target setpoint.
+     * Checks whether the loop is currently on the target setpoint. <br>
+     * This method, as is, <b>does not</b> cover every case and should be overridden if necessary.
      *
      * @param controlMode the loop's control type (e.g. voltage, velocity, position...)
      * @param tolerance   the maximum difference from the target to still be considered on target
@@ -127,14 +135,27 @@ public class SparkGenericSubsystem extends DashboardedSubsystem implements Smart
      * @return {@code true} when on target setpoint, {@code false} otherwise
      */
     @Override
-    public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
-        double value = switch (controlMode) {
-            case PERCENT_OUTPUT -> master.getAppliedOutput();
-            case VELOCITY -> master.getEncoder().getVelocity();
-            case CURRENT -> master.getOutputCurrent();
-            case VOLTAGE -> master.getBusVoltage() * master.getAppliedOutput();
-            default -> master.getEncoder().getPosition();
-        };
+    public boolean onTarget(UnifiedControlMode controlMode, double tolerance,
+                            double setpoint) {
+        double value;
+        switch (controlMode) {
+            case VELOCITY:
+                value = master.getSelectedSensorVelocity();
+                break;
+            case PERCENT_OUTPUT:
+                value = master.getMotorOutputPercent();
+                break;
+            case CURRENT:
+                if (master instanceof BaseTalon) {
+                    value = ((BaseTalon) master).getStatorCurrent();
+                    break;
+                } else throw new UnsupportedOperationException("VictorSPX cannot run current control!");
+            case VOLTAGE:
+                value = master.getMotorOutputVoltage();
+                break;
+            default:
+                value = master.getSelectedSensorPosition();
+        }
         return Math.abs(value - setpoint) <= tolerance;
     }
 }

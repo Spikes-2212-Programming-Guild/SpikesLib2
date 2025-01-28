@@ -9,8 +9,8 @@ import java.util.function.Supplier;
  */
 public class ChildNamespace extends RootNamespace {
 
-    protected final Namespace parent;
-    protected final String separator;
+    protected Namespace parent;
+    protected String separator;
 
     public ChildNamespace(String name, Namespace parent) {
         super(name);

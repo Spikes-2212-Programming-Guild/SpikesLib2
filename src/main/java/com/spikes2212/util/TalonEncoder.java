@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+
 /**
  * This class makes an encoder that is connected to a {@link WPI_TalonSRX} to a PIDSource.
  *

@@ -5,7 +5,6 @@ package com.spikes2212.path;
  *
  * @author Tuval Rivkind Barlev
  */
-@Deprecated(since = "2025", forRemoval = true)
 public class Waypoint {
 
     /**

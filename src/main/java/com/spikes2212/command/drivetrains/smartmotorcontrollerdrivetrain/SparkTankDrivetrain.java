@@ -1,9 +1,7 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
-import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.*;
+import com.revrobotics.CANSparkBase;
+import com.revrobotics.SparkPIDController;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -15,8 +13,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import java.util.List;
 
 /**
- * A {@link TankDrivetrain}, whose sides each consists of a master {@link SparkBase} motor controller that runs
- * control loops and additional {@link SparkBase} motor controllers that follow it.
+ * A {@link TankDrivetrain}, whose sides each consists of a master {@link CANSparkBase} motor controller that runs
+ * control loops and additional {@link CANSparkBase} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
  * @see TankDrivetrain
@@ -32,75 +30,57 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     /**
      * The left motor controller which runs the loops.
      */
-    protected final SparkBase leftMaster;
+    protected final CANSparkBase leftMaster;
 
     /**
      * The right motor controller which runs the loops.
      */
-    protected final SparkBase rightMaster;
+    protected final CANSparkBase rightMaster;
 
     /**
      * Additional motor controllers that follow the left master.
      */
-    protected final List<? extends SparkBase> leftSlaves;
+    protected final List<? extends CANSparkBase> leftSlaves;
 
     /**
      * Additional motor controllers that follow the right master.
      */
-    protected final List<? extends SparkBase> rightSlaves;
-
-    protected final SparkBaseConfig leftConfig;
-    protected final SparkBaseConfig rightConfig;
+    protected final List<? extends CANSparkBase> rightSlaves;
 
     /**
      * Constructs a new instance of {@link SparkTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
-     * @param leftMaster    the {@link SparkBase} motor controller which runs the left side's loops
-     * @param leftSlaves    additional {@link SparkBase} motor controllers that follow the left master
-     * @param rightMaster   the {@link SparkBase} motor controller which runs the right side's loops
-     * @param rightSlaves   additional {@link SparkBase} motor controllers that follow the right master
+     * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
+     * @param leftSlaves    additional {@link CANSparkBase} motor controllers that follow the left master
+     * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
+     * @param rightSlaves   additional {@link CANSparkBase} motor controllers that follow the right master
      */
-    public SparkTankDrivetrain(String namespaceName, SparkBase leftMaster, List<? extends SparkBase> leftSlaves,
-                               SparkBase rightMaster, List<? extends SparkBase> rightSlaves) {
+    public SparkTankDrivetrain(String namespaceName, CANSparkBase leftMaster, List<? extends CANSparkBase> leftSlaves,
+                               CANSparkBase rightMaster, List<? extends CANSparkBase> rightSlaves) {
         super(namespaceName, leftMaster, rightMaster);
         this.leftMaster = leftMaster;
         this.rightMaster = rightMaster;
         this.leftSlaves = leftSlaves;
         this.rightSlaves = rightSlaves;
-        if (leftMaster instanceof SparkMax) {
-            leftConfig = new SparkMaxConfig();
-            rightConfig = new SparkMaxConfig();
-        } else if (leftMaster instanceof SparkFlex) {
-            leftConfig = new SparkFlexConfig();
-            rightConfig = new SparkFlexConfig();
-        } else {
-            throw new IllegalArgumentException("Not a valid spark type!");
-        }
-
-        this.leftSlaves.forEach(s -> {
-            s.configure(leftConfig.follow(leftMaster), SparkBase.ResetMode.kNoResetSafeParameters,
-                    SparkBase.PersistMode.kNoPersistParameters);
-        });
-
-        rightConfig.inverted(true);
-        this.rightSlaves.forEach(s -> {
-            s.configure(rightConfig.follow(rightMaster), SparkBase.ResetMode.kNoResetSafeParameters,
-                    SparkBase.PersistMode.kNoPersistParameters);
-        });
+        this.leftSlaves.forEach(s -> s.follow(leftMaster));
+        this.rightSlaves.forEach(s -> s.follow(rightMaster));
+        rightController.setInverted(false);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> s.setInverted(true));
     }
 
     /**
      * Constructs a new instance of {@link SparkTankDrivetrain}.
      *
      * @param namespaceName the name of the drivetrain's namespace
-     * @param leftMaster    the {@link SparkBase} motor controller which runs the left side's loops
-     * @param leftSlave     an additional {@link SparkBase} motor controller that follows the left master
-     * @param rightMaster   the {@link SparkBase} motor controller which runs the right side's loops
-     * @param rightSlave    an additional {@link SparkBase} motor controller that follows the right master
+     * @param leftMaster    the {@link CANSparkBase} motor controller which runs the left side's loops
+     * @param leftSlave     an additional {@link CANSparkBase} motor controller that follows the left master
+     * @param rightMaster   the {@link CANSparkBase} motor controller which runs the right side's loops
+     * @param rightSlave    an additional {@link CANSparkBase} motor controller that follows the right master
      */
-    public SparkTankDrivetrain(String namespaceName, SparkBase leftMaster, SparkBase leftSlave,
-                               SparkBase rightMaster, SparkBase rightSlave) {
+    public SparkTankDrivetrain(String namespaceName, CANSparkBase leftMaster, CANSparkBase leftSlave,
+                               CANSparkBase rightMaster, CANSparkBase rightSlave) {
         this(namespaceName, leftMaster, List.of(leftSlave), rightMaster, List.of(rightSlave));
     }
 
@@ -117,19 +97,14 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     @Override
     public void configPIDF(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                            FeedForwardSettings feedForwardSettings) {
-        ClosedLoopConfig leftClosedLoopConfig = new ClosedLoopConfig();
-        leftClosedLoopConfig.pid(leftPIDSettings.getkP(), leftPIDSettings.getkI(), leftPIDSettings.getkD());
-        leftClosedLoopConfig.iZone(leftPIDSettings.getIZone());
-        leftConfig.apply(leftClosedLoopConfig);
-        leftMaster.configure(leftConfig, SparkBase.ResetMode.kNoResetSafeParameters,
-                SparkBase.PersistMode.kNoPersistParameters);
-
-        ClosedLoopConfig rightClosedLoopConfig = new ClosedLoopConfig();
-        rightConfig.apply(rightClosedLoopConfig);
-        rightClosedLoopConfig.pid(rightPIDSettings.getkP(), rightPIDSettings.getkI(), rightPIDSettings.getkD());
-        rightClosedLoopConfig.iZone(rightPIDSettings.getIZone());
-        rightMaster.configure(rightConfig, SparkBase.ResetMode.kNoResetSafeParameters,
-                SparkBase.PersistMode.kNoPersistParameters);
+        leftMaster.getPIDController().setFF(feedForwardSettings.getkV());
+        leftMaster.getPIDController().setP(leftPIDSettings.getkP());
+        leftMaster.getPIDController().setI(leftPIDSettings.getkI());
+        leftMaster.getPIDController().setD(leftPIDSettings.getkD());
+        rightMaster.getPIDController().setFF(feedForwardSettings.getkV());
+        rightMaster.getPIDController().setP(rightPIDSettings.getkP());
+        rightMaster.getPIDController().setI(rightPIDSettings.getkI());
+        rightMaster.getPIDController().setD(rightPIDSettings.getkD());
     }
 
     /**
@@ -137,13 +112,14 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
      */
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
-        MAXMotionConfig leftMaxMotionConfig = new MAXMotionConfig();
-        leftMaxMotionConfig.maxAcceleration(settings.getMaxAcceleration());
-        leftMaxMotionConfig.maxVelocity(settings.getMaxAcceleration());
-
-        MAXMotionConfig rightMaxMotionConfig = new MAXMotionConfig();
-        rightMaxMotionConfig.maxAcceleration(settings.getMaxAcceleration());
-        rightMaxMotionConfig.maxVelocity(settings.getMaxAcceleration());
+        leftMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
+        leftMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
+        leftMaster.getPIDController().setSmartMotionAccelStrategy(
+                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
+        rightMaster.getPIDController().setSmartMotionMaxAccel(settings.getAccelerationRate(), TRAPEZOID_SLOT_ID);
+        rightMaster.getPIDController().setSmartMotionMaxVelocity(settings.getMaxVelocity(), TRAPEZOID_SLOT_ID);
+        rightMaster.getPIDController().setSmartMotionAccelStrategy(
+                SparkPIDController.AccelStrategy.fromInt((int) settings.getCurve()), TRAPEZOID_SLOT_ID);
     }
 
     /**
@@ -153,23 +129,18 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
     public void configureLoop(PIDSettings leftPIDSettings, PIDSettings rightPIDSettings,
                               FeedForwardSettings feedForwardSettings,
                               TrapezoidProfileSettings trapezoidProfileSettings) {
-        leftMaster.configure(leftConfig, SparkBase.ResetMode.kResetSafeParameters,
-                SparkBase.PersistMode.kNoPersistParameters);
-        leftSlaves.forEach(s -> s.configure(leftConfig, SparkBase.ResetMode.kNoResetSafeParameters,
-                SparkBase.PersistMode.kNoPersistParameters));
-
-        rightConfig.inverted(true);
-        rightMaster.configure(rightConfig, SparkBase.ResetMode.kResetSafeParameters,
-                SparkBase.PersistMode.kNoPersistParameters);
-        rightSlaves.forEach(s -> s.configure(rightConfig, SparkBase.ResetMode.kNoResetSafeParameters,
-                SparkBase.PersistMode.kNoPersistParameters));
-
+        leftMaster.restoreFactoryDefaults();
+        rightMaster.restoreFactoryDefaults();
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
+        rightMaster.setInverted(true);
+        rightSlaves.forEach(s -> s.setInverted(true));
+        leftSlaves.forEach(s -> s.follow(leftMaster));
+        rightSlaves.forEach(s -> s.follow(rightMaster));
     }
 
     /**
-     * Updates any control loops running on the master {@link SparkBase} motor controllers.
+     * Updates any control loops running on the master {@link CANSparkBase} motor controllers.
      *
      * @param controlMode              the loop's control type (e.g. voltage, velocity, position...)
      * @param leftSetpoint             the left side loop's target setpoint
@@ -185,9 +156,8 @@ public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorCon
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings) {
         configPIDF(leftPIDSettings, rightPIDSettings, feedForwardSettings);
         configureTrapezoid(trapezoidProfileSettings);
-
-        leftMaster.getClosedLoopController().setReference(leftSetpoint, controlMode.getSparkControlType());
-        rightMaster.getClosedLoopController().setReference(rightSetpoint, controlMode.getSparkControlType());
+        leftMaster.getPIDController().setReference(leftSetpoint, controlMode.getSparkMaxControlType());
+        rightMaster.getPIDController().setReference(rightSetpoint, controlMode.getSparkMaxControlType());
     }
 
     /**
