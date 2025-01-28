@@ -61,7 +61,7 @@ public class TalonFXWrapper implements SmartMotorController {
     /**
      * Constructs a new instance of {@link TalonFXWrapper}.
      *
-     * @param deviceId the talon's i
+     * @param deviceId the talon's id
      */
     public TalonFXWrapper(int deviceId) {
         this(deviceId, "");
