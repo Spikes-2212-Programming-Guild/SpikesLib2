@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import java.util.List;
 
 /**
- * A {@link TankDrivetrain} whose sides each consists of a master {@link SparkBase} motor controller that runs
+ * A {@link TankDrivetrain} whose sides are each controlled by a master {@link SparkBase} motor controller that runs
  * control loops and additional {@link SparkBase} motor controllers that follow it.
  *
  * @author Yoel Perman Brilliant
