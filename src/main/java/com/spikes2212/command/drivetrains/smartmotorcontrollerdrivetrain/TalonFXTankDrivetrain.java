@@ -1,16 +1,20 @@
 package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import java.util.List;
@@ -19,11 +23,11 @@ import java.util.List;
  * A {@link TankDrivetrain} which consists of a master {@link TalonFX} controller that can run control loops and additional
  * {@link TalonFX} motor controllers that follow it.
  *
- * @author Camilia Lami
+ * @author Camellia Lami
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
-public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
+public class TalonFXTankDrivetrain extends DashboardedSubsystem implements SmartMotorControllerTankDrivetrain {
 
     /**
      * The motor controller that runs the left side's loops.
@@ -57,14 +61,16 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     public TalonFXTankDrivetrain(String namespaceName, TalonFX leftMaster,
                                  List<? extends TalonFX> leftSlaves, TalonFX rightMaster,
                                  List<? extends TalonFX> rightSlaves) {
-        super(namespaceName, leftMaster, rightMaster);
+        super(namespaceName);
         this.leftMaster = leftMaster;
         this.leftSlaves = leftSlaves;
         this.rightMaster = rightMaster;
         this.rightSlaves = rightSlaves;
-        rightController.setInverted(false);
-        rightMaster.setInverted(true);
-        rightSlaves.forEach(s -> s.setInverted(true));
+        leftSlaves.forEach(talonFX -> talonFX.setControl(new Follower(leftMaster.getDeviceID(), false)));
+        rightSlaves.forEach(talonFX -> talonFX.setControl(new Follower(rightMaster.getDeviceID(), false)));
+        MotorOutputConfigs configuration = new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive);
+        rightMaster.getConfigurator().apply(configuration);
+        rightSlaves.forEach(s -> s.getConfigurator().apply(configuration));
     }
 
     /**
@@ -121,7 +127,7 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     @Override
     public void configureTrapezoid(TrapezoidProfileSettings settings) {
         MotionMagicConfigs config = new MotionMagicConfigs();
-        config.MotionMagicAcceleration = settings.getAccelerationRate();
+        config.MotionMagicAcceleration = settings.getMaxAcceleration();
         config.MotionMagicCruiseVelocity = settings.getMaxVelocity();
         config.MotionMagicJerk = settings.getCurve();
         leftMaster.getConfigurator().apply(config);
@@ -161,7 +167,6 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
             case CURRENT -> new TorqueCurrentFOC(leftSetpoint);
             case PERCENT_OUTPUT -> new DutyCycleOut(leftSetpoint);
             case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(leftSetpoint);
-            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
             case VOLTAGE -> new VoltageOut(leftSetpoint);
             case VELOCITY -> new VelocityDutyCycle(leftSetpoint);
             case POSITION -> new PositionDutyCycle(leftSetpoint);
@@ -170,7 +175,6 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
             case CURRENT -> new TorqueCurrentFOC(rightSetpoint);
             case PERCENT_OUTPUT -> new DutyCycleOut(rightSetpoint);
             case TRAPEZOID_PROFILE -> new MotionMagicDutyCycle(rightSetpoint);
-            case MOTION_PROFILING -> throw new UnsupportedOperationException("Motion Profiling is not yet implemented in SpikesLib2!");
             case VOLTAGE -> new VoltageOut(rightSetpoint);
             case VELOCITY -> new VelocityDutyCycle(rightSetpoint);
             case POSITION -> new PositionDutyCycle(rightSetpoint);
@@ -201,11 +205,11 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     @Override
     public boolean leftOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value = switch (controlMode) {
-            case VELOCITY -> leftMaster.getVelocity().getValue();
-            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> leftMaster.getPosition().getValue();
-            case CURRENT -> leftMaster.getTorqueCurrent().getValue();
+            case VELOCITY -> leftMaster.getVelocity().getValueAsDouble();
+            case POSITION, TRAPEZOID_PROFILE -> leftMaster.getPosition().getValueAsDouble();
+            case CURRENT -> leftMaster.getTorqueCurrent().getValueAsDouble();
             case PERCENT_OUTPUT -> leftMaster.get();
-            case VOLTAGE -> leftMaster.getMotorVoltage().getValue();
+            case VOLTAGE -> leftMaster.getMotorVoltage().getValueAsDouble();
         };
         return Math.abs(value - setpoint) <= tolerance;
     }
@@ -221,11 +225,11 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     @Override
     public boolean rightOnTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
         double value = switch (controlMode) {
-            case VELOCITY -> rightMaster.getVelocity().getValue();
-            case POSITION, MOTION_PROFILING, TRAPEZOID_PROFILE -> rightMaster.getPosition().getValue();
-            case CURRENT -> rightMaster.getTorqueCurrent().getValue();
+            case VELOCITY -> rightMaster.getVelocity().getValueAsDouble();
+            case POSITION, TRAPEZOID_PROFILE -> rightMaster.getPosition().getValueAsDouble();
+            case CURRENT -> rightMaster.getTorqueCurrent().getValueAsDouble();
             case PERCENT_OUTPUT -> rightMaster.get();
-            case VOLTAGE -> rightMaster.getMotorVoltage().getValue();
+            case VOLTAGE -> rightMaster.getMotorVoltage().getValueAsDouble();
         };
         return Math.abs(value - setpoint) <= tolerance;
     }

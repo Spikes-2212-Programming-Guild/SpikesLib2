@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public class MotoredGenericSubsystem extends GenericSubsystem {
 
-    protected MotorController motorController;
+    protected final MotorController motorController;
 
     /**
      * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
@@ -32,8 +32,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
-     * minSpeed, maxSpeed and the given {@link MotorController}s.</p>
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name, the given
+     * minSpeed, maxSpeed and the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param minSpeed         the minimum speed
@@ -46,8 +46,8 @@ public class MotoredGenericSubsystem extends GenericSubsystem {
     }
 
     /**
-     * <p>Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name and
-     * the given {@link MotorController}s.</p>
+     * Constructs a new instance of {@link MotoredGenericSubsystem} with the given {@link Namespace}'s name and
+     * the given {@link MotorController}s.
      *
      * @param namespaceName    the name of the subsystem's namespace
      * @param motorControllers the motor controllers in the subsystem

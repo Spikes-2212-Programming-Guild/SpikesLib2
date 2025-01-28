@@ -16,15 +16,16 @@ public class AddressableLEDWrapper {
     /**
      * The controlled LED strip.
      */
-    private final AddressableLED led;
+    protected final AddressableLED led;
 
     /**
      * The controlled LED strip's data.
      */
-    private final AddressableLEDBuffer ledBuffer;
+    protected final AddressableLEDBuffer ledBuffer;
 
     public AddressableLEDWrapper(int ledPort, int numberOfLEDs) {
         this.led = new AddressableLED(ledPort);
+        led.setLength(numberOfLEDs);
         this.ledBuffer = new AddressableLEDBuffer(numberOfLEDs);
     }
 
