@@ -17,7 +17,7 @@ import com.spikes2212.util.UnifiedControlMode;
 public class SparkWrapper implements SmartMotorController {
 
     /**
-     * The feed forward controller running the feed forward calculations
+     * The feed forward controller running the feed forward calculations.
      */
     private final FeedForwardController feedForwardController;
 
