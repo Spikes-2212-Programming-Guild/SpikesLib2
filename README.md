@@ -11,7 +11,7 @@ found <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2-Exa
 
 - command - extensions for WPILib's Command Based framework
 - control - controller wrappers and custom controllers
-- dashboard - wrappers for SmartDashboard elements
+- dashboard - wrappers for NetworkTables elements
 - path - path following code and pure pursuit algorithm
 - util - additional utilities
 

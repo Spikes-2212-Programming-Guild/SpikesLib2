@@ -7,7 +7,7 @@ Spikes#2212.
 
 <li>command - extensions for WPILib's Command Based framework</li>
 <li>control - controller wrappers and custom controllers</li>
-<li>dashboard - wrappers for SmartDashboard elements</li>
+<li>dashboard - wrappers for NetworkTables elements</li>
 <li>path - path following code and pure pursuit algorithm</li>
 <li>util - additional utilities</li>
 
