@@ -70,6 +70,7 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
      * @param pidSettings              the PID constants
      * @param feedForwardSettings      the feed forward gains
      * @param trapezoidProfileSettings the trapezoid profile settings
+     * @param updatePeriodically whether to update the loop's settings periodically
      */
     public void pidSet(UnifiedControlMode controlMode, double setpoint, PIDSettings pidSettings,
                        FeedForwardSettings feedForwardSettings, TrapezoidProfileSettings trapezoidProfileSettings,
