@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import java.util.function.Supplier;
 
 /**
- * A command that moves a {@link SmartMotorControllerTankDrivetrain} using its master motor controllers' control loops
+ * A command that moves a {@link SmartMotorControllerTankDrivetrain} using its master motor controllers' control loops.
  *
  * @author Yoel Perman Brilliant
  * @see SmartMotorControllerTankDrivetrain
