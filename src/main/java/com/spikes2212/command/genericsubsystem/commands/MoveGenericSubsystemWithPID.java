@@ -48,6 +48,7 @@ public class MoveGenericSubsystemWithPID extends Command {
      * @param subsystem           the subsystem this command operates on
      * @param setpoint            the Double {@link Supplier} supplying the setpoint
      * @param source              the Double {@link Supplier} supplying the current position
+     * @param acceleration        the Double {@link Supplier} supplying the acceleration
      * @param pidSettings         the pid constants used for calculating the move value for each iteration
      * @param feedForwardSettings the feed forward constants used for calculating the move value
      */
