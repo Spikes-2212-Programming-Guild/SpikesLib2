@@ -1,5 +1,6 @@
 package com.spikes2212.dashboard;
 
+import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import edu.wpi.first.networktables.NetworkTable;
@@ -226,8 +227,8 @@ public interface Namespace {
         return new FeedForwardSettings(kS, kV, kA, kG, initialFeedForwardSettings.getControlMode());
     }
 
-    default FeedForwardSettings addFeedForwardNamespace(String name) {
-        return addFeedForwardNamespace(name, FeedForwardSettings.EMPTY_FF_SETTINGS);
+    default FeedForwardSettings addFeedForwardNamespace(String name, FeedForwardController.ControlMode controlMode) {
+        return addFeedForwardNamespace(name, new FeedForwardSettings(controlMode));
     }
 
     /**
