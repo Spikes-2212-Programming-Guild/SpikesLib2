@@ -25,7 +25,7 @@ import java.util.List;
 public class SparkTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     /**
-     * The slot on the motor controller on which the trapezoid profiling configurations are saved
+     * The slot on the motor controller on which the trapezoid profiling configurations are saved.
      */
     private static final int TRAPEZOID_SLOT_ID = 0;
 
