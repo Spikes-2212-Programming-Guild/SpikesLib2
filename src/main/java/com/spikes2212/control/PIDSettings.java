@@ -9,6 +9,10 @@ import java.util.function.Supplier;
  */
 public class PIDSettings {
 
+    /**
+     * Empty PIDSettings, which effectively make the PIDController do nothing.
+     */
+
     public static final PIDSettings EMPTY_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0, 0);
 
     /**
