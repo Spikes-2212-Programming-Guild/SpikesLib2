@@ -8,51 +8,16 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 
-/**
- * A {@link SmartMotorController} representation of a {@link SparkBase} motor controller.
- *
- * @author Camellia Lami
- * @see SmartMotorController
- */
 public class SparkWrapper implements SmartMotorController {
 
-    /**
-     * The feed forward controller running the feed forward calculations.
-     */
     private final FeedForwardController feedForwardController;
 
-    /**
-     * The spark motor controller.
-     */
     private SparkBase sparkBase;
-
-    /**
-     * The spark's configuration accessor.
-     */
     private SparkBaseConfigAccessor configAccessor;
-
-    /**
-     * The spark's configuration.
-     */
     private SparkBaseConfig sparkConfig;
-
-    /**
-     * The closed loop configuration for the spark.
-     */
     private ClosedLoopConfig closedLoopConfig;
-
-    /**
-     * The encoder configuration for the spark.
-     */
     private EncoderConfig encoderConfig;
 
-    /**
-     * Constructs a new instance of {@link SparkWrapper} with a {@link SparkMax} as the motor controller.
-     *
-     * @param deviceID    the spark's ID
-     * @param type        the motor type
-     * @param controlMode the type of feed forward control to use
-     */
     public static SparkWrapper createSparkMax(int deviceID, SparkLowLevel.MotorType type,
                                               FeedForwardController.ControlMode controlMode) {
         SparkWrapper sparkWrapper = new SparkWrapper(controlMode);
@@ -62,24 +27,10 @@ public class SparkWrapper implements SmartMotorController {
         return sparkWrapper;
     }
 
-    /**
-     * Constructs a new instance of {@link SparkWrapper} with a {@link SparkMax} as the motor controller and with a
-     * default {@link FeedForwardController.ControlMode} of linear velocity.
-     *
-     * @param deviceID the spark's ID
-     * @param type     the motor type
-     */
     public static SparkWrapper createSparkMax(int deviceID, SparkLowLevel.MotorType type) {
         return createSparkMax(deviceID, type, FeedForwardController.ControlMode.LINEAR_VELOCITY);
     }
 
-    /**
-     * Constructs a new instance of {@link SparkWrapper} with a {@link SparkFlex} as the motor controller.
-     *
-     * @param deviceID    the spark's ID
-     * @param type        the motor type
-     * @param controlMode the type of feed forward control to use
-     */
     public static SparkWrapper createSparkFlex(int deviceID, SparkLowLevel.MotorType type,
                                                FeedForwardController.ControlMode controlMode) {
         SparkWrapper sparkWrapper = new SparkWrapper(controlMode);
@@ -89,13 +40,6 @@ public class SparkWrapper implements SmartMotorController {
         return sparkWrapper;
     }
 
-    /**
-     * Constructs a new instance of {@link SparkWrapper} with a {@link SparkFlex} as the motor controller and with a
-     * default {@link FeedForwardController.ControlMode} of linear velocity.
-     *
-     * @param deviceID the spark's ID
-     * @param type     the motor type
-     */
     public static SparkWrapper createSparkFlex(int deviceID, SparkLowLevel.MotorType type) {
         return createSparkFlex(deviceID, type, FeedForwardController.ControlMode.LINEAR_VELOCITY);
     }
