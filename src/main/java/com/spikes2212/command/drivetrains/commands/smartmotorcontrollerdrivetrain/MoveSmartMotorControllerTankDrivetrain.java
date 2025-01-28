@@ -28,7 +28,7 @@ public class MoveSmartMotorControllerTankDrivetrain extends Command {
     protected final PIDSettings leftPIDSettings;
 
     /**
-     * The right side loop's PID constants.
+     * The right side loop's PID constantswe
      */
     protected final PIDSettings rightPIDSettings;
 
