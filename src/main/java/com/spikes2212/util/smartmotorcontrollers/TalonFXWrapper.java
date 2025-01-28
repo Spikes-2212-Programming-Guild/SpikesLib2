@@ -13,22 +13,56 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 
+/**
+ * A {@link SmartMotorController} representation of a {@link TalonFX} motor controller.
+ *
+ * @author Camellia Lami
+ * @see SmartMotorController
+ */
 public class TalonFXWrapper implements SmartMotorController {
 
+    /**
+     * The TalonFX motor controller.
+     */
     protected final TalonFX talonFX;
+
+    /**
+     * The closed loop configurations of the talon.
+     */
     protected final Slot0Configs closedLoopConfig;
+
+    /**
+     * The talon configurations which affect motor output.
+     */
     protected final MotorOutputConfigs motorOutputConfigs;
 
+    /**
+     * Constructs a new instance of {@link TalonFXWrapper}.
+     *
+     * @param deviceId the talon's id
+     * @param canbus   the name of the canbus which the talon runs on
+     */
     public TalonFXWrapper(int deviceId, String canbus) {
         talonFX = new TalonFX(deviceId, canbus);
         closedLoopConfig = new Slot0Configs();
         motorOutputConfigs = new MotorOutputConfigs();
     }
 
+    /**
+     * Constructs a new instance of {@link TalonFXWrapper}.
+     *
+     * @param deviceId the talon's id
+     * @param canbus   the canbus which the talon runs on
+     */
     public TalonFXWrapper(int deviceId, CANBus canbus) {
         this(deviceId, canbus.getName());
     }
 
+    /**
+     * Constructs a new instance of {@link TalonFXWrapper}.
+     *
+     * @param deviceId the talon's id
+     */
     public TalonFXWrapper(int deviceId) {
         this(deviceId, "");
     }
