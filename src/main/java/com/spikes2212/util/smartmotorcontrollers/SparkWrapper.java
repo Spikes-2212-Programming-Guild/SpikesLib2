@@ -9,7 +9,7 @@ import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 
 /**
- * A {@link SmartMotorController} which handles the communication between a {@link SparkBase} and the code.
+ * A {@link SmartMotorController} representation of a {@link SparkBase} motor controller.
  *
  * @author Camellia Lami
  * @see SmartMotorController
