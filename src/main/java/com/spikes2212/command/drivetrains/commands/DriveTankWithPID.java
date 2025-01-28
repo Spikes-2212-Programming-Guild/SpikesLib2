@@ -34,12 +34,12 @@ public class DriveTankWithPID extends Command {
     protected final PIDSettings rightPIDSettings;
 
     /**
-     * The FeedForwards Settings of the FeedForward loop operating on the left side of the drivetrain.
+     * The feed forward Settings of the FeedForward loop operating on the left side of the drivetrain.
      */
     protected final FeedForwardSettings leftFeedForwardSettings;
 
     /**
-     * The FeedForwards Settings of the FeedForward loop operating on the right side of the drivetrain.
+     * The feed forward Settings of the FeedForward loop operating on the right side of the drivetrain.
      */
     protected final FeedForwardSettings rightFeedForwardSettings;
 
