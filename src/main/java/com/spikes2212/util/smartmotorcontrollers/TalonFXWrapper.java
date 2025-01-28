@@ -49,7 +49,7 @@ public class TalonFXWrapper implements SmartMotorController {
     }
 
     /**
-     * Constructs a new instance of {@link TalonFXWrapper}
+     * Constructs a new instance of {@link TalonFXWrapper}.
      *
      * @param deviceId the talon's id
      * @param canbus   the canbus which the talon runs on
@@ -59,7 +59,7 @@ public class TalonFXWrapper implements SmartMotorController {
     }
 
     /**
-     * Constructs a new instance of {@link TalonFXWrapper}
+     * Constructs a new instance of {@link TalonFXWrapper}.
      *
      * @param deviceId the talon's id
      */
