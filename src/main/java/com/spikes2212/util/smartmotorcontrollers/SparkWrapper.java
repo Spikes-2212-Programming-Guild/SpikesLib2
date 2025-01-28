@@ -63,10 +63,11 @@ public class SparkWrapper implements SmartMotorController {
     }
 
     /**
-     * Constructs a new instance of {@link SparkWrapper} with a {@link SparkMax} as the motor controller.
+     * Constructs a new instance of {@link SparkWrapper} with a {@link SparkMax} as the motor controller and with a
+     * default {@link FeedForwardController.ControlMode} of linear velocity.
      *
-     * @param deviceID    the spark's ID
-     * @param type        the motor type
+     * @param deviceID the spark's ID
+     * @param type     the motor type
      */
     public static SparkWrapper createSparkMax(int deviceID, SparkLowLevel.MotorType type) {
         return createSparkMax(deviceID, type, FeedForwardController.ControlMode.LINEAR_VELOCITY);
@@ -89,10 +90,11 @@ public class SparkWrapper implements SmartMotorController {
     }
 
     /**
-     * Constructs a new instance of {@link SparkWrapper} with a {@link SparkFlex} as the motor controller.
+     * Constructs a new instance of {@link SparkWrapper} with a {@link SparkFlex} as the motor controller and with a
+     * default {@link FeedForwardController.ControlMode} of linear velocity.
      *
-     * @param deviceID    the spark's ID
-     * @param type        the motor type
+     * @param deviceID the spark's ID
+     * @param type     the motor type
      */
     public static SparkWrapper createSparkFlex(int deviceID, SparkLowLevel.MotorType type) {
         return createSparkFlex(deviceID, type, FeedForwardController.ControlMode.LINEAR_VELOCITY);
