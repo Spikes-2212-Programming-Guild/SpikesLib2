@@ -30,7 +30,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'org.gradle.sample'
             artifactId = 'library'
-            version = '5.1.0'
+            version = '5.1.1'
 
             from components.java
         }
