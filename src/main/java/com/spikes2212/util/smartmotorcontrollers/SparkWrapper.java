@@ -19,7 +19,7 @@ public class SparkWrapper implements SmartMotorController {
     /**
      * The feed forward controller running the feed forward calculations.
      */
-    private final FeedForwardController feedForwardController;
+    protected final FeedForwardController feedForwardController;
 
     /**
      * The spark motor controller.
