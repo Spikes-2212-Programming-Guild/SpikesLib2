@@ -24,27 +24,27 @@ public class SparkWrapper implements SmartMotorController {
     /**
      * The spark motor controller.
      */
-    private SparkBase sparkBase;
+    protected SparkBase sparkBase;
 
     /**
      * The spark's configuration accessor.
      */
-    private SparkBaseConfigAccessor configAccessor;
+    protected SparkBaseConfigAccessor configAccessor;
 
     /**
      * The spark's configuration.
      */
-    private SparkBaseConfig sparkConfig;
+    protected SparkBaseConfig sparkConfig;
 
     /**
      * The closed loop configuration for the spark.
      */
-    private ClosedLoopConfig closedLoopConfig;
+    protected ClosedLoopConfig closedLoopConfig;
 
     /**
      * The encoder configuration for the spark.
      */
-    private EncoderConfig encoderConfig;
+    protected EncoderConfig encoderConfig;
 
     /**
      * Constructs a new instance of {@link SparkWrapper} with a {@link SparkMax} as the motor controller.
