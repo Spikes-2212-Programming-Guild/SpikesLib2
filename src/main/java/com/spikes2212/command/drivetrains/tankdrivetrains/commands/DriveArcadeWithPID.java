@@ -1,6 +1,6 @@
-package com.spikes2212.command.drivetrains.commands;
+package com.spikes2212.command.drivetrains.tankdrivetrains.commands;
 
-import com.spikes2212.command.drivetrains.TankDrivetrain;
+import com.spikes2212.command.drivetrains.tankdrivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;

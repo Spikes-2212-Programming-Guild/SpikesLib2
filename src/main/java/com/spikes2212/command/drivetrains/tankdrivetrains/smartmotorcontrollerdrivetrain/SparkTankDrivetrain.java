@@ -1,10 +1,10 @@
-package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
+package com.spikes2212.command.drivetrains.tankdrivetrains.smartmotorcontrollerdrivetrain;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.*;
-import com.spikes2212.command.drivetrains.TankDrivetrain;
+import com.spikes2212.command.drivetrains.tankdrivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
