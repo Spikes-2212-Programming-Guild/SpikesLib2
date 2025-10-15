@@ -16,7 +16,7 @@ public class DriveSwerve extends Command {
 
     private final boolean isFieldRelative;
 
-    double timer;
+    double lastGivenTimePeriod;
 
     public DriveSwerve(SwerveDrivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed,
                        Supplier<Double> rotationSpeed, boolean isFieldRelative) {
@@ -29,14 +29,14 @@ public class DriveSwerve extends Command {
 
     @Override
     public void initialize(){
-        timer = Timer.getFPGATimestamp();
+        lastGivenTimePeriod = Timer.getFPGATimestamp();
     }
 
     @Override
     public void execute() {
         drivetrain.drive(xSpeed.get(), ySpeed.get(), rotationSpeed.get(), isFieldRelative,
-                Timer.getFPGATimestamp() - timer);
-        timer = Timer.getFPGATimestamp();
+                Timer.getFPGATimestamp() - lastGivenTimePeriod);
+        lastGivenTimePeriod = Timer.getFPGATimestamp();
     }
 
     @Override
