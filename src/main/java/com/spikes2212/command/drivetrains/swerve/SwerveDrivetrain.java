@@ -1,7 +1,6 @@
 package com.spikes2212.command.drivetrains.swerve;
 
 import com.spikes2212.command.DashboardedSubsystem;
-import com.spikes2212.dashboard.RootNamespace;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -71,14 +70,14 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         }
     }
 
-    public void resetRelativeEncoders(){
+    public void resetRelativeEncoders() {
         frontLeft.resetRelativeEncoder();
         frontRight.resetRelativeEncoder();
         backLeft.resetRelativeEncoder();
         backRight.resetRelativeEncoder();
     }
 
-    public void stopModules(){
+    public void stopModules() {
         frontLeft.stopModule();
         frontRight.stopModule();
         backLeft.stopModule();

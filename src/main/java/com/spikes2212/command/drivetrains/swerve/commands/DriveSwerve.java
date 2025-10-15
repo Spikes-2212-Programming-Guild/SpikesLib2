@@ -28,7 +28,7 @@ public class DriveSwerve extends Command {
     }
 
     @Override
-    public void initialize(){
+    public void initialize() {
         lastGivenTimePeriod = Timer.getFPGATimestamp();
     }
 
@@ -40,7 +40,7 @@ public class DriveSwerve extends Command {
     }
 
     @Override
-    public void end(boolean interrupted){
+    public void end(boolean interrupted) {
         drivetrain.stopModules();
     }
 }
