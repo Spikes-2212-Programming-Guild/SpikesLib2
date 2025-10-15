@@ -31,12 +31,12 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     private final FeedForwardSettings driveFeedForwardSettings;
     private final FeedForwardSettings turnFeedForwardSettings;
 
-    public SwerveModule(String namespace, SmartMotorController driveMotor, SmartMotorController turnMotor,
+    public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
                         CANcoder absoluteEncoder, boolean cancoderInverted, boolean driveInverted, boolean turnInverted,
                         boolean usePIDAngle, boolean usePIDVelocity, double offset, PIDSettings drivePIDSettings,
                         PIDSettings turnPIDSettings, FeedForwardSettings driveFeedForwardSettings,
                         FeedForwardSettings turnFeedForwardSettings) {
-        super(namespace);
+        super(namespaceName);
         this.driveMotor = driveMotor;
         this.turnMotor = turnMotor;
         this.absoluteEncoder = absoluteEncoder;
