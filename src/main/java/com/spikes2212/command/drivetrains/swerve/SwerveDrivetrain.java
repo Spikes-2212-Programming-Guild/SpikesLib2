@@ -1,6 +1,7 @@
 package com.spikes2212.command.drivetrains.swerve;
 
 import com.spikes2212.command.DashboardedSubsystem;
+import com.spikes2212.dashboard.RootNamespace;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -9,7 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
-    private static final String NAMESPACE_NAME = "swerve drivetrain";
+    private static final String NAMESPACE_NAME = "drivetrain";
 
     private final SwerveModule frontLeft;
     private final SwerveModule frontRight;
@@ -47,7 +48,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative, double timeStep) {
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(getChassisSpeeds(isFieldRelative, xSpeed, ySpeed,
-                rotationSpeed, timeStep), new Translation2d());
+                rotationSpeed, timeStep));
         SwerveDriveKinematics.desaturateWheelSpeeds(states, maxVelocity);
         setTargetModuleStates(states);
     }
