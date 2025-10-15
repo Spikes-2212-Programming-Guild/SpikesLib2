@@ -72,12 +72,12 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         }
     }
 
-    public void setTargetVelocity(double currentSpeed) {
+    public void setTargetVelocity(double targetVelocity) {
         if (usePIDVelocity) {
-            driveMotor.pidSet(UnifiedControlMode.VELOCITY, currentSpeed, drivePIDSettings, driveFeedForwardSettings,
+            driveMotor.pidSet(UnifiedControlMode.VELOCITY, targetVelocity, drivePIDSettings, driveFeedForwardSettings,
                     false);
         } else {
-            driveMotor.set(currentSpeed);
+            driveMotor.set(targetVelocity);
         }
     }
 
