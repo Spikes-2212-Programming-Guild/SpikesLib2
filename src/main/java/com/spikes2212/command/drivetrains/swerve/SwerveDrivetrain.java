@@ -60,7 +60,6 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         frontRight.setTargetState(targetModuleStates[1]);
         backLeft.setTargetState(targetModuleStates[2]);
         backRight.setTargetState(targetModuleStates[3]);
-
     }
 
     public ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed, double rotationSpeed, double timeStep) {
