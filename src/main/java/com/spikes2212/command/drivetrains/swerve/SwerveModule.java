@@ -22,7 +22,6 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     private final boolean cancoderInverted;
     private final boolean driveInverted;
-    private final boolean usePIDAngle;
     private final boolean usePIDVelocity;
     private final double offset;
 
@@ -42,7 +41,6 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         this.absoluteEncoder = absoluteEncoder;
         this.cancoderInverted = cancoderInverted;
         this.driveInverted = driveInverted;
-        this.usePIDAngle = usePIDAngle;
         this.usePIDVelocity = usePIDVelocity;
         this.offset = offset;
         this.drivePIDSettings = drivePIDSettings;
@@ -64,13 +62,10 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     }
 
     public void setTargetAngle(Rotation2d targetAngle) {
-        if (usePIDAngle) {
-            turnMotor.pidSet(UnifiedControlMode.POSITION, targetAngle.getDegrees(), turnPIDSettings,
-                    turnFeedForwardSettings, false);
-        } else {
-            turnMotor.set(targetAngle.getDegrees());
-        }
+        turnMotor.pidSet(UnifiedControlMode.POSITION, targetAngle.getDegrees(), turnPIDSettings,
+                turnFeedForwardSettings, false);
     }
+
 
     public void setTargetVelocity(double targetVelocity) {
         if (usePIDVelocity) {
