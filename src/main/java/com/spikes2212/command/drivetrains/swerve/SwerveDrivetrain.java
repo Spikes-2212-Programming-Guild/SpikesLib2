@@ -9,7 +9,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
-    private static final String NAMESPACE_NAME = "drivetrain";
+    private static final String DEFAULT_NAMESPACE_NAME = "drivetrain";
 
     private final SwerveModule frontLeft;
     private final SwerveModule frontRight;
@@ -23,8 +23,10 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     private Rotation2d currentRobotAngle;
 
-    public SwerveDrivetrain(SwerveModule frontLeft, SwerveModule frontRight, SwerveModule backLeft, SwerveModule backRight, double trackWidth, double trackLength, double maxVelocity) {
-        super(NAMESPACE_NAME);
+    public SwerveDrivetrain(String namespaceName, SwerveModule frontLeft, SwerveModule frontRight,
+                            SwerveModule backLeft, SwerveModule backRight, double trackWidth, double trackLength,
+                            double maxVelocity) {
+        super(namespaceName);
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.backLeft = backLeft;
@@ -41,6 +43,12 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         kinematics = new SwerveDriveKinematics(frontLeftWheelDistanceFromCenter,
                 frontRightWheelDistanceFromCenter, backLeftWheelDistanceFromCenter,
                 backRightWheelDistanceFromCenter);
+    }
+
+    public SwerveDrivetrain(SwerveModule frontLeft, SwerveModule frontRight, SwerveModule backLeft,
+                            SwerveModule backRight, double trackWidth, double trackLength, double maxVelocity){
+        this(getClassName(DEFAULT_NAMESPACE_NAME), frontLeft, frontRight, backLeft, backRight, trackWidth, trackLength,
+                maxVelocity);
     }
 
     public abstract void setCurrentRobotAngle();
