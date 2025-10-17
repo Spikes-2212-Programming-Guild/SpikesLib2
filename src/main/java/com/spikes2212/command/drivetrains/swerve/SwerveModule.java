@@ -1,7 +1,6 @@
 package com.spikes2212.command.drivetrains.swerve;
 
 import com.ctre.phoenix6.configs.MagnetSensorConfigs;
-import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.control.FeedForwardSettings;
@@ -11,6 +10,8 @@ import com.spikes2212.util.smartmotorcontrollers.SmartMotorController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
+import java.util.function.Supplier;
+
 public abstract class SwerveModule extends DashboardedSubsystem {
 
     private static final double ABSOLUTE_POSITION_DISCONTINUITY_POINT = 1;
@@ -18,9 +19,9 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     private final SmartMotorController driveMotor;
     private final SmartMotorController turnMotor;
-    private final CANcoder absoluteEncoder;
+    private final Supplier<Double> absoluteEncoder;
 
-    private final boolean cancoderInverted;
+    private final boolean turnInverted;
     private final boolean driveInverted;
     private final boolean usePIDVelocity;
     private final double offset;
@@ -31,15 +32,15 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     private final FeedForwardSettings turnFeedForwardSettings;
 
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
-                        CANcoder absoluteEncoder, boolean cancoderInverted, boolean driveInverted, boolean turnInverted,
-                        boolean usePIDAngle, boolean usePIDVelocity, double offset, PIDSettings drivePIDSettings,
+                        Supplier<Double> absoluteEncoder, boolean turnInverted, boolean driveInverted,
+                        boolean usePIDVelocity, double offset, PIDSettings drivePIDSettings,
                         PIDSettings turnPIDSettings, FeedForwardSettings driveFeedForwardSettings,
                         FeedForwardSettings turnFeedForwardSettings) {
         super(namespaceName);
         this.driveMotor = driveMotor;
         this.turnMotor = turnMotor;
         this.absoluteEncoder = absoluteEncoder;
-        this.cancoderInverted = cancoderInverted;
+        this.turnInverted = turnInverted;
         this.driveInverted = driveInverted;
         this.usePIDVelocity = usePIDVelocity;
         this.offset = offset;
@@ -48,7 +49,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         this.driveFeedForwardSettings = driveFeedForwardSettings;
         this.turnFeedForwardSettings = turnFeedForwardSettings;
         driveMotor.setInverted(driveInverted);
-        turnMotor.setInverted(cancoderInverted);
+        turnMotor.setInverted(turnInverted);
         configureTurnController();
         configureDriveController();
         configureAbsoluteEncoder();
@@ -80,16 +81,10 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     public abstract void configureTurnController();
 
-    public void configureAbsoluteEncoder() {
-        MagnetSensorConfigs magnetConfigs = new MagnetSensorConfigs()
-                .withAbsoluteSensorDiscontinuityPoint(ABSOLUTE_POSITION_DISCONTINUITY_POINT)
-                .withSensorDirection(cancoderInverted ? SensorDirectionValue.Clockwise_Positive :
-                        SensorDirectionValue.CounterClockwise_Positive).withMagnetOffset(offset);
-        absoluteEncoder.getConfigurator().apply(magnetConfigs);
-    }
+    public abstract void configureAbsoluteEncoder();
 
     public double getAbsoluteAngle() {
-        return absoluteEncoder.getAbsolutePosition().getValueAsDouble() * DEGREES_IN_ROTATIONS;
+        return absoluteEncoder.get();
     }
 
     public void resetRelativeEncoder() {

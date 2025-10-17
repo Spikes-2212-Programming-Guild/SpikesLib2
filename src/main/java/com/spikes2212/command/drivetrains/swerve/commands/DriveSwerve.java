@@ -16,7 +16,7 @@ public class DriveSwerve extends Command {
 
     private final boolean isFieldRelative;
 
-    double lastGivenTimePeriod;
+    private double lastGivenTimePeriod;
 
     public DriveSwerve(SwerveDrivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed,
                        Supplier<Double> rotationSpeed, boolean isFieldRelative) {
