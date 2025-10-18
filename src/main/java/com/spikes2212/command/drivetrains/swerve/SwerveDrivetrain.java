@@ -51,7 +51,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
                 maxVelocity);
     }
 
-    public abstract void updateCurrentRobotAngle();
+    public abstract void updateRobotAngle();
 
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative, double timeStep) {
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(getChassisSpeeds(isFieldRelative, xSpeed, ySpeed,
@@ -70,7 +70,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     public ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed, double rotationSpeed, double timeStep) {
         if (fieldRelative) {
-            updateCurrentRobotAngle();
+            updateRobotAngle();
             return ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, currentRobotAngle), timeStep);
         } else {
             return ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed, rotationSpeed), timeStep);
