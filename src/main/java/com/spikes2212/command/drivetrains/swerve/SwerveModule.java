@@ -15,19 +15,19 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     private static final double ABSOLUTE_POSITION_DISCONTINUITY_POINT = 1;
     private static final double DEGREES_IN_ROTATIONS = 360;
 
-    private final SmartMotorController driveMotor;
-    private final SmartMotorController turnMotor;
-    private final Supplier<Double> absoluteModuleAngle;
+    protected final SmartMotorController driveMotor;
+    protected final SmartMotorController turnMotor;
+    protected final Supplier<Double> absoluteModuleAngle;
 
-    private final boolean driveInverted;
-    private final boolean turnInverted;
-    private final boolean usePIDVelocity;
-    private final double offset;
+    protected final boolean driveInverted;
+    protected final boolean turnInverted;
+    protected final boolean usePIDVelocity;
+    protected final double offset;
 
-    private final PIDSettings drivePIDSettings;
-    private final PIDSettings turnPIDSettings;
-    private final FeedForwardSettings driveFeedForwardSettings;
-    private final FeedForwardSettings turnFeedForwardSettings;
+    protected final PIDSettings drivePIDSettings;
+    protected final PIDSettings turnPIDSettings;
+    protected final FeedForwardSettings driveFeedForwardSettings;
+    protected final FeedForwardSettings turnFeedForwardSettings;
 
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
                         Supplier<Double> absoluteModuleAngle, boolean driveInverted, boolean turnInverted,
