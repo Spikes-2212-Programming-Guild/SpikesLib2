@@ -30,7 +30,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     private final FeedForwardSettings turnFeedForwardSettings;
 
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
-                        Supplier<Double> absoluteModuleAngle, boolean turnInverted, boolean driveInverted,
+                        Supplier<Double> absoluteModuleAngle, boolean driveInverted, boolean turnInverted,
                         boolean usePIDVelocity, double offset, PIDSettings drivePIDSettings,
                         PIDSettings turnPIDSettings, FeedForwardSettings driveFeedForwardSettings,
                         FeedForwardSettings turnFeedForwardSettings) {
