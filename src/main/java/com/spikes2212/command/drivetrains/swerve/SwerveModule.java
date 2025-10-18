@@ -19,8 +19,8 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     private final SmartMotorController turnMotor;
     private final Supplier<Double> absoluteModuleAngle;
 
-    private final boolean turnInverted;
     private final boolean driveInverted;
+    private final boolean turnInverted;
     private final boolean usePIDVelocity;
     private final double offset;
 
