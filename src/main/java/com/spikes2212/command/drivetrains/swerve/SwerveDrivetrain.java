@@ -11,17 +11,17 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "drivetrain";
 
-    private final SwerveModule frontLeft;
-    private final SwerveModule frontRight;
-    private final SwerveModule backLeft;
-    private final SwerveModule backRight;
+    protected final SwerveModule frontLeft;
+    protected final SwerveModule frontRight;
+    protected final SwerveModule backLeft;
+    protected final SwerveModule backRight;
 
-    private final double trackWidth;
-    private final double trackLength;
-    private final double maxVelocity;
-    private final SwerveDriveKinematics kinematics;
+    protected final double trackWidth;
+    protected final double trackLength;
+    protected final double maxVelocity;
+    protected final SwerveDriveKinematics kinematics;
 
-    private Rotation2d currentRobotAngle;
+    protected Rotation2d currentRobotAngle;
 
     public SwerveDrivetrain(String namespaceName, SwerveModule frontLeft, SwerveModule frontRight,
                             SwerveModule backLeft, SwerveModule backRight, double trackWidth, double trackLength,
