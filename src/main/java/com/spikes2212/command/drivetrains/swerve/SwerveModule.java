@@ -57,7 +57,6 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         targetState.optimize(Rotation2d.fromDegrees(turnMotor.getPosition()));
         setTargetAngle(targetState.angle);
         setTargetVelocity(targetState.speedMetersPerSecond);
-
     }
 
     public void setTargetAngle(Rotation2d targetAngle) {
