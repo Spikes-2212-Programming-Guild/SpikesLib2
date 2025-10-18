@@ -17,7 +17,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     private final SmartMotorController driveMotor;
     private final SmartMotorController turnMotor;
-    private final Supplier<Double> absoluteEncoder;
+    private final Supplier<Double> absoluteModuleAngle;
 
     private final boolean turnInverted;
     private final boolean driveInverted;
@@ -30,14 +30,14 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     private final FeedForwardSettings turnFeedForwardSettings;
 
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
-                        Supplier<Double> absoluteEncoder, boolean turnInverted, boolean driveInverted,
+                        Supplier<Double> absoluteModuleAngle, boolean turnInverted, boolean driveInverted,
                         boolean usePIDVelocity, double offset, PIDSettings drivePIDSettings,
                         PIDSettings turnPIDSettings, FeedForwardSettings driveFeedForwardSettings,
                         FeedForwardSettings turnFeedForwardSettings) {
         super(namespaceName);
         this.driveMotor = driveMotor;
         this.turnMotor = turnMotor;
-        this.absoluteEncoder = absoluteEncoder;
+        this.absoluteModuleAngle = absoluteModuleAngle;
         this.turnInverted = turnInverted;
         this.driveInverted = driveInverted;
         this.usePIDVelocity = usePIDVelocity;
@@ -82,7 +82,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     public abstract void configureAbsoluteEncoder();
 
     public double getAbsoluteAngle() {
-        return absoluteEncoder.get();
+        return absoluteModuleAngle.get();
     }
 
     public void resetRelativeEncoder() {
