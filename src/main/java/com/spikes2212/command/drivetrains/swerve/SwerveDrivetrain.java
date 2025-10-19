@@ -86,7 +86,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         backRight.resetRelativeEncoder();
     }
 
-    public void stopModules() {
+    public void stop() {
         frontLeft.stopModule();
         frontRight.stopModule();
         backLeft.stopModule();
