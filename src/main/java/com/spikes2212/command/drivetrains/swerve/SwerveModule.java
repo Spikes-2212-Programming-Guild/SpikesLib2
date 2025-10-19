@@ -94,7 +94,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     }
 
     public void stop() {
-        turnMotor.stopMotor();
         driveMotor.stopMotor();
+        turnMotor.stopMotor();
     }
 }
