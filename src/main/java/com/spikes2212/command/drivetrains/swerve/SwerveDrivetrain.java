@@ -87,9 +87,9 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     public void stop() {
-        frontLeft.stopModule();
-        frontRight.stopModule();
-        backLeft.stopModule();
-        backRight.stopModule();
+        frontLeft.stop();
+        frontRight.stop();
+        backLeft.stop();
+        backRight.stop();
     }
 }

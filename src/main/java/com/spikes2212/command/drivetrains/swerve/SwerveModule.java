@@ -93,7 +93,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
                 Rotation2d.fromDegrees(getAbsoluteAngle()));
     }
 
-    public void stopModule() {
+    public void stop() {
         turnMotor.stopMotor();
         driveMotor.stopMotor();
     }
