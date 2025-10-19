@@ -60,7 +60,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         setTargetModuleStates(states);
     }
 
-    public void setTargetModuleStates(SwerveModuleState[] targetModuleStates) {
+    protected void setTargetModuleStates(SwerveModuleState[] targetModuleStates) {
         frontLeft.setTargetState(targetModuleStates[0], maxVelocity);
         frontRight.setTargetState(targetModuleStates[1], maxVelocity);
         backLeft.setTargetState(targetModuleStates[2], maxVelocity);
