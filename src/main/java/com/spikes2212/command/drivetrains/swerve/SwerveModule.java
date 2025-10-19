@@ -53,10 +53,10 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         configureAbsoluteEncoder();
     }
 
-    public void setTargetState(SwerveModuleState targetState) {
+    public void setTargetState(SwerveModuleState targetState, double maxVelocity) {
         targetState.optimize(Rotation2d.fromDegrees(turnMotor.getPosition()));
         setTargetAngle(targetState.angle);
-        setTargetVelocity(targetState.speedMetersPerSecond);
+        setTargetVelocity(targetState.speedMetersPerSecond, maxVelocity);
     }
 
     public void setTargetAngle(Rotation2d targetAngle) {
@@ -65,12 +65,12 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     }
 
 
-    public void setTargetVelocity(double targetVelocity) {
+    public void setTargetVelocity(double targetVelocity, double maxVelocity) {
         if (usePIDVelocity) {
             driveMotor.pidSet(UnifiedControlMode.VELOCITY, targetVelocity, drivePIDSettings, driveFeedForwardSettings,
                     false);
         } else {
-            driveMotor.set(targetVelocity);
+            driveMotor.set(targetVelocity/maxVelocity);
         }
     }
 
