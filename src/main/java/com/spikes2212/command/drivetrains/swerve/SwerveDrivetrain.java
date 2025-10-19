@@ -62,10 +62,10 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     public void setTargetModuleStates(SwerveModuleState[] targetModuleStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(targetModuleStates, maxVelocity);
-        frontLeft.setTargetState(targetModuleStates[0]);
-        frontRight.setTargetState(targetModuleStates[1]);
-        backLeft.setTargetState(targetModuleStates[2]);
-        backRight.setTargetState(targetModuleStates[3]);
+        frontLeft.setTargetState(targetModuleStates[0], maxVelocity);
+        frontRight.setTargetState(targetModuleStates[1], maxVelocity);
+        backLeft.setTargetState(targetModuleStates[2], maxVelocity);
+        backRight.setTargetState(targetModuleStates[3], maxVelocity);
     }
 
     public ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed, double rotationSpeed, double timeStep) {
