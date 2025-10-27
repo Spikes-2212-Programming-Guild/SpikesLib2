@@ -21,7 +21,6 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     protected final boolean driveInverted;
     protected final boolean turnInverted;
-    protected final boolean usePIDVelocity;
     protected final double offset;
 
     protected final PIDSettings drivePIDSettings;
@@ -31,16 +30,14 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
                         Supplier<Double> absoluteModuleAngle, boolean driveInverted, boolean turnInverted,
-                        boolean usePIDVelocity, double offset, PIDSettings drivePIDSettings,
-                        PIDSettings turnPIDSettings, FeedForwardSettings driveFeedForwardSettings,
-                        FeedForwardSettings turnFeedForwardSettings) {
+                        double offset, PIDSettings drivePIDSettings, PIDSettings turnPIDSettings,
+                        FeedForwardSettings driveFeedForwardSettings, FeedForwardSettings turnFeedForwardSettings) {
         super(namespaceName);
         this.driveMotor = driveMotor;
         this.turnMotor = turnMotor;
         this.absoluteModuleAngle = absoluteModuleAngle;
         this.turnInverted = turnInverted;
         this.driveInverted = driveInverted;
-        this.usePIDVelocity = usePIDVelocity;
         this.offset = offset;
         this.drivePIDSettings = drivePIDSettings;
         this.turnPIDSettings = turnPIDSettings;
@@ -53,10 +50,10 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         configureAbsoluteEncoder();
     }
 
-    public void setTargetState(SwerveModuleState targetState, double maxVelocity) {
+    public void setTargetState(SwerveModuleState targetState, double maxVelocity, boolean usePIDVelocity) {
         targetState.optimize(Rotation2d.fromDegrees(turnMotor.getPosition()));
         setTargetAngle(targetState.angle);
-        setTargetVelocity(targetState.speedMetersPerSecond, maxVelocity);
+        setTargetVelocity(targetState.speedMetersPerSecond, maxVelocity, usePIDVelocity);
     }
 
     public void setTargetAngle(Rotation2d targetAngle) {
@@ -65,7 +62,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     }
 
 
-    public void setTargetVelocity(double targetVelocity, double maxVelocity) {
+    public void setTargetVelocity(double targetVelocity, double maxVelocity, boolean usePIDVelocity) {
         if (usePIDVelocity) {
             driveMotor.pidSet(UnifiedControlMode.VELOCITY, targetVelocity, drivePIDSettings,
                     driveFeedForwardSettings, false);
