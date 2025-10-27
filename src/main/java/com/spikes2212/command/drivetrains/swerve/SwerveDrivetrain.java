@@ -53,8 +53,6 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
                 trackLength, maxVelocity);
     }
 
-    public abstract void setRobotAngle();
-
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative,
                       double timeStep, boolean usePIDVelocity) {
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(getChassisSpeeds(isFieldRelative, xSpeed,
