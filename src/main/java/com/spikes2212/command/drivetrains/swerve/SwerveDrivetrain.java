@@ -47,8 +47,8 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     public SwerveDrivetrain(SwerveModule frontLeft, SwerveModule frontRight, SwerveModule backLeft,
                             SwerveModule backRight, double trackWidth, double trackLength, double maxVelocity) {
-        this(getClassName(DEFAULT_NAMESPACE_NAME), frontLeft, frontRight, backLeft, backRight, trackWidth, trackLength,
-                maxVelocity);
+        this(getClassName(DEFAULT_NAMESPACE_NAME), frontLeft, frontRight, backLeft, backRight, trackWidth,
+                trackLength, maxVelocity);
     }
 
     public abstract void updateRobotAngle();
