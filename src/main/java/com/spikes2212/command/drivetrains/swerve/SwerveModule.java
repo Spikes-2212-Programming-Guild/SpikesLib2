@@ -8,8 +8,6 @@ import com.spikes2212.util.smartmotorcontrollers.SmartMotorController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
-import java.util.function.Supplier;
-
 public abstract class SwerveModule extends DashboardedSubsystem {
 
     private static final double ABSOLUTE_POSITION_DISCONTINUITY_POINT = 1;
@@ -17,7 +15,6 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     protected final SmartMotorController driveMotor;
     protected final SmartMotorController turnMotor;
-    protected final Supplier<Double> absoluteModuleAngle;
 
     protected final boolean driveInverted;
     protected final boolean turnInverted;
@@ -28,14 +25,15 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     protected final FeedForwardSettings driveFeedForwardSettings;
     protected final FeedForwardSettings turnFeedForwardSettings;
 
+    protected Rotation2d absoluteModuleAngle;
+
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
-                        Supplier<Double> absoluteModuleAngle, boolean driveInverted, boolean turnInverted,
-                        double offset, PIDSettings drivePIDSettings, PIDSettings turnPIDSettings,
-                        FeedForwardSettings driveFeedForwardSettings, FeedForwardSettings turnFeedForwardSettings) {
+                        boolean driveInverted, boolean turnInverted, double offset, PIDSettings drivePIDSettings,
+                        PIDSettings turnPIDSettings, FeedForwardSettings driveFeedForwardSettings,
+                        FeedForwardSettings turnFeedForwardSettings) {
         super(namespaceName);
         this.driveMotor = driveMotor;
         this.turnMotor = turnMotor;
-        this.absoluteModuleAngle = absoluteModuleAngle;
         this.turnInverted = turnInverted;
         this.driveInverted = driveInverted;
         this.offset = offset;
@@ -77,17 +75,20 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     public abstract void configureAbsoluteEncoder();
 
-    public double getAbsoluteAngle() {
-        return absoluteModuleAngle.get();
+    public abstract void updateAbsoluteModuleAngle();
+
+    public Rotation2d getAbsoluteModuleAngle() {
+        updateAbsoluteModuleAngle();
+        return absoluteModuleAngle;
     }
 
     public void resetRelativeEncoder() {
-        turnMotor.setPosition(getAbsoluteAngle());
+        turnMotor.setPosition(getAbsoluteModuleAngle().getDegrees());
     }
 
     public SwerveModuleState getState() {
         return new SwerveModuleState(driveMotor.getVelocity(),
-                Rotation2d.fromDegrees(getAbsoluteAngle()));
+                getAbsoluteModuleAngle());
     }
 
     public void stop() {

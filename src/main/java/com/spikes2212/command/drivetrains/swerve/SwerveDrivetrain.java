@@ -23,7 +23,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     protected final double maxVelocity;
     protected final SwerveDriveKinematics kinematics;
 
-    protected Supplier<Rotation2d> currentRobotAngle;
+    protected Rotation2d currentRobotAngle;
 
     public SwerveDrivetrain(String namespaceName, SwerveModule frontLeft, SwerveModule frontRight,
                             SwerveModule backLeft, SwerveModule backRight, double trackWidth, double trackLength,
@@ -70,11 +70,14 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         backRight.setTargetState(targetModuleStates[3], maxVelocity, usePIDVelocity);
     }
 
+    protected abstract void updateRobotAngle();
+
     protected ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed,
                                              double rotationSpeed, double timeStep) {
         if (fieldRelative) {
+            updateRobotAngle();
             return ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed,
-                    currentRobotAngle.get()), timeStep);
+                    currentRobotAngle), timeStep);
         } else {
             return ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed, rotationSpeed), timeStep);
         }
