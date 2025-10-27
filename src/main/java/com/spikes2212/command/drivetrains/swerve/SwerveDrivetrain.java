@@ -68,8 +68,8 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         backRight.setTargetState(targetModuleStates[3], maxVelocity);
     }
 
-    protected ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed, double rotationSpeed,
-                                             double timeStep) {
+    protected ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed,
+                                             double rotationSpeed, double timeStep) {
         if (fieldRelative) {
             updateRobotAngle();
             return ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed,
