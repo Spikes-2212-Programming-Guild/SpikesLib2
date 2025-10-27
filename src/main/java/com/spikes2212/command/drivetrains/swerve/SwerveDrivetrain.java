@@ -55,8 +55,8 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative,
                       double timeStep) {
-        SwerveModuleState[] states = kinematics.toSwerveModuleStates(getChassisSpeeds(isFieldRelative, xSpeed, ySpeed,
-                rotationSpeed, timeStep));
+        SwerveModuleState[] states = kinematics.toSwerveModuleStates(getChassisSpeeds(isFieldRelative, xSpeed,
+                ySpeed, rotationSpeed, timeStep));
         SwerveDriveKinematics.desaturateWheelSpeeds(states, maxVelocity);
         setTargetModuleStates(states);
     }
