@@ -69,13 +69,13 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         }
     }
 
-    public abstract void configureDriveController();
+    protected abstract void configureDriveController();
 
-    public abstract void configureTurnController();
+    protected abstract void configureTurnController();
 
-    public abstract void configureAbsoluteEncoder();
+    protected abstract void configureAbsoluteEncoder();
 
-    public abstract void updateAbsoluteModuleAngle();
+    protected abstract void updateAbsoluteModuleAngle();
 
     public Rotation2d getAbsoluteModuleAngle() {
         updateAbsoluteModuleAngle();
