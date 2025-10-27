@@ -56,18 +56,18 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     public abstract void setRobotAngle();
 
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative,
-                      double timeStep) {
+                      double timeStep, boolean usePIDVelocity) {
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(getChassisSpeeds(isFieldRelative, xSpeed,
                 ySpeed, rotationSpeed, timeStep));
         SwerveDriveKinematics.desaturateWheelSpeeds(states, maxVelocity);
-        setTargetModuleStates(states);
+        setTargetModuleStates(states, usePIDVelocity);
     }
 
-    protected void setTargetModuleStates(SwerveModuleState[] targetModuleStates) {
-        frontLeft.setTargetState(targetModuleStates[0], maxVelocity);
-        frontRight.setTargetState(targetModuleStates[1], maxVelocity);
-        backLeft.setTargetState(targetModuleStates[2], maxVelocity);
-        backRight.setTargetState(targetModuleStates[3], maxVelocity);
+    protected void setTargetModuleStates(SwerveModuleState[] targetModuleStates, boolean usePIDVelocity) {
+        frontLeft.setTargetState(targetModuleStates[0], maxVelocity, usePIDVelocity);
+        frontRight.setTargetState(targetModuleStates[1], maxVelocity, usePIDVelocity);
+        backLeft.setTargetState(targetModuleStates[2], maxVelocity, usePIDVelocity);
+        backRight.setTargetState(targetModuleStates[3], maxVelocity, usePIDVelocity);
     }
 
     protected ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed,
