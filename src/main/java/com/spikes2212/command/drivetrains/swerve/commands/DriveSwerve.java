@@ -15,16 +15,18 @@ public class DriveSwerve extends Command {
     private final Supplier<Double> rotationSpeed;
 
     private final boolean isFieldRelative;
+    private final boolean usePIDVelocity;
 
     private double lastGivenTimePeriod;
 
     public DriveSwerve(SwerveDrivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed,
-                       Supplier<Double> rotationSpeed, boolean isFieldRelative) {
+                       Supplier<Double> rotationSpeed, boolean isFieldRelative, boolean usePIDVelocity) {
         this.drivetrain = drivetrain;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.rotationSpeed = rotationSpeed;
         this.isFieldRelative = isFieldRelative;
+        this.usePIDVelocity = usePIDVelocity;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class DriveSwerve extends Command {
     @Override
     public void execute() {
         drivetrain.drive(xSpeed.get(), ySpeed.get(), rotationSpeed.get(), isFieldRelative,
-                Timer.getFPGATimestamp() - lastGivenTimePeriod);
+                Timer.getFPGATimestamp() - lastGivenTimePeriod, usePIDVelocity);
         lastGivenTimePeriod = Timer.getFPGATimestamp();
     }
 
