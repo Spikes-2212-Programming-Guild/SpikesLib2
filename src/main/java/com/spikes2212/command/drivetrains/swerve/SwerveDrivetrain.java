@@ -7,6 +7,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
+import java.util.function.Supplier;
+
 public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "drivetrain";
@@ -21,7 +23,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     protected final double maxVelocity;
     protected final SwerveDriveKinematics kinematics;
 
-    protected Rotation2d currentRobotAngle;
+    protected Supplier<Rotation2d> currentRobotAngle;
 
     public SwerveDrivetrain(String namespaceName, SwerveModule frontLeft, SwerveModule frontRight,
                             SwerveModule backLeft, SwerveModule backRight, double trackWidth, double trackLength,
@@ -51,7 +53,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
                 trackLength, maxVelocity);
     }
 
-    public abstract void updateRobotAngle();
+    public abstract void setRobotAngle();
 
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative,
                       double timeStep) {
@@ -71,9 +73,8 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     protected ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed,
                                              double rotationSpeed, double timeStep) {
         if (fieldRelative) {
-            updateRobotAngle();
             return ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed,
-                    currentRobotAngle), timeStep);
+                    currentRobotAngle.get()), timeStep);
         } else {
             return ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed, rotationSpeed), timeStep);
         }
