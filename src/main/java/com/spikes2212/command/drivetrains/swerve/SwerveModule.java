@@ -10,9 +10,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public abstract class SwerveModule extends DashboardedSubsystem {
 
-    private static final double ABSOLUTE_POSITION_DISCONTINUITY_POINT = 1;
-    private static final double DEGREES_IN_ROTATIONS = 360;
-
     protected final SmartMotorController driveMotor;
     protected final SmartMotorController turnMotor;
 
