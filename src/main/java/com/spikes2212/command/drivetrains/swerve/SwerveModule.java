@@ -22,8 +22,6 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     protected final FeedForwardSettings driveFeedForwardSettings;
     protected final FeedForwardSettings turnFeedForwardSettings;
 
-    protected Rotation2d absoluteModuleAngle;
-
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
                         boolean driveInverted, boolean turnInverted, double offset, PIDSettings drivePIDSettings,
                         PIDSettings turnPIDSettings, FeedForwardSettings driveFeedForwardSettings,
@@ -72,12 +70,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     protected abstract void configureAbsoluteEncoder();
 
-    protected abstract void updateAbsoluteModuleAngle();
-
-    public Rotation2d getAbsoluteModuleAngle() {
-        updateAbsoluteModuleAngle();
-        return absoluteModuleAngle;
-    }
+    protected abstract Rotation2d getAbsoluteModuleAngle();
 
     public void resetRelativeEncoder() {
         turnMotor.setPosition(getAbsoluteModuleAngle().getDegrees());
