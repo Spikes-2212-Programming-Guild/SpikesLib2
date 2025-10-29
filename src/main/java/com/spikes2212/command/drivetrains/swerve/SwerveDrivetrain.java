@@ -21,7 +21,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     protected final double trackWidth;
     protected final double trackLength;
     /**
-        The maximum desired velocity
+     * The maximum desired velocity
      */
     protected final double maxVelocity;
     protected final SwerveDriveKinematics kinematics;
