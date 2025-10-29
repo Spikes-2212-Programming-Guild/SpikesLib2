@@ -68,7 +68,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     protected abstract void configureTurnController();
 
-    /*
+    /**
         * Defines the contract for configuring an absolute encoder.
         * Implementations should set direction, offset, and calibration parameters
         * to align encoder readings with the system’s mechanics.

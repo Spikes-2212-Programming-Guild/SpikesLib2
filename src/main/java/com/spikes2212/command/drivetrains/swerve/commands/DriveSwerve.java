@@ -16,7 +16,7 @@ public class DriveSwerve extends Command {
 
     private final boolean isFieldRelative;
     private final boolean useVelocityPID;
-    /*
+    /**
         This variable is used to calculate the time step
      */
     private double lastGivenTime;
