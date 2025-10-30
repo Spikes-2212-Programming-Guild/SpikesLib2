@@ -240,6 +240,8 @@ public class TalonFXWrapper implements SmartMotorController {
         return talonFX.getTorqueCurrent().getValueAsDouble();
     }
 
+    public TalonFX getTalonFX(){ return talonFX; }
+
     public double getVoltage() {
         return talonFX.getMotorVoltage().getValueAsDouble();
     }
