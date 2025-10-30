@@ -19,7 +19,7 @@ public class DriveSwerve extends Command {
     /**
         This variable is used to calculate the time step
      */
-    private double lastGivenTime;
+    protected double lastGivenTime;
 
     public DriveSwerve(SwerveDrivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed,
                        Supplier<Double> rotationSpeed, boolean isFieldRelative, boolean useVelocityPID) {
