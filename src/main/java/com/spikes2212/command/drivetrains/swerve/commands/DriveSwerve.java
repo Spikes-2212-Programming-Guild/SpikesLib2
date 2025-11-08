@@ -20,6 +20,7 @@ public class DriveSwerve extends Command {
         This variable is used to calculate the time step
      */
     protected double lastGivenTime;
+    protected double now;
 
     public DriveSwerve(SwerveDrivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed,
                        Supplier<Double> rotationSpeed, boolean isFieldRelative, boolean useVelocityPID) {
@@ -38,9 +39,10 @@ public class DriveSwerve extends Command {
 
     @Override
     public void execute() {
+        now = Timer.getFPGATimestamp();
         drivetrain.drive(xSpeed.get(), ySpeed.get(), rotationSpeed.get(), isFieldRelative,
-                Timer.getFPGATimestamp() - lastGivenTime, useVelocityPID);
-        lastGivenTime = Timer.getFPGATimestamp();
+                now - lastGivenTime, useVelocityPID);
+        lastGivenTime = now;
     }
 
     @Override
