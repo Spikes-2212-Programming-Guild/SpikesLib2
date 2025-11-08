@@ -21,7 +21,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     protected final double trackWidth;
     protected final double trackLength;
     /**
-     * The maximum desired velocity
+     * The maximum possible velocity
      */
     protected final double maxVelocity;
     protected final SwerveDriveKinematics kinematics;
@@ -46,6 +46,8 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         kinematics = new SwerveDriveKinematics(frontLeftWheelDistanceFromCenter,
                 frontRightWheelDistanceFromCenter, backLeftWheelDistanceFromCenter,
                 backRightWheelDistanceFromCenter);
+
+        resetRelativeEncoders();
     }
 
     public SwerveDrivetrain(SwerveModule frontLeft, SwerveModule frontRight, SwerveModule backLeft,
