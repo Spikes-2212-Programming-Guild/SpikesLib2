@@ -56,6 +56,16 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
                 drivetrainTrackWidth, drivetrainTrackLength, maxPossibleVelocity);
     }
 
+    /**
+     * Function that moves the robot in a swerve notion.
+     *
+     * @param xSpeed          the desired speed on the x-axis.
+     * @param ySpeed          the desired speed on the y-axis.
+     * @param rotationSpeed   the desired speed for the drivetrain rotation.
+     * @param isFieldRelative whether the drive should be relative to the field or to itself.
+     * @param timeStep        the derivation of time  the speed should be applied.
+     * @param usePIDVelocity  whether the robot velocity will be applied using P.I.D or not.
+     */
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative,
                       double timeStep, boolean usePIDVelocity) {
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(getChassisSpeeds(isFieldRelative, xSpeed,

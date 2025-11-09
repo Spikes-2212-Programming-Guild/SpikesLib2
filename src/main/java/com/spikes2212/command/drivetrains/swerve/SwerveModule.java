@@ -22,6 +22,20 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     protected final FeedForwardSettings driveMotorFeedForwardSettings;
     protected final FeedForwardSettings turnMotorFeedForwardSettings;
 
+    /**
+     * Constructs a new instance of  {@link SwerveModule}.
+     *
+     * @param namespaceName the namespace name used for the module
+     * @param driveMotor the motor that is used for turning the wheel in the roll axis
+     * @param turnMotor the motor that is used fot turning the wheel in the yaw axis
+     * @param driveMotorInverted whether the drive motor is inverted or not
+     * @param turnMotorInverted whether the turn motor is inverted ot not
+     * @param absoluteEncoderOffset absolute encoder offset while wheel is parallel to track
+     * @param driveMotorPIDSettings the drive motor pid settings
+     * @param turnMotorPIDSettings the turn motor pid settings
+     * @param driveMotorFeedForwardSettings the drive motor feed forward settings
+     * @param turnMotorFeedForwardSettings the turn motor feed forward settings
+     */
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
                         boolean driveMotorInverted, boolean turnMotorInverted, double absoluteEncoderOffset,
                         PIDSettings driveMotorPIDSettings, PIDSettings turnMotorPIDSettings,
@@ -96,14 +110,14 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     }
 
     /**
-     * resets the relative encoder according to the absolute encoder
+     * Resets the relative encoder according to the absolute encoder.
      */
     public void resetRelativeEncoder() {
         turnMotor.setPosition(getAbsoluteModuleAngle().getDegrees());
     }
 
     /**
-     * @return the absolute module angle using an absolute encoder
+     * @return the absolute module angle using an absolute encoder.
      */
     protected abstract Rotation2d getAbsoluteModuleAngle();
 
