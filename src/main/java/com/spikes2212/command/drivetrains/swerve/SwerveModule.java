@@ -13,31 +13,31 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     protected final SmartMotorController driveMotor;
     protected final SmartMotorController turnMotor;
 
-    protected final boolean driveInverted;
-    protected final boolean turnInverted;
-    protected final double offset;
+    protected final boolean driveMotorInverted;
+    protected final boolean turnMotorInverted;
+    protected final double absoluteEncoderOffset;
 
-    protected final PIDSettings drivePIDSettings;
-    protected final PIDSettings turnPIDSettings;
-    protected final FeedForwardSettings driveFeedForwardSettings;
-    protected final FeedForwardSettings turnFeedForwardSettings;
+    protected final PIDSettings driveMotorPIDSettings;
+    protected final PIDSettings turnMotorPIDSettings;
+    protected final FeedForwardSettings driveMotorFeedForwardSettings;
+    protected final FeedForwardSettings turnMotorFeedForwardSettings;
 
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
-                        boolean driveInverted, boolean turnInverted, double offset, PIDSettings drivePIDSettings,
-                        PIDSettings turnPIDSettings, FeedForwardSettings driveFeedForwardSettings,
-                        FeedForwardSettings turnFeedForwardSettings) {
+                        boolean driveMotorInverted, boolean turnMotorInverted, double absoluteEncoderOffset, PIDSettings driveMotorPIDSettings,
+                        PIDSettings turnMotorPIDSettings, FeedForwardSettings driveMotorFeedForwardSettings,
+                        FeedForwardSettings turnMotorFeedForwardSettings) {
         super(namespaceName);
         this.driveMotor = driveMotor;
         this.turnMotor = turnMotor;
-        this.turnInverted = turnInverted;
-        this.driveInverted = driveInverted;
-        this.offset = offset;
-        this.drivePIDSettings = drivePIDSettings;
-        this.turnPIDSettings = turnPIDSettings;
-        this.driveFeedForwardSettings = driveFeedForwardSettings;
-        this.turnFeedForwardSettings = turnFeedForwardSettings;
-        driveMotor.setInverted(driveInverted);
-        turnMotor.setInverted(turnInverted);
+        this.turnMotorInverted = turnMotorInverted;
+        this.driveMotorInverted = driveMotorInverted;
+        this.absoluteEncoderOffset = absoluteEncoderOffset;
+        this.driveMotorPIDSettings = driveMotorPIDSettings;
+        this.turnMotorPIDSettings = turnMotorPIDSettings;
+        this.driveMotorFeedForwardSettings = driveMotorFeedForwardSettings;
+        this.turnMotorFeedForwardSettings = turnMotorFeedForwardSettings;
+        driveMotor.setInverted(driveMotorInverted);
+        turnMotor.setInverted(turnMotorInverted);
         configureTurnController();
         configureDriveController();
         configureAbsoluteEncoder();
@@ -69,14 +69,14 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     }
 
     public void setTargetAngle(Rotation2d targetAngle) {
-        turnMotor.pidSet(UnifiedControlMode.POSITION, targetAngle.getDegrees(), turnPIDSettings,
-                turnFeedForwardSettings, false);
+        turnMotor.pidSet(UnifiedControlMode.POSITION, targetAngle.getDegrees(), turnMotorPIDSettings,
+                turnMotorFeedForwardSettings, false);
     }
 
     public void setTargetVelocity(double targetVelocity, double maxVelocity, boolean usePIDVelocity) {
         if (usePIDVelocity) {
-            driveMotor.pidSet(UnifiedControlMode.VELOCITY, targetVelocity, drivePIDSettings,
-                    driveFeedForwardSettings, false);
+            driveMotor.pidSet(UnifiedControlMode.VELOCITY, targetVelocity, driveMotorPIDSettings,
+                    driveMotorFeedForwardSettings, false);
         } else {
             driveMotor.set(targetVelocity / maxVelocity);
         }
