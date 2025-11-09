@@ -23,8 +23,9 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     protected final FeedForwardSettings turnMotorFeedForwardSettings;
 
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
-                        boolean driveMotorInverted, boolean turnMotorInverted, double absoluteEncoderOffset, PIDSettings driveMotorPIDSettings,
-                        PIDSettings turnMotorPIDSettings, FeedForwardSettings driveMotorFeedForwardSettings,
+                        boolean driveMotorInverted, boolean turnMotorInverted, double absoluteEncoderOffset,
+                        PIDSettings driveMotorPIDSettings, PIDSettings turnMotorPIDSettings,
+                        FeedForwardSettings driveMotorFeedForwardSettings,
                         FeedForwardSettings turnMotorFeedForwardSettings) {
         super(namespaceName);
         this.driveMotor = driveMotor;
