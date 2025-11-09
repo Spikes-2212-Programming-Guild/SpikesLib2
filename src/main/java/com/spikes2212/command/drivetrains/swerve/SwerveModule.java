@@ -43,6 +43,25 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         configureAbsoluteEncoder();
     }
 
+    /**
+     * Configures drive motor conversion factors that translate encoder rotations
+     * into real-world distance and speed measurements.
+     */
+    protected abstract void configureDriveController();
+
+    /**
+     * Configures turn motor conversion factors that convert motor rotations
+     * into angular position and velocity values.
+     */
+    protected abstract void configureTurnController();
+
+    /**
+     * Defines the contract for configuring an absolute encoder.
+     * Implementations should set direction, offset, and calibration parameters
+     * to align encoder readings with the system’s mechanics.
+     */
+    protected abstract void configureAbsoluteEncoder();
+
     public void setTargetState(SwerveModuleState targetState, double maxVelocity, boolean usePIDVelocity) {
         targetState.optimize(Rotation2d.fromDegrees(turnMotor.getPosition()));
         setTargetAngle(targetState.angle);
@@ -54,7 +73,6 @@ public abstract class SwerveModule extends DashboardedSubsystem {
                 turnFeedForwardSettings, false);
     }
 
-
     public void setTargetVelocity(double targetVelocity, double maxVelocity, boolean usePIDVelocity) {
         if (usePIDVelocity) {
             driveMotor.pidSet(UnifiedControlMode.VELOCITY, targetVelocity, drivePIDSettings,
@@ -64,32 +82,29 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         }
     }
 
-    protected abstract void configureDriveController();
+    public SwerveModuleState getModuleState() {
+        return new SwerveModuleState(driveMotor.getVelocity(), getAbsoluteModuleAngle());
+    }
 
-    protected abstract void configureTurnController();
+    public double getRelativeModuleAngle() {
+        return turnMotor.getPosition();
+    }
+
+    public double getModuleVelocity() {
+        return driveMotor.getVelocity();
+    }
 
     /**
-     * Defines the contract for configuring an absolute encoder.
-     * Implementations should set direction, offset, and calibration parameters
-     * to align encoder readings with the system’s mechanics.
+     * resets the relative encoder according to the absolute encoder
      */
-    protected abstract void configureAbsoluteEncoder();
-
-    protected abstract Rotation2d getAbsoluteModuleAngle();
-
     public void resetRelativeEncoder() {
         turnMotor.setPosition(getAbsoluteModuleAngle().getDegrees());
     }
 
-    public double getRelativeModuleAngle(){
-        return turnMotor.getPosition();
-    }
-
-    public double getModuleVelocity(){ return driveMotor.getVelocity();}
-
-    public SwerveModuleState getModuleState() {
-        return new SwerveModuleState(driveMotor.getVelocity(), getAbsoluteModuleAngle());
-    }
+    /**
+     * @return the absolute module angle using an absolute encoder
+     */
+    protected abstract Rotation2d getAbsoluteModuleAngle();
 
     public void stop() {
         driveMotor.stopMotor();
