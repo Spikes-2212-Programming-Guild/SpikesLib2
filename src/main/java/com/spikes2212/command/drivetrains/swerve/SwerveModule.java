@@ -87,7 +87,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     public double getModuleVelocity(){ return driveMotor.getVelocity();}
 
-    public SwerveModuleState getState() {
+    public SwerveModuleState getModuleState() {
         return new SwerveModuleState(driveMotor.getVelocity(), getAbsoluteModuleAngle());
     }
 
