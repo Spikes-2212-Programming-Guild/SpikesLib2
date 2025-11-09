@@ -7,41 +7,40 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
-import java.util.function.Supplier;
-
 public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "drivetrain";
 
-    protected final SwerveModule frontLeft;
-    protected final SwerveModule frontRight;
-    protected final SwerveModule backLeft;
-    protected final SwerveModule backRight;
+    protected final SwerveModule frontLeftModule;
+    protected final SwerveModule frontRightModule;
+    protected final SwerveModule backLeftModule;
+    protected final SwerveModule backRightModule;
 
-    protected final double trackWidth;
-    protected final double trackLength;
-    /**
-     * The maximum possible velocity
-     */
-    protected final double maxVelocity;
+    protected final double drivetrainTrackWidth;
+    protected final double drivetrainTrackLength;
+    protected final double maxPossibleVelocity;
     protected final SwerveDriveKinematics kinematics;
 
-    public SwerveDrivetrain(String namespaceName, SwerveModule frontLeft, SwerveModule frontRight,
-                            SwerveModule backLeft, SwerveModule backRight, double trackWidth, double trackLength,
-                            double maxVelocity) {
+    public SwerveDrivetrain(String namespaceName, SwerveModule frontLeftModule, SwerveModule frontRightModule,
+                            SwerveModule backLeftModule, SwerveModule backRightModule, double drivetrainTrackWidth,
+                            double drivetrainTrackLength, double maxPossibleVelocity) {
         super(namespaceName);
-        this.frontLeft = frontLeft;
-        this.frontRight = frontRight;
-        this.backLeft = backLeft;
-        this.backRight = backRight;
-        this.trackWidth = trackWidth;
-        this.trackLength = trackLength;
-        this.maxVelocity = maxVelocity;
+        this.frontLeftModule = frontLeftModule;
+        this.frontRightModule = frontRightModule;
+        this.backLeftModule = backLeftModule;
+        this.backRightModule = backRightModule;
+        this.drivetrainTrackWidth = drivetrainTrackWidth;
+        this.drivetrainTrackLength = drivetrainTrackLength;
+        this.maxPossibleVelocity = maxPossibleVelocity;
 
-        Translation2d frontLeftWheelDistanceFromCenter = new Translation2d(trackWidth / 2, trackLength / 2);
-        Translation2d frontRightWheelDistanceFromCenter = new Translation2d(trackWidth / 2, -trackLength / 2);
-        Translation2d backLeftWheelDistanceFromCenter = new Translation2d(-trackWidth / 2, trackLength / 2);
-        Translation2d backRightWheelDistanceFromCenter = new Translation2d(-trackWidth / 2, -trackLength / 2);
+        Translation2d frontLeftWheelDistanceFromCenter =
+                new Translation2d(drivetrainTrackWidth / 2, drivetrainTrackLength / 2);
+        Translation2d frontRightWheelDistanceFromCenter =
+                new Translation2d(drivetrainTrackWidth / 2, -drivetrainTrackLength / 2);
+        Translation2d backLeftWheelDistanceFromCenter =
+                new Translation2d(-drivetrainTrackWidth / 2, drivetrainTrackLength / 2);
+        Translation2d backRightWheelDistanceFromCenter =
+                new Translation2d(-drivetrainTrackWidth / 2, -drivetrainTrackLength / 2);
 
         kinematics = new SwerveDriveKinematics(frontLeftWheelDistanceFromCenter,
                 frontRightWheelDistanceFromCenter, backLeftWheelDistanceFromCenter,
@@ -50,25 +49,26 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         resetRelativeEncoders();
     }
 
-    public SwerveDrivetrain(SwerveModule frontLeft, SwerveModule frontRight, SwerveModule backLeft,
-                            SwerveModule backRight, double trackWidth, double trackLength, double maxVelocity) {
-        this(getClassName(DEFAULT_NAMESPACE_NAME), frontLeft, frontRight, backLeft, backRight, trackWidth,
-                trackLength, maxVelocity);
+    public SwerveDrivetrain(SwerveModule frontLeftModule, SwerveModule frontRightModule, SwerveModule backLeftModule,
+                            SwerveModule backRightModule, double drivetrainTrackWidth, double drivetrainTrackLength,
+                            double maxPossibleVelocity) {
+        this(getClassName(DEFAULT_NAMESPACE_NAME), frontLeftModule, frontRightModule, backLeftModule, backRightModule,
+                drivetrainTrackWidth, drivetrainTrackLength, maxPossibleVelocity);
     }
 
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative,
                       double timeStep, boolean usePIDVelocity) {
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(getChassisSpeeds(isFieldRelative, xSpeed,
                 ySpeed, rotationSpeed, timeStep));
-        SwerveDriveKinematics.desaturateWheelSpeeds(states, maxVelocity);
+        SwerveDriveKinematics.desaturateWheelSpeeds(states, maxPossibleVelocity);
         setTargetModuleStates(states, usePIDVelocity);
     }
 
     protected void setTargetModuleStates(SwerveModuleState[] targetModuleStates, boolean usePIDVelocity) {
-        frontLeft.setTargetState(targetModuleStates[0], maxVelocity, usePIDVelocity);
-        frontRight.setTargetState(targetModuleStates[1], maxVelocity, usePIDVelocity);
-        backLeft.setTargetState(targetModuleStates[2], maxVelocity, usePIDVelocity);
-        backRight.setTargetState(targetModuleStates[3], maxVelocity, usePIDVelocity);
+        frontLeftModule.setTargetState(targetModuleStates[0], maxPossibleVelocity, usePIDVelocity);
+        frontRightModule.setTargetState(targetModuleStates[1], maxPossibleVelocity, usePIDVelocity);
+        backLeftModule.setTargetState(targetModuleStates[2], maxPossibleVelocity, usePIDVelocity);
+        backRightModule.setTargetState(targetModuleStates[3], maxPossibleVelocity, usePIDVelocity);
     }
 
     protected abstract Rotation2d getCurrentRobotAngle();
@@ -84,16 +84,16 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     public void resetRelativeEncoders() {
-        frontLeft.resetRelativeEncoder();
-        frontRight.resetRelativeEncoder();
-        backLeft.resetRelativeEncoder();
-        backRight.resetRelativeEncoder();
+        frontLeftModule.resetRelativeEncoder();
+        frontRightModule.resetRelativeEncoder();
+        backLeftModule.resetRelativeEncoder();
+        backRightModule.resetRelativeEncoder();
     }
 
     public void stop() {
-        frontLeft.stop();
-        frontRight.stop();
-        backLeft.stop();
-        backRight.stop();
+        frontLeftModule.stop();
+        frontRightModule.stop();
+        backLeftModule.stop();
+        backRightModule.stop();
     }
 }
