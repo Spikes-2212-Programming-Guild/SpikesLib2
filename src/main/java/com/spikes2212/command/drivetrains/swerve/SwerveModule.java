@@ -25,16 +25,16 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     /**
      * Constructs a new instance of  {@link SwerveModule}.
      *
-     * @param namespaceName the namespace name used for the module
-     * @param driveMotor the motor that is used for turning the wheel in the roll axis
-     * @param turnMotor the motor that is used fot turning the wheel in the yaw axis
-     * @param driveMotorInverted whether the drive motor is inverted or not
-     * @param turnMotorInverted whether the turn motor is inverted ot not
-     * @param absoluteEncoderOffset absolute encoder offset while wheel is parallel to track
-     * @param driveMotorPIDSettings the drive motor pid settings
-     * @param turnMotorPIDSettings the turn motor pid settings
+     * @param namespaceName                 the namespace name used for the module
+     * @param driveMotor                    the motor that is used for turning the wheel in the roll axis
+     * @param turnMotor                     the motor that is used fot turning the wheel in the yaw axis
+     * @param driveMotorInverted            whether the drive motor is inverted or not
+     * @param turnMotorInverted             whether the turn motor is inverted ot not
+     * @param absoluteEncoderOffset         absolute encoder offset while wheel is parallel to track
+     * @param driveMotorPIDSettings         the drive motor pid settings
+     * @param turnMotorPIDSettings          the turn motor pid settings
      * @param driveMotorFeedForwardSettings the drive motor feed forward settings
-     * @param turnMotorFeedForwardSettings the turn motor feed forward settings
+     * @param turnMotorFeedForwardSettings  the turn motor feed forward settings
      */
     public SwerveModule(String namespaceName, SmartMotorController driveMotor, SmartMotorController turnMotor,
                         boolean driveMotorInverted, boolean turnMotorInverted, double absoluteEncoderOffset,
@@ -77,34 +77,62 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      */
     protected abstract void configureAbsoluteEncoder();
 
-    public void setTargetState(SwerveModuleState targetState, double maxVelocity, boolean usePIDVelocity) {
+    /**
+     * Sets the desired module state.
+     *
+     * @param targetState         the desired state of the module
+     * @param maxPossibleVelocity the maximum possible velocity of the drive motor
+     * @param usePIDVelocity      whether the module will drive with P.I.D for the velocity
+     */
+    public void setTargetState(SwerveModuleState targetState, double maxPossibleVelocity, boolean usePIDVelocity) {
         targetState.optimize(Rotation2d.fromDegrees(turnMotor.getPosition()));
         setTargetAngle(targetState.angle);
-        setTargetVelocity(targetState.speedMetersPerSecond, maxVelocity, usePIDVelocity);
+        setTargetVelocity(targetState.speedMetersPerSecond, maxPossibleVelocity, usePIDVelocity);
     }
 
+    /**
+     * Sets the desired module angle.
+     *
+     * @param targetAngle the desired angle of the module
+     */
     public void setTargetAngle(Rotation2d targetAngle) {
         turnMotor.pidSet(UnifiedControlMode.POSITION, targetAngle.getDegrees(), turnMotorPIDSettings,
                 turnMotorFeedForwardSettings, false);
     }
 
-    public void setTargetVelocity(double targetVelocity, double maxVelocity, boolean usePIDVelocity) {
+    /**
+     * Sets the desired module velocity.
+     *
+     * @param targetVelocity      the desired velocity of the module
+     * @param maxPossibleVelocity the maximum possible velocity of the drive motor
+     * @param usePIDVelocity      whether the module will drive with P.I.D for the velocity
+     */
+    public void setTargetVelocity(double targetVelocity, double maxPossibleVelocity, boolean usePIDVelocity) {
         if (usePIDVelocity) {
             driveMotor.pidSet(UnifiedControlMode.VELOCITY, targetVelocity, driveMotorPIDSettings,
                     driveMotorFeedForwardSettings, false);
         } else {
-            driveMotor.set(targetVelocity / maxVelocity);
+            driveMotor.set(targetVelocity / maxPossibleVelocity);
         }
     }
 
+    /**
+     * @return the current state of the module
+     */
     public SwerveModuleState getModuleState() {
         return new SwerveModuleState(driveMotor.getVelocity(), getAbsoluteModuleAngle());
     }
 
+    /**
+     * @return the current relative module angle
+     */
     public double getRelativeModuleAngle() {
         return turnMotor.getPosition();
     }
 
+    /**
+     * @return the current module velocity
+     */
     public double getModuleVelocity() {
         return driveMotor.getVelocity();
     }
@@ -121,6 +149,9 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      */
     protected abstract Rotation2d getAbsoluteModuleAngle();
 
+    /**
+     * stops the module
+     */
     public void stop() {
         driveMotor.stopMotor();
         turnMotor.stopMotor();

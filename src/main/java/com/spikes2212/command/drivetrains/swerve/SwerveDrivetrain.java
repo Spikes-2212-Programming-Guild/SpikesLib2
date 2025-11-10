@@ -21,6 +21,18 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     protected final double maxPossibleVelocity;
     protected final SwerveDriveKinematics kinematics;
 
+    /**
+     * Constructs a new instance of {@link SwerveDrivetrain}.
+     *
+     * @param namespaceName         the namespace name for the drivetrain
+     * @param frontLeftModule       the front left module using {@link SwerveModule}
+     * @param frontRightModule      the front right module using {@link SwerveModule}
+     * @param backLeftModule        the back left module using {@link SwerveModule}
+     * @param backRightModule       the back right module using{@link SwerveModule}
+     * @param drivetrainTrackWidth  the width of the drivetrain
+     * @param drivetrainTrackLength the length of the drivetrain
+     * @param maxPossibleVelocity   the maximum possible velocity of the drive motors
+     */
     public SwerveDrivetrain(String namespaceName, SwerveModule frontLeftModule, SwerveModule frontRightModule,
                             SwerveModule backLeftModule, SwerveModule backRightModule, double drivetrainTrackWidth,
                             double drivetrainTrackLength, double maxPossibleVelocity) {
@@ -49,6 +61,17 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         resetRelativeEncoders();
     }
 
+    /**
+     * Constructs a new instance of {@link SwerveDrivetrain} with the default name of "drivetrain".
+     *
+     * @param frontLeftModule       the front left module using {@link SwerveModule}
+     * @param frontRightModule      the front right module using {@link SwerveModule}
+     * @param backLeftModule        the back left module using {@link SwerveModule}
+     * @param backRightModule       the back right module using{@link SwerveModule}
+     * @param drivetrainTrackWidth  the width of the drivetrain
+     * @param drivetrainTrackLength the length of the drivetrain
+     * @param maxPossibleVelocity   the maximum possible velocity of the drive motors
+     */
     public SwerveDrivetrain(SwerveModule frontLeftModule, SwerveModule frontRightModule, SwerveModule backLeftModule,
                             SwerveModule backRightModule, double drivetrainTrackWidth, double drivetrainTrackLength,
                             double maxPossibleVelocity) {
@@ -57,7 +80,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Function that moves the robot in a swerve notion.
+     * Function that moves the robot in a swerve motion.
      *
      * @param xSpeed          the desired speed on the x-axis.
      * @param ySpeed          the desired speed on the y-axis.
@@ -74,6 +97,12 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         setTargetModuleStates(states, usePIDVelocity);
     }
 
+    /**
+     * Sets the desired module states.
+     *
+     * @param targetModuleStates an array of the desired module states
+     * @param usePIDVelocity     whether the modules will drive with P.I.D for the velocity
+     */
     protected void setTargetModuleStates(SwerveModuleState[] targetModuleStates, boolean usePIDVelocity) {
         frontLeftModule.setTargetState(targetModuleStates[0], maxPossibleVelocity, usePIDVelocity);
         frontRightModule.setTargetState(targetModuleStates[1], maxPossibleVelocity, usePIDVelocity);
@@ -81,8 +110,23 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         backRightModule.setTargetState(targetModuleStates[3], maxPossibleVelocity, usePIDVelocity);
     }
 
+    /**
+     * This function allows to update the robot angle using an external sensor.
+     *
+     * @return the current angle of the robot
+     */
     protected abstract Rotation2d getCurrentRobotAngle();
 
+    /**
+     * Function that sets the chassis speeds for the robot.
+     *
+     * @param fieldRelative whether the drive should be relative to the field or to itself.
+     * @param xSpeed          the desired speed on the x-axis.
+     * @param ySpeed          the desired speed on the y-axis.
+     * @param rotationSpeed   the desired speed for the drivetrain rotation.
+     * @param timeStep        the derivation of time  the speed should be applied.
+     * @return the necessary chassis speeds for the desired movement
+     */
     protected ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed,
                                              double rotationSpeed, double timeStep) {
         if (fieldRelative) {
@@ -93,6 +137,9 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         }
     }
 
+    /**
+     * Resets the relative encoders of every module according to their absolute encoder.
+     */
     public void resetRelativeEncoders() {
         frontLeftModule.resetRelativeEncoder();
         frontRightModule.resetRelativeEncoder();
@@ -100,6 +147,9 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         backRightModule.resetRelativeEncoder();
     }
 
+    /**
+     * Stops all modules.
+     */
     public void stop() {
         frontLeftModule.stop();
         frontRightModule.stop();
