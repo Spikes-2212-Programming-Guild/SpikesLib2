@@ -15,21 +15,33 @@ public class DriveSwerve extends Command {
     private final Supplier<Double> rotationSpeed;
 
     private final boolean isFieldRelative;
-    private final boolean useVelocityPID;
+    private final boolean usePIDVelocity;
+
     /**
-        This variable is used to calculate the time step
+     * These variables are used to calculate the time step
      */
     protected double lastGivenTime;
     protected double now;
 
+    /**
+     * Constructs a new {@link DriveSwerve} command that moves the given
+     * {@link SwerveDrivetrain}
+     *
+     * @param drivetrain      the swerve drivetrain this command operates on
+     * @param xSpeed          the desired {@link Supplier} speed on the x-axis
+     * @param ySpeed          the desired {@link Supplier} speed on the y-axis
+     * @param rotationSpeed   the desired rotational {@link Supplier} speed
+     * @param isFieldRelative whether the drive should be relative to the field or to itself.
+     * @param usePIDVelocity  whether the robot velocity will be applied using P.I.D or not.
+     */
     public DriveSwerve(SwerveDrivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed,
-                       Supplier<Double> rotationSpeed, boolean isFieldRelative, boolean useVelocityPID) {
+                       Supplier<Double> rotationSpeed, boolean isFieldRelative, boolean usePIDVelocity) {
         this.drivetrain = drivetrain;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.rotationSpeed = rotationSpeed;
         this.isFieldRelative = isFieldRelative;
-        this.useVelocityPID = useVelocityPID;
+        this.usePIDVelocity = usePIDVelocity;
     }
 
     @Override
@@ -41,7 +53,7 @@ public class DriveSwerve extends Command {
     public void execute() {
         now = Timer.getFPGATimestamp();
         drivetrain.drive(xSpeed.get(), ySpeed.get(), rotationSpeed.get(), isFieldRelative,
-                now - lastGivenTime, useVelocityPID);
+                now - lastGivenTime, usePIDVelocity);
         lastGivenTime = now;
     }
 
