@@ -11,8 +11,6 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "drivetrain";
 
-    private final static int NOT_MAGIC_NUMBER = 2;
-
     protected final SwerveModule frontLeftModule;
     protected final SwerveModule frontRightModule;
     protected final SwerveModule backLeftModule;
