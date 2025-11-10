@@ -6,6 +6,7 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import com.spikes2212.util.smartmotorcontrollers.SmartMotorController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public abstract class SwerveModule extends DashboardedSubsystem {
@@ -135,6 +136,13 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      */
     public double getModuleVelocity() {
         return driveMotor.getVelocity();
+    }
+
+    /**
+     * @return the {@link SwerveModulePosition} of this module
+     */
+    public SwerveModulePosition getModulePosition() {
+        return new SwerveModulePosition(driveMotor.getPosition(), getAbsoluteModuleAngle());
     }
 
     /**
