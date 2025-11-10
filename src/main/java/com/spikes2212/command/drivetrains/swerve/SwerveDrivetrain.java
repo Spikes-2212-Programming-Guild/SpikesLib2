@@ -125,7 +125,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      * @param ySpeed          the desired speed on the y-axis.
      * @param rotationSpeed   the desired speed for the drivetrain rotation.
      * @param timeStep        the derivation of time  the speed should be applied.
-     * @return the necessary chassis speeds for the desired movement
+     * @return the necessary {@link ChassisSpeeds} for the desired movement
      */
     protected ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed,
                                              double rotationSpeed, double timeStep) {
@@ -135,6 +135,14 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         } else {
             return ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed, rotationSpeed), timeStep);
         }
+    }
+
+    /**
+     * @return the robot relative {@link ChassisSpeeds}
+     */
+    public ChassisSpeeds getRobotRelativeSpeeds() {
+        return kinematics.toChassisSpeeds(frontLeftModule.getModuleState(), frontRightModule.getModuleState(),
+                backLeftModule.getModuleState(), backRightModule.getModuleState());
     }
 
     /**
