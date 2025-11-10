@@ -11,52 +11,42 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     private static final String DEFAULT_NAMESPACE_NAME = "drivetrain";
 
+    private final static int NOT_MAGIC_NUMBER = 2;
+
     protected final SwerveModule frontLeftModule;
     protected final SwerveModule frontRightModule;
     protected final SwerveModule backLeftModule;
     protected final SwerveModule backRightModule;
 
-    protected final double drivetrainTrackWidth;
-    protected final double drivetrainTrackLength;
+    protected final double halfDrivetrainTrackWidth;
+    protected final double halfDrivetrainTrackLength;
     protected final double maxPossibleVelocity;
     protected final SwerveDriveKinematics kinematics;
 
     /**
      * Constructs a new instance of {@link SwerveDrivetrain}.
      *
-     * @param namespaceName         the namespace name for the drivetrain
-     * @param frontLeftModule       the front left module using {@link SwerveModule}
-     * @param frontRightModule      the front right module using {@link SwerveModule}
-     * @param backLeftModule        the back left module using {@link SwerveModule}
-     * @param backRightModule       the back right module using{@link SwerveModule}
-     * @param drivetrainTrackWidth  the width of the drivetrain
-     * @param drivetrainTrackLength the length of the drivetrain
-     * @param maxPossibleVelocity   the maximum possible velocity of the drive motors
+     * @param namespaceName             the namespace name for the drivetrain
+     * @param frontLeftModule           the front left module using {@link SwerveModule}
+     * @param frontRightModule          the front right module using {@link SwerveModule}
+     * @param backLeftModule            the back left module using {@link SwerveModule}
+     * @param backRightModule           the back right module using{@link SwerveModule}
+     * @param halfDrivetrainTrackWidth  half of the width of the drivetrain
+     * @param halfDrivetrainTrackLength half of the length of the drivetrain
+     * @param maxPossibleVelocity       the maximum possible velocity of the drive motors
      */
     public SwerveDrivetrain(String namespaceName, SwerveModule frontLeftModule, SwerveModule frontRightModule,
-                            SwerveModule backLeftModule, SwerveModule backRightModule, double drivetrainTrackWidth,
-                            double drivetrainTrackLength, double maxPossibleVelocity) {
+                            SwerveModule backLeftModule, SwerveModule backRightModule, double halfDrivetrainTrackWidth,
+                            double halfDrivetrainTrackLength, double maxPossibleVelocity) {
         super(namespaceName);
         this.frontLeftModule = frontLeftModule;
         this.frontRightModule = frontRightModule;
         this.backLeftModule = backLeftModule;
         this.backRightModule = backRightModule;
-        this.drivetrainTrackWidth = drivetrainTrackWidth;
-        this.drivetrainTrackLength = drivetrainTrackLength;
+        this.halfDrivetrainTrackWidth = halfDrivetrainTrackWidth;
+        this.halfDrivetrainTrackLength = halfDrivetrainTrackLength;
         this.maxPossibleVelocity = maxPossibleVelocity;
-
-        Translation2d frontLeftWheelDistanceFromCenter =
-                new Translation2d(drivetrainTrackWidth / 2, drivetrainTrackLength / 2);
-        Translation2d frontRightWheelDistanceFromCenter =
-                new Translation2d(drivetrainTrackWidth / 2, -drivetrainTrackLength / 2);
-        Translation2d backLeftWheelDistanceFromCenter =
-                new Translation2d(-drivetrainTrackWidth / 2, drivetrainTrackLength / 2);
-        Translation2d backRightWheelDistanceFromCenter =
-                new Translation2d(-drivetrainTrackWidth / 2, -drivetrainTrackLength / 2);
-
-        kinematics = new SwerveDriveKinematics(frontLeftWheelDistanceFromCenter,
-                frontRightWheelDistanceFromCenter, backLeftWheelDistanceFromCenter,
-                backRightWheelDistanceFromCenter);
+        kinematics = getKinematics();
 
         resetRelativeEncoders();
     }
@@ -64,19 +54,19 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * Constructs a new instance of {@link SwerveDrivetrain} with the default name of "drivetrain".
      *
-     * @param frontLeftModule       the front left module using {@link SwerveModule}
-     * @param frontRightModule      the front right module using {@link SwerveModule}
-     * @param backLeftModule        the back left module using {@link SwerveModule}
-     * @param backRightModule       the back right module using{@link SwerveModule}
-     * @param drivetrainTrackWidth  the width of the drivetrain
-     * @param drivetrainTrackLength the length of the drivetrain
-     * @param maxPossibleVelocity   the maximum possible velocity of the drive motors
+     * @param frontLeftModule           the front left module using {@link SwerveModule}
+     * @param frontRightModule          the front right module using {@link SwerveModule}
+     * @param backLeftModule            the back left module using {@link SwerveModule}
+     * @param backRightModule           the back right module using{@link SwerveModule}
+     * @param halfDrivetrainTrackWidth  the width of the drivetrain
+     * @param halfDrivetrainTrackLength the length of the drivetrain
+     * @param maxPossibleVelocity       the maximum possible velocity of the drive motors
      */
     public SwerveDrivetrain(SwerveModule frontLeftModule, SwerveModule frontRightModule, SwerveModule backLeftModule,
-                            SwerveModule backRightModule, double drivetrainTrackWidth, double drivetrainTrackLength,
+                            SwerveModule backRightModule, double halfDrivetrainTrackWidth, double halfDrivetrainTrackLength,
                             double maxPossibleVelocity) {
         this(getClassName(DEFAULT_NAMESPACE_NAME), frontLeftModule, frontRightModule, backLeftModule, backRightModule,
-                drivetrainTrackWidth, drivetrainTrackLength, maxPossibleVelocity);
+                halfDrivetrainTrackWidth, halfDrivetrainTrackLength, maxPossibleVelocity);
     }
 
     /**
@@ -121,10 +111,10 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      * Function that sets the chassis speeds for the robot.
      *
      * @param fieldRelative whether the drive should be relative to the field or to itself.
-     * @param xSpeed          the desired speed on the x-axis.
-     * @param ySpeed          the desired speed on the y-axis.
-     * @param rotationSpeed   the desired speed for the drivetrain rotation.
-     * @param timeStep        the derivation of time  the speed should be applied.
+     * @param xSpeed        the desired speed on the x-axis.
+     * @param ySpeed        the desired speed on the y-axis.
+     * @param rotationSpeed the desired speed for the drivetrain rotation.
+     * @param timeStep      the derivation of time  the speed should be applied.
      * @return the necessary {@link ChassisSpeeds} for the desired movement
      */
     protected ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed,
@@ -138,9 +128,29 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
+     * Calculates the 2d positions of each wheel in relation to the center of the robot.
+     *
+     * @return a {@link SwerveDriveKinematics} according to the wheels positions in relation to the center
+     */
+    protected SwerveDriveKinematics getKinematics() {
+        Translation2d frontLeftWheelDistanceFromCenter =
+                new Translation2d(halfDrivetrainTrackWidth, halfDrivetrainTrackLength);
+        Translation2d frontRightWheelDistanceFromCenter =
+                new Translation2d(halfDrivetrainTrackWidth, -halfDrivetrainTrackLength);
+        Translation2d backLeftWheelDistanceFromCenter =
+                new Translation2d(-halfDrivetrainTrackWidth, halfDrivetrainTrackLength);
+        Translation2d backRightWheelDistanceFromCenter =
+                new Translation2d(-halfDrivetrainTrackWidth, -halfDrivetrainTrackLength);
+
+        return new SwerveDriveKinematics(frontLeftWheelDistanceFromCenter,
+                frontRightWheelDistanceFromCenter, backLeftWheelDistanceFromCenter,
+                backRightWheelDistanceFromCenter);
+    }
+
+    /**
      * @return the robot relative {@link ChassisSpeeds}
      */
-    public ChassisSpeeds getRobotRelativeSpeeds() {
+    protected ChassisSpeeds getRobotRelativeSpeeds() {
         return kinematics.toChassisSpeeds(frontLeftModule.getModuleState(), frontRightModule.getModuleState(),
                 backLeftModule.getModuleState(), backRightModule.getModuleState());
     }
