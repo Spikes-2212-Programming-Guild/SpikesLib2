@@ -44,7 +44,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         this.halfDrivetrainTrackWidth = halfDrivetrainTrackWidth;
         this.halfDrivetrainTrackLength = halfDrivetrainTrackLength;
         this.maxPossibleVelocity = maxPossibleVelocity;
-        kinematics = getKinematics();
+        kinematics = calculateKinematics();
 
         resetRelativeEncoders();
     }
@@ -130,7 +130,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      *
      * @return a {@link SwerveDriveKinematics} according to the wheels positions in relation to the center
      */
-    protected SwerveDriveKinematics getKinematics() {
+    protected SwerveDriveKinematics calculateKinematics() {
         Translation2d frontLeftWheelDistanceFromCenter =
                 new Translation2d(halfDrivetrainTrackWidth, halfDrivetrainTrackLength);
         Translation2d frontRightWheelDistanceFromCenter =
@@ -143,6 +143,10 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
         return new SwerveDriveKinematics(frontLeftWheelDistanceFromCenter,
                 frontRightWheelDistanceFromCenter, backLeftWheelDistanceFromCenter,
                 backRightWheelDistanceFromCenter);
+    }
+
+    protected SwerveDriveKinematics getKinematics(){
+        return kinematics;
     }
 
     /**
