@@ -67,7 +67,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
 
     /**
      * Configures turn motor conversion factors that convert motor rotations
-     * into angular position and velocity values.
+     * into angular position and velocity values in degrees.
      */
     protected abstract void configureTurnController();
 
