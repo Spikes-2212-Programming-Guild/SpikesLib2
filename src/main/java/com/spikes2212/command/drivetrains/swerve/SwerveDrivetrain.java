@@ -112,7 +112,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      * @param xSpeed        the desired speed on the x-axis.
      * @param ySpeed        the desired speed on the y-axis.
      * @param rotationSpeed the desired speed for the drivetrain rotation.
-     * @param timeStep      the derivation of time  the speed should be applied.
+     * @param timeStep      the derivation of time the speed should be applied.
      * @return the necessary {@link ChassisSpeeds} for the desired movement
      */
     protected ChassisSpeeds getChassisSpeeds(boolean fieldRelative, double xSpeed, double ySpeed,
