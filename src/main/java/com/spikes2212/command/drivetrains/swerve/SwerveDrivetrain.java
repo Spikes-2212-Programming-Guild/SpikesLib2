@@ -73,7 +73,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      * @param xSpeed          the desired speed on the x-axis.
      * @param ySpeed          the desired speed on the y-axis.
      * @param rotationSpeed   the desired speed for the drivetrain rotation.
-     * @param isFieldRelative whether the drive should be relative to the field or to itself.
+     * @param isFieldRelative whether the drive should be relative to the field or to the robot.
      * @param timeStep        the derivation of time  the speed should be applied.
      * @param usePIDVelocity  whether the robot velocity will be applied using P.I.D or not.
      */
