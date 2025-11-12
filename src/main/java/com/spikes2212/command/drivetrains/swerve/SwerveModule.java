@@ -27,7 +27,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      * Constructs a new instance of  {@link SwerveModule}.
      *
      * @param namespaceName                 the namespace name used for the module
-     * @param driveMotor                    the motor that is used for turning the wheel in the roll axis
+     * @param driveMotor                    the motor that is used for turning the wheel in the pitch axis
      * @param turnMotor                     the motor that is used fot turning the wheel in the yaw axis
      * @param driveMotorInverted            whether the drive motor is inverted or not
      * @param turnMotorInverted             whether the turn motor is inverted ot not
