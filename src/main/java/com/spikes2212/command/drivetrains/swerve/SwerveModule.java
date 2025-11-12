@@ -31,7 +31,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      * @param turnMotor                     the motor that is used fot turning the wheel in the yaw axis
      * @param driveMotorInverted            whether the drive motor is inverted or not
      * @param turnMotorInverted             whether the turn motor is inverted ot not
-     * @param absoluteEncoderOffset         absolute encoder offset while wheel is parallel to track
+     * @param absoluteEncoderOffset         absolute encoder offset while wheel is parallel to the track
      * @param driveMotorPIDSettings         the drive motor pid settings
      * @param turnMotorPIDSettings          the turn motor pid settings
      * @param driveMotorFeedForwardSettings the drive motor feed forward settings
