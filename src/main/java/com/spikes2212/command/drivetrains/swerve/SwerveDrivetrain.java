@@ -103,14 +103,14 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Function that allows updating the robot angle using an external sensor.
+     * Allows updating the robot angle using an external sensor.
      *
      * @return the current angle of the robot
      */
     protected abstract Rotation2d getCurrentRobotAngle();
 
     /**
-     * Function that set the field relative speeds
+     * Set the field relative speeds
      *
      * @param xSpeed        the desired speed on the x-axis.
      * @param ySpeed        the desired speed on the y-axis.
@@ -125,7 +125,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Function that set the robot relative speeds
+     * Set the robot relative speeds
      *
      * @param xSpeed        the desired speed on the x-axis.
      * @param ySpeed        the desired speed on the y-axis.
