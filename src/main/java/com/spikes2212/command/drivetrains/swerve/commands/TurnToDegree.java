@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * A command that moves a {@link SwerveDrivetrain} to a certain angle using pid to position for each one of the
- * {@link SwerveModule} .
+ * {@link SwerveModule}.
  *
  * @author Gil Ein-Gar
  * @see SwerveDrivetrain
