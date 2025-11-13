@@ -1,11 +1,18 @@
 package com.spikes2212.command.drivetrains.swerve.commands;
 
 import com.spikes2212.command.drivetrains.swerve.SwerveDrivetrain;
+import com.spikes2212.command.drivetrains.swerve.SwerveModule;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
+/**
+ * A command that moves a {@link SwerveDrivetrain} according to linear at rotational speeds.
+ *
+ * @author  Gil Ein-Gar
+ * @see SwerveDrivetrain
+ */
 public class DriveSwerve extends Command {
 
     private final SwerveDrivetrain drivetrain;
