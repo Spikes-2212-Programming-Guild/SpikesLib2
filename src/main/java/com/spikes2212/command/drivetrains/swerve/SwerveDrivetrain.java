@@ -172,6 +172,34 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
+     * @return returns the front left {@link SwerveModule}
+     */
+    public SwerveModule getFrontLeftModule(){
+        return frontLeftModule;
+    }
+
+    /**
+     * @return returns the front right {@link SwerveModule}
+     */
+    public SwerveModule getFrontRightModule(){
+        return frontRightModule;
+    }
+
+    /**
+     * @return returns the back left {@link SwerveModule}
+     */
+    public SwerveModule getBackLeftModule(){
+        return backLeftModule;
+    }
+
+    /**
+     * @return returns the back right {@link SwerveModule}
+     */
+    public SwerveModule getBackRightModule(){
+        return backRightModule;
+    }
+
+    /**
      * Resets the relative encoders of every module according to their absolute encoder.
      */
     public void resetRelativeEncoders() {
