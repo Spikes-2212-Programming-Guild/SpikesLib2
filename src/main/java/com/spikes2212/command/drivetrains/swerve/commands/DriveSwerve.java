@@ -1,7 +1,6 @@
 package com.spikes2212.command.drivetrains.swerve.commands;
 
 import com.spikes2212.command.drivetrains.swerve.SwerveDrivetrain;
-import com.spikes2212.command.drivetrains.swerve.SwerveModule;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
