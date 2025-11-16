@@ -167,9 +167,9 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * @return the robot relative {@link ChassisSpeeds}
+     * @return the robots current {@link ChassisSpeeds}
      */
-    protected ChassisSpeeds getRobotRelativeSpeeds() {
+    protected ChassisSpeeds getSpeeds() {
         return kinematics.toChassisSpeeds(frontLeftModule.getModuleState(), frontRightModule.getModuleState(),
                 backLeftModule.getModuleState(), backRightModule.getModuleState());
     }
