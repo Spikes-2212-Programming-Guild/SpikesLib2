@@ -9,6 +9,13 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
+/**
+ * This class represents a single swerve module, serving as the abstraction for one wheel’s steering and driving
+ * mechanisms within a swerve drivetrain.
+ *
+ * @author Gil Ein-Gar
+ * @see DashboardedSubsystem
+ */
 public abstract class SwerveModule extends DashboardedSubsystem {
 
     protected final SmartMotorController driveMotor;
