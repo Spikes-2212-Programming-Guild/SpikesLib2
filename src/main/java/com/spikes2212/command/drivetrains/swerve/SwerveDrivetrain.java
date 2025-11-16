@@ -166,10 +166,6 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
                 backRightWheelDistanceFromCenter);
     }
 
-    protected SwerveDriveKinematics getKinematics() {
-        return kinematics;
-    }
-
     /**
      * @return the robot relative {@link ChassisSpeeds}
      */
@@ -204,6 +200,13 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      */
     public SwerveModule getBackRightModule(){
         return backRightModule;
+    }
+
+    /**
+     * @return the robot's swerve kinematics
+     */
+    protected SwerveDriveKinematics getKinematics() {
+        return kinematics;
     }
 
     /**
