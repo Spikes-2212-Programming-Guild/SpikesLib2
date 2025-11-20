@@ -8,8 +8,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 /**
- *This class represents a swerve drivetrain that uses vector calculations to combine the robot’s desired translation
- *and rotation, determining each wheel’s speed and direction for smooth, omnidirectional movement.*
+ * This class represents a swerve drivetrain that uses vector calculations to combine the robot’s desired translation
+ * and rotation, determining each wheel’s speed and direction for smooth, omnidirectional movement.*
  *
  * @author Gil Ein-Gar
  * @see DashboardedSubsystem
@@ -81,7 +81,8 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      * @param ySpeed          the desired speed on the y-axis.
      * @param rotationSpeed   the desired speed for the drivetrain rotation.
      * @param isFieldRelative whether the drive should be relative to the field or to the robot.
-     * @param timeStep        the derivation of time  the speed should be applied.
+     * @param timeStep        the amount of time between calculations, representing how long the speed value is applied
+     *                        before updating again.
      * @param usePIDVelocity  whether the robot velocity will be applied using P.I.D or not.
      */
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative,
@@ -177,28 +178,28 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * @return returns the front left {@link SwerveModule}
      */
-    public SwerveModule getFrontLeftModule(){
+    public SwerveModule getFrontLeftModule() {
         return frontLeftModule;
     }
 
     /**
      * @return returns the front right {@link SwerveModule}
      */
-    public SwerveModule getFrontRightModule(){
+    public SwerveModule getFrontRightModule() {
         return frontRightModule;
     }
 
     /**
      * @return returns the back left {@link SwerveModule}
      */
-    public SwerveModule getBackLeftModule(){
+    public SwerveModule getBackLeftModule() {
         return backLeftModule;
     }
 
     /**
      * @return returns the back right {@link SwerveModule}
      */
-    public SwerveModule getBackRightModule(){
+    public SwerveModule getBackRightModule() {
         return backRightModule;
     }
 
