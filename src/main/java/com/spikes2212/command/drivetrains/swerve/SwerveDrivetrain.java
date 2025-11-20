@@ -62,7 +62,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      * @param frontLeftModule           the front left module using {@link SwerveModule}
      * @param frontRightModule          the front right module using {@link SwerveModule}
      * @param backLeftModule            the back left module using {@link SwerveModule}
-     * @param backRightModule           the back right module using{@link SwerveModule}
+     * @param backRightModule           the back right module using {@link SwerveModule}
      * @param halfDrivetrainTrackWidth  the width of the drivetrain
      * @param halfDrivetrainTrackLength the length of the drivetrain
      * @param maxPossibleVelocity       the maximum possible velocity of the drive motors
