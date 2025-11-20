@@ -100,7 +100,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * Sets the desired module states.
      *
-     * @param targetModuleStates an array of the desired module states
+     * @param targetModuleStates an array containing the desired speed and angle for each swerve module
      * @param usePIDVelocity     whether the modules will drive with P.I.D for the velocity
      */
     protected void setTargetModuleStates(SwerveModuleState[] targetModuleStates, boolean usePIDVelocity) {
