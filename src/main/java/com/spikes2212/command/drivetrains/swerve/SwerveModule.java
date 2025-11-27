@@ -90,12 +90,12 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      *
      * @param targetState         the desired state of the module
      * @param maxPossibleVelocity the maximum possible velocity of the drive motor
-     * @param usePIDVelocity      whether the module will drive with P.I.D for the velocity
+     * @param useVelocityPID      whether the module will drive with P.I.D for the velocity
      */
-    public void setTargetState(SwerveModuleState targetState, double maxPossibleVelocity, boolean usePIDVelocity) {
+    public void setTargetState(SwerveModuleState targetState, double maxPossibleVelocity, boolean useVelocityPID) {
         targetState.optimize(Rotation2d.fromDegrees(turnMotor.getPosition()));
         setTargetAngle(targetState.angle);
-        setTargetVelocity(targetState.speedMetersPerSecond, maxPossibleVelocity, usePIDVelocity);
+        setTargetVelocity(targetState.speedMetersPerSecond, maxPossibleVelocity, useVelocityPID);
     }
 
     /**
@@ -113,10 +113,10 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      *
      * @param targetVelocity      the desired velocity of the module
      * @param maxPossibleVelocity the maximum possible velocity of the drive motor
-     * @param usePIDVelocity      whether the module will drive with P.I.D for the velocity
+     * @param useVelocityPID      whether the module will drive with P.I.D for the velocity
      */
-    public void setTargetVelocity(double targetVelocity, double maxPossibleVelocity, boolean usePIDVelocity) {
-        if (usePIDVelocity) {
+    public void setTargetVelocity(double targetVelocity, double maxPossibleVelocity, boolean useVelocityPID) {
+        if (useVelocityPID) {
             driveMotor.pidSet(UnifiedControlMode.VELOCITY, targetVelocity, driveMotorPIDSettings,
                     driveMotorFeedForwardSettings, false);
         } else {

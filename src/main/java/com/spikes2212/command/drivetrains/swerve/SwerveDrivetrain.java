@@ -83,10 +83,10 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      * @param isFieldRelative whether the drive should be relative to the field or to the robot.
      * @param timeStep        the amount of time between calculations, representing how long the speed value is applied
      *                        before updating again.
-     * @param usePIDVelocity  whether the robot velocity will be applied using P.I.D or not.
+     * @param useVelocityPID  whether the robot velocity will be applied using P.I.D or not.
      */
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative,
-                      double timeStep, boolean usePIDVelocity) {
+                      double timeStep, boolean useVelocityPID) {
         SwerveModuleState[] states;
         if (isFieldRelative) {
             states = getFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, timeStep);
@@ -94,7 +94,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
             states = getRobotRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, timeStep);
         }
         SwerveDriveKinematics.desaturateWheelSpeeds(states, maxPossibleVelocity);
-        setTargetModuleStates(states, usePIDVelocity);
+        setTargetModuleStates(states, useVelocityPID);
     }
 
     /**

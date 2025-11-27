@@ -21,7 +21,7 @@ public class DriveSwerve extends Command {
     private final Supplier<Double> rotationSpeed;
 
     private final boolean isFieldRelative;
-    private final boolean usePIDVelocity;
+    private final boolean useVelocityPID;
 
     /**
      * These variables are used to calculate the time step
@@ -38,16 +38,16 @@ public class DriveSwerve extends Command {
      * @param ySpeed          the desired {@link Supplier} speed on the y-axis
      * @param rotationSpeed   the desired rotational {@link Supplier} speed
      * @param isFieldRelative whether the drive should be relative to the field or to itself.
-     * @param usePIDVelocity  whether the robot velocity will be applied using P.I.D or not.
+     * @param useVelocityPID  whether the robot velocity will be applied using P.I.D or not.
      */
     public DriveSwerve(SwerveDrivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed,
-                       Supplier<Double> rotationSpeed, boolean isFieldRelative, boolean usePIDVelocity) {
+                       Supplier<Double> rotationSpeed, boolean isFieldRelative, boolean useVelocityPID) {
         this.drivetrain = drivetrain;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.rotationSpeed = rotationSpeed;
         this.isFieldRelative = isFieldRelative;
-        this.usePIDVelocity = usePIDVelocity;
+        this.useVelocityPID = useVelocityPID;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class DriveSwerve extends Command {
     public void execute() {
         now = Timer.getFPGATimestamp();
         drivetrain.drive(xSpeed.get(), ySpeed.get(), rotationSpeed.get(), isFieldRelative,
-                now - lastGivenTime, usePIDVelocity);
+                now - lastGivenTime, useVelocityPID);
         lastGivenTime = now;
     }
 
