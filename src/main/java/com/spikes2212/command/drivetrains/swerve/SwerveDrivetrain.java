@@ -134,7 +134,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Set the robot relative speeds
+     * get the robot relative speeds
      *
      * @param xSpeed        the desired speed on the x-axis.
      * @param ySpeed        the desired speed on the y-axis.
