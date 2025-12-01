@@ -3,19 +3,22 @@ package com.spikes2212.command.drivetrains.swerve.commands;
 import com.spikes2212.command.drivetrains.swerve.SwerveDrivetrain;
 import com.spikes2212.command.drivetrains.swerve.SwerveModule;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.Command;
 
 /**
- * A command that moves a {@link SwerveDrivetrain} to a certain angle using pid to position for each one of the
- * {@link SwerveModule}.
+ * A command that moves each {@link SwerveModule} in a given {@link SwerveDrivetrain} to a certain angle using pid to
+ * position for each one of the {@link SwerveModule}.
  *
  * @author Gil Ein-Gar
  * @see SwerveDrivetrain
  */
-public class TurnToDegree extends InstantCommand {
+public class TurnToDegree extends Command {
 
     private final SwerveDrivetrain drivetrain;
-    private final double desiredDegrees;
+    private final Rotation2d frontLeftDesiredAngle;
+    private final Rotation2d frontRightDesiredAngle;
+    private final Rotation2d backLeftDesiredAngle;
+    private final Rotation2d backRightDesiredAngle;
 
     /**
      * Constructs a new {@link TurnToDegree} command that moves the given {@link SwerveDrivetrain}
@@ -23,10 +26,15 @@ public class TurnToDegree extends InstantCommand {
      *
      * @param drivetrain the swerve drivetrain this command operates on
      */
-    public TurnToDegree(SwerveDrivetrain drivetrain, double desiredDegrees) {
+    public TurnToDegree(SwerveDrivetrain drivetrain, Rotation2d frontLeftDesiredAngle,
+                        Rotation2d frontRightDesiredAngle, Rotation2d backLeftDesiredAngle,
+                        Rotation2d backRightDesiredAngle) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
-        this.desiredDegrees = desiredDegrees;
+        this.frontLeftDesiredAngle = frontLeftDesiredAngle;
+        this.frontRightDesiredAngle = frontRightDesiredAngle;
+        this.backLeftDesiredAngle = backLeftDesiredAngle;
+        this.backRightDesiredAngle = backRightDesiredAngle;
     }
 
     /**
@@ -36,14 +44,12 @@ public class TurnToDegree extends InstantCommand {
     @Override
     public void initialize() {
         drivetrain.resetRelativeEncoders();
-
-        drivetrain.getFrontLeftModule().setTargetAngle(
-                Rotation2d.fromDegrees(desiredDegrees));
-        drivetrain.getFrontRightModule().setTargetAngle(
-                Rotation2d.fromDegrees(desiredDegrees));
-        drivetrain.getBackLeftModule().setTargetAngle(
-                Rotation2d.fromDegrees(desiredDegrees));
-        drivetrain.getBackRightModule().setTargetAngle(
-                Rotation2d.fromDegrees(desiredDegrees));
+    }
+    @Override
+    public void execute(){
+        drivetrain.getFrontLeftModule().setTargetAngle(frontLeftDesiredAngle);
+        drivetrain.getFrontRightModule().setTargetAngle(frontRightDesiredAngle);
+        drivetrain.getBackLeftModule().setTargetAngle(backLeftDesiredAngle);
+        drivetrain.getBackRightModule().setTargetAngle(backRightDesiredAngle);
     }
 }
