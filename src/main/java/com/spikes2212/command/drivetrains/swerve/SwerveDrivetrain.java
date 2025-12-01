@@ -116,7 +116,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      *
      * @return the current angle of the robot
      */
-    protected abstract Rotation2d getCurrentRobotAngle();
+    public abstract Rotation2d getCurrentRobotAngle();
 
     /**
      * Set the field relative speeds
