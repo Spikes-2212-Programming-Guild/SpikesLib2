@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
  * @author Gil Ein-Gar
  * @see SwerveDrivetrain
  */
-public class TurnToDegree extends Command {
+public class TurnModules extends Command {
 
     private final SwerveDrivetrain drivetrain;
     private final Rotation2d frontLeftDesiredAngle;
@@ -21,14 +21,14 @@ public class TurnToDegree extends Command {
     private final Rotation2d backRightDesiredAngle;
 
     /**
-     * Constructs a new {@link TurnToDegree} command that moves the given {@link SwerveDrivetrain}
+     * Constructs a new {@link TurnModules} command that moves the given {@link SwerveDrivetrain}
      * {@link SwerveModule} to a certain degree.
      *
      * @param drivetrain the swerve drivetrain this command operates on
      */
-    public TurnToDegree(SwerveDrivetrain drivetrain, Rotation2d frontLeftDesiredAngle,
-                        Rotation2d frontRightDesiredAngle, Rotation2d backLeftDesiredAngle,
-                        Rotation2d backRightDesiredAngle) {
+    public TurnModules(SwerveDrivetrain drivetrain, Rotation2d frontLeftDesiredAngle,
+                       Rotation2d frontRightDesiredAngle, Rotation2d backLeftDesiredAngle,
+                       Rotation2d backRightDesiredAngle) {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
         this.frontLeftDesiredAngle = frontLeftDesiredAngle;
