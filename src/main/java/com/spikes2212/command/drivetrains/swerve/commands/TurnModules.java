@@ -37,19 +37,26 @@ public class TurnModules extends Command {
         this.backRightDesiredAngle = backRightDesiredAngle;
     }
 
-    /**
-     * Moves each {@link SwerveModule} in the given {@link SwerveDrivetrain}
-     * to the desired angle in degrees.
-     */
+
     @Override
     public void initialize() {
         drivetrain.resetRelativeEncoders();
     }
+
+    /**
+     * Moves each {@link SwerveModule} in the given {@link SwerveDrivetrain}
+     * to the desired angle in degrees.
+     */
     @Override
     public void execute(){
         drivetrain.getFrontLeftModule().setTargetAngle(frontLeftDesiredAngle);
         drivetrain.getFrontRightModule().setTargetAngle(frontRightDesiredAngle);
         drivetrain.getBackLeftModule().setTargetAngle(backLeftDesiredAngle);
         drivetrain.getBackRightModule().setTargetAngle(backRightDesiredAngle);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        drivetrain.stop();
     }
 }
