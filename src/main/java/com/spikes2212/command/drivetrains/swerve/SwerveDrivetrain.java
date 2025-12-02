@@ -112,7 +112,6 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
 
     /**
      * Updates the robot angle using an external sensor.
-     * This resets the field relativity to be the same as the robot relativity.
      *
      * @return the current angle of the robot
      */
