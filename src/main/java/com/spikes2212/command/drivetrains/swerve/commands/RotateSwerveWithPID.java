@@ -25,11 +25,13 @@ public class RotateSwerveWithPID extends Command {
     protected double lastTimeNotOnTarget;
 
     /**
-     * Constructs a new {@link DriveSwerve} command that moves the given
-     * {@link SwerveDrivetrain}
+     * Constructs a new {@link RotateModulesWithPID} command that moves the given
+     * {@link SwerveDrivetrain} to a certain angle
      *
-     * @param drivetrain the swerve drivetrain this command operates on
-     * @param setPoint   the desired angle
+     * @param drivetrain          the swerve drivetrain this command operates on
+     * @param setPoint            the desired angle
+     * @param pidSettings         the pid settings of the given {@link SwerveDrivetrain} rotational angle
+     * @param feedForwardSettings the feed forward settings of the given {@link SwerveDrivetrain} rotational angle
      */
     public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setPoint, PIDSettings pidSettings,
                                FeedForwardSettings feedForwardSettings) {
@@ -56,9 +58,9 @@ public class RotateSwerveWithPID extends Command {
         now = Timer.getFPGATimestamp();
         feedForwardController.setGains(feedForwardSettings);
         drivetrain.drive(0, 0, pidController.calculate(
-                        drivetrain.getCurrentRobotAngle().getDegrees(), setPoint.get())
-                        + feedForwardController.calculate(drivetrain.getCurrentRobotAngle().getDegrees(),
-                        setPoint.get()),    false, now - lastGivenTime, false);
+                drivetrain.getCurrentRobotAngle().getDegrees(), setPoint.get())
+                + feedForwardController.calculate(drivetrain.getCurrentRobotAngle().getDegrees(),
+                setPoint.get()), false, now - lastGivenTime, false);
         lastGivenTime = now;
     }
 
@@ -68,5 +70,10 @@ public class RotateSwerveWithPID extends Command {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
         return pidSettings.getWaitTime() <= now - lastTimeNotOnTarget;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        drivetrain.stop();
     }
 }
