@@ -1,6 +1,7 @@
 package com.spikes2212.command.drivetrains.swerve.commands;
 
 import com.spikes2212.command.drivetrains.swerve.SwerveDrivetrain;
+import com.spikes2212.command.drivetrains.swerve.SwerveModule;
 import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -10,6 +11,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
 
+/**
+ *  A command that moves a given {@link SwerveDrivetrain} to a certain angle using pid to
+ *  position.
+ *
+ * @author Gil Ein-Gar
+ * @see SwerveDrivetrain
+ */
 public class RotateSwerveWithPID extends Command {
 
     private final SwerveDrivetrain drivetrain;
