@@ -111,7 +111,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Updates the robot angle using an external sensor.
+     * Gets the current robot angle using an external sensor.
      *
      * @return the current angle of the robot
      */
