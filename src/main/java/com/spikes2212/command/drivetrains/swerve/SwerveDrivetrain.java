@@ -118,6 +118,11 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     protected abstract Rotation2d getCurrentRobotAngle();
 
     /**
+     * Resets the field relativity to be the same as the robot relativity.
+     */
+    public abstract void resetFieldRelative();
+
+    /**
      * Set the field relative speeds
      *
      * @param xSpeed        the desired speed on the x-axis.
