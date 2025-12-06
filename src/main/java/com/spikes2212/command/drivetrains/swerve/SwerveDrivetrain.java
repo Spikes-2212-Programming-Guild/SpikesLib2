@@ -183,28 +183,28 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * @return returns the front left {@link SwerveModule}
      */
-    protected SwerveModule getFrontLeftModule() {
+    public SwerveModule getFrontLeftModule() {
         return frontLeftModule;
     }
 
     /**
      * @return returns the front right {@link SwerveModule}
      */
-    protected SwerveModule getFrontRightModule() {
+    public SwerveModule getFrontRightModule() {
         return frontRightModule;
     }
 
     /**
      * @return returns the back left {@link SwerveModule}
      */
-    protected SwerveModule getBackLeftModule() {
+    public SwerveModule getBackLeftModule() {
         return backLeftModule;
     }
 
     /**
      * @return returns the back right {@link SwerveModule}
      */
-    protected SwerveModule getBackRightModule() {
+    public SwerveModule getBackRightModule() {
         return backRightModule;
     }
 
