@@ -115,7 +115,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      *
      * @return the current angle of the robot
      */
-    protected abstract Rotation2d getCurrentRobotAngle();
+    public abstract Rotation2d getCurrentRobotAngle();
 
     /**
      * Resets the field relativity to be the same as the robot relativity.
@@ -183,28 +183,28 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * @return returns the front left {@link SwerveModule}
      */
-    public SwerveModule getFrontLeftModule() {
+    protected SwerveModule getFrontLeftModule() {
         return frontLeftModule;
     }
 
     /**
      * @return returns the front right {@link SwerveModule}
      */
-    public SwerveModule getFrontRightModule() {
+    protected SwerveModule getFrontRightModule() {
         return frontRightModule;
     }
 
     /**
      * @return returns the back left {@link SwerveModule}
      */
-    public SwerveModule getBackLeftModule() {
+    protected SwerveModule getBackLeftModule() {
         return backLeftModule;
     }
 
     /**
      * @return returns the back right {@link SwerveModule}
      */
-    public SwerveModule getBackRightModule() {
+    protected SwerveModule getBackRightModule() {
         return backRightModule;
     }
 
