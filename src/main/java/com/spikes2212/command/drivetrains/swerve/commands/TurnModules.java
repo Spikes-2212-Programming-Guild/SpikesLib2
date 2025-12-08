@@ -37,12 +37,6 @@ public class TurnModules extends Command {
         this.backRightDesiredAngle = backRightDesiredAngle;
     }
 
-
-    @Override
-    public void initialize() {
-        drivetrain.resetRelativeEncoders();
-    }
-
     /**
      * Moves each {@link SwerveModule} in the given {@link SwerveDrivetrain}
      * to the desired angle in degrees.
