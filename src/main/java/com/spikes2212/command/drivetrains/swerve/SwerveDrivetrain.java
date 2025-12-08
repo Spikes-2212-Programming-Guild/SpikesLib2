@@ -115,7 +115,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      *
      * @return the current angle of the robot
      */
-    public abstract Rotation2d getCurrentRobotAngle();
+    public abstract Rotation2d getAngle();
 
     /**
      * Resets the field relativity to be the same as the robot relativity.
@@ -134,7 +134,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     protected SwerveModuleState[] getFieldRelativeSpeeds(double xSpeed, double ySpeed, double rotationSpeed,
                                                          double timeStep) {
         return kinematics.toSwerveModuleStates(ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed,
-                ySpeed, rotationSpeed, getCurrentRobotAngle()), timeStep));
+                ySpeed, rotationSpeed, getAngle()), timeStep));
     }
 
     /**
