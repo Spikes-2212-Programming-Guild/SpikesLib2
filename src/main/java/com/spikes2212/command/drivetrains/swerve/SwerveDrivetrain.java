@@ -123,7 +123,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     public abstract void resetFieldRelative();
 
     /**
-     * calculates the field relative {@link SwerveModuleState} using {@link ChassisSpeeds}.
+     * Calculates the field relative {@link SwerveModuleState} using {@link ChassisSpeeds}.
      *
      * @param xSpeed        the desired speed on the x-axis.
      * @param ySpeed        the desired speed on the y-axis.
@@ -139,7 +139,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * calculates the robot relative {@link SwerveModuleState} using {@link ChassisSpeeds}.
+     * Calculates the robot relative {@link SwerveModuleState} using {@link ChassisSpeeds}.
      *
      * @param xSpeed        the desired speed on the x-axis.
      * @param ySpeed        the desired speed on the y-axis.
