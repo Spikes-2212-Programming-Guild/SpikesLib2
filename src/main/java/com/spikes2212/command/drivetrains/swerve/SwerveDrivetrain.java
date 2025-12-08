@@ -89,9 +89,9 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
                       double timeStep, boolean useVelocityPID) {
         SwerveModuleState[] states;
         if (isFieldRelative) {
-            states = getFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, timeStep);
+            states = calculateFieldRelativeModuleStates(xSpeed, ySpeed, rotationSpeed, timeStep);
         } else {
-            states = getRobotRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, timeStep);
+            states = calculateRobotRelativeModuleStates(xSpeed, ySpeed, rotationSpeed, timeStep);
         }
         SwerveDriveKinematics.desaturateWheelSpeeds(states, maxPossibleVelocity);
         setTargetModuleStates(states, useVelocityPID);
@@ -123,30 +123,32 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     public abstract void resetFieldRelative();
 
     /**
-     * Gets the field relative speeds.
+     * calculates the field relative {@link SwerveModuleState} using {@link ChassisSpeeds}.
      *
      * @param xSpeed        the desired speed on the x-axis.
      * @param ySpeed        the desired speed on the y-axis.
      * @param rotationSpeed the desired speed for the drivetrain rotation.
      * @param timeStep      the derivation of time the speed should be applied.
+     *
      * @return the necessary {@link SwerveModuleState[]} for field relative movement
      */
-    protected SwerveModuleState[] getFieldRelativeSpeeds(double xSpeed, double ySpeed, double rotationSpeed,
-                                                         double timeStep) {
+    protected SwerveModuleState[] calculateFieldRelativeModuleStates(double xSpeed, double ySpeed, double rotationSpeed,
+                                                                     double timeStep) {
         return kinematics.toSwerveModuleStates(ChassisSpeeds.discretize(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed,
                 ySpeed, rotationSpeed, getAngle()), timeStep));
     }
 
     /**
-     * get the robot relative speeds
+     * calculates the robot relative {@link SwerveModuleState} using {@link ChassisSpeeds}.
      *
      * @param xSpeed        the desired speed on the x-axis.
      * @param ySpeed        the desired speed on the y-axis.
      * @param rotationSpeed the desired speed for the drivetrain rotation.
      * @param timeStep      the derivation of time the speed should be applied.
+     *
      * @return the necessary {@link SwerveModuleState[]} for robot relative movement
      */
-    protected SwerveModuleState[] getRobotRelativeSpeeds(double xSpeed, double ySpeed, double rotationSpeed,
+    protected SwerveModuleState[] calculateRobotRelativeModuleStates(double xSpeed, double ySpeed, double rotationSpeed,
                                                          double timeStep) {
         return kinematics.toSwerveModuleStates(ChassisSpeeds.discretize(new ChassisSpeeds(xSpeed, ySpeed,
                 rotationSpeed), timeStep));
