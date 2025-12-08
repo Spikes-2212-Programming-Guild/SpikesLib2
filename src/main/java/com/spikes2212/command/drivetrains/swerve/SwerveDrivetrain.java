@@ -123,7 +123,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     public abstract void resetFieldRelative();
 
     /**
-     * Set the field relative speeds
+     * Gets the field relative speeds.
      *
      * @param xSpeed        the desired speed on the x-axis.
      * @param ySpeed        the desired speed on the y-axis.
