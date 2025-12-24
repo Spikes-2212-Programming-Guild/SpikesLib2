@@ -100,13 +100,13 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      * Sets the desired module states.
      *
      * @param targetModuleStates an array containing the desired speed and angle for each swerve module
-     * @param usePIDVelocity     whether the modules will drive with P.I.D for the velocity
+     * @param useVelocityPID     whether the modules will drive with P.I.D for the velocity
      */
-    protected void setTargetModuleStates(SwerveModuleState[] targetModuleStates, boolean usePIDVelocity) {
-        frontLeftModule.setTargetState(targetModuleStates[0], maxPossibleVelocity, usePIDVelocity);
-        frontRightModule.setTargetState(targetModuleStates[1], maxPossibleVelocity, usePIDVelocity);
-        backLeftModule.setTargetState(targetModuleStates[2], maxPossibleVelocity, usePIDVelocity);
-        backRightModule.setTargetState(targetModuleStates[3], maxPossibleVelocity, usePIDVelocity);
+    protected void setTargetModuleStates(SwerveModuleState[] targetModuleStates, boolean useVelocityPID) {
+        frontLeftModule.setTargetState(targetModuleStates[0], maxPossibleVelocity, useVelocityPID);
+        frontRightModule.setTargetState(targetModuleStates[1], maxPossibleVelocity, useVelocityPID);
+        backLeftModule.setTargetState(targetModuleStates[2], maxPossibleVelocity, useVelocityPID);
+        backRightModule.setTargetState(targetModuleStates[3], maxPossibleVelocity, useVelocityPID);
     }
 
     /**
