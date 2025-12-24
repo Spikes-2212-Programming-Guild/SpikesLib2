@@ -77,13 +77,13 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * Moves the robot in a swerve motion.
      *
-     * @param xSpeed          the desired speed on the x-axis.
-     * @param ySpeed          the desired speed on the y-axis.
-     * @param rotationSpeed   the desired speed for the drivetrain rotation.
-     * @param isFieldRelative whether the drive should be relative to the field or to the robot.
+     * @param xSpeed          the desired speed on the x-axis
+     * @param ySpeed          the desired speed on the y-axis
+     * @param rotationSpeed   the desired speed for the drivetrain rotation
+     * @param isFieldRelative whether the drive should be relative to the field or to the robot
      * @param timeStep        the amount of time between calculations, representing how long the speed value is applied
-     *                        before updating again.
-     * @param useVelocityPID  whether the robot velocity will be applied using P.I.D or not.
+     *                        before updating again
+     * @param useVelocityPID  whether the robot velocity will be applied using P.I.D or not
      */
     public void drive(double xSpeed, double ySpeed, double rotationSpeed, boolean isFieldRelative,
                       double timeStep, boolean useVelocityPID) {
@@ -125,10 +125,10 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * Calculates the field relative {@link SwerveModuleState} using {@link ChassisSpeeds}.
      *
-     * @param xSpeed        the desired speed on the x-axis.
-     * @param ySpeed        the desired speed on the y-axis.
-     * @param rotationSpeed the desired speed for the drivetrain rotation.
-     * @param timeStep      the derivation of time the speed should be applied.
+     * @param xSpeed        the desired speed on the x-axis
+     * @param ySpeed        the desired speed on the y-axis
+     * @param rotationSpeed the desired speed for the drivetrain rotation
+     * @param timeStep      the derivation of time the speed should be applied
      * @return the necessary {@link SwerveModuleState[]} for field relative movement
      */
     protected SwerveModuleState[] calculateFieldRelativeModuleStates(double xSpeed, double ySpeed, double rotationSpeed,
@@ -140,10 +140,10 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * Calculates the robot relative {@link SwerveModuleState} using {@link ChassisSpeeds}.
      *
-     * @param xSpeed        the desired speed on the x-axis.
-     * @param ySpeed        the desired speed on the y-axis.
-     * @param rotationSpeed the desired speed for the drivetrain rotation.
-     * @param timeStep      the derivation of time the speed should be applied.
+     * @param xSpeed        the desired speed on the x-axis
+     * @param ySpeed        the desired speed on the y-axis
+     * @param rotationSpeed the desired speed for the drivetrain rotation
+     * @param timeStep      the derivation of time the speed should be applied
      * @return the necessary {@link SwerveModuleState[]} for robot relative movement
      */
     protected SwerveModuleState[] calculateRobotRelativeModuleStates(double xSpeed, double ySpeed, double rotationSpeed,
