@@ -37,8 +37,8 @@ public class DriveSwerve extends Command {
      * @param xSpeed          the desired {@link Supplier} speed on the x-axis
      * @param ySpeed          the desired {@link Supplier} speed on the y-axis
      * @param rotationSpeed   the desired rotational {@link Supplier} speed
-     * @param isFieldRelative whether the drive should be relative to the field or to itself.
-     * @param useVelocityPID  whether the robot velocity will be applied using P.I.D or not.
+     * @param isFieldRelative whether the drive should be relative to the field or to itself
+     * @param useVelocityPID  whether the robot velocity will be applied using P.I.D or not
      */
     public DriveSwerve(SwerveDrivetrain drivetrain, Supplier<Double> xSpeed, Supplier<Double> ySpeed,
                        Supplier<Double> rotationSpeed, boolean isFieldRelative, boolean useVelocityPID) {
