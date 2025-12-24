@@ -117,9 +117,16 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     public abstract Rotation2d getAngle();
 
     /**
-     * Resets the field relativity to be the same as the robot relativity.
+     * Resets the robots angle sensor.
      */
     public abstract void resetAngleSensor();
+
+    /**
+     * Resets the field relativity to be the same as the robot relativity.
+     */
+    public void resetFieldRelativity(){
+        resetAngleSensor();
+    }
 
     /**
      * Calculates the field relative {@link SwerveModuleState} using {@link ChassisSpeeds}.
