@@ -22,9 +22,13 @@ public class TurnModules extends Command {
 
     /**
      * Constructs a new {@link TurnModules} command that moves the given {@link SwerveDrivetrain}
-     * {@link SwerveModule}s to a certain degree.
+     * {@link SwerveModule}s to a certain angle.
      *
-     * @param drivetrain the swerve drivetrain this command operates on
+     * @param drivetrain             the swerve drivetrain this command operates on
+     * @param frontLeftDesiredAngle  the desired front left angle
+     * @param frontRightDesiredAngle the desired front right angle
+     * @param backLeftDesiredAngle   the desired back left angle
+     * @param backRightDesiredAngle  the desired back right angle
      */
     public TurnModules(SwerveDrivetrain drivetrain, Rotation2d frontLeftDesiredAngle,
                        Rotation2d frontRightDesiredAngle, Rotation2d backLeftDesiredAngle,
@@ -38,11 +42,31 @@ public class TurnModules extends Command {
     }
 
     /**
+     * Constructs a new {@link TurnModules} command that moves the given {@link SwerveDrivetrain}
+     * {@link SwerveModule}s to a certain degree.
+     *
+     * @param drivetrain             the swerve drivetrain this command operates on
+     * @param frontLeftDesiredAngle  the desired front left degree
+     * @param frontRightDesiredAngle the desired front right degree
+     * @param backLeftDesiredAngle   the desired back left degree
+     * @param backRightDesiredAngle  the desired back right degree
+     */
+    public TurnModules(SwerveDrivetrain drivetrain, double frontLeftDesiredAngle, double frontRightDesiredAngle,
+                       double backLeftDesiredAngle, double backRightDesiredAngle) {
+        addRequirements(drivetrain);
+        this.drivetrain = drivetrain;
+        this.frontLeftDesiredAngle = Rotation2d.fromDegrees(frontLeftDesiredAngle);
+        this.frontRightDesiredAngle = Rotation2d.fromDegrees(frontRightDesiredAngle);
+        this.backLeftDesiredAngle = Rotation2d.fromDegrees(backLeftDesiredAngle);
+        this.backRightDesiredAngle = Rotation2d.fromDegrees(backRightDesiredAngle);
+    }
+
+    /**
      * Moves each {@link SwerveModule} in the given {@link SwerveDrivetrain}
      * to the desired angle in degrees.
      */
     @Override
-    public void execute(){
+    public void execute() {
         drivetrain.getFrontLeftModule().setTargetAngle(frontLeftDesiredAngle);
         drivetrain.getFrontRightModule().setTargetAngle(frontRightDesiredAngle);
         drivetrain.getBackLeftModule().setTargetAngle(backLeftDesiredAngle);
