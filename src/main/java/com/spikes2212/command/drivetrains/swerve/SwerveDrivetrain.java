@@ -8,7 +8,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 /**
- * This class represents a swerve drivetrain that uses vector calculations to combine the robot’s desired translation
+ * Represents a swerve drivetrain that uses vector calculations to combine the robot’s desired translation
  * and rotation, determining each wheel’s speed and direction for smooth, omnidirectional movement.*
  *
  * @author Gil Ein-Gar
