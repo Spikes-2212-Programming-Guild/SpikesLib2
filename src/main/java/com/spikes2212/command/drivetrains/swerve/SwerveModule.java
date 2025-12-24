@@ -10,7 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 /**
- * This class represents a single swerve module, serving as the abstraction for one wheel’s steering and driving
+ * Represents a single swerve module, serving as the abstraction for one wheel’s steering and driving
  * mechanisms within a swerve drivetrain.
  *
  * @author Gil Ein-Gar
