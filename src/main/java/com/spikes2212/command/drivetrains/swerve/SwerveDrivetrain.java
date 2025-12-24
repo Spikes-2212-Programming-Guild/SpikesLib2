@@ -75,7 +75,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     }
 
     /**
-     * Function that moves the robot in a swerve motion.
+     * Moves the robot in a swerve motion.
      *
      * @param xSpeed          the desired speed on the x-axis.
      * @param ySpeed          the desired speed on the y-axis.
