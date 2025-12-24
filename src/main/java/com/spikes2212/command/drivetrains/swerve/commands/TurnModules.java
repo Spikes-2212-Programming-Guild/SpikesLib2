@@ -53,14 +53,10 @@ public class TurnModules extends Command {
      */
     public TurnModules(SwerveDrivetrain drivetrain, double frontLeftDesiredAngle, double frontRightDesiredAngle,
                        double backLeftDesiredAngle, double backRightDesiredAngle) {
-        addRequirements(drivetrain);
-        this.drivetrain = drivetrain;
-        this.frontLeftDesiredAngle = Rotation2d.fromDegrees(frontLeftDesiredAngle);
-        this.frontRightDesiredAngle = Rotation2d.fromDegrees(frontRightDesiredAngle);
-        this.backLeftDesiredAngle = Rotation2d.fromDegrees(backLeftDesiredAngle);
-        this.backRightDesiredAngle = Rotation2d.fromDegrees(backRightDesiredAngle);
-    }
+        this(drivetrain, Rotation2d.fromDegrees(frontLeftDesiredAngle), Rotation2d.fromDegrees(frontRightDesiredAngle),
+                Rotation2d.fromDegrees(backLeftDesiredAngle), Rotation2d.fromDegrees(backRightDesiredAngle));
 
+    }
     /**
      * Moves each {@link SwerveModule} in the given {@link SwerveDrivetrain}
      * to the desired angle in degrees.
