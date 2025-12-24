@@ -93,7 +93,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      * @param useVelocityPID      whether the module will drive with P.I.D for the velocity
      */
     public void setTargetState(SwerveModuleState targetState, double maxPossibleVelocity, boolean useVelocityPID) {
-        targetState.optimize(Rotation2d.fromDegrees(turnMotor.getPosition()));
+        targetState.optimize(Rotation2d.fromDegrees(getRelativeModuleAngle()));
         setTargetAngle(targetState.angle);
         setTargetVelocity(targetState.speedMetersPerSecond, maxPossibleVelocity, useVelocityPID);
     }
