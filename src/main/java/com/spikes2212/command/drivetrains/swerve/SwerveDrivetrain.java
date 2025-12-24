@@ -150,7 +150,8 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
      * @param ySpeed        the desired speed on the y-axis
      * @param rotationSpeed the desired speed for the drivetrain rotation
      * @param timeStep      the derivation of time the speed should be applied
-     * @return the necessary {@link SwerveModuleState[]} for robot relative movement
+     *
+     * @return the necessary {@link SwerveModuleState}s for robot relative movement
      */
     protected SwerveModuleState[] calculateRobotRelativeModuleStates(double xSpeed, double ySpeed, double rotationSpeed,
                                                                      double timeStep) {
