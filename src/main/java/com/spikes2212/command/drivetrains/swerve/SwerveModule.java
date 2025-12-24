@@ -153,6 +153,34 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     }
 
     /**
+     * @return the drive motors {@link PIDSettings}
+     */
+    public PIDSettings getDriveMotorPIDSettings(){
+        return driveMotorPIDSettings;
+    }
+
+    /**
+     * @return the turn motors {@link PIDSettings}
+     */
+    public PIDSettings getTurnMotorPIDSettings(){
+        return turnMotorPIDSettings;
+    }
+
+    /**
+     * @return the drive motors {@link FeedForwardSettings}
+     */
+    public FeedForwardSettings getDriveMotorFeedForwardSettings(){
+        return driveMotorFeedForwardSettings;
+    }
+
+    /**
+     * @return the turn motors {@link FeedForwardSettings}
+     */
+    public FeedForwardSettings getTurnMotorFeedForwardSettings(){
+        return turnMotorFeedForwardSettings;
+    }
+
+    /**
      * Resets the relative encoder according to the absolute encoder.
      */
     public void resetRelativeEncoder() {
