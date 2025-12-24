@@ -24,14 +24,14 @@ public class DriveSwerve extends Command {
     private final boolean useVelocityPID;
 
     /**
-     * These variables are used to calculate the time step
+     * These variables are used to calculate the time step.
      */
     protected double lastGivenTime;
     protected double now;
 
     /**
      * Constructs a new {@link DriveSwerve} command that moves the given
-     * {@link SwerveDrivetrain}
+     * {@link SwerveDrivetrain}.
      *
      * @param drivetrain      the swerve drivetrain this command operates on
      * @param xSpeed          the desired {@link Supplier} speed on the x-axis
