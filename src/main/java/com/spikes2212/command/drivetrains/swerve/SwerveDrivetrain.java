@@ -59,19 +59,19 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * Constructs a new instance of {@link SwerveDrivetrain} with the default name of "drivetrain".
      *
-     * @param frontLeftModule           the front left module using {@link SwerveModule}
-     * @param frontRightModule          the front right module using {@link SwerveModule}
-     * @param backLeftModule            the back left module using {@link SwerveModule}
-     * @param backRightModule           the back right module using {@link SwerveModule}
-     * @param halfDrivetrainTrackWidth  half the width of the drivetrain
-     * @param halfDrivetrainTrackLength half the length of the drivetrain
-     * @param maxPossibleVelocity       the maximum possible velocity of the drive motors
+     * @param frontLeftModule       the front left module using {@link SwerveModule}
+     * @param frontRightModule      the front right module using {@link SwerveModule}
+     * @param backLeftModule        the back left module using {@link SwerveModule}
+     * @param backRightModule       the back right module using {@link SwerveModule}
+     * @param DrivetrainTrackWidth  the width of the drivetrain
+     * @param DrivetrainTrackLength the length of the drivetrain
+     * @param maxPossibleVelocity   the maximum possible velocity of the drive motors
      */
     public SwerveDrivetrain(SwerveModule frontLeftModule, SwerveModule frontRightModule, SwerveModule backLeftModule,
-                            SwerveModule backRightModule, double halfDrivetrainTrackWidth, double halfDrivetrainTrackLength,
+                            SwerveModule backRightModule, double DrivetrainTrackWidth, double DrivetrainTrackLength,
                             double maxPossibleVelocity) {
         this(getClassName(DEFAULT_NAMESPACE_NAME), frontLeftModule, frontRightModule, backLeftModule, backRightModule,
-                halfDrivetrainTrackWidth, halfDrivetrainTrackLength, maxPossibleVelocity);
+                DrivetrainTrackWidth, DrivetrainTrackLength, maxPossibleVelocity);
     }
 
     /**
