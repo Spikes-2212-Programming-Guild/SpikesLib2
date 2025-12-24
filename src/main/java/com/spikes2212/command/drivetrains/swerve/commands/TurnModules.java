@@ -22,7 +22,7 @@ public class TurnModules extends Command {
 
     /**
      * Constructs a new {@link TurnModules} command that moves the given {@link SwerveDrivetrain}
-     * {@link SwerveModule} to a certain degree.
+     * {@link SwerveModule}s to a certain degree.
      *
      * @param drivetrain the swerve drivetrain this command operates on
      */
