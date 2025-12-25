@@ -193,7 +193,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     protected abstract Rotation2d getAbsoluteModuleAngle();
 
     /**
-     * stops the module
+     * Stops the drive and turn motors of the module.
      */
     public void stop() {
         driveMotor.stopMotor();
