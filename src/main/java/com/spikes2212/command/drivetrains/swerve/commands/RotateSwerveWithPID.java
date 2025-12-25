@@ -1,7 +1,6 @@
 package com.spikes2212.command.drivetrains.swerve.commands;
 
 import com.spikes2212.command.drivetrains.swerve.SwerveDrivetrain;
-import com.spikes2212.command.drivetrains.swerve.SwerveModule;
 import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -21,7 +20,7 @@ import java.util.function.Supplier;
 public class RotateSwerveWithPID extends Command {
 
     private final SwerveDrivetrain drivetrain;
-    private final Supplier<Double> setPoint;
+    private final Supplier<Double> setpoint;
 
     private final PIDSettings pidSettings;
     private final FeedForwardSettings feedForwardSettings;
@@ -37,14 +36,14 @@ public class RotateSwerveWithPID extends Command {
      * {@link SwerveDrivetrain} to a certain angle
      *
      * @param drivetrain          the swerve drivetrain this command operates on
-     * @param setPoint            the desired angle
+     * @param setpoint            the desired angle
      * @param pidSettings         the pid settings of the given {@link SwerveDrivetrain} rotational angle
      * @param feedForwardSettings the feed forward settings of the given {@link SwerveDrivetrain} rotational angle
      */
-    public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setPoint, PIDSettings pidSettings,
+    public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setpoint, PIDSettings pidSettings,
                                FeedForwardSettings feedForwardSettings) {
         this.drivetrain = drivetrain;
-        this.setPoint = setPoint;
+        this.setpoint = setpoint;
         this.pidSettings = pidSettings;
         this.feedForwardSettings = feedForwardSettings;
 
@@ -66,9 +65,9 @@ public class RotateSwerveWithPID extends Command {
         now = Timer.getFPGATimestamp();
         feedForwardController.setGains(feedForwardSettings);
         drivetrain.drive(0, 0, pidController.calculate(
-                drivetrain.getCurrentRobotAngle().getDegrees(), setPoint.get())
+                drivetrain.getCurrentRobotAngle().getDegrees(), setpoint.get())
                 + feedForwardController.calculate(drivetrain.getCurrentRobotAngle().getDegrees(),
-                setPoint.get()), false, now - lastGivenTime, false);
+                setpoint.get()), false, now - lastGivenTime, false);
         lastGivenTime = now;
     }
 
