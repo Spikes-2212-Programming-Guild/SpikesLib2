@@ -36,7 +36,7 @@ public class RotateSwerveWithPID extends Command {
 
     /**
      * Constructs a new {@link RotateModulesWithPID} command that moves the given
-     * {@link SwerveDrivetrain} to a certain angle.
+     * {@link SwerveDrivetrain} to a certain angle as well as on the x-axis or y-axis.
      *
      * @param drivetrain          the swerve drivetrain this command operates on
      * @param setpoint            the desired angle
@@ -64,6 +64,15 @@ public class RotateSwerveWithPID extends Command {
         lastTimeNotOnTarget = 0;
     }
 
+    /**
+     * Constructs a new {@link RotateModulesWithPID} command that moves the given
+     * {@link SwerveDrivetrain} to a certain angle.
+     *
+     * @param drivetrain          the swerve drivetrain this command operates on
+     * @param setpoint            the desired angle
+     * @param pidSettings         the pid settings of the given {@link SwerveDrivetrain} rotational movement
+     * @param feedForwardSettings the feed forward settings of the given {@link SwerveDrivetrain} rotational movement
+     */
     public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setpoint, PIDSettings pidSettings,
                                FeedForwardSettings feedForwardSettings) {
         this(drivetrain, setpoint, () -> 0.0, () -> 0.0, pidSettings, feedForwardSettings);
