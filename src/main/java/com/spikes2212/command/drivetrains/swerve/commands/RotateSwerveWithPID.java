@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import java.util.function.Supplier;
 
 /**
- *  A command that moves a given {@link SwerveDrivetrain} to a certain angle using pid to
- *  position.
+ * A command that moves a given {@link SwerveDrivetrain} to a certain angle using pid to
+ * position.
  *
  * @author Gil Ein-Gar
  * @see SwerveDrivetrain
@@ -22,8 +22,8 @@ public class RotateSwerveWithPID extends Command {
     private final SwerveDrivetrain drivetrain;
     private final Supplier<Double> setpoint;
 
-    protected final Supplier<Double> optionalXSpeed;
-    protected final Supplier<Double> optionalYSpeed;
+    protected final Supplier<Double> xSpeed;
+    protected final Supplier<Double> ySpeed;
 
     private final PIDSettings pidSettings;
     private final FeedForwardSettings feedForwardSettings;
@@ -40,19 +40,21 @@ public class RotateSwerveWithPID extends Command {
      *
      * @param drivetrain          the swerve drivetrain this command operates on
      * @param setpoint            the desired angle
+     * @param xSpeed              the optional speed on the x-axis
+     * @param ySpeed              the optional speed on the y-axis
      * @param pidSettings         the pid settings of the given {@link SwerveDrivetrain} rotational movement
      * @param feedForwardSettings the feed forward settings of the given {@link SwerveDrivetrain} rotational movement
      */
-    public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setpoint, Supplier<Double> optionalXSpeed,
-                               Supplier<Double> optionalYSpeed, PIDSettings pidSettings,
+    public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setpoint, Supplier<Double> xSpeed,
+                               Supplier<Double> ySpeed, PIDSettings pidSettings,
                                FeedForwardSettings feedForwardSettings) {
         this.drivetrain = drivetrain;
         this.setpoint = setpoint;
         this.pidSettings = pidSettings;
         this.feedForwardSettings = feedForwardSettings;
 
-        this.optionalXSpeed = optionalXSpeed;
-        this.optionalYSpeed = optionalYSpeed;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
 
         pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
         pidController.setIZone(pidSettings.getIZone());
@@ -63,7 +65,7 @@ public class RotateSwerveWithPID extends Command {
     }
 
     public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setpoint, PIDSettings pidSettings,
-                               FeedForwardSettings feedForwardSettings){
+                               FeedForwardSettings feedForwardSettings) {
         this(drivetrain, setpoint, () -> 0.0, () -> 0.0, pidSettings, feedForwardSettings);
     }
 
@@ -76,7 +78,7 @@ public class RotateSwerveWithPID extends Command {
     public void execute() {
         now = Timer.getFPGATimestamp();
         feedForwardController.setGains(feedForwardSettings);
-        drivetrain.drive(optionalXSpeed.get(), optionalYSpeed.get(), pidController.calculate(
+        drivetrain.drive(xSpeed.get(), ySpeed.get(), pidController.calculate(
                 drivetrain.getCurrentRobotAngle().getDegrees(), setpoint.get())
                 + feedForwardController.calculate(drivetrain.getCurrentRobotAngle().getDegrees(),
                 setpoint.get()), false, now - lastGivenTime, false);
