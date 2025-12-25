@@ -37,8 +37,8 @@ public class RotateSwerveWithPID extends Command {
      *
      * @param drivetrain          the swerve drivetrain this command operates on
      * @param setpoint            the desired angle
-     * @param pidSettings         the pid settings of the given {@link SwerveDrivetrain} rotational angle
-     * @param feedForwardSettings the feed forward settings of the given {@link SwerveDrivetrain} rotational angle
+     * @param pidSettings         the pid settings of the given {@link SwerveDrivetrain} rotational movement
+     * @param feedForwardSettings the feed forward settings of the given {@link SwerveDrivetrain} rotational movement
      */
     public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setpoint, PIDSettings pidSettings,
                                FeedForwardSettings feedForwardSettings) {
