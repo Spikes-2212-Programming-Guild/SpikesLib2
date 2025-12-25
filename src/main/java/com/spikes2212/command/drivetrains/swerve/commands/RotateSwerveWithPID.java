@@ -33,7 +33,7 @@ public class RotateSwerveWithPID extends Command {
 
     /**
      * Constructs a new {@link RotateModulesWithPID} command that moves the given
-     * {@link SwerveDrivetrain} to a certain angle
+     * {@link SwerveDrivetrain} to a certain angle.
      *
      * @param drivetrain          the swerve drivetrain this command operates on
      * @param setpoint            the desired angle
