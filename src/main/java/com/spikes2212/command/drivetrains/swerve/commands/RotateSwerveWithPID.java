@@ -22,6 +22,9 @@ public class RotateSwerveWithPID extends Command {
     private final SwerveDrivetrain drivetrain;
     private final Supplier<Double> setpoint;
 
+    protected final Supplier<Double> optionalXSpeed;
+    protected final Supplier<Double> optionalYSpeed;
+
     private final PIDSettings pidSettings;
     private final FeedForwardSettings feedForwardSettings;
     private final PIDController pidController;
@@ -40,12 +43,16 @@ public class RotateSwerveWithPID extends Command {
      * @param pidSettings         the pid settings of the given {@link SwerveDrivetrain} rotational movement
      * @param feedForwardSettings the feed forward settings of the given {@link SwerveDrivetrain} rotational movement
      */
-    public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setpoint, PIDSettings pidSettings,
+    public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setpoint, Supplier<Double> optionalXSpeed,
+                               Supplier<Double> optionalYSpeed, PIDSettings pidSettings,
                                FeedForwardSettings feedForwardSettings) {
         this.drivetrain = drivetrain;
         this.setpoint = setpoint;
         this.pidSettings = pidSettings;
         this.feedForwardSettings = feedForwardSettings;
+
+        this.optionalXSpeed = optionalXSpeed;
+        this.optionalYSpeed = optionalYSpeed;
 
         pidController = new PIDController(pidSettings.getkP(), pidSettings.getkI(), pidSettings.getkD());
         pidController.setIZone(pidSettings.getIZone());
@@ -53,6 +60,11 @@ public class RotateSwerveWithPID extends Command {
 
         feedForwardController = new FeedForwardController(feedForwardSettings);
         lastTimeNotOnTarget = 0;
+    }
+
+    public RotateSwerveWithPID(SwerveDrivetrain drivetrain, Supplier<Double> setpoint, PIDSettings pidSettings,
+                               FeedForwardSettings feedForwardSettings){
+        this(drivetrain, setpoint, () -> 0.0, () -> 0.0, pidSettings, feedForwardSettings);
     }
 
     @Override
@@ -64,7 +76,7 @@ public class RotateSwerveWithPID extends Command {
     public void execute() {
         now = Timer.getFPGATimestamp();
         feedForwardController.setGains(feedForwardSettings);
-        drivetrain.drive(0, 0, pidController.calculate(
+        drivetrain.drive(optionalXSpeed.get(), optionalYSpeed.get(), pidController.calculate(
                 drivetrain.getCurrentRobotAngle().getDegrees(), setpoint.get())
                 + feedForwardController.calculate(drivetrain.getCurrentRobotAngle().getDegrees(),
                 setpoint.get()), false, now - lastGivenTime, false);
