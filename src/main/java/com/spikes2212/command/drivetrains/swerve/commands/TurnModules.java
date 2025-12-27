@@ -3,6 +3,8 @@ package com.spikes2212.command.drivetrains.swerve.commands;
 import com.spikes2212.command.drivetrains.swerve.SwerveDrivetrain;
 import com.spikes2212.command.drivetrains.swerve.SwerveModule;
 import com.spikes2212.control.PIDSettings;
+import com.spikes2212.util.UnifiedControlMode;
+import com.spikes2212.util.smartmotorcontrollers.SmartMotorController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
@@ -18,14 +20,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class TurnModules extends Command {
 
     private final SwerveDrivetrain drivetrain;
+
     private final Rotation2d frontLeftDesiredAngle;
     private final Rotation2d frontRightDesiredAngle;
     private final Rotation2d backLeftDesiredAngle;
     private final Rotation2d backRightDesiredAngle;
 
-    private final PIDSettings turnMotorPIDSettings;
-    private final PIDController pidControllerForTurnMotors;
-
+    private final SwerveModule frontLeftModule;
+    private final SwerveModule frontRightModule;
+    private final SwerveModule backLeftModule;
+    private final SwerveModule backRightModule;
     private double lastTimeNotOnTarget;
 
     /**
@@ -47,9 +51,11 @@ public class TurnModules extends Command {
         this.frontRightDesiredAngle = frontRightDesiredAngle;
         this.backLeftDesiredAngle = backLeftDesiredAngle;
         this.backRightDesiredAngle = backRightDesiredAngle;
-        turnMotorPIDSettings = drivetrain.getFrontLeftModule().getTurnMotorPIDSettings();
-        pidControllerForTurnMotors = new PIDController(turnMotorPIDSettings.getkP(), turnMotorPIDSettings.getkI(),
-                turnMotorPIDSettings.getkD());
+
+        this.frontLeftModule = drivetrain.getFrontLeftModule();
+        this.frontRightModule = drivetrain.getFrontRightModule();
+        this.backLeftModule = drivetrain.getBackLeftModule();
+        this.backRightModule = drivetrain.getBackRightModule();
     }
 
     /**
@@ -68,25 +74,42 @@ public class TurnModules extends Command {
                 Rotation2d.fromDegrees(backLeftDesiredAngle), Rotation2d.fromDegrees(backRightDesiredAngle));
 
     }
+
     /**
      * Moves each {@link SwerveModule} in the given {@link SwerveDrivetrain}
      * to the desired angle in degrees.
      */
     @Override
     public void execute() {
-        drivetrain.getFrontLeftModule().setTargetAngle(frontLeftDesiredAngle);
-        drivetrain.getFrontRightModule().setTargetAngle(frontRightDesiredAngle);
-        drivetrain.getBackLeftModule().setTargetAngle(backLeftDesiredAngle);
-        drivetrain.getBackRightModule().setTargetAngle(backRightDesiredAngle);
+        frontLeftModule.setTargetAngle(frontLeftDesiredAngle);
+        frontRightModule.setTargetAngle(frontRightDesiredAngle);
+        backLeftModule.setTargetAngle(backLeftDesiredAngle);
+        backRightModule.setTargetAngle(backRightDesiredAngle);
     }
 
     @Override
-    public boolean isFinished(){
-        if (!pidControllerForTurnMotors.atSetpoint()) {
+    public boolean isFinished() {
+        if (frontLeftModule.getTurnMotor().onTarget(
+                UnifiedControlMode.POSITION,
+                frontLeftModule.getTurnMotorPIDSettings().getTolerance(),
+                frontLeftDesiredAngle.getDegrees()) &&
+                frontRightModule.getTurnMotor().onTarget(
+                        UnifiedControlMode.POSITION,
+                        frontRightModule.getTurnMotorPIDSettings().getTolerance(),
+                        frontRightDesiredAngle.getDegrees()) &&
+                backLeftModule.getTurnMotor().onTarget(
+                        UnifiedControlMode.POSITION,
+                        backLeftModule.getTurnMotorPIDSettings().getTolerance(),
+                        backLeftDesiredAngle.getDegrees()) &&
+                backRightModule.getTurnMotor().onTarget(
+                        UnifiedControlMode.POSITION,
+                        backRightModule.getTurnMotorPIDSettings().getTolerance(),
+                        backRightDesiredAngle.getDegrees())) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
-        return Timer.getFPGATimestamp() - lastTimeNotOnTarget >= turnMotorPIDSettings.getWaitTime();
+        return Timer.getFPGATimestamp() -
+                lastTimeNotOnTarget >= frontLeftModule.getTurnMotorPIDSettings().getWaitTime();
     }
 
     @Override
