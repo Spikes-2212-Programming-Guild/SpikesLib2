@@ -124,7 +124,7 @@ public abstract class SwerveDrivetrain extends DashboardedSubsystem {
     /**
      * Resets the field relativity to be the same as the robot relativity.
      */
-    public void resetFieldRelativity(){
+    public void resetFieldRelativity() {
         resetAngleSensor();
     }
 
