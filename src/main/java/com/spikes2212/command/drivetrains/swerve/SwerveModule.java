@@ -141,7 +141,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     /**
      * @return the current module velocity
      */
-    public double getModuleVelocity() {
+    public double getDrivingVelocity() {
         return driveMotor.getVelocity();
     }
 
