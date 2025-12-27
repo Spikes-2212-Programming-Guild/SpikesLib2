@@ -181,6 +181,20 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     }
 
     /**
+     * @return the {@link SmartMotorController} that turns the current {@link SwerveModule}
+     */
+    public SmartMotorController getTurnMotor(){
+        return turnMotor;
+    }
+
+    /**
+     * @return the {@link SmartMotorController} that drives the current {@link SwerveModule}
+     */
+    public SmartMotorController getDriveMotor(){
+        return driveMotor;
+    }
+
+    /**
      * Resets the relative encoder according to the absolute encoder.
      */
     public void resetRelativeEncoder() {
