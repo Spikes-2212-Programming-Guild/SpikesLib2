@@ -81,6 +81,7 @@ public class RotateSwerveWithPID extends Command {
     @Override
     public void initialize() {
         lastGivenTime = Timer.getFPGATimestamp();
+        lastTimeNotOnTarget = Timer.getFPGATimestamp();
     }
 
     @Override
