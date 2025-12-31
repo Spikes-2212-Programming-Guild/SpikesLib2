@@ -131,7 +131,7 @@ public class TurnModules extends Command {
 
     @Override
     public boolean isFinished() {
-        if (frontLeftModule.getTurnMotor().onTarget(
+        if (!(frontLeftModule.getTurnMotor().onTarget(
                 UnifiedControlMode.POSITION,
                 frontLeftModule.getTurnMotorPIDSettings().getTolerance(),
                 frontLeftDesiredAngle.getDegrees()) &&
@@ -146,7 +146,7 @@ public class TurnModules extends Command {
                 backRightModule.getTurnMotor().onTarget(
                         UnifiedControlMode.POSITION,
                         backRightModule.getTurnMotorPIDSettings().getTolerance(),
-                        backRightDesiredAngle.getDegrees())) {
+                        backRightDesiredAngle.getDegrees()))) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
 
