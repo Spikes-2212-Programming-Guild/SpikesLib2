@@ -58,7 +58,7 @@ public class TurnModules extends Command {
         this.backLeftModule = drivetrain.getBackLeftModule();
         this.backRightModule = drivetrain.getBackRightModule();
 
-        this.waitTime = DEFAULT_WAIT_TIME
+        this.waitTime = DEFAULT_WAIT_TIME;
 
     }
 
