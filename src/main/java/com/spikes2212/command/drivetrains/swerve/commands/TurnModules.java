@@ -30,7 +30,7 @@ public class TurnModules extends Command {
     private final SwerveModule backLeftModule;
     private final SwerveModule backRightModule;
 
-    private final double defaultWaitTime;
+    private final double waitTime;
     private double lastTimeNotOnTarget;
 
     /**
@@ -58,7 +58,7 @@ public class TurnModules extends Command {
         this.backLeftModule = drivetrain.getBackLeftModule();
         this.backRightModule = drivetrain.getBackRightModule();
 
-        this.defaultWaitTime = DEFAULT_WAIT_TIME
+        this.waitTime = DEFAULT_WAIT_TIME
 
     }
 
