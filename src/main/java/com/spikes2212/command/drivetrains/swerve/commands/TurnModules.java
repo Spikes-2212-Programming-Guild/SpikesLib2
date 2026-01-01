@@ -86,13 +86,13 @@ public class TurnModules extends Command {
      * @param frontRightDesiredAngle the desired front right degree
      * @param backLeftDesiredAngle   the desired back left degree
      * @param backRightDesiredAngle  the desired back right degree
-     * @param withDefaultWaitTime    whether the modules will use the default wait time of the command
+     * @param defaultWaitTime        whether the modules will use the default wait time of the command
      */
     public TurnModules(SwerveDrivetrain drivetrain, double frontLeftDesiredAngle, double frontRightDesiredAngle,
-                       double backLeftDesiredAngle, double backRightDesiredAngle, boolean withDefaultWaitTime) {
+                       double backLeftDesiredAngle, double backRightDesiredAngle, boolean defaultWaitTime) {
         this(drivetrain, Rotation2d.fromDegrees(frontLeftDesiredAngle), Rotation2d.fromDegrees(frontRightDesiredAngle),
                 Rotation2d.fromDegrees(backLeftDesiredAngle), Rotation2d.fromDegrees(backRightDesiredAngle));
-        if (withDefaultWaitTime) {
+        if (defaultWaitTime) {
             frontLeftModule.getTurnMotorPIDSettings().setWaitTime(() -> DEFAULT_WAIT_TIME);
         }
     }
@@ -106,13 +106,13 @@ public class TurnModules extends Command {
      * @param frontRightDesiredAngle the desired front right angle
      * @param backLeftDesiredAngle   the desired back left angle
      * @param backRightDesiredAngle  the desired back right angle
-     * @param withDefaultWaitTime    whether the modules will use the default wait time of the command
+     * @param defaultWaitTime        whether the modules will use the default wait time of the command
      */
     public TurnModules(SwerveDrivetrain drivetrain, Rotation2d frontLeftDesiredAngle, Rotation2d frontRightDesiredAngle,
-                       Rotation2d backLeftDesiredAngle, Rotation2d backRightDesiredAngle, boolean withDefaultWaitTime) {
+                       Rotation2d backLeftDesiredAngle, Rotation2d backRightDesiredAngle, boolean defaultWaitTime) {
         this(drivetrain, frontLeftDesiredAngle, frontRightDesiredAngle,
                 backLeftDesiredAngle, backRightDesiredAngle);
-        if (withDefaultWaitTime) {
+        if (defaultWaitTime) {
             frontLeftModule.getTurnMotorPIDSettings().setWaitTime(() -> DEFAULT_WAIT_TIME);
         }
     }
