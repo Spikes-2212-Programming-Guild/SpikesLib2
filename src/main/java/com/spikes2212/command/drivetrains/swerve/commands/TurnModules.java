@@ -16,8 +16,6 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class TurnModules extends Command {
 
-    private static final double DEFAULT_WAIT_TIME = 0.05;
-
     private final SwerveDrivetrain drivetrain;
 
     private final Rotation2d frontLeftDesiredAngle;
@@ -30,7 +28,6 @@ public class TurnModules extends Command {
     private final SwerveModule backLeftModule;
     private final SwerveModule backRightModule;
 
-    private final double waitTime;
     private double lastTimeNotOnTarget;
 
     /**
@@ -58,8 +55,6 @@ public class TurnModules extends Command {
         this.backLeftModule = drivetrain.getBackLeftModule();
         this.backRightModule = drivetrain.getBackRightModule();
 
-        this.waitTime = DEFAULT_WAIT_TIME;
-
     }
 
     /**
@@ -76,41 +71,6 @@ public class TurnModules extends Command {
                        double backLeftDesiredAngle, double backRightDesiredAngle) {
         this(drivetrain, Rotation2d.fromDegrees(frontLeftDesiredAngle), Rotation2d.fromDegrees(frontRightDesiredAngle),
                 Rotation2d.fromDegrees(backLeftDesiredAngle), Rotation2d.fromDegrees(backRightDesiredAngle));
-    }
-    /**
-     * Constructs a new {@link TurnModules} command that moves the given {@link SwerveDrivetrain}
-     * {@link SwerveModule}s to a certain degree with a default wait time.
-     *
-     * @param drivetrain             the swerve drivetrain this command operates on
-     * @param frontLeftDesiredAngle  the desired front left degree
-     * @param frontRightDesiredAngle the desired front right degree
-     * @param backLeftDesiredAngle   the desired back left degree
-     * @param backRightDesiredAngle  the desired back right degree
-     * @param defaultWaitTime        whether the modules will use the default wait time of the command
-     */
-    public TurnModules(SwerveDrivetrain drivetrain, double frontLeftDesiredAngle, double frontRightDesiredAngle,
-                       double backLeftDesiredAngle, double backRightDesiredAngle, boolean defaultWaitTime) {
-        this(drivetrain, Rotation2d.fromDegrees(frontLeftDesiredAngle), Rotation2d.fromDegrees(frontRightDesiredAngle),
-                Rotation2d.fromDegrees(backLeftDesiredAngle), Rotation2d.fromDegrees(backRightDesiredAngle), defaultWaitTime);
-
-    }
-
-    /**
-     * Constructs a new {@link TurnModules} command that moves the given {@link SwerveDrivetrain}
-     * {@link SwerveModule}s to a certain angle with a default wait time.
-     *
-     * @param drivetrain             the swerve drivetrain this command operates on
-     * @param frontLeftDesiredAngle  the desired front left angle
-     * @param frontRightDesiredAngle the desired front right angle
-     * @param backLeftDesiredAngle   the desired back left angle
-     * @param backRightDesiredAngle  the desired back right angle
-     * @param defaultWaitTime        whether the modules will use the default wait time of the command
-     */
-    public TurnModules(SwerveDrivetrain drivetrain, Rotation2d frontLeftDesiredAngle, Rotation2d frontRightDesiredAngle,
-                       Rotation2d backLeftDesiredAngle, Rotation2d backRightDesiredAngle, boolean defaultWaitTime) {
-        this(drivetrain, frontLeftDesiredAngle, frontRightDesiredAngle,
-                backLeftDesiredAngle, backRightDesiredAngle);
-
     }
 
     /**
@@ -148,7 +108,10 @@ public class TurnModules extends Command {
 
 
         return Timer.getFPGATimestamp() -
-                lastTimeNotOnTarget >= frontLeftModule.getTurnMotorPIDSettings().getWaitTime();
+                lastTimeNotOnTarget >= Math.max(Math.max(frontLeftModule.getTurnMotorPIDSettings().getWaitTime(),
+                        frontRightModule.getTurnMotorPIDSettings().getWaitTime()),
+                Math.max(backLeftModule.getTurnMotorPIDSettings().getWaitTime(),
+                        backRightModule.getTurnMotorPIDSettings().getWaitTime()));
     }
 
     @Override
