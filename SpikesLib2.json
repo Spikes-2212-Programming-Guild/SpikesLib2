@@ -4,7 +4,7 @@
     "version": "v5.0.0-beta",
     "frcYear": "2025",
     "uuid": "018a8f54-8662-11ec-a8a3-0242ac120002",
-    "jsonUrl": "https://raw.githubusercontent.com/Spikes-2212-Programming-Guild/SpikesLib2/master/SpikesLib2.json",
+    "jsonUrl": "https://raw.githubusercontent.com/Spikes-2212-Programming-Guild/SpikesLib2/swerve-gil/SpikesLib2.json",
     "mavenUrls": [
         "https://jitpack.io"
     ],
