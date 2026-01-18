@@ -60,7 +60,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
         this.driveMotorFeedForwardSettings = driveMotorFeedForwardSettings;
         this.turnMotorFeedForwardSettings = turnMotorFeedForwardSettings;
         driveMotor.setInverted(driveMotorInverted);
-        turnMotor.setInverted(turnMotorInverted);
+        turnMotor.setInverted(!turnMotorInverted);
         configureTurnController();
         configureDriveController();
         configureAbsoluteEncoder();
