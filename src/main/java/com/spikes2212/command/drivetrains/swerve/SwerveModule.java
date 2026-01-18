@@ -30,6 +30,11 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     protected final FeedForwardSettings driveMotorFeedForwardSettings;
     protected final FeedForwardSettings turnMotorFeedForwardSettings;
 
+    protected static final double DEGREES_IN_ROTATIONS = 360;
+    private static final double DEGREES_TO_FLIP = 180;
+    private static final double MAX_DISTANCE_TO_ROTATE = 90;
+
+
     /**
      * Constructs a new instance of  {@link SwerveModule}.
      *
@@ -93,9 +98,43 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      * @param useVelocityPID      whether the module will drive with P.I.D for the velocity
      */
     public void setTargetState(SwerveModuleState targetState, double maxPossibleVelocity, boolean useVelocityPID) {
-        targetState.optimize(Rotation2d.fromDegrees(getRelativeModuleAngle()));
+        targetState = optimize(targetState, getRelativeModuleAngle());
         setTargetAngle(targetState.angle);
         setTargetVelocity(targetState.speedMetersPerSecond, maxPossibleVelocity, useVelocityPID);
+    }
+
+    /**
+     * Normalize the relative angle of the {@link SwerveModule} to be in the 0-360 scope.
+     *
+     * @param currentAngle the current angle of the {@link SwerveModule} in degrees
+     * @param desiredAngle the desired angle of the {@link SwerveModule} in degrees
+     * @return the normalized desired angle of the {@link SwerveModule} in degrees
+     */
+    private double normalizeAngleRelativeToRelativeEncoder(double currentAngle, double desiredAngle) {
+        int rotations = (int) (currentAngle / DEGREES_IN_ROTATIONS);
+        if (currentAngle < 0) rotations--;
+        desiredAngle += rotations * DEGREES_IN_ROTATIONS;
+        return desiredAngle;
+    }
+
+    /**
+     * Optimizes the {@link SwerveModule} angle
+     *
+     * @param targetState the desired state of the {@link SwerveModule}
+     * @param currentAngle the current angle of the {@link SwerveModule} in degrees
+     * @return the optimized {@link SwerveModuleState}
+     */
+    private SwerveModuleState optimize(SwerveModuleState targetState, double currentAngle) {
+        double desiredAngle = normalizeAngleRelativeToRelativeEncoder(currentAngle, targetState.angle.getDegrees());
+        while (Math.abs(desiredAngle - currentAngle) > MAX_DISTANCE_TO_ROTATE) {
+            if (desiredAngle - currentAngle > 0) {
+                desiredAngle -= DEGREES_TO_FLIP;
+            } else {
+                desiredAngle += DEGREES_TO_FLIP;
+            }
+            targetState.speedMetersPerSecond *= -1;
+        }
+        return new SwerveModuleState(targetState.speedMetersPerSecond, Rotation2d.fromDegrees(desiredAngle));
     }
 
     /**
