@@ -30,7 +30,7 @@ public abstract class SwerveModule extends DashboardedSubsystem {
     protected final FeedForwardSettings driveMotorFeedForwardSettings;
     protected final FeedForwardSettings turnMotorFeedForwardSettings;
 
-    protected static final double DEGREES_IN_ROTATIONS = 360;
+    protected static final double DEGREES_IN_ROTATION = 360;
     private static final double DEGREES_TO_FLIP = 180;
     private static final double MAX_DISTANCE_TO_ROTATE = 90;
 
@@ -98,27 +98,30 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      * @param useVelocityPID      whether the module will drive with P.I.D for the velocity
      */
     public void setTargetState(SwerveModuleState targetState, double maxPossibleVelocity, boolean useVelocityPID) {
-        targetState = optimize(targetState, getRelativeModuleAngle());
+//        targetState = optimize(targetState, getRelativeModuleAngle());
+        targetState.optimize(Rotation2d.fromDegrees(getRelativeModuleAngle()));
         setTargetAngle(targetState.angle);
         setTargetVelocity(targetState.speedMetersPerSecond, maxPossibleVelocity, useVelocityPID);
     }
 
     /**
-     * Normalize the relative angle of the {@link SwerveModule} to be in the 0-360 scope.
+     * Places the desired angle in the same 360 degree scope as the current relative angle,
+     * while keeping its value modulo 360.
      *
      * @param currentAngle the current angle of the {@link SwerveModule} in degrees
      * @param desiredAngle the desired angle of the {@link SwerveModule} in degrees
      * @return the normalized desired angle of the {@link SwerveModule} in degrees
      */
     private double normalizeAngleRelativeToRelativeEncoder(double currentAngle, double desiredAngle) {
-        int rotations = (int) (currentAngle / DEGREES_IN_ROTATIONS);
+        int rotations = (int) (currentAngle / DEGREES_IN_ROTATION);
         if (currentAngle < 0) rotations--;
-        desiredAngle += rotations * DEGREES_IN_ROTATIONS;
+        desiredAngle += rotations * DEGREES_IN_ROTATION;
         return desiredAngle;
     }
 
+
     /**
-     * Optimizes the {@link SwerveModule} angle
+     * Optimizes the {@link SwerveModule} state such that the module won't turn more than 90 degrees.
      *
      * @param targetState the desired state of the {@link SwerveModule}
      * @param currentAngle the current angle of the {@link SwerveModule} in degrees
@@ -143,8 +146,9 @@ public abstract class SwerveModule extends DashboardedSubsystem {
      * @param targetAngle the desired angle of the module
      */
     public void setTargetAngle(Rotation2d targetAngle) {
-        turnMotor.pidSet(UnifiedControlMode.POSITION, targetAngle.getDegrees(), turnMotorPIDSettings,
-                turnMotorFeedForwardSettings, false);
+        turnMotor.pidSet(UnifiedControlMode.POSITION, (targetAngle.getDegrees() + DEGREES_IN_ROTATION)
+                        % DEGREES_IN_ROTATION, turnMotorPIDSettings, turnMotorFeedForwardSettings,
+                false);
     }
 
     /**
