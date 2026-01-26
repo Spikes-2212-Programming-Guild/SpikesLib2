@@ -104,4 +104,6 @@ public interface SmartMotorController extends MotorController {
     double getPosition();
 
     double getVelocity();
+
+    int getDevice();
 }
