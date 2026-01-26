@@ -17,6 +17,8 @@ import java.util.function.Supplier;
  */
 public class RootNamespace implements Namespace {
 
+    @Deprecated
+
     protected final Map<String, Supplier<String>> stringFields;
     protected final Map<String, Supplier<? extends Number>> numberFields;
     protected final Map<String, Supplier<Boolean>> booleanFields;
