@@ -243,6 +243,7 @@ public class TalonFXWrapper implements SmartMotorController {
     public double getVoltage() {
         return talonFX.getMotorVoltage().getValueAsDouble();
     }
+    public int getDevice(){ return talonFX.getDeviceID();}
 
     @Override
     public boolean onTarget(UnifiedControlMode controlMode, double tolerance, double setpoint) {
