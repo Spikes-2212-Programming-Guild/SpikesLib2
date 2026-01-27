@@ -302,5 +302,7 @@ public class SparkWrapper implements SmartMotorController {
         return sparkBase.getOutputCurrent();
     }
 
-    public int getDevice(){ return sparkBase.getDeviceId();}
+    public SparkBase getDevice() {
+        return sparkBase;
+    }
 }

@@ -1,5 +1,6 @@
 package com.spikes2212.util.smartmotorcontrollers;
 
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
@@ -104,6 +105,4 @@ public interface SmartMotorController extends MotorController {
     double getPosition();
 
     double getVelocity();
-
-    int getDevice();
 }
