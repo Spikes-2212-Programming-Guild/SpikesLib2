@@ -111,7 +111,7 @@ public class MoveSmartMotorControllerGenericSubsystem extends Command {
      */
     @Override
     public boolean isFinished() {
-    if (!subsystem.onTarget(controlMode, pidSettings.getTolerance(), setpoint.get()) &&
+    if (!subsystem.onTarget(controlMode, pidSettings.getTolerance(), setpoint.get()) ||
             !subsystem.canMove(setpoint.get())) {
             lastTimeNotOnTarget = Timer.getFPGATimestamp();
         }
