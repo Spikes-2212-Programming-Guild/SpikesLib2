@@ -62,6 +62,14 @@ public class SmartMotorControllerGenericSubsystem extends MotoredGenericSubsyste
         configureLoop(pidSettings, feedForwardSettings, TrapezoidProfileSettings.EMPTY_TRAPEZOID_PROFILE_SETTINGS);
     }
 
+    public void follow(SmartMotorController leader){
+        motorController.set(leader.get());
+    }
+    public void follow(SmartMotorController leader, boolean inverted){
+        motorController.set(leader.get());
+        motorController.setInverted(inverted);
+    }
+
     /**
      * Updates any control loops running on the motor controller.
      *
