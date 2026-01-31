@@ -15,6 +15,7 @@ import java.util.function.Supplier;
 /**
  * This class represents a "root directory" in the namespace where other {@link ChildNamespace} and values can be saved.
  */
+@Deprecated(forRemoval = true, since = "2026")
 public class RootNamespace implements Namespace {
 
     protected final Map<String, Supplier<String>> stringFields;
