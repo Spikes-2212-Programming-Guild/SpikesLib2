@@ -1,9 +1,9 @@
 package com.spikes2212.path;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Twist2d;
+import edu.wpi.first.math.geometry.Pose2d;
 
 import java.util.function.Supplier;
 
@@ -35,7 +35,7 @@ public class OdometryHandler {
         this.leftPosition = leftPosition;
         this.rightPosition = rightPosition;
         this.yaw = angleSupplier;
-        pose = new Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(yaw.get()));
+        pose = new edu.wpi.first.math.geometry.Pose2d(new Translation2d(x, y), Rotation2d.fromDegrees(yaw.get()));
     }
 
     public void calculate() {
@@ -53,14 +53,14 @@ public class OdometryHandler {
         lastLeftPosition = leftPosition;
         lastRightPosition = rightPosition;
 
-        Pose2d newPose = pose.exp(
+        edu.wpi.first.math.geometry.Pose2d newPose = pose.exp(
                 new Twist2d(averageDeltaDistance, 0.0, angle.getRadians()));
 
-        pose = new Pose2d(newPose.getTranslation(), Rotation2d.fromDegrees(yaw));
+        pose = new edu.wpi.first.math.geometry.Pose2d(newPose.getTranslation(), Rotation2d.fromDegrees(yaw));
     }
 
     public void set(double x, double y) {
-        this.pose = new Pose2d(new Translation2d(x, y), new Rotation2d(yaw.get()));
+        this.pose = new edu.wpi.first.math.geometry.Pose2d(new Translation2d(x, y), new Rotation2d(yaw.get()));
         this.lastLeftPosition = 0;
         this.lastRightPosition = 0;
     }
@@ -87,9 +87,9 @@ public class OdometryHandler {
     }
 
     /**
-     * @return robot's coordinates as a {@link Waypoint} instance
+     * @return robot's coordinates as a {@link Pose2d} instance
      */
-    public Waypoint getWaypoint() {
-        return new Waypoint(getY(), getX());
+    public Pose2d getWaypoint() {
+        return new Pose2d(getY(), getX(), new Rotation2d(getYaw()));
     }
 }
