@@ -12,14 +12,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+
+@Deprecated (since = "2026", forRemoval = true)
+
 /**
  * This class represents a "root directory" in the namespace where other {@link ChildNamespace} and values can be saved.
  */
 public class RootNamespace implements Namespace {
 
-    @Deprecated
-
     protected final Map<String, Supplier<String>> stringFields;
+
     protected final Map<String, Supplier<? extends Number>> numberFields;
     protected final Map<String, Supplier<Boolean>> booleanFields;
     protected final NetworkTable table;
