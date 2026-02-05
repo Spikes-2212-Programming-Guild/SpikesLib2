@@ -2,6 +2,7 @@ package com.spikes2212.dashboard;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import java.util.HashSet;
 import java.util.List;
@@ -177,7 +178,7 @@ public class AutoChooser extends SendableChooser<Command> {
      * Schedules the selected command and closes this {@link AutoChooser}.
      */
     public void schedule() {
-        getSelected().schedule();
+        CommandScheduler.getInstance().schedule(getSelected());
         close();
     }
 
