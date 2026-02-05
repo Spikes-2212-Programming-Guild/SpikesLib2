@@ -34,12 +34,12 @@ public class DriveArcadeWithPID extends Command {
     protected final PIDController pidController;
 
     /**
-     * The FeedForward settings for the turning FeedForwards loop.
+     * The feed forward settings for the turning FeedForwards loop.
      */
     protected final FeedForwardSettings feedForwardSettings;
 
     /**
-     * The FeedForward controller for the turning FeedForwards loop.
+     * The feed forward controller for the turning FeedForwards loop.
      */
     protected final FeedForwardController feedForwardController;
 

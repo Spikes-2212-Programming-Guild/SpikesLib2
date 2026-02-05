@@ -15,6 +15,7 @@
         {
             "groupId": "com.github.Spikes-2212-Programming-Guild",
     	    "artifactId": "SpikesLib2",
+
             "version": "v6.0.0-beta"
         }
     ]

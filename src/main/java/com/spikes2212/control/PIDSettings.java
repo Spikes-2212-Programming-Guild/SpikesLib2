@@ -9,35 +9,38 @@ import java.util.function.Supplier;
  */
 public class PIDSettings {
 
+    /**
+     * Empty PIDSettings, which effectively make the PIDController do nothing.
+     */
     public static final PIDSettings EMPTY_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0, 0);
 
     /**
-     * the proportional component of the PID settings
+     * the proportional component of the PID settings.
      */
     private Supplier<Double> kP;
 
     /**
-     * the integral component of the PID settings
+     * the integral component of the PID settings.
      */
     private Supplier<Double> kI;
 
     /**
-     * the derivative component of the PID settings
+     * the derivative component of the PID settings.
      */
     private Supplier<Double> kD;
 
     /**
-     * the distance in which the integral component begins to work
+     * the distance in which the integral component begins to work.
      */
     private Supplier<Double> iZone;
 
     /**
-     * the acceptable distance from the target
+     * the acceptable distance from the target.
      */
     private Supplier<Double> tolerance;
 
     /**
-     * the time required to stay on target
+     * the time required to stay on target.
      */
     private Supplier<Double> waitTime;
 
