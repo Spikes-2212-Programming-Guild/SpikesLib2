@@ -1,6 +1,5 @@
 package com.spikes2212.util;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.ControlModeValue;
 import com.revrobotics.spark.SparkBase;
@@ -9,7 +8,7 @@ import com.revrobotics.spark.SparkBase;
  * A wrapper for the REV motor controllers and the {@link TalonFX} control modes.
  *
  * @author Yoel Perman Brilliant
- * @see ControlMode
+ * @see ControlModeValue
  * @see SparkBase.ControlType
  */
 public enum UnifiedControlMode {

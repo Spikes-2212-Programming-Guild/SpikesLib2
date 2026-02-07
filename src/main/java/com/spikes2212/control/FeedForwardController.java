@@ -11,27 +11,27 @@ public class FeedForwardController {
     }
 
     /**
-     * The type of feed forward control to use
+     * The type of feed forward control to use.
      */
     private final ControlMode controlMode;
 
     /**
-     * The static constant
+     * The static constant.
      */
     private double kS;
 
     /**
-     * The velocity constant
+     * The velocity constant.
      */
     private double kV;
 
     /**
-     * The acceleration constant
+     * The acceleration constant.
      */
     private double kA;
 
     /**
-     * The gravity constant
+     * The gravity constant.
      */
     private double kG;
 
