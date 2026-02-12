@@ -7,6 +7,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
@@ -26,7 +27,7 @@ import java.util.List;
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
  */
-public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
+public class TalonFXTankDrivetrain extends DashboardedSubsystem implements SmartMotorControllerTankDrivetrain {
 
     /**
      * The motor controller that runs the left side's loops.
@@ -60,12 +61,13 @@ public class TalonFXTankDrivetrain extends TankDrivetrain implements SmartMotorC
     public TalonFXTankDrivetrain(String namespaceName, TalonFX leftMaster,
                                  List<? extends TalonFX> leftSlaves, TalonFX rightMaster,
                                  List<? extends TalonFX> rightSlaves) {
-        super(namespaceName, (MotorController) leftMaster, (MotorController) rightMaster);
+        super(namespaceName);
         this.leftMaster = leftMaster;
         this.leftSlaves = leftSlaves;
         this.rightMaster = rightMaster;
         this.rightSlaves = rightSlaves;
-        rightController.setInverted(false);
+        leftSlaves.forEach(talonFX -> talonFX.setControl(new Follower(leftMaster.getDeviceID(), false)));
+        rightSlaves.forEach(talonFX -> talonFX.setControl(new Follower(rightMaster.getDeviceID(), false)));
         MotorOutputConfigs configuration = new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive);
         rightMaster.getConfigurator().apply(configuration);
         rightSlaves.forEach(s -> s.getConfigurator().apply(configuration));

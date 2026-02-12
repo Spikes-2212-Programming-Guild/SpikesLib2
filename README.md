@@ -9,11 +9,11 @@ found <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2-Exa
 
 <h2 style="color: #00156B;">Packages</h2>
 
-- command - extensions for WPILib's Command Based framework
-- control - controller wrappers and custom controllers
-- dashboard - wrappers for SmartDashboard elements
-- path - path following code and pure pursuit algorithm
-- util - additional utilities
+<li>command - extensions for WPILib's Command Based framework</li>
+<li>control - controller wrappers and custom controllers</li>
+<li>dashboard - wrappers for NetworkTables elements</li>
+<li>path - path following code and pure pursuit algorithm</li>
+<li>util - additional utilities</li>
 
 <h2 style="color: #00156B;">Installation</h2>
 After creating a Robot Project, import SpikesLib as an online vendor libray, using this link: <br> <br>
@@ -21,21 +21,21 @@ https://spikes2212.com/SpikesLib.json
 
 <h2 style="color: #00156B;">2025 Season</h2>
 
-Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v4.1.0...v5.0.0-beta"> updated </a> to support WPILib 2025.
+SpikesLib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v4.1.0...v5.1.0"> updated </a> to support WPILib 2025.
 
 <h2 style="color: #00156B;">2024 Season</h2>
 
-Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v3.2.1...v4.1.0">
+SpikesLib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v3.2.1...v4.1.0">
 updated </a> to support WPILib 2024.
 
 <h2 style="color: #00156B;">2023 Season</h2>
 
-Spikeslib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v2.0.0...v3.0.0">
+SpikesLib has been <a href = "https://github.com/Spikes-2212-Programming-Guild/SpikesLib2/compare/v2.0.0...v3.0.0">
 updated </a> to support WPILib 2023.
 
 <h2 style="color: #00156B;">2022 Season</h2>
 
-Spikeslib has been updated to support WPILib 2022.
+SpikesLib has been updated to support WPILib 2022.
 
 <h2 style="color: #00156B;" >2020 Season</h2>
 

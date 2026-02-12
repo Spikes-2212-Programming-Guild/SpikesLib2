@@ -16,27 +16,27 @@ public class FeedForwardSettings {
             FeedForwardController.ControlMode.LINEAR_POSITION);
 
     /**
-     * The applied control mode
+     * The applied control mode.
      */
     private final FeedForwardController.ControlMode controlMode;
 
     /**
-     * The static constant
+     * The static constant.
      */
     private Supplier<Double> kS;
 
     /**
-     * The velocity constant
+     * The velocity constant.
      */
     private Supplier<Double> kV;
 
     /**
-     * The acceleration constant
+     * The acceleration constant.
      */
     private Supplier<Double> kA;
 
     /**
-     * The gravity constant
+     * The gravity constant.
      */
     private Supplier<Double> kG;
 

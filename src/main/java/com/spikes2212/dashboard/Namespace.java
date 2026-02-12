@@ -1,5 +1,6 @@
 package com.spikes2212.dashboard;
 
+import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import edu.wpi.first.networktables.NetworkTable;
@@ -206,6 +207,10 @@ public interface Namespace {
         return new PIDSettings(kP, kI, kD, IZone, tolerance, waitTime);
     }
 
+    default PIDSettings addPIDNamespace(String name) {
+        return addPIDNamespace(name, PIDSettings.EMPTY_PID_SETTINGS);
+    }
+
     /**
      * Adds a set of {@link FeedForwardSettings} values to a designated {@link ChildNamespace}.
      *
@@ -220,6 +225,10 @@ public interface Namespace {
         Supplier<Double> kA = child.addConstantDouble(name + " kA", initialFeedForwardSettings.getkA());
         Supplier<Double> kG = child.addConstantDouble(name + " kG", initialFeedForwardSettings.getkG());
         return new FeedForwardSettings(kS, kV, kA, kG, initialFeedForwardSettings.getControlMode());
+    }
+
+    default FeedForwardSettings addFeedForwardNamespace(String name, FeedForwardController.ControlMode controlMode) {
+        return addFeedForwardNamespace(name, new FeedForwardSettings(controlMode));
     }
 
     /**
