@@ -1,4 +1,4 @@
-package com.spikes2212.util;
+package com.spikes2212.util.visionsystem;
 
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -12,7 +12,7 @@ import edu.wpi.first.networktables.NetworkTableValue;
  *
  * @author Yotam Yizhar
  */
-public class Limelight {
+public class Limelight implements VisionSystem {
 
     public enum CamMode {
 
@@ -84,6 +84,7 @@ public class Limelight {
     /**
      * @return whether a target is detected by the limelight
      */
+    @Override
     public boolean hasTarget() {
         return getEntry("tv").getDouble(0) == 1;
     }
@@ -128,6 +129,7 @@ public class Limelight {
     /**
      * @return the horizontal offset from crosshair to target (-27 degrees to 27 degrees)
      */
+    @Override
     public double getHorizontalOffsetFromTargetInDegrees() {
         return getEntry("tx").getDouble(0.00);
     }
@@ -142,6 +144,7 @@ public class Limelight {
     /**
      * @return the vertical offset from crosshair to target (-20.5 degrees to 20.5 degrees)
      */
+    @Override
     public double getVerticalOffsetFromTargetInDegrees() {
         return getEntry("ty").getDouble(0.00);
     }
@@ -156,6 +159,7 @@ public class Limelight {
     /**
      * @return the area that the detected target takes up in total camera FOV (0% to 100%)
      */
+    @Override
     public double getTargetAreaPercentage() {
         return getEntry("ta").getDouble(0.00);
     }
@@ -206,5 +210,9 @@ public class Limelight {
     public void setLedMode(LedMode mode) {
         int modeNum = mode.getLedMode();
         getEntry("ledMode").setNumber(modeNum);
+    }
+
+    @Override
+    public void update(double dtSeconds) {
     }
 }
