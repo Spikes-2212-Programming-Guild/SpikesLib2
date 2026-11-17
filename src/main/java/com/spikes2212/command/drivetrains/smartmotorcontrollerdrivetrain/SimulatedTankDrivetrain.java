@@ -6,10 +6,16 @@ import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
 import com.spikes2212.util.UnifiedControlMode;
 import com.spikes2212.util.smartmotorcontrollers.SimulatedSmartMotorControllerWrapper;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Twist2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 /**
- * A simulated {@link TankDrivetrain} that runs closed-loop control using
+ * A simulated {@link TankDrivetrain} that runs closed-loop control and tracks field pose using
  * {@link SimulatedSmartMotorControllerWrapper} instances.
  *
  * @author Adi Yekutiel
@@ -19,23 +25,67 @@ import edu.wpi.first.math.system.plant.DCMotor;
 public class SimulatedTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
 
     private static final double DEFAULT_DT_SECONDS = 0.02;
+    private static final double DEFAULT_TRACK_WIDTH_METERS = 0.6;
+    private static final double DEFAULT_WHEEL_RADIUS_METERS = 0.0762;
+    private static final double SECONDS_PER_MINUTE = 60.0;
+    private static final double CIRCUMFERENCE_MULTIPLIER = 2.0 * Math.PI;
+    private static final double DEFAULT_VALUE = 0.0;
     private static final boolean UPDATE_PERIODICALLY = true;
 
     protected final SimulatedSmartMotorControllerWrapper leftMaster;
     protected final SimulatedSmartMotorControllerWrapper rightMaster;
 
+    private final DifferentialDriveKinematics kinematics;
+    private final Field2d field2d;
+    private final double wheelCircumferenceMeters;
+
+    private Pose2d pose;
+    private double yawVelocityDegreesPerSec;
+
     public SimulatedTankDrivetrain(String namespaceName, SimulatedSmartMotorControllerWrapper leftMaster,
-                                   SimulatedSmartMotorControllerWrapper rightMaster) {
+                                   SimulatedSmartMotorControllerWrapper rightMaster,
+                                   double trackWidthMeters, double wheelRadiusMeters) {
         super(namespaceName, leftMaster, rightMaster);
         this.leftMaster = leftMaster;
         this.rightMaster = rightMaster;
+        this.kinematics = new DifferentialDriveKinematics(trackWidthMeters);
+        this.field2d = new Field2d();
+        this.wheelCircumferenceMeters = CIRCUMFERENCE_MULTIPLIER * wheelRadiusMeters;
+        this.pose = new Pose2d();
+        this.yawVelocityDegreesPerSec = DEFAULT_VALUE;
+        this.namespace.putData("field", field2d);
+    }
+
+    public SimulatedTankDrivetrain(String namespaceName, SimulatedSmartMotorControllerWrapper leftMaster,
+                                   SimulatedSmartMotorControllerWrapper rightMaster) {
+        this(
+                namespaceName,
+                leftMaster,
+                rightMaster,
+                DEFAULT_TRACK_WIDTH_METERS,
+                DEFAULT_WHEEL_RADIUS_METERS
+        );
+    }
+
+    public SimulatedTankDrivetrain(String namespaceName, DCMotor motor, double gearRatio, double moi,
+                                   double trackWidthMeters, double wheelRadiusMeters) {
+        this(
+                namespaceName,
+                new SimulatedSmartMotorControllerWrapper(motor, gearRatio, moi),
+                new SimulatedSmartMotorControllerWrapper(motor, gearRatio, moi),
+                trackWidthMeters,
+                wheelRadiusMeters
+        );
     }
 
     public SimulatedTankDrivetrain(String namespaceName, DCMotor motor, double gearRatio, double moi) {
         this(
                 namespaceName,
-                new SimulatedSmartMotorControllerWrapper(motor, gearRatio, moi),
-                new SimulatedSmartMotorControllerWrapper(motor, gearRatio, moi)
+                motor,
+                gearRatio,
+                moi,
+                DEFAULT_TRACK_WIDTH_METERS,
+                DEFAULT_WHEEL_RADIUS_METERS
         );
     }
 
@@ -197,6 +247,23 @@ public class SimulatedTankDrivetrain extends TankDrivetrain implements SmartMoto
     public void update(double dtSeconds) {
         leftMaster.update(dtSeconds);
         rightMaster.update(dtSeconds);
+
+        double leftVelocityMetersPerSec = (leftMaster.getVelocity() / SECONDS_PER_MINUTE) * wheelCircumferenceMeters;
+        double rightVelocityMetersPerSec = (rightMaster.getVelocity() / SECONDS_PER_MINUTE) * wheelCircumferenceMeters;
+        DifferentialDriveWheelSpeeds wheelSpeeds = new DifferentialDriveWheelSpeeds(
+                leftVelocityMetersPerSec,
+                rightVelocityMetersPerSec
+        );
+        ChassisSpeeds chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
+        yawVelocityDegreesPerSec = Math.toDegrees(chassisSpeeds.omegaRadiansPerSecond);
+
+        Twist2d twist = new Twist2d(
+                chassisSpeeds.vxMetersPerSecond * dtSeconds,
+                DEFAULT_VALUE,
+                chassisSpeeds.omegaRadiansPerSecond * dtSeconds
+        );
+        pose = pose.exp(twist);
+        field2d.setRobotPose(pose);
     }
 
     @Override
@@ -226,5 +293,22 @@ public class SimulatedTankDrivetrain extends TankDrivetrain implements SmartMoto
 
     public double getRightVelocity() {
         return rightMaster.getVelocity();
+    }
+
+    public Pose2d getPose() {
+        return pose;
+    }
+
+    public void setPose(Pose2d pose) {
+        this.pose = pose;
+        field2d.setRobotPose(pose);
+    }
+
+    public double getYawVelocityDegreesPerSec() {
+        return yawVelocityDegreesPerSec;
+    }
+
+    public Field2d getField2d() {
+        return field2d;
     }
 }
