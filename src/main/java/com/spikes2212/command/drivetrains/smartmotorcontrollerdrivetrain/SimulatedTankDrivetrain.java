@@ -4,6 +4,7 @@ import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import com.spikes2212.util.Simulatable;
 import com.spikes2212.util.UnifiedControlMode;
 import com.spikes2212.util.smartmotorcontrollers.SimulatedSmartMotorControllerWrapper;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -21,10 +22,11 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
  * @author Adi Yekutiel
  * @see TankDrivetrain
  * @see SmartMotorControllerTankDrivetrain
+ * @see Simulatable
  */
-public class SimulatedTankDrivetrain extends TankDrivetrain implements SmartMotorControllerTankDrivetrain {
+public class SimulatedTankDrivetrain extends TankDrivetrain
+        implements SmartMotorControllerTankDrivetrain, Simulatable {
 
-    private static final double DEFAULT_DT_SECONDS = 0.02;
     private static final double DEFAULT_TRACK_WIDTH_METERS = 0.6;
     private static final double DEFAULT_WHEEL_RADIUS_METERS = 0.0762;
     private static final double SECONDS_PER_MINUTE = 60.0;
@@ -244,6 +246,7 @@ public class SimulatedTankDrivetrain extends TankDrivetrain implements SmartMoto
         return onTarget(controlMode, tolerance, tolerance, leftSetpoint, rightSetpoint);
     }
 
+    @Override
     public void update(double dtSeconds) {
         leftMaster.update(dtSeconds);
         rightMaster.update(dtSeconds);
@@ -268,7 +271,7 @@ public class SimulatedTankDrivetrain extends TankDrivetrain implements SmartMoto
 
     @Override
     public void simulationPeriodic() {
-        update(DEFAULT_DT_SECONDS);
+        update();
     }
 
     public double getLeftPosition() {

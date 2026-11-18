@@ -1,6 +1,8 @@
 package com.spikes2212.util.visionsystem;
 
-public interface VisionSystem {
+import com.spikes2212.util.Simulatable;
+
+public interface VisionSystem extends Simulatable {
 
     boolean hasTarget();
 

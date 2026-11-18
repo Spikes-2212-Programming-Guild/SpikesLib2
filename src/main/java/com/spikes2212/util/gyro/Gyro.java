@@ -1,5 +1,6 @@
 package com.spikes2212.util.gyro;
 
+import com.spikes2212.util.Simulatable;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 /**
@@ -7,7 +8,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
  *
  * @author Adi Yekutiel
  */
-public interface Gyro {
+public interface Gyro extends Simulatable {
 
     void reset();
 

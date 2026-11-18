@@ -4,6 +4,7 @@ import com.spikes2212.control.FeedForwardController;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
+import com.spikes2212.util.Simulatable;
 import com.spikes2212.util.UnifiedControlMode;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
@@ -16,14 +17,14 @@ import edu.wpi.first.wpilibj.simulation.DCMotorSim;
  *
  * @author Adi Yekutiel
  * @see SmartMotorController
+ * @see Simulatable
  */
-public class SimulatedSmartMotorControllerWrapper implements SmartMotorController {
+public class SimulatedSmartMotorControllerWrapper implements SmartMotorController, Simulatable {
 
     private static final double MAX_VOLTAGE = 12.0;
     private static final double MIN_VOLTAGE = -12.0;
     private static final double RADIANS_PER_ROTATION = 2.0 * Math.PI;
     private static final double DEFAULT_VALUE = 0.0;
-    private static final double DEFAULT_DT_SECONDS = 0.02;
 
     private final DCMotorSim motorSim;
     private final PIDController pidController;
@@ -141,6 +142,7 @@ public class SimulatedSmartMotorControllerWrapper implements SmartMotorControlle
         disable();
     }
 
+    @Override
     public void update(double dtSeconds) {
         applyControlLoop(dtSeconds);
         motorSim.update(dtSeconds);

@@ -1,5 +1,6 @@
 package com.spikes2212.command.genericsubsystem.smartmotorcontrollersubsystem;
 
+import com.spikes2212.util.Simulatable;
 import com.spikes2212.util.smartmotorcontrollers.SimulatedSmartMotorControllerWrapper;
 import edu.wpi.first.math.system.plant.DCMotor;
 import java.util.List;
@@ -10,10 +11,10 @@ import java.util.List;
  *
  * @author Adi Yekutiel
  * @see SmartMotorControllerGenericSubsystem
+ * @see Simulatable
  */
-public class SimulatedSmartMotorControllerGenericSubsystem extends SmartMotorControllerGenericSubsystem {
-
-    private static final double DEFAULT_DT_SECONDS = 0.02;
+public class SimulatedSmartMotorControllerGenericSubsystem extends SmartMotorControllerGenericSubsystem
+        implements Simulatable {
 
     protected final List<SimulatedSmartMotorControllerWrapper> simulatedMotors;
 
@@ -28,6 +29,7 @@ public class SimulatedSmartMotorControllerGenericSubsystem extends SmartMotorCon
         this(namespaceName, new SimulatedSmartMotorControllerWrapper(motor, gearRatio, moi));
     }
 
+    @Override
     public void update(double dtSeconds) {
         for (SimulatedSmartMotorControllerWrapper motor : simulatedMotors) {
             motor.update(dtSeconds);
@@ -36,6 +38,6 @@ public class SimulatedSmartMotorControllerGenericSubsystem extends SmartMotorCon
 
     @Override
     public void simulationPeriodic() {
-        update(DEFAULT_DT_SECONDS);
+        update();
     }
 }
