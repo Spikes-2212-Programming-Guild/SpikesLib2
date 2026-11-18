@@ -1,6 +1,7 @@
 package com.spikes2212.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,11 +19,11 @@ public class SimulationManager implements Simulatable {
     }
 
     public SimulationManager(Simulatable... simulatables) {
-        this(List.of(simulatables));
+        this(Arrays.asList(simulatables));
     }
 
     public void register(Simulatable... simulatables) {
-        this.simulatables.addAll(List.of(simulatables));
+        this.simulatables.addAll(Arrays.asList(simulatables));
     }
 
     public void unregister(Simulatable simulatable) {
@@ -36,7 +37,9 @@ public class SimulationManager implements Simulatable {
     @Override
     public void update(double dtSeconds) {
         for (Simulatable simulatable : simulatables) {
-            simulatable.update(dtSeconds);
+            if (simulatable != null) {
+                simulatable.update(dtSeconds);
+            }
         }
     }
 }

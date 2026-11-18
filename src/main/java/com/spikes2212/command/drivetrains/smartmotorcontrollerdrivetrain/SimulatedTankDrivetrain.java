@@ -13,6 +13,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 /**
@@ -39,6 +41,7 @@ public class SimulatedTankDrivetrain extends TankDrivetrain
 
     private final DifferentialDriveKinematics kinematics;
     private final Field2d field2d;
+    private final StructPublisher<Pose2d> posePublisher;
     private final double wheelCircumferenceMeters;
 
     private Pose2d pose;
@@ -55,6 +58,10 @@ public class SimulatedTankDrivetrain extends TankDrivetrain
         this.wheelCircumferenceMeters = CIRCUMFERENCE_MULTIPLIER * wheelRadiusMeters;
         this.pose = new Pose2d();
         this.yawVelocityDegreesPerSec = DEFAULT_VALUE;
+        this.posePublisher = NetworkTableInstance.getDefault()
+                .getStructTopic(namespaceName + "/pose", Pose2d.struct)
+                .publish();
+        this.posePublisher.set(this.pose);
         this.namespace.putData("field", field2d);
     }
 
@@ -267,6 +274,7 @@ public class SimulatedTankDrivetrain extends TankDrivetrain
         );
         pose = pose.exp(twist);
         field2d.setRobotPose(pose);
+        posePublisher.set(pose);
     }
 
     @Override

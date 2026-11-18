@@ -1,13 +1,19 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'edu.wpi.first.GradleRIO' version '2026.2.1'
     id 'net.researchgate.release' version '2.6.0'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
+def ROBOT_MAIN_CLASS = 'frc.robot.Main'
+
 group = 'com.github.Spikes-2212-Programming-Guild'
+
+wpi.sim.addGui().defaultEnabled = true
+wpi.sim.addDriverstation()
 
 repositories {
     mavenCentral()
@@ -38,15 +44,32 @@ publishing {
 }
 
 dependencies {
+    implementation wpi.java.deps.wpilib()
     implementation group: 'com.ctre.phoenix6', name: 'wpiapi-java', version: '25.2.1'
-    implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2025.1.1'
-    implementation group: 'edu.wpi.first.wpilibNewCommands', name: 'wpilibNewCommands-java', version: '2025.1.1'
-    implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2025.1.1'
-    implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2025.1.1'
-    implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2025.1.1'
-    implementation group: 'edu.wpi.first.wpimath', name: 'wpimath-java', version: '2025.1.1'
-    implementation group: 'edu.wpi.first.wpiunits', name: 'wpiunits-java', version: '2025.1.1'
+    implementation group: 'edu.wpi.first.ntcore', name: 'ntcore-java', version: '2026.2.1'
+    implementation group: 'edu.wpi.first.wpilibNewCommands', name: 'wpilibNewCommands-java', version: '2026.2.1'
+    implementation group: 'edu.wpi.first.wpilibj', name: 'wpilibj-java', version: '2026.2.1'
+    implementation group: 'edu.wpi.first.cameraserver', name: 'cameraserver-java', version: '2026.2.1'
+    implementation group: 'edu.wpi.first.wpiutil', name: 'wpiutil-java', version: '2026.2.1'
+    implementation group: 'edu.wpi.first.wpimath', name: 'wpimath-java', version: '2026.2.1'
+    implementation group: 'edu.wpi.first.wpiunits', name: 'wpiunits-java', version: '2026.2.1'
     implementation group: 'com.revrobotics.frc', name: 'REVLib-java', version: '2025.0.2'
     implementation group: 'com.ctre.phoenix', name: 'api-java', version: '5.35.1'
     implementation group: 'com.ctre.phoenix', name: 'wpiapi-java', version: '5.35.1'
+
+    nativeDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.desktop)
+    nativeDebug wpi.java.vendor.jniDebug(wpi.platforms.desktop)
+    simulationDebug wpi.sim.enableDebug()
+
+    nativeRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.desktop)
+    nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
+    simulationRelease wpi.sim.enableRelease()
 }
+
+jar {
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+wpi.java.configureExecutableTasks(jar)
