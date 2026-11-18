@@ -1,6 +1,6 @@
-package com.spikes2212.command.drivetrains.commands;
+package com.spikes2212.command.drivetrains.tank.commands;
 
-import com.spikes2212.command.drivetrains.TankDrivetrain;
+import com.spikes2212.command.drivetrains.tank.TankDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.Supplier;
