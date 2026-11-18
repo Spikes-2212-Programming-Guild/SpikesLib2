@@ -1,4 +1,4 @@
-package com.spikes2212.command.drivetrains;
+package com.spikes2212.command.drivetrains.tank;
 
 import com.spikes2212.command.DashboardedSubsystem;
 import com.spikes2212.util.MotorControllerGroup;

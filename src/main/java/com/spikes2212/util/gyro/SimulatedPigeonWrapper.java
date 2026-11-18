@@ -1,72 +1,81 @@
 package com.spikes2212.util.gyro;
 
-import com.ctre.phoenix6.hardware.Pigeon2;
-import com.ctre.phoenix6.sim.Pigeon2SimState;
+import com.spikes2212.util.Simulatable;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.RobotController;
 import java.util.function.DoubleSupplier;
 
 /**
- * A simulated wrapper for a Pigeon gyroscope using {@link Pigeon2SimState}.
+ * A simulated gyroscope that integrates angular velocity over time.
  *
  * @author Adi Yekutiel
  * @see Gyro
+ * @see Simulatable
  */
 public class SimulatedPigeonWrapper implements Gyro {
 
-    private static final double INITIAL_VALUE = 0.0;
+    private static final double DEFAULT_VALUE = 0.0;
 
-    private final Pigeon2 pigeon;
-    private final Pigeon2SimState simState;
-    private final DoubleSupplier yawVelocityDegreesPerSecSupplier;
+    private final DoubleSupplier yawVelocitySupplier;
 
-    public SimulatedPigeonWrapper(int deviceId, DoubleSupplier yawVelocityDegreesPerSecSupplier) {
-        this.pigeon = new Pigeon2(deviceId);
-        this.simState = pigeon.getSimState();
-        this.yawVelocityDegreesPerSecSupplier = yawVelocityDegreesPerSecSupplier;
+    private double yaw;
+    private double pitch;
+    private double roll;
+
+    public SimulatedPigeonWrapper(DoubleSupplier yawVelocitySupplier) {
+        this.yawVelocitySupplier = yawVelocitySupplier;
+        this.yaw = DEFAULT_VALUE;
+        this.pitch = DEFAULT_VALUE;
+        this.roll = DEFAULT_VALUE;
     }
 
-    public SimulatedPigeonWrapper(int deviceId) {
-        this(deviceId, () -> INITIAL_VALUE);
+    public SimulatedPigeonWrapper(int canId, DoubleSupplier yawVelocitySupplier) {
+        this(yawVelocitySupplier);
+    }
+
+    public SimulatedPigeonWrapper(int canId) {
+        this(() -> DEFAULT_VALUE);
+    }
+
+    public SimulatedPigeonWrapper() {
+        this(() -> DEFAULT_VALUE);
     }
 
     @Override
     public void reset() {
-        setYaw(INITIAL_VALUE);
+        setYaw(DEFAULT_VALUE);
     }
 
     @Override
-    public void calibrate(double yaw) {
-        setYaw(yaw);
+    public void calibrate(double newAngle) {
+        setYaw(newAngle);
     }
 
     @Override
     public void calibrate() {
-        calibrate(INITIAL_VALUE);
+        calibrate(DEFAULT_VALUE);
     }
 
     @Override
-    public void update(double dtSeconds) {
-        simState.setSupplyVoltage(RobotController.getBatteryVoltage());
-        simState.addYaw(yawVelocityDegreesPerSecSupplier.getAsDouble() * dtSeconds);
+    public double getYaw() {
+        return yaw;
+    }
+
+    public double getPitch() {
+        return pitch;
+    }
+
+    public double getRoll() {
+        return roll;
     }
 
     @Override
     public double getX() {
-        return pigeon.getRoll().getValueAsDouble();
-    }
-
-    public void setX(double rollDegrees) {
-        simState.setRoll(rollDegrees);
+        return getRoll();
     }
 
     @Override
     public double getY() {
-        return pigeon.getPitch().getValueAsDouble();
-    }
-
-    public void setY(double pitchDegrees) {
-        simState.setPitch(pitchDegrees);
+        return getPitch();
     }
 
     @Override
@@ -74,19 +83,29 @@ public class SimulatedPigeonWrapper implements Gyro {
         return getYaw();
     }
 
-    @Override
-    public double getYaw() {
-        return pigeon.getYaw().getValueAsDouble();
+    public void setYaw(double yawDegrees) {
+        this.yaw = yawDegrees;
     }
 
-    @Override
-    public void setYaw(double yaw) {
-        pigeon.setYaw(yaw);
-        simState.setRawYaw(yaw);
+    public void addYaw(double deltaDegrees) {
+        this.yaw += deltaDegrees;
+    }
+
+    public void setPitch(double pitchDegrees) {
+        this.pitch = pitchDegrees;
+    }
+
+    public void setRoll(double rollDegrees) {
+        this.roll = rollDegrees;
     }
 
     @Override
     public Rotation2d getRotation2d() {
-        return pigeon.getRotation2d();
+        return Rotation2d.fromDegrees(getYaw());
+    }
+
+    @Override
+    public void update(double dtSeconds) {
+        addYaw(yawVelocitySupplier.getAsDouble() * dtSeconds);
     }
 }

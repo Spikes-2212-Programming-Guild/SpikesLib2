@@ -1,6 +1,5 @@
-package com.spikes2212.command.drivetrains.smartmotorcontrollerdrivetrain;
+package com.spikes2212.command.drivetrains.tank;
 
-import com.spikes2212.command.drivetrains.TankDrivetrain;
 import com.spikes2212.control.FeedForwardSettings;
 import com.spikes2212.control.PIDSettings;
 import com.spikes2212.control.TrapezoidProfileSettings;
