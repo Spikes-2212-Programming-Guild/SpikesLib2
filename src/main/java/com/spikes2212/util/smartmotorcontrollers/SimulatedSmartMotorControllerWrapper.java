@@ -155,8 +155,7 @@ public class SimulatedSmartMotorControllerWrapper implements SmartMotorControlle
 
     @Override
     public void set(double speed) {
-        double adjustedSpeed = inverted ? -speed : speed;
-        setVoltage(adjustedSpeed * MAX_VOLTAGE);
+        setVoltage(speed * MAX_VOLTAGE);
     }
 
     @Override
@@ -226,6 +225,6 @@ public class SimulatedSmartMotorControllerWrapper implements SmartMotorControlle
 
     private void applyVoltage(double outputVolts) {
         this.appliedVoltage = Math.max(MIN_VOLTAGE, Math.min(MAX_VOLTAGE, outputVolts));
-        motorSim.setInputVoltage(inverted ? -appliedVoltage : appliedVoltage);
+        motorSim.setInputVoltage(appliedVoltage);
     }
 }
