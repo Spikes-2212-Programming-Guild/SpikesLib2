@@ -24,6 +24,9 @@ public class SimulatedSmartMotorControllerWrapper implements SmartMotorControlle
     private static final double MAX_VOLTAGE = 12.0;
     private static final double MIN_VOLTAGE = -12.0;
     private static final double RADIANS_PER_ROTATION = 2.0 * Math.PI;
+    private static final double DEFAULT_CONVERSION_FACTOR = 1.0;
+    private static final double DEFAULT_GEAR_RATIO = 10.71;
+    private static final double DEFAULT_MOI = 0.005;
     private static final double DEFAULT_VALUE = 0.0;
 
     private final DCMotorSim motorSim;
@@ -37,6 +40,8 @@ public class SimulatedSmartMotorControllerWrapper implements SmartMotorControlle
     private TrapezoidProfile.State trapezoidGoal;
     private TrapezoidProfile.State trapezoidSetpoint;
     private UnifiedControlMode currentControlMode;
+    private double positionConversionFactor;
+    private double velocityConversionFactor;
     private double appliedVoltage;
     private double currentSetpoint;
     private double currentAcceleration;
@@ -65,6 +70,12 @@ public class SimulatedSmartMotorControllerWrapper implements SmartMotorControlle
         this.trapezoidGoal = new TrapezoidProfile.State();
         this.trapezoidSetpoint = new TrapezoidProfile.State();
         this.currentControlMode = UnifiedControlMode.PERCENT_OUTPUT;
+        this.positionConversionFactor = DEFAULT_CONVERSION_FACTOR;
+        this.velocityConversionFactor = DEFAULT_CONVERSION_FACTOR;
+    }
+
+    public SimulatedSmartMotorControllerWrapper(DCMotor motor) {
+        this(motor, DEFAULT_GEAR_RATIO, DEFAULT_MOI);
     }
 
     @Override
@@ -164,20 +175,39 @@ public class SimulatedSmartMotorControllerWrapper implements SmartMotorControlle
         applyVoltage(outputVolts);
     }
 
+    public void setPositionConversionFactor(double factor) {
+        this.positionConversionFactor = factor;
+    }
+
+    public double getPositionConversionFactor() {
+        return positionConversionFactor;
+    }
+
+    public void setVelocityConversionFactor(double factor) {
+        this.velocityConversionFactor = factor;
+    }
+
+    public double getVelocityConversionFactor() {
+        return velocityConversionFactor;
+    }
+
     @Override
     public double getPosition() {
-        return motorSim.getAngularPositionRotations();
+        return motorSim.getAngularPositionRotations() * positionConversionFactor;
     }
 
     @Override
     public void setPosition(double position) {
-        motorSim.setState(position * RADIANS_PER_ROTATION, motorSim.getAngularVelocityRadPerSec());
+        double rotations = positionConversionFactor != DEFAULT_VALUE
+                ? position / positionConversionFactor
+                : DEFAULT_VALUE;
+        motorSim.setState(rotations * RADIANS_PER_ROTATION, motorSim.getAngularVelocityRadPerSec());
         trapezoidSetpoint = new TrapezoidProfile.State(position, getVelocity());
     }
 
     @Override
     public double getVelocity() {
-        return motorSim.getAngularVelocityRPM();
+        return motorSim.getAngularVelocityRPM() * velocityConversionFactor;
     }
 
     @Override
